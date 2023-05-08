@@ -1,0 +1,217 @@
+*:focus,
+*:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+p {
+  margin: 0;
+}
+ol,
+ul {
+  list-style: none !important;
+  margin: 0 !important;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+a {
+  text-decoration: none !important;
+  background-color: transparent;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  color: inherit;
+}
+
+.me-auto {
+  margin-inline-start: auto !important;
+  margin-inline-end: inherit !important;
+}
+
+img {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.fit-contain {
+  object-fit: contain !important;
+}
+
+.fit-object-cover {
+  object-fit: cover !important;
+}
+
+.fs-lg {
+  font-size: 3.125rem;
+}
+
+.fs-5-1 {
+  font-size: 1.1rem !important;
+}
+
+.fs-8 {
+  font-size: 0.85rem !important;
+}
+
+.fw-500 {
+  font-weight: 500 !important;
+}
+.py-7 {
+  padding: 5rem 0 !important;
+}
+
+.ellipsis-text {
+  overflow: hidden;
+  white-space: inherit;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+hr {
+  background-color: #8c95a32e !important;
+  opacity: 0.1;
+}
+.lh-0 {
+  line-height: 0 !important;
+}
+
+.pt-global-header {
+  padding-top: 8rem;
+}
+
+.main-card {
+  background-color: var(--bg-white-color);
+  border-radius: 35px;
+  box-shadow: 0px 4px 75px rgba(140, 149, 163, 0.11);
+}
+
+.rounded-card {
+  border-radius: var(--border-radius-card);
+}
+
+.pointer {
+  cursor: pointer !important;
+}
+
+.global-card {
+  border-radius: var(--border-radius-card);
+  background-color: var(--bg-white-color);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.box-shadow-dropdown {
+  box-shadow: var(--box-shadow);
+}
+/*START DIALOG */
+.p-dialog {
+  border-radius: var(--main-border-radius-shape);
+  border: 0;
+  background-color: #fff;
+  .p-dialog-content:last-of-type {
+    margin: 10px;
+  }
+
+  .p-dialog-header,
+  .p-dialog-footer {
+    background-color: var(--bg-white-color);
+    border: none;
+  }
+  &.p-confirm-dialog .p-confirm-dialog-icon {
+    color: rgb(255, 193, 7);
+  }
+  .p-confirm-dialog-reject,
+  .p-confirm-dialog-accept {
+    min-width: 6rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--main-border-radius-shape);
+  }
+
+  .p-confirm-dialog-reject {
+    color: var(--text-main-color);
+    background-color: var(--text-white-color);
+    border-color: var(--text-main-color);
+  }
+  .p-confirm-dialog-accept {
+    color: var(--text-white-color);
+    background-color: var(--bg-main-color);
+    border-color: var(--text-main-color);
+  }
+}
+
+.p-dialog .p-dialog-header {
+  border-top-right-radius: var(--main-border-radius-shape);
+  border-top-left-radius: var(--main-border-radius-shape);
+}
+.p-dialog .p-dialog-footer {
+  padding: 24px 15px;
+  border-bottom-right-radius: var(--main-border-radius-shape);
+  border-bottom-left-radius: var(--main-border-radius-shape);
+}
+.p-dialog .p-dialog-content {
+  padding-top: 0 !important;
+}
+/*END DIALOG */
+
+/*START PAGINATOR */
+.p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  border-radius: 50%;
+  background-color: var(--bg-main-color);
+}
+
+.p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover,
+.p-paginator .p-paginator-first:not(.p-disabled):not(.p-highlight):hover,
+.p-paginator .p-paginator-prev:not(.p-disabled):not(.p-highlight):hover,
+.p-paginator .p-paginator-next:not(.p-disabled):not(.p-highlight):hover,
+.p-paginator .p-paginator-last:not(.p-disabled):not(.p-highlight):hover {
+  background-color: transparent;
+  color: #848484;
+}
+/*END PAGINATOR */
+
+/*----------START DROPDOWN----------*/
+.general-dropdown {
+  .dropdown-menu {
+    right: 0 !important;
+    left: inherit !important;
+    top: 3.2rem;
+  }
+
+  .nav-item {
+    transition: all 0.2s ease-in-out;
+
+    .nav-link {
+      color: #707070;
+      padding: 14px 10px;
+      font-size: 15px;
+
+      &:hover {
+        color: var(--text-main-color) !important;
+      }
+    }
+
+    &:hover {
+      background: #f7f7f7 !important;
+      border-radius: 5px;
+    }
+  }
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+/*----------END DROPDOWN----------*/

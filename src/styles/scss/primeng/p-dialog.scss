@@ -1,0 +1,10 @@
+.p-dialog {
+  &.user-modal {
+    .p-dialog-header {
+      padding-bottom: 10px !important;
+    }
+    .p-dialog-content {
+      border-top: 1px solid #e0e0e0 !important;
+    }
+  }
+}

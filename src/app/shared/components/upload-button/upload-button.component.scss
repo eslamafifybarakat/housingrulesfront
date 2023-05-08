@@ -1,0 +1,33 @@
+:host::ng-deep {
+  .p-button {
+    border: 0 !important;
+    background-color: transparent !important;
+    margin: 0 !important;
+    padding: 0;
+  }
+  .p-fileupload .p-fileupload-buttonbar {
+    width: fit-content;
+    background-color: #000 !important;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 15px !important;
+    padding: 10px 15px;
+    margin: auto;
+  }
+  [type="button"]:not(:disabled) {
+    line-height: 0 !important;
+  }
+  .p-fileupload .p-fileupload-content {
+    padding: 0 !important;
+    border: 0 !important;
+    .p-button {
+      background-color: crimson !important;
+      padding: 10px;
+    }
+    img {
+      border-radius: 6px;
+    }
+  }
+}

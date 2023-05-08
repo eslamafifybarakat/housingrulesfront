@@ -1,0 +1,41 @@
+<ng-container *ngIf="!isLoading">
+  <div class="user-info position-relative general-dropdown" (clickOutside)="collapse == true ? (collapse = false) : ''">
+    <div class="dropdown">
+      <button class="btn dropdown-toggle p-0" type="button" aria-expanded="false" [attr.aria-expanded]="!collapse"
+        (click)="collapse = !collapse">
+        <div class="user-img-parent">
+          <img [src]="userData?.image" onerror="src='assets/images/userprofile.jpg'"
+            class="user-img fit-object-cover rounded-circle w-100 h-100" alt="user-image" />
+        </div>
+      </button>
+      <ul class="dropdown-menu border-0 shadow p-3 user-info-menu" aria-labelledby="dropdownMenuButton1"
+        [class.show]="collapse">
+        <ng-container *ngFor="let item of userInfoList">
+          <li class="nav-item">
+            <!-- <ng-container *ngIf="item?.routerLink == '/dashboard'; else elseRouterLink">
+              <a class="nav-link" href="{{dashboard}}">
+                <i class="fas {{ item?.icon?item?.icon:'far fa-circle' }} me-2 scaleX-rtl"></i>
+                <span>{{ item?.text | translate }}</span>
+              </a>
+            </ng-container>
+            <ng-template #elseRouterLink>
+
+            </ng-template> -->
+            <ng-container *ngIf="(item?.routerLink == 'logout' || item?.routerLink=='change-bank'); else elseRoute">
+              <a class="nav-link" (click)="item?.routerLink=='logout'? authUserService?.signOut():''">
+                <i class="fas {{ item?.icon?item?.icon:'far fa-circle' }} me-2 scaleX-rtl"></i>
+                <span>{{ item?.text | translate }}</span>
+              </a>
+            </ng-container>
+            <ng-template #elseRoute>
+              <a class="nav-link gap-3" [routerLink]="item?.routerLink" (click)="collapse=false">
+                <i class="fas {{ item?.icon?item?.icon:'far fa-circle' }} me-2 scaleX-rtl"></i>
+                <span>{{ item?.text | translate }}</span>
+              </a>
+            </ng-template>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</ng-container>

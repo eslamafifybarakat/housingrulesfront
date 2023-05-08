@@ -1,0 +1,14 @@
+.p-input-icon-right > i:last-of-type {
+  left: 0.75rem !important;
+  right: inherit !important;
+}
+.p-input-icon-right > .p-inputtext {
+  padding-left: 2.5rem !important;
+  padding-right: 1rem !important;
+}
+.required {
+  &:after {
+    margin-right: 3px !important;
+    margin-left: inherit !important;
+  }
+}

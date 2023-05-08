@@ -1,0 +1,163 @@
+<!------------------- site--------------- -->
+<ng-container *ngIf="false">
+  <nav class="navbar navbar-expand-lg bg-white-color shadow-sm">
+    <div class="container">
+      <a class="navbar-brand">
+        <img src="assets/images/logo/logo.png" alt="logo" class="logo">
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <i class="fas fa-bars text-main-color fs-4"></i>
+      </button>
+      <div class="collapse navbar-collapse m-auto" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]="'/dashboard'">dashboard</a></li>
+              <li><a class="dropdown-item">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center justify-content-center my-xl-0 my-md-3 my-sm-3 my-3">
+          <li class="nav-item p-2">
+            <!-- <app-theme></app-theme> -->
+          </li>
+          <li class="nav-item p-2">
+            <!-- <app-notification></app-notification> -->
+          </li>
+          <li class="nav-item p-2">
+            <!-- <app-user-info></app-user-info> -->
+          </li>
+          <li class="nav-item p-2">
+            <app-language-selector></app-language-selector>
+          </li>
+        </div>
+        <!-- <app-search></app-search> -->
+      </div>
+    </div>
+  </nav>
+</ng-container>
+
+<!--------------- dashboard------------------- -->
+<ng-container *ngIf="false">
+  <nav class="navbar navbar-expand-lg bg-white-color shadow-sm" [class.dash]=" !toggleSideMenu"
+    [ngClass]="getDashClass()">
+    <div class="container">
+      <a class="navbar-brand d-flex gap-2 align-items-center">
+        <ng-container *ngIf="moduleType=='dashboard'">
+          <i class="fas fa-bars toggle d-flex justify-content-center align-items-center rounded"
+            (click)="toggleSide()"></i>
+        </ng-container>
+        <ng-container *ngIf="toggleSideMenu">
+          <img src="assets/images/logo/logo.png" alt="logo" class="logo">
+        </ng-container>
+
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <i class="fas fa-bars text-main-color fs-4"></i>
+      </button>
+      <div class="collapse navbar-collapse m-auto " id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]="'/dashboard'">dashboard</a></li>
+              <li><a class="dropdown-item">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+        <app-search></app-search>
+      </div>
+    </div>
+  </nav>
+</ng-container>
+
+<!-- ---------------------site & dashboard-------------------------- -->
+<ng-container *ngIf="true">
+  <nav class="navbar navbar-expand-lg bg-white-color shadow-sm position-fixed w-100 px-4"
+    [class.shadow-none]="moduleType=='dashboard' && !toggleSideMenu"
+    [class.dash]="moduleType=='dashboard' && !toggleSideMenu">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex gap-2 align-items-center m-0">
+        <!-- <ng-container *ngIf="moduleType=='dashboard'"> -->
+        <i class="fas fa-bars toggle d-flex justify-content-center align-items-center rounded"
+          (click)="toggleSide()"></i>
+        <!-- </ng-container> -->
+        <ng-container *ngIf="moduleType!='dashboard' || toggleSideMenu">
+          <img src="assets/images/logo/logo.jpg" alt="logo" class="logo">
+        </ng-container>
+
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <i class="fas fa-bars text-main-color fs-4"></i>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav gap-3 align-items-center mb-2 mb-lg-0">
+          <li class="nav-item">
+            <app-theme></app-theme>
+          </li>
+          <li class="nav-item">
+            <app-notification></app-notification>
+          </li>
+          <li class="nav-item">
+            <app-user-info></app-user-info>
+          </li>
+          <li class="nav-item">
+            <app-language-selector></app-language-selector>
+          </li>
+
+        </ul>
+        <!-- <div>
+          <ul class="d-flex align-items-center justify-content-center my-xl-0 my-md-3 my-sm-3 my-3 gap-3">
+            <li class="nav-item">
+              <app-theme></app-theme>
+            </li>
+            <li class="nav-item">
+              <app-user-info></app-user-info>
+            </li>
+            <li class="nav-item">
+              <app-language-selector></app-language-selector>
+            </li>
+
+          </ul>
+        </div> -->
+      </div>
+    </div>
+  </nav>
+</ng-container>

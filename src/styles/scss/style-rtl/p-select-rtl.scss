@@ -1,0 +1,91 @@
+// PRIME NG
+.p-input-icon-right > .p-inputtext {
+  padding-left: 2.5rem !important;
+  padding-right: 11px !important;
+}
+
+.p-input-icon-right > i:last-of-type {
+  left: 0.75rem !important;
+  right: inherit !important;
+}
+
+.p-input-icon-left > i:first-of-type {
+  right: 0.75rem;
+  left: initial !important;
+}
+
+.p-input-icon-left > .p-inputtext {
+  padding-right: 2.5rem;
+  padding-left: inherit !important;
+}
+
+.p-inputgroup-addon:first-child {
+  border-radius: 0 6px 6px 0;
+  border-right: 1px solid #ced4da;
+  border-left: none;
+}
+
+.p-inputgroup input:last-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.p-multiselect-panel {
+  .p-multiselect-items .p-multiselect-item .p-checkbox,
+  .p-multiselect-header .p-checkbox {
+    margin-left: 0.5rem !important;
+    margin-right: inherit !important;
+  }
+}
+
+.p-multiselect.p-multiselect-chip .p-multiselect-token {
+  margin-left: 0.5rem !important;
+  margin-right: inherit !important;
+}
+
+p-multiselect.p-multiselect-clearable .p-multiselect-label-container,
+p-treeselect.p-treeselect-clearable .p-treeselect-label-container {
+  padding-left: 1.75rem !important;
+  padding-right: initial !important;
+}
+
+.select-loading.p-input-icon-right > i:last-of-type {
+  left: 2.5rem !important;
+  right: inherit !important;
+}
+
+.select-loading.pe-4.p-input-icon-right > i:last-of-type {
+  left: 4rem !important;
+  right: inherit !important;
+}
+
+.p-button .p-button-icon-left {
+  margin-left: 0.5rem;
+  margin-right: inherit !important;
+}
+
+.p-dropdown .p-dropdown-label {
+  padding: 10px 12px 10px 0px !important;
+}
+
+p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon,
+p-multiselect.p-multiselect-clearable .p-multiselect-clear-icon,
+.p-dropdown .p-dropdown-clear-icon {
+  left: 3rem !important;
+  right: inherit !important;
+}
+
+.p-dropdown-panel .p-dropdown-header .p-dropdown-filter {
+  margin-left: -0.75rem !important;
+  margin-right: initial !important;
+}
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  text-align: right !important;
+  direction: rtl !important;
+}
+.p-multiselect.p-multiselect-chip
+  .p-multiselect-token
+  .p-multiselect-token-icon,
+.p-multiselect-panel .p-multiselect-header .p-multiselect-close {
+  margin-right: 0.5rem !important;
+  margin-left: initial !important;
+}

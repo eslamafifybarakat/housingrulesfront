@@ -1,0 +1,142 @@
+<div id="modal">
+  <form [formGroup]="userForm" (ngSubmit)="submit()" class="pt-4">
+    <div class="mb-3 d-flex justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold">{{'labels.userActivation'|translate}}</label>
+      <p-inputSwitch id="active" formControlName="active"></p-inputSwitch>
+    </div>
+    <div class="mb-4">
+      <label for="email" class="mb-2 required">{{'labels.email'|translate}}</label>
+      <input type="text" class="form-control" formControlName="email" autocomplete="cc-name"
+        (input)="publicService?.clearValidationErrors(formControls?.email)"
+        [class.is-invalid]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)"
+        placeholder="{{'placeholder.email'|translate}}">
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
+          <ng-container *ngIf="formControls?.email?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.requiredEmail'|translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="formControls?.email?.errors?.['pattern']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.emailNotCorrect'|translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="formControls?.email?.errors?.['minlength']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.length'|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <!-- <div class="mb-4">
+      <label for="password" class="mb-2 required">{{'labels.password'|translate}}</label>
+      <div class="rounded-input p-mask"
+        [class.border-red]="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched)"
+        [class.is-valid]="formControls?.password?.valid && (formControls?.password?.dirty || formControls?.password?.touched)">
+        <p-password [toggleMask]="true" formControlName="password" placeholder="{{'placeholder.password'|translate}}"
+          autocomplete="cc-name" [feedback]="false">
+        </p-password>
+      </div>
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched)">
+          <ng-container *ngIf="formControls?.password?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.requiredPassword'|translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="formControls?.password?.errors?.['pattern']">
+            <span class="text-danger fs-8">
+              {{'validations.passwordPattern'|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div> -->
+    <div class="mb-3">
+      <label for="newpassword" class="form-label required">{{"labels.newPassword"|translate}}</label>
+      <p-password [toggleMask]="true" formControlName="newpassword" appendTo="body"
+        placeholder="{{'labels.newPassword'|translate}}"
+        [class.ng-dirty]="formControls?.newpassword?.invalid && (formControls?.newpassword?.dirty || formControls?.newpassword?.touched)">
+        <ng-template pTemplate="footer">
+          <p-divider></p-divider>
+          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+            <li class="mb-2">{{"validations.oneLowercase"|translate}}</li>
+            <li class="mb-2">{{"validations.oneUppercase"|translate}}</li>
+            <li class="mb-2">{{"validations.oneNumeric"|translate}}</li>
+            <li class="mb-2">{{"validations.MinimumCharacters"|translate}}</li>
+          </ul>
+        </ng-template>
+      </p-password>
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.newpassword?.invalid && (formControls?.newpassword?.dirty || formControls?.newpassword?.touched)">
+          <ng-container *ngIf="formControls?.newpassword?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.requiredPassword'|translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="formControls?.newpassword?.errors?.['pattern']">
+            <span class="text-danger fs-8">
+              {{'validations.passwordPattern'|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="confirmpassword" class="form-label required">{{"labels.confirmNewPassword"|translate}}</label>
+      <p-password [toggleMask]="true" id="confirmpassword" formControlName="confirmpassword" appendTo="body"
+        placeholder="{{'labels.confirmNewPassword'|translate}}" autocomplete="off"
+        [class.ng-dirty]="formControls?.confirmpassword?.invalid && (formControls?.confirmpassword?.dirty || formControls?.confirmpassword?.touched)">
+
+        <ng-template pTemplate="footer">
+          <p-divider></p-divider>
+          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+            <li class="mb-2">{{"validations.oneLowercase"|translate}}</li>
+            <li class="mb-2">{{"validations.oneUppercase"|translate}}</li>
+            <li class="mb-2">{{"validations.oneNumeric"|translate}}</li>
+            <li class="mb-2">{{"validations.MinimumCharacters"|translate}}</li>
+          </ul>
+        </ng-template>
+      </p-password>
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.confirmpassword?.invalid && (formControls?.confirmpassword?.dirty || formControls?.confirmpassword?.touched)">
+          <ng-container *ngIf="formControls?.confirmpassword?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.requiredConfirmPassword'|translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="formControls?.confirmpassword?.errors?.['pattern']">
+            <span class="text-danger fs-8">
+              {{'validations.passwordPattern'|translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="formControls?.confirmpassword?.errors?.['ConfirmPassword']">
+            <span class="text-danger fs-6">
+              {{'validations.not_match'|translate}}
+            </span>
+          </ng-container>
+
+
+        </ng-container>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
+      <button type="submit" class="btn btn-solid-main">
+        <span>
+          {{'general.save'|translate}}
+        </span>
+      </button>
+      <button type="button" class="btn btn-outline-main" (click)="cancel()">
+        <span>
+          {{'general.cancel'|translate}}
+        </span>
+      </button>
+    </div>
+  </form>
+</div>

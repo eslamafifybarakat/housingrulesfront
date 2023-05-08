@@ -1,0 +1,396 @@
+::-webkit-scrollbar-thumb {
+  background: transparent !important;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(255 255 255 / 61%) !important;
+  border-radius: 10px;
+}
+::-webkit-scrollbar {
+  width: 0.3 5rem;
+}
+
+// .aside-menu {
+//   transition: all 0.5s ease !important;
+//   z-index: 120;
+//   top: 0;
+//   width: 5.5rem;
+//   height: calc(100vh - 30px);
+//   margin: 15px;
+//   border-radius: 18px;
+//   .logo-container {
+//     padding: 0rem 0.938rem;
+//     .logo {
+//       height: 4rem;
+//       border-radius: 0.313rem;
+//       padding: 0.313rem;
+//       cursor: pointer;
+//       .logo-img {
+//         width: 3.3rem;
+//       }
+//     }
+//     .logo-text {
+//       font-family: "Oleo Script Swash Caps", cursive;
+//     }
+//     .arrow {
+//       margin-left: auto;
+//       cursor: pointer;
+//       width: 1.9rem;
+//       height: 1.9rem;
+//       border-radius: 0.625rem;
+//       right: -13px;
+//       z-index: 45;
+//       transition: all 0.5s ease-in-out;
+//       .fas {
+//         transition: all 0.5s ease-in-out;
+//       }
+//     }
+//   }
+// }
+
+// .aside-nav-collapsed {
+//   width: 16.5625rem;
+// }
+
+// .aside-nav {
+//   padding: 0.938rem;
+//   margin: 0;
+//   height: calc(100% - 7.65rem);
+//   cursor: pointer;
+//   overflow-y: auto;
+//   .aside-nav-item {
+//     // margin: 1rem 0;
+//     .aside-nav-link {
+//       height: 3rem;
+//       transition: all 0.3s ease;
+//       border-radius: 9px;
+//       &.active {
+//         background-color: rgba(16, 113, 184, 0.1);
+//         position: relative;
+//         color: var(--text-main-color) !important;
+//         &::before {
+//           content: "";
+//           position: absolute;
+//           width: 2px;
+//           height: 100%;
+//           right: -14px;
+//           background-color: var(--bg-main-color);
+//         }
+//       }
+//       .aside-nav-link-icon {
+//         width: 2rem;
+//         min-width: 2rem;
+//       }
+
+//       .aside-nav-link-text {
+//         font-size: 0.938rem;
+//       }
+//       .angle {
+//         right: 1rem;
+//         transition: all 0.3s ease;
+//       }
+//     }
+//   }
+
+//   .aside-nav-item:hover {
+//     .aside-nav-link {
+//       background-color: var(--bg-white-color);
+//       color: var(--text-secondary-color) !important;
+//     }
+//   }
+//   .logout {
+//     height: 4rem !important;
+//   }
+// }
+
+// .subnav {
+//   transition: all 0.3s ease;
+//   .fa {
+//     font-size: 0.6rem;
+//   }
+// }
+
+// .toggleIcon {
+//   transform: rotate(180deg);
+// }
+
+// .aside-nav-link-icon2:hover {
+//   background-color: var(--bg-white-color);
+//   color: var(--text-secondary-color) !important;
+//   border-radius: 10px;
+// }
+
+// .fa-arrow-right-from-bracket {
+//   transform: scaleX(-1);
+// }
+
+// .toggle-aside {
+//   transform: translateX(-18.5rem);
+// }
+
+// -----------------------------FLOAT WITH BEAUTIFUL HOVER----------------------
+
+.aside-menu {
+  transition: all 0.5s ease !important;
+  background-color: var(--bg-main-color) !important;
+  z-index: 120;
+  // top: 0;
+  // bottom: 0;
+  width: 6rem;
+  // height: calc(100vh - 30px);
+  height: calc(100vh - 120px);
+  // margin: 15px;
+  // border-radius: 18px;
+  .logo-container {
+    padding: 0rem 0.938rem;
+    .logo {
+      height: 4rem;
+      border-radius: 0.313rem;
+      padding: 0.313rem;
+      cursor: pointer;
+      .logo-img {
+        width: 3.3rem;
+      }
+    }
+    .logo-text {
+      font-family: "Oleo Script Swash Caps", cursive;
+    }
+    .arrow {
+      margin-left: auto;
+      cursor: pointer;
+      width: 1.9rem;
+      height: 1.9rem;
+      border-radius: 0.625rem;
+      right: -13px;
+      z-index: 45;
+      transition: all 0.5s ease-in-out;
+      .fas {
+        transition: all 0.5s ease-in-out;
+      }
+    }
+  }
+}
+
+.aside-nav-collapsed {
+  width: 16.5625rem;
+}
+
+.aside-nav {
+  padding-left: 0.938rem;
+  // margin: 0 5px !important;
+  height: calc(100%);
+  cursor: pointer;
+  overflow-y: auto;
+  .aside-nav-item {
+    padding-right: 0.938rem;
+    .aside-nav-link {
+      height: 3rem;
+      // padding: 0.938rem;
+      transition: all 0.3s ease;
+      border-radius: 9px;
+      .aside-nav-link-icon {
+        width: 2rem;
+        min-width: 2rem;
+      }
+
+      .aside-nav-link-text {
+        font-size: 0.938rem;
+      }
+      .angle {
+        right: 1rem;
+        transition: all 0.3s ease;
+      }
+    }
+    &.active,
+    &:hover {
+      background-color: var(--body-color) !important;
+      border-radius: 12px 0 0 12px;
+      .beautiful-radius:nth-child(1) {
+        position: absolute;
+        background-color: var(--body-color) !important;
+        top: -20px;
+        width: 100%;
+        height: 20px;
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: var(--bg-main-color);
+          border-bottom-right-radius: 13px;
+        }
+      }
+      .beautiful-radius:nth-child(2) {
+        position: absolute;
+        background-color: var(--body-color) !important;
+        bottom: -20px;
+        width: 100%;
+        height: 20px;
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: var(--bg-main-color);
+          border-top-right-radius: 13px;
+        }
+      }
+      .aside-nav-link {
+        color: var(--text-main-color) !important;
+      }
+      .subnav-link {
+        color: #777 !important;
+      }
+    }
+  }
+
+  // .aside-nav-item:hover {
+  //   .aside-nav-link {
+  //     background-color: var(--bg-white-color);
+  //     color: var(--text-secondary-color) !important;
+  //   }
+  // }
+  .logout {
+    height: 4rem !important;
+  }
+}
+
+.subnav {
+  transition: all 0.3s ease;
+  .fa {
+    font-size: 0.6rem;
+  }
+}
+
+.toggleIcon {
+  transform: rotate(180deg);
+}
+
+.fa-arrow-right-from-bracket {
+  transform: scaleX(-1);
+}
+
+.toggle-aside {
+  transform: translateX(-18.5rem);
+}
+
+// ---------------STANDARD AND STANDARD WITH TOGGLE ICON---------------------
+// .aside-menu {
+//   transition: all 0.5s ease !important;
+//   z-index: 120;
+//   top: 0;
+//   width: 6rem;
+//   height:100vh;
+//   .logo-container {
+//     padding: 0rem 0.938rem;
+//     .logo {
+//       height: 4rem;
+//       border-radius: 0.313rem;
+//       padding: 0.313rem;
+//       .logo-img {
+//         width: 3.3rem;
+//       }
+//     }
+//     .logo-text {
+//       font-family: "Oleo Script Swash Caps", cursive;
+//     }
+//     .arrow {
+//       margin-left: auto;
+//       cursor: pointer;
+//       width: 1.9rem;
+//       height: 1.9rem;
+//       border-radius: 0.625rem;
+//       right: -13px;
+//       z-index: 45;
+//       transition: all 0.5s ease-in-out;
+//       .fas {
+//         transition: all 0.5s ease-in-out;
+//       }
+//     }
+//   }
+// }
+
+// .aside-nav-collapsed {
+//   width: 16.5625rem;
+// }
+
+// .aside-nav {
+//   padding: 0.938rem;
+//   height: calc(100% - 7.65rem);
+//   overflow-y: auto;
+//   .aside-nav-item {
+//     .aside-nav-link {
+//       height: 3rem;
+//       transition: all 0.3s ease;
+//       border-radius: 9px;
+//       &.active {
+//         background-color: rgba(16, 113, 184, 0.1);
+//         position: relative;
+//         color: var(--text-main-color) !important;
+//         &::before {
+//           content: "";
+//           position: absolute;
+//           width: 2px;
+//           height: 100%;
+//           right: -14px;
+//           background-color: var(--bg-main-color);
+//         }
+//       }
+//       .aside-nav-link-icon {
+//         width: 2rem;
+//         min-width: 2rem;
+//       }
+
+//       .aside-nav-link-text {
+//         font-size: 0.938rem;
+//       }
+//       .angle {
+//         right: 1rem;
+//         transition: all 0.3s ease;
+//       }
+//     }
+//   }
+
+//   .aside-nav-item:hover {
+//     .aside-nav-link {
+//       background-color: var(--bg-white-color);
+//       color: var(--text-secondary-color) !important;
+//     }
+//   }
+//   .logout {
+//     height: 4rem !important;
+//   }
+// }
+
+// .subnav {
+//   transition: all 0.3s ease;
+//   .fa {
+//     font-size: 0.6rem;
+//   }
+// }
+
+// .toggleIcon {
+//   transform: rotate(180deg);
+// }
+
+// .aside-nav-link-icon2:hover {
+//   background-color: var(--bg-white-color);
+//   color: var(--text-secondary-color) !important;
+//   border-radius: 10px;
+// }
+
+// .fa-arrow-right-from-bracket {
+//   transform: scaleX(-1);
+// }
+
+// .toggle-aside {
+//   transform: translateX(-18.5rem);
+// }
+
+.active {
+  color: var(--text-main-color) !important;
+}

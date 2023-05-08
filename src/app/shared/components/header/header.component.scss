@@ -1,0 +1,15 @@
+.navbar {
+  transition: all 0.5s ease !important;
+  height: 66px;
+  top: 0;
+  z-index: 66;
+  .logo {
+    width: 150px;
+  }
+  .toggle.fa-bars {
+    width: 40px;
+    height: 40px;
+    background-color: var(--bg-main-color);
+    color: var(--text-white-color);
+  }
+}

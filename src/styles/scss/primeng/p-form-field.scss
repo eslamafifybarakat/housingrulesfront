@@ -1,0 +1,29 @@
+.p-password,
+.p-inputtext,
+.p-treeselect,
+.p-multiselect,
+.p-inputgroup > .p-element,
+p-inputnumber,
+.p-inputnumber,
+.p-dropdown,
+.p-input-icon-right > .p-inputtext {
+  width: 100% !important;
+}
+
+// switch
+.p-inputswitch {
+  width: 3rem !important;
+  height: 1.5rem !important;
+}
+.p-inputswitch .p-inputswitch-slider {
+  box-shadow: none !important;
+  &:before {
+    width: 1.15rem !important;
+    height: 1.15rem !important;
+    margin-top: -0.55rem !important;
+    left: 0.3rem !important;
+  }
+}
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background-color: var(--bg-main-color) !important;
+}

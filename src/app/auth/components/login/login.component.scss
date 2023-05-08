@@ -1,0 +1,19 @@
+.auth-form {
+  min-height: 100vh !important;
+  background-image: url(../../../../assets/images/auth/bg-auth.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  .min-h-100 {
+    min-height: 100vh !important;
+  }
+  .logo {
+    width: 200px;
+  }
+  .flag {
+    width: 30px;
+    height: 25px;
+    object-fit: cover;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+}

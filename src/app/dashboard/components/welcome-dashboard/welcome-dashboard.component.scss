@@ -1,0 +1,94 @@
+.welcome {
+  .congratulation {
+    border-radius: var(--border-radius-card);
+  }
+  .star,
+  .icon {
+    width: 40px;
+    height: 40px;
+  }
+  .danger-bg {
+    background-color: #fb2119;
+  }
+  .danger-text {
+    color: #fb2119;
+  }
+  .primary-bg {
+    background-color: #3287f6;
+  }
+  .primary-text {
+    color: #3287f6;
+  }
+  .warning-bg {
+    background-color: #ffcf26;
+  }
+  .warning-text {
+    color: #ffcf26;
+  }
+
+  .view-home {
+    background-color: #ebebeb;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .courses {
+    &.progress {
+      background-color: #3287f621 !important;
+    }
+    .progress-bar {
+      background-color: #3287f6 !important;
+    }
+  }
+  .exams {
+    &.progress {
+      background-color: #ffcf2621 !important;
+    }
+    .progress-bar {
+      background-color: #ffcf26 !important;
+    }
+  }
+  .articleNotes {
+    &.progress {
+      background-color: #fb211921 !important;
+    }
+    .progress-bar {
+      background-color: #fb2119 !important;
+    }
+  }
+  .circle-wrap {
+    margin: auto;
+    width: 150px;
+    height: 150px;
+    background: #3287f621;
+    border-radius: 50%;
+  }
+}
+
+.circle-wrap .inside-circle {
+  width: 122px;
+  height: 122px;
+  border-radius: 50%;
+  background: #fff;
+  line-height: 120px;
+  text-align: center;
+  margin-top: 14px;
+  margin-left: 14px;
+  // color: #1e51dc;
+  position: absolute;
+  z-index: 100;
+  font-weight: 700;
+  font-size: 2em;
+}
+
+.circle-wrap .circle .mask,
+.circle-wrap .circle .fill {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  border-radius: 50%;
+}
+
+.mask .fill {
+  clip: rect(0px, 75px, 150px, 0px);
+  background-color: #227ded;
+}

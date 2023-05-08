@@ -1,0 +1,98 @@
+.setting {
+  left: 0;
+  border-radius: 0px 5px 5px 0px !important;
+  right: inherit !important;
+}
+.general-dropdown .dropdown-menu {
+  left: 0 !important;
+  right: inherit !important;
+}
+// =========================START DASHBOARD MODULE=======================
+.dash {
+  width: calc(100% - 7.375rem);
+  margin-right: 7.375rem;
+  transition: all 0.5s ease;
+}
+.dash-trimmed {
+  width: calc(100% - 17.5625rem);
+  margin-right: 17.5625rem !important;
+}
+.dash-md-screen {
+  width: calc(100% - 7.375rem);
+  margin-right: 7.375rem !important;
+}
+.aside-menu .logo-container .arrow {
+  margin-right: auto !important;
+  margin-left: inherit !important;
+}
+// =========================END DASHBOARD MODULE=======================
+
+// =====================START TABLE ==========================
+#dynamic-global-data-table {
+  .p-datatable-thead > tr > th {
+    &:nth-of-type(1) {
+      border-radius: 0 10px 10px 0px !important;
+    }
+    &:last-child {
+      border-radius: 10px 0px 0px 10px !important;
+    }
+  }
+  .p-paginator{
+    .pi{
+      transform: scaleX(-1) !important;
+    }
+  }
+}
+
+// =====================END TABLE ==========================
+
+// =====================START USER INFO ==========================
+.user-info {
+  .dropdown-menu {
+    .nav-link {
+      display: flex;
+      // flex-direction: row-reverse !important;
+      // justify-content: space-between !important;
+    }
+  }
+}
+.dropdown-toggle::after {
+  margin-right: 0.255em !important;
+  margin-left: inherit;
+}
+// =====================END USER INFO ==========================
+
+// =====================START ASIDE MENU ==========================
+.aside-menu {
+  .aside-nav {
+    padding-right: 0.938rem !important;
+    padding-left: inherit !important;
+    .aside-nav-item {
+      padding-left: 0.938rem !important;
+      padding-right: inherit;
+      &.active,
+      &:hover {
+        border-radius: 0px 12px 12px 0 !important;
+        .beautiful-radius:nth-child(1) {
+          left: 0 !important;
+          &::before {
+            border-bottom-left-radius: 13px !important;
+            border-bottom-right-radius: 0 !important;
+          }
+        }
+        .beautiful-radius:nth-child(2) {
+          left: 0 !important;
+          &::before {
+            border-top-left-radius: 13px !important;
+            border-top-right-radius: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}
+.toggle-aside {
+  transform: translateX(18.5rem) !important;
+}
+
+// =====================END ASIDE MENU ==========================

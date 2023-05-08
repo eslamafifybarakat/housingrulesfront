@@ -1,0 +1,121 @@
+<div class="welcome py-4">
+  <div class="container-fluid">
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6">
+        <div>
+          <h2 class="fs-4 text-capitalize text-main-color">{{'welcome.hi'|translate}} <span
+              class="px-1">{{userName}}</span></h2>
+          <p class="fs-4 mt-3">{{'welcome.welcomeBack'|translate}}</p>
+          <p class="mt-4">{{'welcome.pageIsDesigned'|translate}}</p>
+          <div>
+            <img class="w-100" src="assets/images/welcome/Hello.svg" alt="">
+          </div>
+          <div
+            class="bg-main-color p-4 d-flex justify-content-center align-items-center flex-column text-white-color text-center congratulation">
+            <div class="star bg-white-color rounded-circle d-flex justify-content-center align-items-center">
+              <i class="pi pi-star-fill text-main-color"></i>
+            </div>
+            <h5 class="fs-5 mt-3 text-capitalize">{{'welcome.congratulations'|translate}} <span
+                class="px-1">{{userName}}</span>
+            </h5>
+            <p class="mt-1">{{'welcome.youHavePermission'|translate}}</p>
+
+            <button class="btn bg-white-color mt-4">{{'welcome.viewProfile'|translate}}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div>
+          <ng-container *ngFor="let item of cardsData">
+            <div class="global-card p-4 mb-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                  <div
+                    class="icon d-flex justify-content-center align-items-center  text-white-color rounded-circle {{item?.color}}-bg">
+                    <i class="pi {{item?.icon}}"></i>
+                  </div>
+                  <div>
+                    <h5>{{item?.number}}</h5>
+                    <p class="text-black-50">{{item?.type}}</p>
+                  </div>
+                </div>
+                <div class="arrow">
+                  <i class="pi pi-angle-up {{item?.color}}-text"></i>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <div class="global-card text-center p-4">
+            <h6 class="text-black-50 mb-3">{{'welcome.views'|translate}}</h6>
+            <p class="fs-4 fw-bold">6.876.864</p>
+            <div class="mt-5">
+              <img src="assets/images/welcome/chart.jpg" class="w-100" alt="">
+            </div>
+            <div class="p-4 view-home mt-5 d-flex justify-content-between align-items-center"
+              [routerLink]="'/home-page'">
+              <div class="d-flex align-items-center gap-3">
+                <div class="icon bg-white-color d-flex justify-content-center align-items-center rounded-circle">
+                  <i class="pi pi-home fs-5"></i>
+                </div>
+                <p>{{'welcome.viewHome'|translate}}</p>
+              </div>
+              <i class="pi pi-angle-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-12">
+        <div>
+          <div class="global-card p-4 mb-4">
+            <h5 class="mb-4 fs-5">{{'welcome.targets'|translate}}</h5>
+            <ng-container *ngFor="let item of targets">
+              <div class="mb-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <p>{{item?.title}}</p>
+                  <p>{{item?.percentage}}%</p>
+                </div>
+
+                <div class="progress {{item?.color}}">
+                  <div class="progress-bar" role="progressbar" aria-label="Basic example"
+                    [style.width.%]="item?.percentage" [attr.aria-valuenow]="item?.percentage" aria-valuemin="0"
+                    aria-valuemax="100">
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+          </div>
+
+          <div>
+            <h5 class="fs-5">{{'welcome.summary'|translate}}</h5>
+            <div class="global-card mt-3 p-4">
+              <p class=" fs-5 mb-4 text-center">{{'welcome.PercentageOfCourses'|translate}}</p>
+              <div class="circle-wrap">
+                <div class="circle">
+                  <div class="mask half">
+                    <div class="fill"></div>
+                  </div>
+                  <div class="inside-circle"> 50% </div>
+                </div>
+              </div>
+
+              <div class="mt-3 d-flex justify-content-between flex-wrap">
+                <div>
+                  <p>{{'welcome.CoursesViewers'|translate}}</p>
+                  <p>90%</p>
+                </div>
+                <div>
+                  <p>{{'welcome.courses'|translate}}</p>
+                  <p>50</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

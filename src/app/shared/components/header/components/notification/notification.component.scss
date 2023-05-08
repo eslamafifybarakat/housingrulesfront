@@ -1,0 +1,15 @@
+.notification {
+  .dropdown-menu {
+    width: 30rem;
+    .notification-content {
+      max-height: 70vh;
+      overflow-x: auto;
+    }
+  }
+  .active-notification {
+    background-color: #f1f6fc;
+  }
+  .notification-icon {
+    width: 1.5rem;
+  }
+}

@@ -1,0 +1,7 @@
+.no-internet {
+  height: 100vh;
+  .btn:hover {
+    background-color: var(--bg-white-color) !important;
+    color: var(--text-dark-color);
+  }
+}

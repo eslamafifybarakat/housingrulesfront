@@ -1,0 +1,51 @@
+// start pagination icon
+
+.pi-angle-double-left:before {
+  content: "\f100" !important;
+  font-family: "FontAwesome" !important;
+}
+
+.pi-angle-double-right:before {
+  content: "\f101" !important;
+  font-family: "FontAwesome" !important;
+}
+
+.pi-chevron-down:before {
+  content: "\f107" !important;
+  font-family: "FontAwesome" !important;
+}
+
+.pi-angle-left:before {
+  content: "\f104" !important;
+  font-family: "FontAwesome" !important;
+}
+
+.pi-angle-right:before {
+  content: "\f105" !important;
+  font-family: "FontAwesome" !important;
+}
+
+// end pagination icon
+
+.pi-times:before {
+  content: "\f00d" !important;
+  font-family: "FontAwesome" !important;
+
+  // content: "\f1d" !important;
+  // font-family: "FontAwesome" !important;
+  // font-size: 3rem;
+  // line-height: 0;
+}
+
+//
+.pi-filter:before {
+  // content: "\F3E1" !important;
+  content: "\f0b0" !important;
+  font-family: "FontAwesome" !important;
+  // font-family: "Font Awesome 5 Free" !important;
+}
+
+.pi-filter-slash:before {
+  content: "\f0b0" !important;
+  font-family: "Font Awesome 6 Free" !important;
+}

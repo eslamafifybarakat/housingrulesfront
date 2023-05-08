@@ -1,0 +1,85 @@
+::-webkit-scrollbar {
+  width: 0.3125rem;
+}
+
+::-moz-scrollbar {
+  width: 0.3125rem;
+}
+
+::-o-scrollbar {
+  width: 0.3125rem;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 0.25rem;
+}
+
+::-moz-scrollbar:horizontal {
+  height: 0.25rem;
+}
+
+::-o-scrollbar:horizontal {
+  height: 0.25rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-moz-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-o-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--bg-secondary-color);
+  opacity: 0.7;
+}
+
+::-moz-scrollbar-thumb {
+  background: var(--bg-secondary-color);
+  opacity: 0.7;
+}
+
+::-o-scrollbar-thumb {
+  background: var(--bg-secondary-color);
+  opacity: 0.7;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-main-color);
+}
+
+::-moz-scrollbar-thumb:hover {
+  background: var(--bg-main-color);
+}
+
+::-o-scrollbar-thumb:hover {
+  background: var(--bg-main-color);
+}
+
+.p-treeselect-panel,
+.p-multiselect-panel,
+.p-dropdown-panel {
+  padding: 5px 0 !important;
+  .p-treeselect-items-wrapper,
+  .p-multiselect-items-wrapper,
+  .p-scroller,
+  .p-dropdown-items-wrapper {
+    margin: 5px !important;
+    &::-webkit-scrollbar-thumb {
+      background: var(--bg-main-color);
+      border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      max-height: 80% !important;
+    }
+  }
+}

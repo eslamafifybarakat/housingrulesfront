@@ -1,0 +1,27 @@
+<!-- ---------------------site--------------------------- -->
+<ng-container *ngIf="false">
+  <footer class="bg-white-color shadow">
+    <div class="text-dark-color text-center footer p-3" [ngClass]="getDashClass()">
+      <p class="mb-0">footer</p>
+    </div>
+  </footer>
+</ng-container>
+
+<!-- ----------------------dashboard--------------------------- -->
+<ng-container *ngIf="false">
+  <footer class="bg-white-color shadow">
+    <div class="text-dark-color text-center footer p-3" [class.dash]="!toggleSideMenu" [ngClass]="getDashClass()">
+      <p class="mb-0">footer</p>
+    </div>
+  </footer>
+</ng-container>
+
+<!-- ---------------------site & dashboard ------------------ -->
+<ng-container *ngIf="true">
+  <footer class="bg-white-color shadow">
+    <div class="text-dark-color text-center footer p-3" [class.dash]="moduleType=='dashboard' && !toggleSideMenu">
+      <!-- [ngClass]="getDashClass()" -->
+      <p class="mb-0">جميع الحقوق محفوظة 2023</p>
+    </div>
+  </footer>
+</ng-container>

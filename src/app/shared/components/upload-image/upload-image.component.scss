@@ -1,0 +1,132 @@
+// :host::ng-deep {
+//   .p-fileupload {
+//     display: flex !important;
+//     justify-content: space-between !important;
+//     border: 1px solid var(--bg-main-color);
+//     border-radius: 6px;
+//     overflow: hidden;
+//     min-height: 3rem;
+//     .p-fileupload-buttonbar {
+//       background-color: transparent;
+//       border: 0 !important;
+//       padding: 0;
+
+//       .p-button {
+//         border-radius: 0;
+//         border: 0;
+//         background-color: crimson;
+//         min-height: 3.2rem;
+//         & > span:nth-last-of-type(1) {
+//           display: none !important;
+//         }
+//       }
+//       .p-fileupload-choose {
+//         background-color: var(--bg-main-color);
+//       }
+//     }
+//     .p-fileupload-content {
+//       background-color: transparent;
+//       border: 0 !important;
+//       padding: 0;
+//       align-items: center;
+//       display: flex;
+//       justify-content: end;
+//       .p-progressbar {
+//         display: none;
+//       }
+//       img {
+//         border-radius: 50%;
+//         padding: 5px;
+//       }
+//       width: 100% !important;
+//       text-align: end !important;
+//       .p-fileupload-row {
+//         & > div {
+//           // display: none;
+//           padding: 0;
+//           &:nth-of-type(1) {
+//             display: block !important;
+//           }
+//         }
+//       }
+//     }
+//   }
+//   .removeChoose .p-fileupload-buttonbar .p-fileupload-choose {
+//     display: none !important;
+//   }
+// }
+
+:host::ng-deep {
+  #upload-image {
+    .p-fileupload {
+      display: flex !important;
+      flex-direction: row-reverse;
+      justify-content: space-between !important;
+      overflow: hidden;
+      .p-fileupload-buttonbar {
+        background-color: transparent;
+        border: 0 !important;
+        padding: 0;
+        .p-button-label {
+          display: none;
+        }
+        .p-button {
+          border-radius: 0 var(--dashboard-border-radius)
+            var(--dashboard-border-radius) 0;
+          border: 0;
+          background-color: #e24c4c;
+          opacity: 1 !important;
+          margin: 0;
+          height: 3.1rem;
+          .p-button-icon-left {
+            margin: 0;
+          }
+        }
+        .p-fileupload-choose {
+          background-color: var(--bg-main-color);
+        }
+      }
+      .p-fileupload-content {
+        border-color: var(--bg-main-color) !important;
+        border-radius: var(--dashboard-border-radius) 0 0
+          var(--dashboard-border-radius);
+        height: 3.1rem;
+        background-color: transparent;
+        border-right: 0;
+        padding: 5px;
+        align-items: center;
+        display: flex;
+        .p-progressbar {
+          display: none;
+        }
+        img {
+          border-radius: 50%;
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+        width: 100% !important;
+        .p-fileupload-row {
+          & > div {
+            // display: none;
+            // padding: 0;
+            &:nth-of-type(1) {
+              display: block !important;
+            }
+          }
+        }
+      }
+    }
+    &.removeChoose .p-fileupload-buttonbar .p-fileupload-choose {
+      display: none !important;
+    }
+  }
+  .scaleX-rtl {
+    transform: scaleX(-1);
+  }
+  .p-message .p-message-wrapper {
+    padding: 0 !important;
+  }
+  .p-fileupload.p-fileupload-advanced .p-message {
+    margin-top: 15px !important;
+  }
+}

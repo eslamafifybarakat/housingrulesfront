@@ -1,0 +1,9 @@
+.footer {
+  transition: all 0.5s ease !important;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  background-color: var(--bg-white-color);
+  z-index: 88;
+}

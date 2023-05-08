@@ -1,0 +1,22 @@
+.dropdown-language {
+  .flag {
+    width: 30px;
+    height: 23px;
+    object-fit: cover;
+    border-radius: 2px;
+    // border: 2px solid #fff;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  }
+  .nav-item .nav-link {
+    padding: 10px 10px !important;
+  }
+  .dropdown-menu {
+    .flag {
+      width: 23px;
+      height: 18px;
+    }
+  }
+  .dropdown-toggle::after {
+    display: block !important;
+  }
+}

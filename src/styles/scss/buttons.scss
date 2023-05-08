@@ -1,0 +1,115 @@
+.btn-solid-main {
+  min-width: 7rem;
+  color: var(--text-white-color);
+  background-color: var(--bg-main-color);
+  border-color: var(--text-main-color);
+  border-radius: var(--border-button-radius);
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.btn-solid-main:hover,
+.btn-solid-main:focus {
+  color: var(--text-white-color) !important;
+  background-color: var(--bg-main-color);
+}
+
+.btn-outline-main {
+  min-width: 7rem;
+  color: var(--text-main-color);
+  background-color: var(--text-white-color);
+  border-color: var(--text-main-color) !important;
+  border-radius: var(--border-button-radius);
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.btn-solid-second {
+  min-width: 7rem;
+  color: var(--text-white-color);
+  background-color: var(--text-secondary-color);
+  border-color: var(--text-secondary-color);
+  border-radius: var(--border-button-radius);
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+  transition: all 0.4s ease-in-out;
+}
+.btn-outline-second {
+  color: var(--text-second-color);
+  background-color: var(--text-white-color);
+  border-color: var(--text-second-color);
+  border-radius: var(--border-button-radius);
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.btn-solid-secondary {
+  min-width: 7rem;
+  color: var(--text-desc-color);
+  background-color: var(--bg-secondary-color);
+  border-radius: var(--border-button-radius);
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.btn-solid-secondary:hover,
+.btn-solid-secondary:focus {
+  color: var(--text-desc-color);
+  background-color: var(--bg-secondary-color);
+}
+
+.btn-outline-secondary {
+  color: var(--text-secondary-color);
+  background-color: var(--text-white-color);
+  border-color: var(--text-secondary-color);
+  border-radius: var(--border-button-radius);
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  z-index: 1;
+}
+
+.btn:disabled,
+.btn:disabled:hover {
+  opacity: 0.65;
+  background-color: var(--bg-main-color);
+  color: var(--text-white-color);
+}
+
+.form-btn {
+  height: 3.4rem;
+}
+
+.btn-card {
+  min-width: 40px;
+  height: 40px;
+  line-height: 0;
+  border-radius: var(--border-button-radius);
+  padding: 0 15px;
+  border: none;
+}
+.btn-check:checked + .btn,
+.btn:first-child:active,
+.btn.active,
+.btn.show {
+  border: 0 !important;
+}
+.btn-outline-main.active {
+  border: 1px solid var(--bg-main-color) !important;
+}

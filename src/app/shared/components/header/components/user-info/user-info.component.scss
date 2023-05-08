@@ -1,0 +1,20 @@
+.user-info {
+  .user-img-parent {
+    width: 2.5rem;
+    height: 2.5rem;
+    .user-img {
+      border: 2px solid var(--text-white-color);
+    }
+  }
+
+  .user-info-menu {
+    width: 18rem;
+    top: 3.6rem !important;
+  }
+  .submenu {
+    top: 40px !important;
+  }
+  .fa-circle {
+    font-size: 10px;
+  }
+}

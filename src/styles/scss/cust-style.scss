@@ -1,0 +1,32 @@
+/*START  DASHBOARD*/
+.dash{
+  width: calc(100% - 7.375rem);
+  margin-left:  7.375rem;
+  transition: all .5s ease;
+}
+.dash-trimmed{
+  width: calc(100% - 17.5625rem);
+  margin-left: 17.5625rem !important;
+}
+.dash-md-screen{
+  width: calc(100% -  7.375rem);
+  margin-left:  7.375rem !important;
+}
+/*END  DASHBOARD*/
+
+/*START  DROPDOWN*/
+.general-dropdown {
+  .dropdown-menu {
+    right: 0 !important;
+    left: inherit !important;
+  }
+}
+
+/*END  DROPDOWN*/
+
+/*START COMPONENTS*/
+
+/*END COMPONENTS*/
+
+/*IMPORTING RESPONSIVE SCSS FILE*/
+@import "./responsive.scss";

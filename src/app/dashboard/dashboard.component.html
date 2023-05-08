@@ -1,0 +1,18 @@
+<!-- <app-header></app-header>
+<app-aside-menu></app-aside-menu>
+<div class="main">
+  <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer> -->
+
+<!-- <div class="setting">
+  <app-theme></app-theme>
+</div> -->
+<app-aside-menu (onToggleSideNav)="onToggleSideNav($event)"></app-aside-menu>
+<app-header [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-header>
+<div class="main" [class.dash]="!toggleSideMenu" [ngClass]="getDashClass()">
+  <div class="container-fluid py-4 main-pb">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-footer [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-footer>

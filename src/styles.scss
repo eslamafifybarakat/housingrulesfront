@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
+@import "styles/scss/variables.scss";
+@import "styles/scss/colors-classes.scss";
+@import "styles/scss/scrollbar.scss";
+@import "styles/scss/global-rules.scss";
+@import "styles/scss/buttons.scss";
+@import "styles/scss/form-field.scss";
+@import "styles/scss/angular-material/form-field.scss";
+@import "styles/scss/primeng/p-form-field.scss";
+@import "styles/scss/cust-style.scss";
+@import "styles/scss/primeng/p-carousel.scss";
+@import "styles/scss/status.scss";
+@import "styles/scss/primeng/p-select.scss";
+@import "styles/scss/primeng/p-dialog.scss";
+// @import "styles/scss/primeng/primeng-icon-rtl.scss";
+
+[dir="rtl"] {
+  @import "~bootstrap/dist/css/bootstrap.min.css";
+  @import "styles/scss/style-rtl/cust-rtl-style.scss";
+  @import "styles/scss/style-rtl/p-form-rtl.scss";
+  @import "styles/scss/style-rtl/p-select-rtl.scss";
+}
+
+body {
+  font-family: "DM Sans", sans-serif !important;
+  background-color: var(--body-color);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-snack-bar-container {
+  background-color: #363636 !important;
+  color: #fff;
+}
+
+.ng5-slider .ng5-slider-pointer {
+  cursor: pointer;
+  width: 20px !important;
+  height: 20px !important;
+  top: -8px !important;
+  background-color: var(--bg-main-color) !important;
+}
+.ng5-slider .ng5-slider-pointer:after {
+  display: none;
+}
+.ng5-slider .ng5-slider-selection {
+  background-color: var(--bg-main-color) !important;
+}
+
+.pac-container {
+  z-index: 10005000 !important;
+}
+.p-dialog .p-dialog-content:last-of-type,
+.p-dialog .p-dialog-header {
+  background-color: transparent !important;
+}
+.mat-dialog-container {
+  position: relative !important;
+}
+.cdk-overlay-pane {
+  min-width: 50%;
+  min-height: 70vh;
+}

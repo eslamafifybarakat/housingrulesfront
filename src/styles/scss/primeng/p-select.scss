@@ -1,0 +1,46 @@
+.p-multiselect.p-multiselect-chip .p-multiselect-token {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text-dark-color);
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item,
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight,
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text-dark-color);
+}
+
+.p-multiselect .p-multiselect-label {
+  line-height: initial !important;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+  background-color: var(--bg-main-color) !important;
+  border-color: var(--bg-main-color) !important;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+  height: 3.4rem;
+  border-radius: 6px;
+  border: 1px solid #ced4da !important;
+
+  &::placeholder {
+    color: #6c757d !important;
+  }
+}
+
+.p-fluid .p-dropdown .p-dropdown-label {
+  border: 0 !important;
+  line-height: initial !important;
+}
+
+.select-loading {
+  &.p-input-icon-right > i:last-of-type {
+    right: 2.5rem;
+  }
+}

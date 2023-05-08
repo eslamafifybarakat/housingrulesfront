@@ -1,0 +1,94 @@
+<div class="auth-form">
+  <div class="container">
+    <div class="row justify-content-center align-items-center min-h-100">
+      <div class="col-lg-6 col-md-8 col-11">
+        <div class="global-card p-5">
+          <div class="d-flex justify-content-end gap-2">
+            <app-language-selector></app-language-selector>
+            <!-- <ng-container *ngIf="currentLanguage=='en'">
+              <img (click)="translationService?.changeLang('ar')" class="flag" src="assets/images/flag/sa.svg" alt="">
+            </ng-container>
+            <ng-container *ngIf="currentLanguage=='ar'">
+              <img (click)="translationService?.changeLang('en')" class="flag" src="assets/images/flag/us.svg" alt="">
+            </ng-container> -->
+          </div>
+          <div class="d-flex justify-content-center mt-3">
+            <img src="assets/images/logo/logo.jpg" alt="logo" class="logo">
+          </div>
+          <form [formGroup]="loginForm" (ngSubmit)="submit()" class="pt-5">
+            <div class="mb-4">
+              <label for="email" class="mb-2 required">{{'labels.email'|translate}}</label>
+              <input type="text" class="form-control" formControlName="email" autocomplete="cc-name"
+                (input)="publicService?.clearValidationErrors(formControls?.email)"
+                [class.is-invalid]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)"
+                placeholder="{{'placeholder.email'|translate}}">
+              <div class="mt-2">
+                <ng-container
+                  *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
+                  <ng-container *ngIf="formControls?.email?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{'validations.requiredEmail'|translate}}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="formControls?.email?.errors?.['pattern']">
+                    <span class="text-danger fs-8 d-block">
+                      {{'validations.emailNotCorrect'|translate}}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="formControls?.email?.errors?.['minlength']">
+                    <span class="text-danger fs-8 d-block">
+                      {{'validations.length'|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label for="password" class="mb-2 required">{{'labels.password'|translate}}</label>
+              <div class="rounded-input p-mask"
+                [class.border-red]="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched)"
+                [class.is-valid]="formControls?.password?.valid && (formControls?.password?.dirty || formControls?.password?.touched)">
+                <p-password [toggleMask]="true" formControlName="password"
+                  placeholder="{{'placeholder.password'|translate}}" autocomplete="cc-name" [feedback]="false">
+                </p-password>
+              </div>
+              <div class="mt-2">
+                <ng-container
+                  *ngIf="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched)">
+                  <ng-container *ngIf="formControls?.password?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{'validations.requiredPassword'|translate}}
+                    </span>
+                  </ng-container>
+                  <ng-container *ngIf="formControls?.password?.errors?.['pattern']">
+                    <span class="text-danger fs-8">
+                      {{'validations.passwordPattern'|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between mt-3">
+              <div class="field-checkbox d-flex align-items-center gap-2">
+                <input class="form-check-input m-0" type="checkbox" formControlName="remember" id="flexCheckChecked">
+                <label class="form-check-label" for="flexCheckChecked">
+                  {{'form.remember' | translate}}
+                </label>
+              </div>
+              <u class="text-main-color">
+                <a class="fs-8" (click)="forgetPassWord()">
+                  {{'form.forget_password'|translate}}
+                </a>
+              </u>
+            </div>
+            <button type="submit" class="btn w-100 btn-solid-main form-btn mt-5">
+              <span>
+                {{'form.signIn'|translate}}
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

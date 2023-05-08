@@ -1,0 +1,30 @@
+.item-badge {
+  border-radius: 2px;
+  padding: 0.25em 0.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+.status-qualified {
+  color: #50cd89;
+  background-color: #e8fff3;
+}
+.status-proposal {
+  color: #fdc604;
+  background-color: #fff8df;
+}
+.status-unqualified {
+  color: #f1416c;
+  background-color: #fff5f8;
+}
+.status-new {
+  color: #009ef7;
+  background-color: #f1faff;
+}
+.status-renewal {
+  color: #743aef;
+  background-color: #f1eef9;
+}
+
