@@ -138,7 +138,9 @@
     "minute": "minute",
     "addSections": "Please add sections to this course",
     "noItemAdded": "There are no items",
-    "download": "Download"
+    "download": "Download",
+    "allRights":"All rights reserved 2023"
+
   },
 
   "labels": {
