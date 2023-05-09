@@ -172,10 +172,20 @@
   }
 
   .sort {
-    color: #4e6ddb;
+    color: var(--text-white-color);
   }
   .pi-filter {
     color: #fff;
+  }
+  .p-column-filter-menu-button:hover,
+  .p-column-filter-menu-button.p-column-filter-menu-button-open,
+  .p-column-filter-menu-button.p-column-filter-menu-button-open:hover {
+    .pi-filter {
+      color: var(--text-main-color) !important;
+    }
+  }
+  .details:hover {
+    color: var(--text-main-color);
   }
   .dropdown-menu.filter {
     width: 18rem !important;

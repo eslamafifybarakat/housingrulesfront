@@ -12,3 +12,78 @@
     margin-left: inherit !important;
   }
 }
+.p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox,
+.p-tree .p-tree-container .p-treenode .p-treenode-content .p-tree-toggler {
+  margin-right: initial !important;
+  margin-left: 0.5rem !important;
+}
+.p-calendar .p-button {
+  border-right: 0 !important;
+  border-left: 1px solid #ced4da !important;
+  border-radius: 6px 0 0 6px !important;
+}
+.p-calendar-w-btn .p-inputtext {
+  border-left: 0 !important;
+  border-right: 1px solid #ced4da !important;
+  border-radius: 0 6px 6px 0 !important;
+}
+// COMPONENTS
+#modal {
+  .select-label {
+    padding-right: 12px !important;
+    padding-left: initial !important;
+  }
+
+  .remove {
+    left: 0 !important;
+    right: initial !important;
+  }
+}
+
+#filter-selections {
+  .p-inputgroup-addon {
+    border-left: none !important;
+    border-right: 1px solid #ced4da !important;
+  }
+
+  .p-dropdown .p-dropdown-trigger {
+    border-right: initial !important;
+    border-left: 1px solid #ced4da !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+}
+
+.p-inputnumber-buttons-stacked .p-inputnumber-input {
+  border-radius: 0 6px 6px 0;
+}
+.p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-up {
+  border-radius: 6px 0px 0 0px;
+}
+.p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-down {
+  border-radius: 0px 0px 0 6px;
+}
+
+.right-input {
+  border-right: 0 !important;
+  border-left: 1px solid #ced4da !important;
+  border-radius: 6px 0 0 6px !important;
+}
+.input-remove-right-border {
+  border-left: 0 !important;
+  border-right: 1px solid #ced4da !important;
+  border-radius: 0 6px 6px 0 !important;
+}
+
+.p-checkbox-label {
+  margin-right: 0.5rem !important;
+  margin-left: inherit !important;
+}
+
+.border-right-0 {
+  border-left: 0 !important;
+  border-right: inherit !important;
+}

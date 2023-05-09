@@ -19,3 +19,27 @@ p-inputnumber,
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
   background-color: var(--bg-main-color) !important;
 }
+.p-column-filter-buttonbar .p-button {
+  background-color: var(--bg-main-color) !important;
+  color: var(--text-white-color) !important;
+}
+
+.p-column-filter-buttonbar .p-button-outlined {
+  border-color: var(--bg-main-color) !important;
+  color: var(--text-main-color) !important;
+  background-color: transparent !important;
+}
+.p-column-filter-buttonbar .p-button {
+  background-color: var(--bg-main-color) !important;
+  color: var(--text-white-color) !important;
+}
+
+.p-column-filter-buttonbar .p-button-outlined {
+  border-color: var(--bg-main-color) !important;
+  color: var(--text-main-color) !important;
+  background-color: transparent !important;
+}
+.p-inputnumber .p-button {
+  background-color: var(--bg-main-color) !important;
+  border-color: var(--bg-main-color) !important;
+}

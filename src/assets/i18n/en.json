@@ -194,6 +194,14 @@
     "goHome":"Go to home",
     "resetPassword":"Reset password"
   },
+  "sideMenu":{
+"":"Dashboard",
+"":"User",
+"":"Calendar",
+"":"Steppers",
+"":"Appointments",
+"":"Patients"
+  },
   "user_info": {
     "my_profile": "My Profile",
     "my_performance": "My Performance",

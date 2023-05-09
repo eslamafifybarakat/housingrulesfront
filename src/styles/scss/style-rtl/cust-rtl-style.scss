@@ -1,11 +1,17 @@
-.setting {
-  left: 0;
-  border-radius: 0px 5px 5px 0px !important;
-  right: inherit !important;
+.me-3 {
+  margin-left: 1rem !important;
+  margin-right: inherit !important;
+}
+.me-2 {
+  margin-left: 0.5rem !important;
+  margin-right: inherit !important;
 }
 .general-dropdown .dropdown-menu {
   left: 0 !important;
   right: inherit !important;
+}
+.scaleX-rtl {
+  transform: scaleX(-1) !important;
 }
 // =========================START DASHBOARD MODULE=======================
 .dash {
@@ -37,8 +43,8 @@
       border-radius: 10px 0px 0px 10px !important;
     }
   }
-  .p-paginator{
-    .pi{
+  .p-paginator {
+    .pi {
       transform: scaleX(-1) !important;
     }
   }
@@ -47,15 +53,6 @@
 // =====================END TABLE ==========================
 
 // =====================START USER INFO ==========================
-.user-info {
-  .dropdown-menu {
-    .nav-link {
-      display: flex;
-      // flex-direction: row-reverse !important;
-      // justify-content: space-between !important;
-    }
-  }
-}
 .dropdown-toggle::after {
   margin-right: 0.255em !important;
   margin-left: inherit;
@@ -68,6 +65,10 @@
     padding-right: 0.938rem !important;
     padding-left: inherit !important;
     .aside-nav-item {
+      .aside-nav-link .angle {
+        left: 1rem !important;
+        right: inherit !important;
+      }
       padding-left: 0.938rem !important;
       padding-right: inherit;
       &.active,
@@ -90,9 +91,19 @@
       }
     }
   }
+  .arrow {
+    left: -13px !important;
+    right: inherit !important;
+  }
 }
 .toggle-aside {
   transform: translateX(18.5rem) !important;
 }
 
 // =====================END ASIDE MENU ==========================
+.welcome {
+  .circle-wrap .inside-circle {
+    margin-right: 14px !important;
+    margin-left: inherit !important;
+  }
+}

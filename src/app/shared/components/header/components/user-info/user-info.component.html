@@ -21,15 +21,15 @@
             <ng-template #elseRouterLink>
 
             </ng-template> -->
-            <ng-container *ngIf="(item?.routerLink == 'logout' || item?.routerLink=='change-bank'); else elseRoute">
-              <a class="nav-link" (click)="item?.routerLink=='logout'? authUserService?.signOut():''">
-                <i class="fas {{ item?.icon?item?.icon:'far fa-circle' }} me-2 scaleX-rtl"></i>
+            <ng-container *ngIf="item?.routerLink == 'logout' else elseRoute">
+              <a class="nav-link d-flex gap-2" (click)="item?.routerLink=='logout'? authUserService?.signOut():''">
+                <i class="fas {{ item?.icon?item?.icon:'far fa-circle' }} scaleX-rtl"></i>
                 <span>{{ item?.text | translate }}</span>
               </a>
             </ng-container>
             <ng-template #elseRoute>
-              <a class="nav-link gap-3" [routerLink]="item?.routerLink" (click)="collapse=false">
-                <i class="fas {{ item?.icon?item?.icon:'far fa-circle' }} me-2 scaleX-rtl"></i>
+              <a class="nav-link d-flex gap-2" [routerLink]="item?.routerLink" (click)="collapse=false">
+                <i class="fas {{ item?.icon?item?.icon:'far fa-circle' }} scaleX-rtl"></i>
                 <span>{{ item?.text | translate }}</span>
               </a>
             </ng-template>

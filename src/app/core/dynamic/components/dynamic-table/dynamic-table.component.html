@@ -160,7 +160,7 @@
                       <ng-container *ngIf="col?.sort">
                         <div>
                           <ng-container *ngIf="col?.showDefaultSort">
-                            <a (click)="toggleSort('asc',col)"><i class="pi pi-sort-alt"></i></a>
+                            <a (click)="toggleSort('asc',col)"><i class="sort pi pi-sort-alt"></i></a>
                           </ng-container>
                           <ng-container *ngIf="col?.showAscSort">
                             <a class="sort" (click)="toggleSort('des',col)"><i class="pi pi-sort-amount-up"></i></a>
@@ -429,8 +429,8 @@
               <td>
                 <div class="d-flex gap-2">
                   <ng-container *ngIf="showDetails">
-                    <a class="fw-500" (click)="detailsHandlerEmit(item)" pTooltip="{{'general.details'|translate}}"
-                      tooltipPosition="top">
+                    <a class="fw-500 details" (click)="detailsHandlerEmit(item)"
+                      pTooltip="{{'general.details'|translate}}" tooltipPosition="top">
                       <i class="far fa-eye"></i>
                     </a>
                   </ng-container>
@@ -694,7 +694,7 @@
               <td>
                 <div class="d-flex gap-2">
                   <ng-container *ngIf="showDetails">
-                    <a class="fw-500" pTooltip="{{'general.details'|translate}}" tooltipPosition="top"
+                    <a class="fw-500 details" pTooltip="{{'general.details'|translate}}" tooltipPosition="top"
                       (click)="detailsHandlerEmit(item)">
                       <i class="far fa-eye"></i>
                     </a>

@@ -148,8 +148,18 @@
       border-radius: 0.313rem;
       padding: 0.313rem;
       cursor: pointer;
+      transition: all 0.5s ease !important;
       .logo-img {
-        width: 3.3rem;
+        // width: 3.3rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        transition: all 0.5s ease !important;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+        border-radius: 5px !important;
+      }
+      .lg-logo {
+        width: 9.3rem;
+        transition: all 0.5s ease !important;
       }
     }
     .logo-text {
@@ -157,6 +167,7 @@
     }
     .arrow {
       margin-left: auto;
+      position: absolute;
       cursor: pointer;
       width: 1.9rem;
       height: 1.9rem;
