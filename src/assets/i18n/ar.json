@@ -140,22 +140,38 @@
     "addSections": "برجاء إضافة أقسام لهذا الكورس",
     "noItemAdded": "لا يوجد عناصر",
     "download": "تنزيل",
-    "allRights":"جميع الحقوق محفوظة 2023"
-
+    "allRights":"جميع الحقوق محفوظة 2023",
+    "available":"متاح",
+    "busy":"مشغول",
+"far":"بعيد"
   },
 
   "labels": {
+    "name": "الاسم",
+    "active": "نشط",
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
     "phoneNumber": "رقم الهاتف",
     "newPassword": "أدخل كلمة المرور الجديدة",
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
-    "userActivation":"تفعيل المستخدم"
+    "userActivation":"تفعيل المستخدم",
+    "driverStatus":"حالة السائق",
+    "username":"اسم المستخدم",
+    "supervisor":"المشرف",
+    "mobilePhone":"رقم الهاتف",
+    "tank":"الصهريج"
   },
   "placeholder": {
     "email": "أدخل البريد الإلكتروني",
     "password": "أدخل كلمة المرور",
-    "search":"بحث"
+    "search":"بحث",
+    "name": "أدخل الاسم",
+    "username":"أدخل اسم المستخدم",
+    "supervisor":"اختر المشرف",
+    "mobilePhone":"أدخل رقم الهاتف",
+    "tank":"اختر الصهريج",
+    "driverStatus":"اختر حالة السائق"
       },
       "validations": {
         "name_length": "يجب أن يكون الحد الأدنى لطول الاسم 3",
@@ -165,6 +181,7 @@
         "requiredAddress": "العنوان مطلوب",
         "emailNotCorrect": "البريد الإلكتروني ليس نمط بريد إلكتروني صحيحًا",
         "requiredPassword": "كلمة المرور مطلوبة",
+        "requiredConfirmPassword": "تأكيد كلمة المرور مطلوبة",
         "passwordPattern":"يجب أن تتكون كلمة المرور الخاصة بك من 8 أحرف أو أكثر ، وتحتوي على أحرف كبيرة وصغيرة وأرقام وحرف خاص واحد على الأقل (!٪ *؟ & | ...)",
         "not_matched": "تأكيد كلمه المرور غير متطابقة",
         "PickPassword": "اختار كلمه سر",
@@ -193,6 +210,13 @@
         "resetPassword":"تغيير كلمة المرور"
 
       },
+      "sideMenu":{
+        "dashboard":"لوحة التحكم",
+        "tanks":"الصهاريج",
+        "driver":"السائق",
+        "supervisors":"المشرفين",
+        "orders":"الطلبات"
+          },
   "user_info": {
     "my_profile": "الملف الشخصي",
     "my_performance": "أدائي",
@@ -210,117 +234,35 @@
     "logout": "تسجيل خروج"
   },
   "dashboard": {
+    "dashboard":"لوحة التحكم",
+
+    "orders":"الطلبات",
     "total": "المجموع",
+    "createNew":"انشاء جديد",
     "tableHeader": {
       "actions": "الإجراءات",
-
-
-      "translationStatus": "حالة الترجمة",
       "name": "الإسم",
-      "email": "البريد الإلكتروني",
-      "products": "المنتجات",
-      "sections": "الأقسام",
-      "articles": "المقالات",
-      "lastUpdate": "آخر تعديل",
-      "banks": "البنوك",
-      "bank": "البنك",
-      "role": "الدور",
-      "group": "المجموعة",
-      "lastSeen": "آخر ظهور",
-      "status": "الحالة",
-      "settings": "إعدادات",
-      "establishDate": "تاريخ الإنشاء",
-      "usersNumber": "عدد المستخدمين",
-      "sectionsNumber": "عدد الأقسام",
-      "date": "التاريخ",
-      "writer": "الكاتب",
-      "views": "مشاهدات",
-      "positiveEvaluation": "تقييم ايجابي",
-      "negativeEvaluation": "تقييم سلبي",
-      "UploadedNote": "ملحوظة مرفوعة",
-      "solvedNote": "ملحوظة محلولة",
-      "openNote": "ملحوظة مفتوحة",
-      "qualityAssessment": "تقييم الجودة",
-      "qualityAssessor": "مقييم الجودة",
-      "reasonForUpdate": "سبب التحديث",
-      "sendingDate": "تاريخ الارسال",
-      "evaluationRequestTime": "وقت طلب التقييم",
-      "evaluationDate": "تاريخ التقييم",
-      "evaluationTime": "وقت التقييم",
-      "residentName": "اسم المقيم",
-      "questionAssessment": "تقييم سؤال 1",
-      "contentWriterNotes": "ملاحظات كاتب المحتوى",
-      "dateOfReceivingUpdate": "وقت استلام التحديث",
-      "timeOfReceivingUpdate": "تاريخ استلام التحديث",
-      "dateOfUpdateArticle": "تاريخ تحديث المقال",
-      "timeOfUpdateArticle": "وقت تحديث المقال",
-      "sendNotice": "ارسال اشعار",
-      "sendMail": "ارسال بريد",
-      "doneBy": "تم بواسطة",
-      "evaluatedIn": "تم التقييم في",
-      "evaluationResult": "نتيجة التقييم",
-      "evaluatorNotes": "ملاحظات المقيم",
-      "testPerformerID": "ID مؤدي الاختبار",
-      "IPAddress": "عنوان IP",
-      "examDuration": "مدة اتمام الاختبار",
-      "degree": "الدرجة",
-      "dateOfLastAttempt": "تاريخ اخر محاولة",
-      "TimingOfLastAttempt": "توقيت اخر محاولة",
-      "numberOfAttempts": "عدد المحاولات",
-      "testPerformer": "مؤدي الاختبار",
-      "articleTitle": "عنوان المقال",
-      "evaluationID": "التقييم ID",
-      "sourceReviewRequest": "مصدر طلب المراجعة",
-      "originateRequest": "منشى الطلب",
-      "dateCreatedReviewRequest": "تاريخ إنشاء طلب المراجعة",
-      "product": "منتج",
-      "articleDate": "تاريخ المقال",
-      "approvedDate": "تاريخ الموافقة",
-    "description": "الوصف",
-    "contentTitle":"عنوان المحتوى",
-      "time":"الوقت"
+      "status":"الحالة",
+      "active":"نشط",
+      "driverStatus":"حالة السائق"
     },
-    "sideMenu": {
-      "CurrentlyBrowsing": "تستعرض حاليا",
-      "bankSettings": "إعدادات البنك",
-      "bankSettingsChild": {
-        "banks": "كل البنوك",
-        "products": "الأقسام والمنتجات",
-        "articles": "المقالات"
-      },
-      "statistics": "الاحصائيات",
-      "userManagement": "إدارة المستخدمين",
-      "userManagementChild": {
-        "users": " المستخدمين",
-        "UsersGroups": "مجموعات المستخدمين",
-        "UsersRoles": "أدوار المستخدمين"
-      },
-      "exams": "الإختبارات",
-      "examsChild": {
-        "questions": "الأسئلة",
-        "skills": "المهارات"
-      },
-      "courses": "الدورات",
-      "coursesChild": {
-        "sections": "الأقسام"
-      },
-      "articleNotes": "ملاحظات المقالات",
-      "notifications": "الإشعارات",
-      "quickSolutions": "الحلول السريعة",
-      "qualityControl": "مراقبة الجودة",
-      "reports": "التقارير",
-      "reportsChild": {
-        "articlesReports": "تقارير المقالات",
-        "examsReports": "تقارير الإختبارات",
-        "articlesQualityReports": "تقارير جودة المقالات",
-        "examNotificationReport": "تقرير إشعارات الإختبارات",
-        "lastestBanksUpdates": "تحديثات البنك الجديدة"
-      },
-      "qualityControlChild": {
-        "pendingReview": "بإنتظار المراجعة",
-        "revised": "تمت المراجعة"
-      },
-      "eventLog": "سجل الأحداث"
+    "tanks":{
+      "tanks":"الصهاريج",
+  "addTank":"إضافة صهريج",
+  "editTank":"تعديل صهريج",
+"tankDetails":"تفاصيل الصهريج"
+    },
+    "drivers":{
+      "drivers":"السائقين",
+  "addDriver":"إضافة سائق",
+  "editDriver":"تعديل سائق",
+  "driverDetails":"تفاصيل السائق"
+    },
+    "supervisors":{
+      "supervisors":"المشرفين",
+  "addSupervisor":"إضافة مشرف",
+  "editSupervisor":"تعديل المشرف",
+  "supervisorDetails":"تفاصيل المشرف"
     },
     "usersList": {
       "allUsers": "كل المستخدمين",

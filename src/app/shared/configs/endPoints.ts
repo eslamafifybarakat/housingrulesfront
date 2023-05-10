@@ -4,4 +4,18 @@ export const roots = {
     getUserData: '/get-user-data',
     forgetPassword: '/forget-password',
   },
+  dashboard: {
+    tanks: {
+      tanksList: 'tanks',
+      tankToggleStatus: 'switch_status_tanks'
+    },
+    drivers: {
+      driversList: 'drivers',
+      getDriverById: '/drivers/get_data',
+    },
+    supervisors: {
+      supervisorsList: 'supervisors',
+      supervisorToggleStatus: 'switch_status_supervisors'
+    },
+  }
 }

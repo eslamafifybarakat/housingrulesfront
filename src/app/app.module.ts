@@ -40,6 +40,7 @@ import { DialogService } from 'primeng/dynamicdialog';
   providers: [
     DatePipe,
     AsyncPipe,
+    DialogService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],

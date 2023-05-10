@@ -1,10 +1,20 @@
 .p-dialog {
-  &.user-modal {
+  &.user-modal,
+  &.custom_modal {
     .p-dialog-header {
       padding-bottom: 10px !important;
     }
     .p-dialog-content {
+      padding-top: 1.5rem !important;
       border-top: 1px solid #e0e0e0 !important;
     }
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 0.5rem;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--bg-main-color);
+    border-radius: 0.5rem;
   }
 }

@@ -1,5 +1,8 @@
 :host::ng-deep {
   #dynamic-global-data-table {
+    .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
+      background-color: #1987541a !important;
+    }
     .search-input {
       height: 3rem !important;
       min-width: 24rem;

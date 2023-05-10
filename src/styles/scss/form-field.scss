@@ -67,7 +67,12 @@ input:-webkit-autofill {
   background-color: #fafafa;
   // border-color: #d7d7d799;
 }
-
+.p-dropdown {
+  background-color: #fafafa;
+  border-radius: var(--border-input-radius);
+  height: 3.4rem;
+  border-color: var(--border-color);
+}
 .form-control-left {
   border-left: 0;
 }

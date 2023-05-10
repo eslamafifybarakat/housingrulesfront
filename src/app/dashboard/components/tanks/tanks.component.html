@@ -1,0 +1,21 @@
+<div id="tanks" class="bg-white-color global-card">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+    <h4 class="mb-0 text-capitalize">{{'dashboard.tanks.tanks'|translate}}</h4>
+    <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto" (click)="addOrEditItem()">
+      <i class="pi pi-plus-circle"></i>
+      <span>{{'dashboard.createNew'|translate}}</span>
+    </button>
+  </div>
+  <hr>
+  <app-dynamic-table [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
+    (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
+    (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="tanksList$"
+    (toggleStatusHandler)="toggleStatus($event)" [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'"
+    [showActions]="true" [showEdit]="true" [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
+    (detailsHandler)="itemDetails($event)" (editHandler)="addOrEditItem($event,'edit')"
+    (customSortHandler)="enableSortFilter?sortItems($event):''"
+    (filterHandler)="enableSortFilter?filterItems($event):''" [results]="tanksCount" [paginatorRows]="perPage"
+    [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
+    [enableConfirmDeleteDialog]="true" [keyDelete]="'name'" (paginateOptionsHandler)="onPaginatorOptionsChange($event)"
+    [isSearch]="isSearch" [arrayChildKey]="'name'"></app-dynamic-table>
+</div>

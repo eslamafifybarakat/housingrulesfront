@@ -1,3 +1,4 @@
+import { PublicService } from './../../../shared/services/public.service';
 import { SharedService } from './../../../shared/services/shared.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { keys } from './../../../shared/configs/localstorage-key';
@@ -17,7 +18,7 @@ export class AsideMenuComponent implements OnInit {
   showSideMenu: boolean = true;
   rotated: boolean = false;
   show: boolean = false;
-  menuList: any = menuList;
+  menuList: any;
 
   currentLanguage: string = 'en';
 
@@ -25,10 +26,47 @@ export class AsideMenuComponent implements OnInit {
   constructor(
     private confirmationService: ConfirmationService,
     private sharedService: SharedService,
+    private publicService: PublicService,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.menuList = [{
+      id: 'dashboard',
+      text: this.publicService?.translateTextFromJson('sideMenu.dashboard'),
+      icon: 'fa-house-user',
+      routerLink: '/dashboard',
+      state: false
+    },
+    {
+      id: 'tanks',
+      text: this.publicService?.translateTextFromJson('sideMenu.tanks'),
+      icon: 'fa-car-rear',
+      routerLink: '/dashboard/tanks',
+      state: false
+    },
+    {
+      id: 'driver',
+      text: this.publicService?.translateTextFromJson('sideMenu.driver'),
+      icon: 'fa-car-rear',
+      routerLink: '/dashboard/drivers',
+      state: false
+    },
+    {
+      id: 'supervisors',
+      text: this.publicService?.translateTextFromJson('sideMenu.supervisors'),
+      icon: 'fa-people-roof',
+      routerLink: '/dashboard/supervisors',
+      state: false
+    },
+    {
+      id: 'orders',
+      text: this.publicService?.translateTextFromJson('sideMenu.orders'),
+      icon: 'fa-file-pen',
+      routerLink: '/dashboard/orders',
+      state: false,
+    },]
+
     this.screenWidth = window?.innerWidth;
     this.sharedService?.showSideMenu?.subscribe((res: any) => {
       this.showSideMenu = res;

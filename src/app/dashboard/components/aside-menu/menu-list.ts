@@ -32,113 +32,69 @@ export const menuList = [
     text: 'Steppers',
     icon: 'pi pi-pause',
     state: false,
-    children: [
-      {
-        text: 'Individual Steps',
-        icon: 'pi pi-users',
-        routerLink: '/dashboard/individual-steps',
-        state: false
-      },
-      {
-        text: 'Dependant Steps',
-        icon: 'layers',
-        routerLink: '/dashboard/dependant-steps',
-        state: false
-      },
-      {
-        text: 'Cutomize Stepper',
-        icon: 'layers',
-        routerLink: '/dashboard/cutomize-steps',
-        state: false
-      },
-    ],
-  },
-  {
-    id: 'test',
-    text: 'Test',
-    icon: 'pi pi-pause',
-    state: false,
-    children: [
-      {
-        text: 'individual-steps',
-        icon: 'pi pi-users',
-        routerLink: '/dashboard/individual-steps',
-        state: false
-      },
-      {
-        text: 'dependant-steps',
-        icon: 'layers',
-        routerLink: '/dashboard/dependant-steps',
-        state: false
-      },
-    ],
-  },
-  {
-    id: 'appointments',
-    text: 'Appointments',
-    icon: 'fa-list-check',
-    routerLink: 's',
-    state: false
-  },
-  {
-    id: 'patients',
-    text: 'Patients',
-    icon: 'fa-user',
-    routerLink: 'a',
-    state: false
-  },
-  {
-    text: 'sideMenu.dates',
-    icon: 'fa-user',
-    routerLink: '/dashboard/dates',
-    state: false
-  },
-  {
-    id: 'suit',
-    text: 'Suit',
-    icon: 'fa-suitcase',
-    state: false,
-    children: [
-      {
-        text: 'Category',
-        icon: 'category',
-        routerLink: '/product/category',
-      },
-      {
-        text: 'Sub Category',
-        icon: 'layers',
-        routerLink: '/product/sub-category',
-      },
-      {
-        text: 'Product',
-        icon: 'all_inbox',
-        routerLink: '/product/manage',
-      },
-    ],
+    // children: [
+    //   {
+    //     text: 'Individual Steps',
+    //     icon: 'pi pi-users',
+    //     routerLink: '/dashboard/individual-steps',
+    //     state: false
+    //   },
+    //   {
+    //     text: 'Dependant Steps',
+    //     icon: 'layers',
+    //     routerLink: '/dashboard/dependant-steps',
+    //     state: false
+    //   },
+    //   {
+    //     text: 'Cutomize Stepper',
+    //     icon: 'layers',
+    //     routerLink: '/dashboard/cutomize-steps',
+    //     state: false
+    //   },
+    // ],
   },
   // {
-  //   text: 'Suit',
-  //   icon: 'fa-suitcase',
+  //   id: 'test',
+  //   text: 'Test',
+  //   icon: 'pi pi-pause',
   //   state: false,
   //   children: [
   //     {
-  //       text: 'Category',
-  //       icon: 'category',
-  //       routerLink: '/product/category',
+  //       text: 'individual-steps',
+  //       icon: 'pi pi-users',
+  //       routerLink: '/dashboard/individual-steps',
+  //       state: false
   //     },
   //     {
-  //       text: 'Sub Category',
+  //       text: 'dependant-steps',
   //       icon: 'layers',
-  //       routerLink: '/product/sub-category',
-  //     },
-  //     {
-  //       text: 'Product',
-  //       icon: 'all_inbox',
-  //       routerLink: '/product/manage',
+  //       routerLink: '/dashboard/dependant-steps',
+  //       state: false
   //     },
   //   ],
   // },
   // {
+  //   id: 'appointments',
+  //   text: 'Appointments',
+  //   icon: 'fa-list-check',
+  //   routerLink: 's',
+  //   state: false
+  // },
+  // {
+  //   id: 'patients',
+  //   text: 'Patients',
+  //   icon: 'fa-user',
+  //   routerLink: 'a',
+  //   state: false
+  // },
+  // {
+  //   text: 'sideMenu.dates',
+  //   icon: 'fa-user',
+  //   routerLink: '/dashboard/dates',
+  //   state: false
+  // },
+  // {
+  //   id: 'suit',
   //   text: 'Suit',
   //   icon: 'fa-suitcase',
   //   state: false,

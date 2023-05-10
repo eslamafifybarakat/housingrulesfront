@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { NotificationComponent } from './components/header/components/notification/notification.component';
+import { SkeletonComponent } from './components/skeleton/skeleton.component';
 
 
 const allSharedComponents = [
@@ -30,6 +31,7 @@ const allSharedComponents = [
   UploadImageComponent,
   FileUploadComponent,
   CountdownComponent,
+  SkeletonComponent,
   UserInfoComponent,
   HeaderComponent,
   FooterComponent,

@@ -43,6 +43,10 @@
       min-width: 100% !important;
     }
   }
+
+  .p-dialog {
+    min-width: 90% !important;
+  }
 }
 
 @media (max-width: 425px) {
@@ -57,9 +61,15 @@
   .flex-sm-wrap {
     flex-wrap: wrap !important;
   }
+  .p-dialog {
+    min-width: 90% !important;
+  }
 }
 
 @media (max-width: 375px) {
+  .p-dialog {
+    min-width: 95% !important;
+  }
 }
 
 @media (max-width: 320px) {
