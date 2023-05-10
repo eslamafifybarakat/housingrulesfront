@@ -1,13 +1,13 @@
 import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
 import { ConfirmPasswordValidator } from 'src/app/shared/configs/confirm-password-validator';
-import { SupervisorsService } from './../../../../services/supervisors.service';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
+import { SupervisorsService } from './../../../../services/supervisors.service';
 import { PublicService } from './../../../../../shared/services/public.service';
 import { patterns } from './../../../../../shared/configs/patternValidations';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DriversService } from './../../../../services/drivers.service';
-import { TanksService } from './../../../../services/tanks.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { TanksService } from './../../../../services/tanks.service';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -141,12 +141,12 @@ export class AddEditDriverComponent implements OnInit {
           }
           this.isLoadingSupervisors = false;
         } else {
-          res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
           this.isLoadingSupervisors = false;
         }
       },
       (err: any) => {
-        err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
         this.isLoadingSupervisors = false;
       });
     this.cdr?.detectChanges();
@@ -191,12 +191,12 @@ export class AddEditDriverComponent implements OnInit {
           }
           this.isLoadingTanks = false;
         } else {
-          res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
           this.isLoadingTanks = false;
         }
       },
       (err: any) => {
-        err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
         this.isLoadingTanks = false;
       });
     this.cdr?.detectChanges();
@@ -236,12 +236,12 @@ export class AddEditDriverComponent implements OnInit {
           this.patchValue();
           this.isFullLoading = false;
         } else {
-          res?.message ? this.alertsService.openSnackBar(res?.message) : '';
+          res?.message ? this.alertsService.openSweetAlert('info', res?.message) : '';
           this.isFullLoading = false;
         }
       },
       (err: any) => {
-        err?.message ? this.alertsService.openSnackBar(err?.message) : '';
+        err?.message ? this.alertsService.openSweetAlert('error', err?.message) : '';
         this.isFullLoading = false;
       });
     this.cdr.detectChanges();
@@ -263,12 +263,12 @@ export class AddEditDriverComponent implements OnInit {
       myObject['supervisorId'] = this.modalForm?.value?.supervisor?.id;
       myObject['tankId'] = this.modalForm?.value?.tank?.id;
       myObject['driverStatus'] = this.modalForm?.value?.driverStatus?.value;
+      myObject['mobilePhone'] = this.modalForm?.value?.phone;
       // myObject['driverStatus'] = this.modalForm?.value?.driverStatus?.value;
-      // myObject['mobile_phone'] = this.modalForm?.value?.phone;
-      // if (!this.isEdit) {
-      //   myObject['password'] = this.modalForm?.value?.password;
-      //   myObject['confirmPassword'] = this.modalForm?.value?.confirmPassword;
-      // }
+      if (!this.isEdit) {
+        myObject['password'] = this.modalForm?.value?.password;
+        myObject['confirmPassword'] = this.modalForm?.value?.confirmPassword;
+      }
       if (this.isEdit) {
         myObject['id'] = this.driverId;
         myObject['lastModifiedBy'] = 0;
@@ -279,16 +279,17 @@ export class AddEditDriverComponent implements OnInit {
       this.publicService?.show_loader?.next(true);
       this.driversService?.addOrUpdateDriver(myObject, this.driverId ? this.driverId : null)?.subscribe(
         (res: any) => {
-          if (res?.code == 200) {
+          if (res?.statusCode == 200 && res?.isSuccess == true) {
             this.ref?.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
+            res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
           } else {
-            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+            res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
             this.publicService?.show_loader?.next(false);
           }
         },
         (err: any) => {
-          err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
+          err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
           this.publicService?.show_loader?.next(false);
         });
     } else {

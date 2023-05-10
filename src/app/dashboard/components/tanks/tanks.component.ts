@@ -91,6 +91,7 @@ export class TanksComponent implements OnInit {
               id: tank?.id ? tank?.id : null,
               name: tank?.name ? tank?.name : '',
               tankSize: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.' + sizeTank),
+              tankSizeVal: tank?.tankSize ? tank?.tankSize : '',
               palateNo: tank?.palateNo ? tank?.palateNo : '',
               isWorking: isWorking,
               isAvailable: tank?.isAvailable ? true : false

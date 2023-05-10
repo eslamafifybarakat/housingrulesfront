@@ -36,7 +36,7 @@ export class DriversService {
 
   addOrUpdateDriver(data: any, id?: number): Observable<any> {
     if (id) {
-      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.drivers?.updateDriver}`, data);
+      return this.http?.put<any[]>(`${this.baseUrl}/${roots?.dashboard?.drivers?.updateDriver}`, data);
     } else {
       return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.drivers?.createDriver}`, data);
     }

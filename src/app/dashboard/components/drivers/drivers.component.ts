@@ -53,9 +53,9 @@ export class DriversComponent implements OnInit {
 
       { field: 'tanks', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), filter: true, type: 'filterArray', dataType: 'array', list: 'tanks', placeholder: this.publicService?.translateTextFromJson('placeholder.tank'), label: this.publicService?.translateTextFromJson('labels.tank') },
       { field: 'supervisors', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), filter: true, type: 'filterArray', dataType: 'array', list: 'supervisors', placeholder: this.publicService?.translateTextFromJson('placeholder.supervisor'), label: this.publicService?.translateTextFromJson('labels.supervisor') },
-      // { field: 'mobile_phone', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
+      { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
 
-      { field: 'driver_status', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), filter: true, type: 'status', list: 'driverStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.driverStatus'), label: this.publicService?.translateTextFromJson('labels.driverStatus') },
+      { field: 'driverStatus', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), filter: true, type: 'status', list: 'driverStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.driverStatus'), label: this.publicService?.translateTextFromJson('labels.driverStatus') },
     ];
 
     this.getAllDrivers();
@@ -66,20 +66,20 @@ export class DriversComponent implements OnInit {
     this.driversService?.getDriversList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
       .pipe(
         map((res: any) => {
-          this.driversCount = res?.data?.pagination?.total;
+          this.driversCount = res?.total;
           this.pagesCount = Math.ceil(this.driversCount / this.perPage);
           let arr: any = [];
-          res?.data?.data ? res?.data?.data.forEach((driver: any) => {
+          res?.data ? res?.data?.forEach((driver: any) => {
             arr.push({
               id: driver?.id ? driver?.id : null,
               name: driver?.name ? driver?.name : '',
-              driver_status: driver?.driver_status ? driver?.driver_status : null,
-              mobile_phone: driver?.mobile_phone ? driver?.mobile_phone : '',
+              driverStatus: driver?.driverStatus ? driver?.driverStatus : null,
+              mobileNumber: driver?.mobileNumber ? driver?.mobileNumber : '',
               tanks: driver?.tanks ? driver?.tanks : [],
               supervisors: driver?.supervisors ? driver?.supervisors : []
             });
           }) : '';
-          // this.driversList$ = arr;
+          this.driversList$ = arr;
         }),
         finalize(() => {
           this.loadingIndicator = false;
@@ -93,15 +93,15 @@ export class DriversComponent implements OnInit {
       ).subscribe((res: any) => {
       });
 
-    let data: any = [
-      { id: 1, name: 'Celine', driver_status: 'available', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
-      { id: 2, name: 'nour', driver_status: 'available', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
-      { id: 3, name: 'lorena', driver_status: 'busy', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
-      { id: 4, name: 'Ahmed', driver_status: 'available', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
-      { id: 5, name: 'Ali', driver_status: 'busy', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
-      { id: 6, name: 'Kareem', driver_status: 'far', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
-    ];
-    this.driversList$ = data;
+    // let data: any = [
+    //   { id: 1, name: 'Celine', driver_status: 'available', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
+    //   { id: 2, name: 'nour', driver_status: 'available', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
+    //   { id: 3, name: 'lorena', driver_status: 'busy', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
+    //   { id: 4, name: 'Ahmed', driver_status: 'available', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
+    //   { id: 5, name: 'Ali', driver_status: 'busy', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
+    //   { id: 6, name: 'Kareem', driver_status: 'far', mobile_phone: '65667898', tanks: [{ name: 'mohamed' }], supervisors: [{ name: 'nour' }, { name: 'kareem' }] },
+    // ];
+    // this.driversList$ = data;
   }
   getDrivers(): void {
     let arr: any = this.driversList$
@@ -154,29 +154,26 @@ export class DriversComponent implements OnInit {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getDrivers();
+        this.getAllDrivers();
       }
     });
   }
   deleteItem(item: any): void {
-    console.log(item);
     if (item?.confirmed) {
       this.publicService?.show_loader.next(true);
-      console.log('ff');
-
       this.driversService?.deleteDriverId(item?.item?.id)?.subscribe(
         (res: any) => {
           if (res?.code === 200) {
-            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+            res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
             this.getAllDrivers();
             this.publicService?.show_loader?.next(false);
           } else {
-            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+            res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
             this.publicService?.show_loader?.next(false);
           }
         },
         (err) => {
-          err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
+          err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
           this.publicService?.show_loader?.next(false);
         });
     }
