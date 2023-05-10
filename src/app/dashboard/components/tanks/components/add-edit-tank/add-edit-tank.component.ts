@@ -21,7 +21,9 @@ export class AddEditTankComponent implements OnInit {
   isEdit: boolean = false;
   tankId: any;
 
-  tanksSize: any = [{ value: 0 }, { value: 1 }, { value: 2 }];
+  tanksSize: any = [{ value: 0,name : this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size13') },
+   { value: 1,name : this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
+   { value: 2,name : this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
   isLoadingTanksSize: boolean = false;
 
   constructor(
@@ -38,8 +40,6 @@ export class AddEditTankComponent implements OnInit {
 
   ngOnInit(): void {
     this.modalData = this.config?.data;
-    console.log(this.modalData);
-
     if (this.modalData?.item?.id) {
       this.tankId = this.modalData?.item?.id;
     }

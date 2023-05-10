@@ -284,7 +284,12 @@
       "tanks": "Tanks",
       "addTank": "Add tank",
       "editTank": "Edit tank",
-      "tankDetails": "Tank details"
+      "tankDetails": "Tank details",
+      "TankSize": {
+        "Size13": "13 Ton",
+        "Size20": "20 Ton",
+        "Size32": "32 Ton"
+      }
     },
     "drivers": {
       "drivers": "Drivers",
