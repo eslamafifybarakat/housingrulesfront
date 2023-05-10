@@ -118,4 +118,11 @@ export class PublicService {
     ];
     return arr;
   }
+  getIsWorking(): any {
+    let arr = [
+      { id: 1, value: true, name: this.translateTextFromJson('general.available') },
+      { id: 2, value: false, name: this.translateTextFromJson('general.busy') }
+    ];
+    return arr;
+  }
 }

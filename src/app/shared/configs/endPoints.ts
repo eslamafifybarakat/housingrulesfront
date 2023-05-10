@@ -6,7 +6,7 @@ export const roots = {
   },
   dashboard: {
     tanks: {
-      tanksList: 'tanks',
+      tanksList: 'Tanks/GetAllAsync',
       tankToggleStatus: 'switch_status_tanks'
     },
     drivers: {

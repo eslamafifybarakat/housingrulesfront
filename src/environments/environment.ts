@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
 
-  apiUrl: "http://144.24.208.170:8000",
-  publicUrl: "http://144.24.208.170:8000"
+  apiUrl: " http://qa-tms.qatarcentral.cloudapp.azure.com/api",
+  publicUrl: " http://qa-tms.qatarcentral.cloudapp.azure.com/api"
 };
 
 /*

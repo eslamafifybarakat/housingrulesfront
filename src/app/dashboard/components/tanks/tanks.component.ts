@@ -1,5 +1,5 @@
-import { TankDetailsComponent } from './components/tank-details/tank-details.component';
 import { AddEditTankComponent } from './components/add-edit-tank/add-edit-tank.component';
+import { TankDetailsComponent } from './components/tank-details/tank-details.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -43,13 +43,16 @@ export class TanksComponent implements OnInit {
     private publicService: PublicService,
     private dialogService: DialogService,
     private tanksService: TanksService,
-    private cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.tableHeaders = [
       { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
+      { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'palateNo', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.palateNo'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.palateNo'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking') },
+      { field: 'isAvailable', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
 
     this.getAllTanks();
@@ -60,14 +63,30 @@ export class TanksComponent implements OnInit {
     this.tanksService?.getTanksList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
       .pipe(
         map((res: any) => {
-          this.tanksCount = res?.data?.pagination?.total;
+          this.tanksCount = res?.total;
           this.pagesCount = Math.ceil(this.tanksCount / this.perPage);
           let arr: any = [];
-          res?.data?.data ? res?.data?.data.forEach((tank: any) => {
+
+          let workingItems: any = [];
+          workingItems = this.publicService?.getIsWorking();
+          console.log(workingItems);
+
+          res?.data ? res?.data?.forEach((tank: any) => {
+            let isWorkingArr: any = [];
+            console.log(tank?.isWorking);
+            tank?.isWorking ? workingItems?.forEach((element: any) => {
+              if (element?.value == tank?.isWorking) {
+                isWorkingArr?.push(element);
+              }
+            }) : '';
+            console.log(isWorkingArr);
             arr.push({
               id: tank?.id ? tank?.id : null,
               name: tank?.name ? tank?.name : '',
-              is_active: tank?.is_active ? tank?.is_active : false
+              tankSize: tank?.tankSize ? tank?.tankSize : '0',
+              palateNo: tank?.palateNo ? tank?.palateNo : '',
+              isWorking: tank?.isWorking ? isWorkingArr : [],
+              isAvailable: tank?.isAvailable ? true : false
             });
           }) : '';
           this.tanksList$ = arr;
@@ -84,15 +103,15 @@ export class TanksComponent implements OnInit {
       ).subscribe((res: any) => {
       });
 
-    let data: any = [
-      { id: 1, name: 'Celine', is_active: true },
-      { id: 2, name: 'nour', is_active: true },
-      { id: 3, name: 'lorena', is_active: true },
-      { id: 4, name: 'Ahmed', is_active: true },
-      { id: 5, name: 'Ali', is_active: true },
-      { id: 6, name: 'Kareem', is_active: true },
-    ];
-    this.tanksList$ = data;
+    // let data: any = [
+    //   { id: 1, name: 'Celine', isAvailable: true },
+    //   { id: 2, name: 'nour', isAvailable: true },
+    //   { id: 3, name: 'lorena', isAvailable: true },
+    //   { id: 4, name: 'Ahmed', isAvailable: true },
+    //   { id: 5, name: 'Ali', isAvailable: true },
+    //   { id: 6, name: 'Kareem', isAvailable: true },
+    // ];
+    // this.tanksList$ = data;
   }
   getTanks(): void {
     let arr: any = this.tanksList$
