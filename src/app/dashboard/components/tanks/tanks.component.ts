@@ -24,7 +24,7 @@ export class TanksComponent implements OnInit {
   tableHeaders: any = [];
 
   page: number = 1;
-  perPage: number = 5;
+  perPage: number = 100000;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
 
@@ -69,27 +69,26 @@ export class TanksComponent implements OnInit {
 
           let workingItems: any = [];
           workingItems = this.publicService?.getIsWorking();
-          console.log(workingItems);
-
           res?.data ? res?.data?.forEach((tank: any) => {
             let isWorking: any = '';
-            console.log(tank?.isWorking);
-            tank?.isWorking ? workingItems?.forEach((element: any) => {
-              if (element?.value == tank?.isWorking) {
-                isWorking = element?.name;
-              }
-            }) : '';
-            console.log(isWorking);
+            if (tank?.isWorking == true) {
+              isWorking = workingItems[1]?.name;
+            } else {
+              isWorking = workingItems[0]?.name;
+            }
+
             arr.push({
               id: tank?.id ? tank?.id : null,
               name: tank?.name ? tank?.name : '',
               tankSize: tank?.tankSize ? tank?.tankSize : '0',
               palateNo: tank?.palateNo ? tank?.palateNo : '',
-              isWorking: tank?.isWorking ? isWorking : '',
+              isWorking: isWorking,
               isAvailable: tank?.isAvailable ? true : false
             });
           }) : '';
+          console.log(arr);
           this.tanksList$ = arr;
+
         }),
         finalize(() => {
           this.loadingIndicator = false;
