@@ -62,9 +62,21 @@
           <div class="beautiful-radius"></div>
           <a class="aside-nav-link position-relative d-flex align-items-center text-white-color" [id]="item?.id"
             [class.justify-content-center]="!collapsed" (click)="handelClick(item)">
+            <ng-container *ngIf="item?.id=='dashboard'; else elseTemplate">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-grid aside-nav-link-icon mx-2 text-center" _ngcontent-kvi-c19="">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+            </ng-container>
+            <ng-template #elseTemplate>
+              <i class="aside-nav-link-icon mx-2 text-center fs-5 fa {{ item.icon }}"
+                [pTooltip]="!collapsed?item?.text:''" tooltipPosition="left"></i>
+            </ng-template>
 
-            <i class="aside-nav-link-icon mx-2 text-center fs-5 fa {{ item.icon }}"
-              [pTooltip]="!collapsed?item?.text:''" tooltipPosition="left"></i>
             <ng-container *ngIf="collapsed">
               <span class="aside-nav-link-text ms-2 text-truncate">{{item?.text}}</span>
             </ng-container>

@@ -408,7 +408,7 @@
                 </ng-container>
                 <ng-container *ngIf="col?.type=='status'">
                   <td>
-                    <span [class]="'item-badge status-' + item?.status">{{item?.status}}</span>
+                    <span [class]="'item-badge status-' +  item[col.field]">{{ item[col.field]}}</span>
                   </td>
                 </ng-container>
                 <ng-container *ngIf="col?.type=='boolean'">
@@ -678,7 +678,7 @@
                 </ng-container>
                 <ng-container *ngIf="col?.type=='status'">
                   <td>
-                    <span [class]="'item-badge status-' + item?.status">{{item?.status}}</span>
+                    <span [class]="'item-badge status-' + item[col.field] "> {{ item[col.field] }}</span>
                   </td>
                 </ng-container>
                 <ng-container *ngIf="col?.type=='boolean'">

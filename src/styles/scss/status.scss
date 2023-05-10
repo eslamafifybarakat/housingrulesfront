@@ -7,15 +7,18 @@
   letter-spacing: 0.3px;
 }
 
-.status-qualified {
+.status-qualified,
+.status-available {
   color: #50cd89;
   background-color: #e8fff3;
 }
-.status-proposal {
+.status-proposal,
+.status-far {
   color: #fdc604;
   background-color: #fff8df;
 }
-.status-unqualified {
+.status-unqualified,
+.status-busy {
   color: #f1416c;
   background-color: #fff5f8;
 }
@@ -27,4 +30,3 @@
   color: #743aef;
   background-color: #f1eef9;
 }
-
