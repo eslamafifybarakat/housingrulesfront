@@ -86,6 +86,8 @@ export class DynamicTableComponent implements OnInit {
 
 
   @Input() enableFilterDriverStatus: boolean = false;
+  @Input() enableFilterIsWorking: boolean = false;
+
   @Input() enableFilterSupervisors: boolean = false;
   @Input() enableFilterTanks: boolean = false;
 
@@ -138,6 +140,7 @@ export class DynamicTableComponent implements OnInit {
   driverStatusList: any = [];
   supervisorsList: any = [];
   tanksList: any = [];
+  isWorkingList: any = [];
 
   assignedUsers: any = [];
   newAssignedUsers: any = [];
@@ -213,8 +216,14 @@ export class DynamicTableComponent implements OnInit {
     if (this.enableFilterDriverStatus == true) {
       this.getDriverStatus();
     }
+    if (this.enableFilterIsWorking == true) {
+      this.getIsWorking();
+    }
     if (this.enableFilterSupervisors == true) {
       this.getAllSupervisors();
+    }
+    if (this.enableFilterTanks == true) {
+      this.getAllTanks();
     }
     if (this.enableFilterTanks == true) {
       this.getAllTanks();
@@ -524,6 +533,10 @@ export class DynamicTableComponent implements OnInit {
 
   getDriverStatus(): any {
     this.driverStatusList = this.publicService.getDriverStatus();
+    this.cdr.detectChanges();
+  }
+  getIsWorking(): any {
+    this.isWorkingList = this.publicService.getIsWorking();
     this.cdr.detectChanges();
   }
   getAllSupervisors(): any {

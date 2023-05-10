@@ -1,11 +1,11 @@
 {
-  "languages":{
-    "english":"English",
-    "arabic":"Arabic"
+  "languages": {
+    "english": "English",
+    "arabic": "Arabic"
   },
   "general": {
-    "filter":"التصفية",
-    "details":"التفاصيل",
+    "filter": "التصفية",
+    "details": "التفاصيل",
     "default": "الافتراضي",
     "notificationExam": "اختبار الإشعار",
     "youtubeLink": "فيديو يوتيوب YouTube",
@@ -141,13 +141,13 @@
     "addSections": "برجاء إضافة أقسام لهذا الكورس",
     "noItemAdded": "لا يوجد عناصر",
     "download": "تنزيل",
-    "allRights":"جميع الحقوق محفوظة 2023",
-    "available":"متاح",
-    "busy":"مشغول",
-"far":"بعيد"
+    "allRights": "جميع الحقوق محفوظة 2023",
+    "available": "متاح",
+    "busy": "مشغول",
+    "far": "بعيد"
   },
-
   "labels": {
+    "isWorking": "متاح للتعين",
     "name": "الاسم",
     "active": "نشط",
     "email": "البريد الإلكتروني",
@@ -156,85 +156,86 @@
     "phoneNumber": "رقم الهاتف",
     "newPassword": "أدخل كلمة المرور الجديدة",
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
-    "userActivation":"تفعيل المستخدم",
-    "tankActivation":"تفعيل الصهريج",
-    "driverActivation":"تفعيل السائق",
-    "supervisorActivation":"تفعيل المشرف",
-    "driverStatus":"حالة السائق",
-    "username":"اسم المستخدم",
-    "supervisor":"المشرف",
-    "mobilePhone":"رقم الهاتف",
-    "tank":"الصهريج",
-    "driver":"السائق",
+    "userActivation": "تفعيل المستخدم",
+    "tankActivation": "تفعيل الصهريج",
+    "driverActivation": "تفعيل السائق",
+    "supervisorActivation": "تفعيل المشرف",
+    "driverStatus": "حالة السائق",
+    "tankSize": "سعة الصهريج",
+    "username": "اسم المستخدم",
+    "supervisor": "المشرف",
+    "mobilePhone": "رقم الهاتف",
+    "tank": "الصهريج",
+    "driver": "السائق",
     "startDate": "تاريخ البدأ",
     "endDate": "تاريخ الإنتهاء",
-    "orderStatus":"حالة الطلب"
+    "orderStatus": "حالة الطلب"
   },
   "placeholder": {
+    "isWorking": "متاح للتعين",
     "email": "أدخل البريد الإلكتروني",
     "password": "أدخل كلمة المرور",
-    "search":"بحث",
+    "search": "بحث",
     "name": "أدخل الاسم",
-    "username":"أدخل اسم المستخدم",
-    "supervisor":"اختر المشرف",
-    "mobilePhone":"أدخل رقم الهاتف",
-    "tank":"اختر الصهريج",
-    "driver":"اختر السائق",
-    "driverStatus":"اختر حالة السائق",
-    "orderStatus":"اختر حالة الطلب"
-
-      },
-      "validations": {
-        "not_valid": "هذه البيانات غير صالحة",
-        "notValidLink": "هذا الرابط غير صالح",
-        "name_length": "يجب أن يكون الحد الأدنى لطول الاسم 3",
+    "username": "أدخل اسم المستخدم",
+    "supervisor": "اختر المشرف",
+    "mobilePhone": "أدخل رقم الهاتف",
+    "tank": "اختر الصهريج",
+    "driver": "اختر السائق",
+    "driverStatus": "اختر حالة السائق",
+    "tankSize": "اختر سعة الصهريج",
+    "orderStatus": "اختر حالة الطلب"
+  },
+  "validations": {
+    "not_valid": "هذه البيانات غير صالحة",
+    "notValidLink": "هذا الرابط غير صالح",
+    "name_length": "يجب أن يكون الحد الأدنى لطول الاسم 3",
     "pass_length": "يجب أن يكون كلمة المرور من 8 إلى 20",
-    "length":"الحد الادني 3 حروف",
-        "requiredName": "الاسم مطلوب",
+    "length": "الحد الادني 3 حروف",
+    "requiredName": "الاسم مطلوب",
     "username": "اسم المستخدم مطلوب",
-        "requiredEmail": "البريد الإلكتروني مطلوب",
-        "requiredAddress": "العنوان مطلوب",
-        "emailNotCorrect": "البريد الإلكتروني ليس نمط بريد إلكتروني صحيحًا",
-        "requiredPassword": "كلمة المرور مطلوبة",
-        "requiredConfirmPassword": "تأكيد كلمة المرور مطلوبة",
-        "passwordPattern":"يجب أن تتكون كلمة المرور الخاصة بك من 8 أحرف أو أكثر ، وتحتوي على أحرف كبيرة وصغيرة وأرقام وحرف خاص واحد على الأقل (!٪ *؟ & | ...)",
-        "not_matched": "تأكيد كلمه المرور غير متطابقة",
-        "PickPassword": "اختار كلمه سر",
+    "requiredEmail": "البريد الإلكتروني مطلوب",
+    "requiredAddress": "العنوان مطلوب",
+    "emailNotCorrect": "البريد الإلكتروني ليس نمط بريد إلكتروني صحيحًا",
+    "requiredPassword": "كلمة المرور مطلوبة",
+    "requiredConfirmPassword": "تأكيد كلمة المرور مطلوبة",
+    "passwordPattern": "يجب أن تتكون كلمة المرور الخاصة بك من 8 أحرف أو أكثر ، وتحتوي على أحرف كبيرة وصغيرة وأرقام وحرف خاص واحد على الأقل (!٪ *؟ & | ...)",
+    "not_matched": "تأكيد كلمه المرور غير متطابقة",
+    "PickPassword": "اختار كلمه سر",
     "oneLowercase": "حرف صغير واحد على الأقل",
     "oneUppercase": "حرف كبير واحد على الأقل",
     "oneNumeric": "رقم واحد على الأقل",
     "MinimumCharacters": "5 أحرف على الأقل",
     "startDate": "تاريخ البدء مطلوب",
     "endDate": "تاريخ اإلانتهاء مطلوب",
-    "orderStatus":"حالة الطلب مطلوبة"
-      },
-      "form": {
-        "welcomeBack":"مرحبًا بعودتك",
-        "enterDetails":"مرحبًا بعودتك! الرجاء إدخال التفاصيل الخاصة بك",
-        "enterRegisterDetails":"مرحبًا! الرجاء إدخال التفاصيل الخاصة بك",
-        "registration": "إنشاء حساب",
-        "signIn": "تسجيل الدخول",
-        "signUp": "انشاء حساب",
-        "logOut": "تسجيل الخروج",
-        "send":"إرسال",
-        "no_account": "ليس لديك حساب؟",
-        "have_account": "هل لديك حساب بالفعل؟",
-        "remember": "تذكرني",
-        "forget_password": "هل نسيت كلمة المرور؟",
-        "forgetPasswordDetails":"لا تقلق ، سنرسل لك تعليمات إعادة التعيين.",
-        "successfulRegistration":"تسجيل ناجح",
-        "createdSuccessfully":"تم إنشاء حسابك بنجاح",
-        "goHome":"إذهب الي الرئيسية",
-        "resetPassword":"تغيير كلمة المرور"
-
-      },
-      "sideMenu":{
-        "dashboard":"لوحة التحكم",
-        "tanks":"الصهاريج",
-        "driver":"السائقين",
-        "supervisors":"المشرفين",
-        "orders":"الطلبات"
-          },
+    "orderStatus": "حالة الطلب مطلوبة"
+  },
+  "form": {
+    "welcomeBack": "مرحبًا بعودتك",
+    "enterDetails": "مرحبًا بعودتك! الرجاء إدخال التفاصيل الخاصة بك",
+    "enterRegisterDetails": "مرحبًا! الرجاء إدخال التفاصيل الخاصة بك",
+    "registration": "إنشاء حساب",
+    "signIn": "تسجيل الدخول",
+    "signUp": "انشاء حساب",
+    "logOut": "تسجيل الخروج",
+    "send": "إرسال",
+    "no_account": "ليس لديك حساب؟",
+    "have_account": "هل لديك حساب بالفعل؟",
+    "remember": "تذكرني",
+    "forget_password": "هل نسيت كلمة المرور؟",
+    "forgetPasswordDetails": "لا تقلق ، سنرسل لك تعليمات إعادة التعيين.",
+    "successfulRegistration": "تسجيل ناجح",
+    "createdSuccessfully": "تم إنشاء حسابك بنجاح",
+    "goHome": "إذهب الي الرئيسية",
+    "resetPassword": "تغيير كلمة المرور"
+  },
+  "sideMenu": {
+    "dashboard": "لوحة التحكم",
+    "tanks": "الصهاريج",
+    "driver": "السائقين",
+    "supervisors": "المشرفين",
+    "orders": "الطلبات"
+  },
   "user_info": {
     "my_profile": "الملف الشخصي",
     "my_performance": "أدائي",
@@ -252,52 +253,54 @@
     "logout": "تسجيل خروج"
   },
   "dashboard": {
-    "dashboard":"لوحة التحكم",
-
+    "dashboard": "لوحة التحكم",
     "total": "المجموع",
-    "createNew":"انشاء جديد",
+    "createNew": "انشاء جديد",
     "tableHeader": {
+      "isWorking": "متاح للتعين",
+      "palateNo": "رقم اللوحة",
       "actions": "الإجراءات",
       "name": "الإسم",
-      "status":"الحالة",
-      "active":"نشط",
-      "driverStatus":"حالة السائق",
-      "orderNumber":"رقم الطلب",
-      "requestOrigin":"اصل الطلب",
-      "entityType":"نوع الجهة",
-      "customerName":"اسم العميل",
-      "customerNumber":"رقم العميل",
-      "websiteLink":"رابط الموقع",
-      "supervisor":"المشرف",
-      "driver":"السائق",
-      "orderStatus":"حالة الطلب",
-      "supervisors":"المشرفين",
-      "tanks":"الصهاريج",
-    "mobilePhone":"رقم الهاتف"
+      "status": "الحالة",
+      "active": "نشط",
+      "driverStatus": "حالة السائق",
+      "tankSize": "سعة الصهريج",
+      "orderNumber": "رقم الطلب",
+      "requestOrigin": "اصل الطلب",
+      "entityType": "نوع الجهة",
+      "customerName": "اسم العميل",
+      "customerNumber": "رقم العميل",
+      "websiteLink": "رابط الموقع",
+      "supervisor": "المشرف",
+      "driver": "السائق",
+      "orderStatus": "حالة الطلب",
+      "supervisors": "المشرفين",
+      "tanks": "الصهاريج",
+      "mobilePhone": "رقم الهاتف"
     },
-    "tanks":{
-      "tanks":"الصهاريج",
-  "addTank":"إضافة صهريج",
-  "editTank":"تعديل صهريج",
-"tankDetails":"تفاصيل الصهريج"
+    "tanks": {
+      "tanks": "الصهاريج",
+      "addTank": "إضافة صهريج",
+      "editTank": "تعديل صهريج",
+      "tankDetails": "تفاصيل الصهريج"
     },
-    "drivers":{
-      "drivers":"السائقين",
-  "addDriver":"إضافة سائق",
-  "editDriver":"تعديل سائق",
-  "driverDetails":"تفاصيل السائق"
+    "drivers": {
+      "drivers": "السائقين",
+      "addDriver": "إضافة سائق",
+      "editDriver": "تعديل سائق",
+      "driverDetails": "تفاصيل السائق"
     },
-    "supervisors":{
-      "supervisors":"المشرفين",
-  "addSupervisor":"إضافة مشرف",
-  "editSupervisor":"تعديل المشرف",
-  "supervisorDetails":"تفاصيل المشرف"
+    "supervisors": {
+      "supervisors": "المشرفين",
+      "addSupervisor": "إضافة مشرف",
+      "editSupervisor": "تعديل المشرف",
+      "supervisorDetails": "تفاصيل المشرف"
     },
-    "orders":{
-      "orders":"الطلبات",
-  "addOrder":"إضافة طلب",
-  "editOrder":"تعديل الطلب",
-  "orderDetails":"تفاصيل الطلب"
+    "orders": {
+      "orders": "الطلبات",
+      "addOrder": "إضافة طلب",
+      "editOrder": "تعديل الطلب",
+      "orderDetails": "تفاصيل الطلب"
     },
     "usersList": {
       "allUsers": "كل المستخدمين",
@@ -319,7 +322,6 @@
         "lastSeen": "آخر ظهور",
         "status": "الحالة",
         "actions": "إجراءات"
-
       },
       "isTotal": "يوجد إجمالا",
       "user": "مستخدم",
@@ -327,26 +329,25 @@
       "youChoose": "قمت بإختيار"
     }
   },
-
-  "welcome":{
-    "hi":"أهلاً",
-    "welcomeBack":"مرحبًا بعودتك!",
-    "pageIsDesigned":"تم تصميم هذه الصفحة لإعطاء بعض المعلومات الهامة حول الموقع. دعونا نجعل بعض الوقت معا!",
-    "congratulations":"تهانينا",
-    "youHavePermission":"لديك إذن للقيام بالمزيد من العمليات",
-    "viewProfile":"عرض الصفحة الشخصية",
-    "banks":"البنوك",
-    "users":" المستخدمين",
-    "articles":"المقالات",
-    "views":"المشاهدات",
-    "viewHome":"عرض الصفحة الرئيسية",
-    "targets":"الاهداف",
-    "exams":"الاحتبارات",
-    "courses":"عدد الدورات",
-    "articleNotes":"ملاحظات المقالات",
-    "summary":"الملخص",
-    "PercentageOfCourses":"نسبة الدورات",
-    "CoursesViewers":"مشاهدين الدورات"
+  "welcome": {
+    "hi": "أهلاً",
+    "welcomeBack": "مرحبًا بعودتك!",
+    "pageIsDesigned": "تم تصميم هذه الصفحة لإعطاء بعض المعلومات الهامة حول الموقع. دعونا نجعل بعض الوقت معا!",
+    "congratulations": "تهانينا",
+    "youHavePermission": "لديك إذن للقيام بالمزيد من العمليات",
+    "viewProfile": "عرض الصفحة الشخصية",
+    "banks": "البنوك",
+    "users": " المستخدمين",
+    "articles": "المقالات",
+    "views": "المشاهدات",
+    "viewHome": "عرض الصفحة الرئيسية",
+    "targets": "الاهداف",
+    "exams": "الاحتبارات",
+    "courses": "عدد الدورات",
+    "articleNotes": "ملاحظات المقالات",
+    "summary": "الملخص",
+    "PercentageOfCourses": "نسبة الدورات",
+    "CoursesViewers": "مشاهدين الدورات"
   },
   "primeng": {
     "startsWith": "إبدا ب",
@@ -379,11 +380,61 @@
     "choose": "إختر",
     "upload": "رفع",
     "cancel": "إلغاء",
-    "dayNames": ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
-    "dayNamesShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    "dayNamesMin": ["Su","Mo","Tu","We","Th","Fr","Sa"],
-    "monthNames": ["يناير"," فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر"," نوفمبر","ديسمبر"],
-    "monthNamesShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "dayNames": [
+      "الأحد",
+      "الإثنين",
+      "الثلاثاء",
+      "الأربعاء",
+      "الخميس",
+      "الجمعة",
+      "السبت"
+    ],
+    "dayNamesShort": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ],
+    "dayNamesMin": [
+      "Su",
+      "Mo",
+      "Tu",
+      "We",
+      "Th",
+      "Fr",
+      "Sa"
+    ],
+    "monthNames": [
+      "يناير",
+      " فبراير",
+      "مارس",
+      "أبريل",
+      "مايو",
+      "يونيو",
+      "يوليو",
+      "أغسطس",
+      "سبتمبر",
+      "أكتوبر",
+      " نوفمبر",
+      "ديسمبر"
+    ],
+    "monthNamesShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
     "dateFormat": "mm/dd/yy",
     "firstDayOfWeek": 0,
     "today": "اليوم",
@@ -394,5 +445,5 @@
     "passwordPrompt": "أدخل كلمة المرور",
     "emptyMessage": "لم يتم العثور على نتائج",
     "emptyFilterMessage": "لم يتم العثور على نتائج"
-}
+  }
 }

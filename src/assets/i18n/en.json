@@ -1,11 +1,11 @@
 {
-  "languages":{
-    "english":"English",
-    "arabic":"Arabic"
+  "languages": {
+    "english": "English",
+    "arabic": "Arabic"
   },
   "general": {
-    "filter":"Filter",
-    "details":"Details",
+    "filter": "Filter",
+    "details": "Details",
     "default": "Default",
     "youtubeLink": "Video YouTube",
     "uploadVideo": "Upload Video",
@@ -140,13 +140,13 @@
     "addSections": "Please add sections to this course",
     "noItemAdded": "There are no items",
     "download": "Download",
-    "allRights":"All rights reserved 2023",
-    "available":"Available",
-    "busy":"Busy",
-"far":"Far"
+    "allRights": "All rights reserved 2023",
+    "available": "Available",
+    "busy": "Busy",
+    "far": "Far"
   },
-
   "labels": {
+    "isWorking": "isWorking",
     "email": "Email",
     "name": "Name",
     "active": "Active",
@@ -154,41 +154,43 @@
     "confirmPassword": "Confirm Password",
     "newPassword": "Enter new password",
     "confirmNewPassword": "Confirm new password",
-    "userActivation":"User activation",
-    "tankActivation":"Tank activation",
-    "driverActivation":"Driver activation",
-    "supervisorActivation":"Supervisor activation",
-    "driverStatus":"Driver status",
-    "username":"Username",
-    "supervisor":"Supervisor",
-    "mobilePhone":"Mobile phone",
-    "tank":"Tank",
-    "driver":"Driver",
+    "userActivation": "User activation",
+    "tankActivation": "Tank activation",
+    "driverActivation": "Driver activation",
+    "supervisorActivation": "Supervisor activation",
+    "driverStatus": "Driver status",
+    "tankSize": "Tank Size",
+    "username": "Username",
+    "supervisor": "Supervisor",
+    "mobilePhone": "Mobile phone",
+    "tank": "Tank",
+    "driver": "Driver",
     "startDate": "Start Date",
     "endDate": "End Date",
-    "orderStatus":"Order status"
+    "orderStatus": "Order status"
   },
   "placeholder": {
+    "isWorking": "isWorking",
     "email": "Enter email address",
     "password": "Enter password",
-    "search":"Search",
+    "search": "Search",
     "name": "Enter name",
-    "username":"Enter username",
-    "supervisor":"Select supervisor",
-    "mobilePhone":"Enter mobile phone",
-    "tank":"Select tank",
-    "driver":"Select driver",
-    "driverStatus":"Select driver status",
-    "orderStatus":"Select order status"
+    "username": "Enter username",
+    "supervisor": "Select supervisor",
+    "mobilePhone": "Enter mobile phone",
+    "tank": "Select tank",
+    "driver": "Select driver",
+    "driverStatus": "Select driver status",
+    "tankSize": "Select tank size",
+    "orderStatus": "Select order status"
   },
-
   "validations": {
     "required_field": "This field is reuired",
     "not_valid": "This data is not vaild",
     "notValidLink": "This link is not vaild",
     "pass_length": "Password length must be 8–20",
     "name_length": "Name min length must be 3",
-    "length":"  Length must be larger than 2",
+    "length": "  Length must be larger than 2",
     "requiredName": "Name is required",
     "username": "UserName is required",
     "requiredEmail": "Email is required",
@@ -196,7 +198,7 @@
     "emailNotCorrect": "Email is not correct email pattern",
     "requiredPassword": "Password is required",
     "requiredConfirmPassword": "Confirm password is required",
-    "passwordPattern":"Your password must be 8 or more characters, contains upper & lower case letters, numbers, at least one special character (!%*?&|...)",
+    "passwordPattern": "Your password must be 8 or more characters, contains upper & lower case letters, numbers, at least one special character (!%*?&|...)",
     "not_matched": "Confirm password must match password",
     "PickPassword": "Pick a password",
     "oneLowercase": "At least one lowercase",
@@ -205,33 +207,33 @@
     "MinimumCharacters": "Minimum 5 characters",
     "startDate": "Start date is required",
     "endDate": "End date is required",
-    "orderStatus":"Order status is required"
+    "orderStatus": "Order status is required"
   },
   "form": {
-    "welcomeBack":"Welcome back",
-    "enterDetails":"Welcome back! please enter your details",
-    "enterRegisterDetails":"Welcome! please enter your details",
+    "welcomeBack": "Welcome back",
+    "enterDetails": "Welcome back! please enter your details",
+    "enterRegisterDetails": "Welcome! please enter your details",
     "registration": "Create Account",
     "signIn": "Sign in",
     "signUp": "Sign up",
     "logOut": "Logout",
-    "send":"Send",
+    "send": "Send",
     "no_account": "Don't have an account?",
     "have_account": "Have an account",
     "remember": "Remember Me",
     "forget_password": "Forget Password?",
-    "forgetPasswordDetails":"No worries , we'll send you reset instructions .",
-    "successfulRegistration":"Successful Registration",
-    "createdSuccessfully":"Your account has been created successfully",
-    "goHome":"Go to home",
-    "resetPassword":"Reset password"
+    "forgetPasswordDetails": "No worries , we'll send you reset instructions .",
+    "successfulRegistration": "Successful Registration",
+    "createdSuccessfully": "Your account has been created successfully",
+    "goHome": "Go to home",
+    "resetPassword": "Reset password"
   },
-  "sideMenu":{
-"dashboard":"Dashboard",
-"tanks":"Tanks",
-"driver":"Drivers",
-"supervisors":"Supervisors",
-"orders":"Orders"
+  "sideMenu": {
+    "dashboard": "Dashboard",
+    "tanks": "Tanks",
+    "driver": "Drivers",
+    "supervisors": "Supervisors",
+    "orders": "Orders"
   },
   "user_info": {
     "my_profile": "My Profile",
@@ -250,57 +252,58 @@
     "logout": "Log Out"
   },
   "dashboard": {
-    "dashboard":"Dashboard",
-
-
+    "dashboard": "Dashboard",
     "total": "total",
-    "createNew":"Create new",
+    "createNew": "Create new",
     "tableHeader": {
-      "actions":"Actions",
+      "isWorking": "Is Working",
+      "palateNo": "palate No",
+      "actions": "Actions",
       "name": "Name",
-      "active":"Active",
-      "status":"Status",
-      "driverStatus":"Driver status",
+      "active": "Active",
+      "status": "Status",
+      "driverStatus": "Driver status",
+      "tankSize": "Tank Size",
       "email": "Email",
-      "orderNumber":"Order number",
-      "requestOrigin":"Request origin",
-      "entityType":"Entity type",
-      "customerName":"Customer name",
-      "customerNumber":"Customer number",
-      "websiteLink":"Website link",
-      "supervisor":"Supervisor",
-      "driver":"Driver",
-      "orderStatus":"Order status",
-    "tanks":"Tanks",
-    "supervisors":"Supervisors",
-    "mobilePhone":"Mobile phone"
+      "orderNumber": "Order number",
+      "requestOrigin": "Request origin",
+      "entityType": "Entity type",
+      "customerName": "Customer name",
+      "customerNumber": "Customer number",
+      "websiteLink": "Website link",
+      "supervisor": "Supervisor",
+      "driver": "Driver",
+      "orderStatus": "Order status",
+      "tanks": "Tanks",
+      "supervisors": "Supervisors",
+      "mobilePhone": "Mobile phone"
     },
-    "tanks":{
-    "tanks":"Tanks",
-"addTank":"Add tank",
-"editTank":"Edit tank",
-"tankDetails":"Tank details"
-  },
-  "drivers":{
-    "drivers":"Drivers",
-"addDriver":"Add driver",
-"editDriver":"Edit driver",
-"driverDetails":"Driver details"
-  },
-  "supervisors":{
-    "supervisors":"Supervisors",
-"addSupervisor":"Add supervisor",
-"editSupervisor":"Edit supervisor",
-"supervisorDetails":"Supervisor details"
-  },
-  "orders":{
-    "orders":"Orders",
-"addOrder":"Add order",
-"editOrder":"Edit order",
-"orderDetails":"Order details"
-  },
+    "tanks": {
+      "tanks": "Tanks",
+      "addTank": "Add tank",
+      "editTank": "Edit tank",
+      "tankDetails": "Tank details"
+    },
+    "drivers": {
+      "drivers": "Drivers",
+      "addDriver": "Add driver",
+      "editDriver": "Edit driver",
+      "driverDetails": "Driver details"
+    },
+    "supervisors": {
+      "supervisors": "Supervisors",
+      "addSupervisor": "Add supervisor",
+      "editSupervisor": "Edit supervisor",
+      "supervisorDetails": "Supervisor details"
+    },
+    "orders": {
+      "orders": "Orders",
+      "addOrder": "Add order",
+      "editOrder": "Edit order",
+      "orderDetails": "Order details"
+    },
     "usersList": {
-      "users":"Users",
+      "users": "Users",
       "allUsers": "all users",
       "addUser": "Add User",
       "uploadUsersFile": "Upload users file",
@@ -312,6 +315,8 @@
       "CreateSetOfQuestions": "Create a set of questions",
       "CreateNewQuestion": "Create a new question",
       "tableHeader": {
+        "isWorking": "isWorking",
+        "palateNo": "palate No",
         "id": "Id",
         "name": "Name",
         "email": "Email",
@@ -328,29 +333,26 @@
       "youChoose": "You choose"
     }
   },
-
-
-  "welcome":{
-    "hi":"Hi",
-    "welcomeBack":"Welcome Back!",
-    "pageIsDesigned":"This page is designed to give some important information about the website. Let's make someting together!",
-    "congratulations":"Congratulations",
-    "youHavePermission":"You have permission to do more operation",
-    "viewProfile":"View profile",
-    "banks":"Banks",
-    "users":"Users",
-    "articles":"Articles",
-    "views":"Views",
-    "viewHome":"View home page",
-    "targets":"Targets",
-    "courses":"Courses Number",
-    "exams":"Exams",
-    "articleNotes":"Articles Notes",
-    "summary":"Summary",
-    "PercentageOfCourses":"Percentage % of courses",
-    "CoursesViewers":"Courses viewers"
+  "welcome": {
+    "hi": "Hi",
+    "welcomeBack": "Welcome Back!",
+    "pageIsDesigned": "This page is designed to give some important information about the website. Let's make someting together!",
+    "congratulations": "Congratulations",
+    "youHavePermission": "You have permission to do more operation",
+    "viewProfile": "View profile",
+    "banks": "Banks",
+    "users": "Users",
+    "articles": "Articles",
+    "views": "Views",
+    "viewHome": "View home page",
+    "targets": "Targets",
+    "courses": "Courses Number",
+    "exams": "Exams",
+    "articleNotes": "Articles Notes",
+    "summary": "Summary",
+    "PercentageOfCourses": "Percentage % of courses",
+    "CoursesViewers": "Courses viewers"
   },
-
   "primeng": {
     "startsWith": "Starts with",
     "contains": "Contains",
@@ -382,11 +384,61 @@
     "choose": "Choose",
     "upload": "Upload",
     "cancel": "Cancel",
-    "dayNames": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    "dayNamesShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    "dayNamesMin": ["Su","Mo","Tu","We","Th","Fr","Sa"],
-    "monthNames": ["January","February","March","April","May","June","July","August","September","October","November","December"],
-    "monthNamesShort": ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "dayNames": [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "dayNamesShort": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ],
+    "dayNamesMin": [
+      "Su",
+      "Mo",
+      "Tu",
+      "We",
+      "Th",
+      "Fr",
+      "Sa"
+    ],
+    "monthNames": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthNamesShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
     "dateFormat": "mm/dd/yy",
     "firstDayOfWeek": 0,
     "today": "Today",
@@ -397,5 +449,5 @@
     "passwordPrompt": "Enter a password",
     "emptyMessage": "No results found",
     "emptyFilterMessage": "No results found"
-}
+  }
 }
