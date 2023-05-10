@@ -21,7 +21,7 @@ export class AddEditTankComponent implements OnInit {
   isEdit: boolean = false;
   tankId: any;
 
-  tanksSize: any = [{ value: 1 }, { value: 2 }, { value: 10 }];
+  tanksSize: any = [{ value: 0 }, { value: 1 }, { value: 2 }];
   isLoadingTanksSize: boolean = false;
 
   constructor(
