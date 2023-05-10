@@ -49,7 +49,11 @@
                     {{'validations.required_field'|translate}}
                   </span>
                 </ng-container>
-
+                <ng-container *ngIf="formControls?.username?.errors?.['pattern']">
+                  <span class="text-danger fs-8">
+                    {{'validations.not_valid'|translate}}
+                  </span>
+                </ng-container>
                 <ng-container *ngIf="formControls?.username?.errors?.['minlength']">
                   <span class="text-danger fs-8 d-block">
                     {{'validations.name_length'|translate}}

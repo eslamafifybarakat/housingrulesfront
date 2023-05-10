@@ -7,6 +7,7 @@ import { AppRoutes } from '../shared/configs/routes';
 import { NgModule } from '@angular/core';
 import { DriversComponent } from './components/drivers/drivers.component';
 import { SupervisorsComponent } from './components/supervisors/supervisors.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,14 @@ const routes: Routes = [
         component: SupervisorsComponent,
         data: {
           title: 'titles.supervisors',
+          type: 'dashboard'
+        }
+      },
+      {
+        path: AppRoutes?.dashboard?.orders,
+        component: OrdersComponent,
+        data: {
+          title: 'titles.orders',
           type: 'dashboard'
         }
       },

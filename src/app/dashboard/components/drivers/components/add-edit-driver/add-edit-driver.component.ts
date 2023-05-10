@@ -77,6 +77,7 @@ export class AddEditDriverComponent implements OnInit {
       username: ['', {
         validators: [
           Validators.required,
+          Validators?.pattern(patterns?.userName),
           Validators?.minLength(3)], updateOn: "blur"
       }],
       supervisor: ['', {

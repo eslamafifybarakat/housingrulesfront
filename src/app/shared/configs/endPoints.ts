@@ -17,5 +17,8 @@ export const roots = {
       supervisorsList: 'supervisors',
       supervisorToggleStatus: 'switch_status_supervisors'
     },
+    orders: {
+      ordersList: 'orders'
+    },
   }
 }

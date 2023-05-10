@@ -32,7 +32,7 @@ export class SupervisorDetailsComponent implements OnInit {
     this.supervisorsId = this.modalData?.id;
   }
 
-  submit(): void {
+  edit(): void {
     this.ref?.close();
     const ref = this.dialogService?.open(AddEditSupervisorComponent, {
       data: {

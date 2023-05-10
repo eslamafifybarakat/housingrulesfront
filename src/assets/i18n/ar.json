@@ -4,6 +4,7 @@
     "arabic":"Arabic"
   },
   "general": {
+    "filter":"التصفية",
     "details":"التفاصيل",
     "default": "الافتراضي",
     "notificationExam": "اختبار الإشعار",
@@ -160,7 +161,11 @@
     "username":"اسم المستخدم",
     "supervisor":"المشرف",
     "mobilePhone":"رقم الهاتف",
-    "tank":"الصهريج"
+    "tank":"الصهريج",
+    "driver":"السائق",
+    "startDate": "تاريخ البدأ",
+    "endDate": "تاريخ الإنتهاء",
+    "orderStatus":"حالة الطلب"
   },
   "placeholder": {
     "email": "أدخل البريد الإلكتروني",
@@ -171,9 +176,14 @@
     "supervisor":"اختر المشرف",
     "mobilePhone":"أدخل رقم الهاتف",
     "tank":"اختر الصهريج",
-    "driverStatus":"اختر حالة السائق"
+    "driver":"اختر السائق",
+    "driverStatus":"اختر حالة السائق",
+    "orderStatus":"اختر حالة الطلب"
+
       },
       "validations": {
+        "not_valid": "هذه البيانات غير صالحة",
+        "notValidLink": "هذا الرابط غير صالح",
         "name_length": "يجب أن يكون الحد الأدنى لطول الاسم 3",
     "length":"الحد الادني 3 حروف",
         "requiredName": "الاسم مطلوب",
@@ -188,7 +198,10 @@
     "oneLowercase": "حرف صغير واحد على الأقل",
     "oneUppercase": "حرف كبير واحد على الأقل",
     "oneNumeric": "رقم واحد على الأقل",
-    "MinimumCharacters": "5 أحرف على الأقل"
+    "MinimumCharacters": "5 أحرف على الأقل",
+    "startDate": "تاريخ البدء مطلوب",
+    "endDate": "تاريخ اإلانتهاء مطلوب",
+    "orderStatus":"حالة الطلب مطلوبة"
       },
       "form": {
         "welcomeBack":"مرحبًا بعودتك",
@@ -213,7 +226,7 @@
       "sideMenu":{
         "dashboard":"لوحة التحكم",
         "tanks":"الصهاريج",
-        "driver":"السائق",
+        "driver":"السائقين",
         "supervisors":"المشرفين",
         "orders":"الطلبات"
           },
@@ -236,7 +249,6 @@
   "dashboard": {
     "dashboard":"لوحة التحكم",
 
-    "orders":"الطلبات",
     "total": "المجموع",
     "createNew":"انشاء جديد",
     "tableHeader": {
@@ -244,7 +256,16 @@
       "name": "الإسم",
       "status":"الحالة",
       "active":"نشط",
-      "driverStatus":"حالة السائق"
+      "driverStatus":"حالة السائق",
+      "orderNumber":"رقم الطلب",
+      "requestOrigin":"اصل الطلب",
+      "entityType":"نوع الجهة",
+      "customerName":"اسم العميل",
+      "customerNumber":"رقم العميل",
+      "websiteLink":"رابط الموقع",
+      "supervisor":"المشرف",
+      "driver":"السائق",
+      "orderStatus":"حالة الطلب"
     },
     "tanks":{
       "tanks":"الصهاريج",
@@ -263,6 +284,12 @@
   "addSupervisor":"إضافة مشرف",
   "editSupervisor":"تعديل المشرف",
   "supervisorDetails":"تفاصيل المشرف"
+    },
+    "orders":{
+      "orders":"الطلبات",
+  "addOrder":"إضافة طلب",
+  "editOrder":"تعديل الطلب",
+  "orderDetails":"تفاصيل الطلب"
     },
     "usersList": {
       "allUsers": "كل المستخدمين",
@@ -284,6 +311,7 @@
         "lastSeen": "آخر ظهور",
         "status": "الحالة",
         "actions": "إجراءات"
+
       },
       "isTotal": "يوجد إجمالا",
       "user": "مستخدم",

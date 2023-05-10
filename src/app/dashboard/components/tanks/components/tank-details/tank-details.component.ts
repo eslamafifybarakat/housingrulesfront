@@ -1,7 +1,8 @@
 import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
+import { AddEditTankComponent } from './../add-edit-tank/add-edit-tank.component';
 import { PublicService } from './../../../../../shared/services/public.service';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { TanksService } from './../../../../services/tanks.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
@@ -20,6 +21,7 @@ export class TankDetailsComponent implements OnInit {
 
   constructor(
     public checkValidityService: CheckValidityService,
+    private dialogService: DialogService,
     public alertsService: AlertsService,
     public publicService: PublicService,
     private config: DynamicDialogConfig,
@@ -35,27 +37,38 @@ export class TankDetailsComponent implements OnInit {
     this.tankId = this.modalData?.id;
   }
 
-  submit(): void {
-    if (this.tankId) {
-      let data = {
-        name: this.modalData?.name,
-        is_active: this.modalData?.is_active
-      }
-      this.tanksService?.addOrUpdateTank(data, this.tankId ? this.tankId : null)?.subscribe(
-        (res: any) => {
-          if (res?.code == 200) {
-            this.ref.close({ listChanged: true });
-            this.publicService?.show_loader?.next(false);
-          } else {
-            res?.message ? this.alertsService.openSnackBar(res?.message) : '';
-            this.publicService?.show_loader?.next(false);
-          }
-        },
-        (err: any) => {
-          err?.message ? this.alertsService.openSnackBar(err?.message) : '';
-          this.publicService?.show_loader?.next(false);
-        });
-    }
+  edit(): void {
+    // if (this.tankId) {
+    //   let data = {
+    //     name: this.modalData?.name,
+    //     is_active: this.modalData?.is_active
+    //   }
+    //   this.tanksService?.addOrUpdateTank(data, this.tankId ? this.tankId : null)?.subscribe(
+    //     (res: any) => {
+    //       if (res?.code == 200) {
+    //         this.ref.close({ listChanged: true });
+    //         this.publicService?.show_loader?.next(false);
+    //       } else {
+    //         res?.message ? this.alertsService.openSnackBar(res?.message) : '';
+    //         this.publicService?.show_loader?.next(false);
+    //       }
+    //     },
+    //     (err: any) => {
+    //       err?.message ? this.alertsService.openSnackBar(err?.message) : '';
+    //       this.publicService?.show_loader?.next(false);
+    //     });
+    // }
+    this.ref?.close();
+    const ref = this.dialogService?.open(AddEditTankComponent, {
+      data: {
+        item: this.modalData,
+        type: 'edit'
+      },
+      header: this.publicService?.translateTextFromJson('dashboard.tanks.editTank'),
+      dismissableMask: false,
+      width: '50%',
+      styleClass: 'custom_modal'
+    });
   }
 
   cancel(): void {

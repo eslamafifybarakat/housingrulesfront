@@ -18,6 +18,7 @@ import { AddEditDriverComponent } from './components/drivers/components/add-edit
 import { SupervisorsComponent } from './components/supervisors/supervisors.component';
 import { AddEditSupervisorComponent } from './components/supervisors/components/add-edit-supervisor/add-edit-supervisor.component';
 import { SupervisorDetailsComponent } from './components/supervisors/components/supervisor-details/supervisor-details.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SupervisorDetailsComponent } from './components/supervisors/components/
     SupervisorsComponent,
     AddEditSupervisorComponent,
     SupervisorDetailsComponent,
+    OrdersComponent,
   ],
   imports: [
     DashboardRoutingModule,

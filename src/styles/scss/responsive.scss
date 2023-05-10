@@ -25,6 +25,9 @@
     flex-wrap: wrap;
     padding: 20px 5px;
   }
+  .p-dialog {
+    min-width: 70% !important;
+  }
 }
 
 @media (min-width: 992px) {

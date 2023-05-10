@@ -1,6 +1,6 @@
-import { roots } from './../../shared/configs/endPoints';
 import { environment } from './../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { roots } from './../../shared/configs/endPoints';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 

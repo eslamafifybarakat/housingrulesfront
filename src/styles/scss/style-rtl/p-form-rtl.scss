@@ -87,3 +87,8 @@
   border-left: 0 !important;
   border-right: inherit !important;
 }
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+  padding-right: 0.8rem !important;
+  padding-left: inherit !important;
+}

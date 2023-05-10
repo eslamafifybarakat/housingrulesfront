@@ -4,6 +4,7 @@
     "arabic":"Arabic"
   },
   "general": {
+    "filter":"Filter",
     "details":"Details",
     "default": "Default",
     "youtubeLink": "Video YouTube",
@@ -158,7 +159,11 @@
     "username":"Username",
     "supervisor":"Supervisor",
     "mobilePhone":"Mobile phone",
-    "tank":"Tank"
+    "tank":"Tank",
+    "driver":"Driver",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "orderStatus":"Order status"
   },
   "placeholder": {
     "email": "Enter email address",
@@ -166,15 +171,18 @@
     "search":"Search",
     "name": "Enter name",
     "username":"Enter username",
-    "supervisor":"Choose supervisor",
+    "supervisor":"Select supervisor",
     "mobilePhone":"Enter mobile phone",
-    "tank":"Choose tank",
-    "driverStatus":"Choose driver status"
+    "tank":"Select tank",
+    "driver":"Select driver",
+    "driverStatus":"Select driver status",
+    "orderStatus":"Select order status"
   },
 
   "validations": {
     "required_field": "This field is reuired",
     "not_valid": "This data is not vaild",
+    "notValidLink": "This link is not vaild",
     "pass_length": "Password length must be 5–20",
     "name_length": "Name min length must be 3",
     "length":"  Length must be larger than 2",
@@ -190,7 +198,10 @@
     "oneLowercase": "At least one lowercase",
     "oneUppercase": "At least one uppercase",
     "oneNumeric": "At least one numeric",
-    "MinimumCharacters": "Minimum 5 characters"
+    "MinimumCharacters": "Minimum 5 characters",
+    "startDate": "Start date is required",
+    "endDate": "End date is required",
+    "orderStatus":"Order status is required"
   },
   "form": {
     "welcomeBack":"Welcome back",
@@ -214,7 +225,7 @@
   "sideMenu":{
 "dashboard":"Dashboard",
 "tanks":"Tanks",
-"driver":"Driver",
+"driver":"Drivers",
 "supervisors":"Supervisors",
 "orders":"Orders"
   },
@@ -237,7 +248,7 @@
   "dashboard": {
     "dashboard":"Dashboard",
 
-    "orders":"Orders",
+
     "total": "total",
     "createNew":"Create new",
     "tableHeader": {
@@ -246,7 +257,16 @@
       "active":"Active",
       "status":"Status",
       "driverStatus":"Driver status",
-      "email": "Email"
+      "email": "Email",
+      "orderNumber":"Order number",
+      "requestOrigin":"Request origin",
+      "entityType":"Entity type",
+      "customerName":"Customer name",
+      "customerNumber":"Customer number",
+      "websiteLink":"Website link",
+      "supervisor":"Supervisor",
+      "driver":"Driver",
+      "orderStatus":"Order status"
     },
     "tanks":{
     "tanks":"Tanks",
@@ -265,6 +285,12 @@
 "addSupervisor":"Add supervisor",
 "editSupervisor":"Edit supervisor",
 "supervisorDetails":"Supervisor details"
+  },
+  "orders":{
+    "orders":"Orders",
+"addOrder":"Add order",
+"editOrder":"Edit order",
+"orderDetails":"Order details"
   },
     "usersList": {
       "users":"Users",
