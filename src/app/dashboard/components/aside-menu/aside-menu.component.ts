@@ -34,7 +34,7 @@ export class AsideMenuComponent implements OnInit {
     this.menuList = [{
       id: 'dashboard',
       text: this.publicService?.translateTextFromJson('sideMenu.dashboard'),
-      icon: 'fa-grip-horizontal',
+      // icon: 'fa-grip-horizontal',
       routerLink: '/dashboard',
       state: false
     },
