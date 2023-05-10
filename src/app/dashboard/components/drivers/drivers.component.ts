@@ -76,6 +76,9 @@ export class DriversComponent implements OnInit {
               id: driver?.id ? driver?.id : null,
               name: driver?.name ? driver?.name : '',
               driver_status: driverStatusArr ? driverStatusArr : null,
+              mobile_phone: driver?.mobile_phone ? driver?.mobile_phone : '',
+              tanks: driver?.tanks ? driver?.tanks : [],
+              supervisors: driver?.supervisors ? driver?.supervisors : []
             });
           }) : '';
           this.driversList$ = arr;
