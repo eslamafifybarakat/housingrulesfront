@@ -101,16 +101,6 @@ export class TanksComponent implements OnInit {
 
       ).subscribe((res: any) => {
       });
-
-    // let data: any = [
-    //   { id: 1, name: 'Celine', isAvailable: true },
-    //   { id: 2, name: 'nour', isAvailable: true },
-    //   { id: 3, name: 'lorena', isAvailable: true },
-    //   { id: 4, name: 'Ahmed', isAvailable: true },
-    //   { id: 5, name: 'Ali', isAvailable: true },
-    //   { id: 6, name: 'Kareem', isAvailable: true },
-    // ];
-    // this.tanksList$ = data;
   }
   getTanks(): void {
     let arr: any = this.tanksList$
