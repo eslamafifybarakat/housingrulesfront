@@ -70,7 +70,7 @@ export class AddEditTankComponent implements OnInit {
     if (this.modalForm?.valid) {
       myObject['name'] = this.modalForm?.value?.name;
       myObject['is_active'] = this.modalForm?.value?.active;
-
+      this.publicService?.show_loader?.next(true);
       this.tanksService?.addOrUpdateTank(myObject, this.tankId ? this.tankId : null)?.subscribe(
         (res: any) => {
           if (res?.code == 200) {

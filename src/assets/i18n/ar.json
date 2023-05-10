@@ -157,6 +157,9 @@
     "newPassword": "أدخل كلمة المرور الجديدة",
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
     "userActivation":"تفعيل المستخدم",
+    "tankActivation":"تفعيل الصهريج",
+    "driverActivation":"تفعيل السائق",
+    "supervisorActivation":"تفعيل المشرف",
     "driverStatus":"حالة السائق",
     "username":"اسم المستخدم",
     "supervisor":"المشرف",
@@ -185,8 +188,10 @@
         "not_valid": "هذه البيانات غير صالحة",
         "notValidLink": "هذا الرابط غير صالح",
         "name_length": "يجب أن يكون الحد الأدنى لطول الاسم 3",
+    "pass_length": "يجب أن يكون كلمة المرور من 8 إلى 20",
     "length":"الحد الادني 3 حروف",
         "requiredName": "الاسم مطلوب",
+    "username": "اسم المستخدم مطلوب",
         "requiredEmail": "البريد الإلكتروني مطلوب",
         "requiredAddress": "العنوان مطلوب",
         "emailNotCorrect": "البريد الإلكتروني ليس نمط بريد إلكتروني صحيحًا",
@@ -265,7 +270,10 @@
       "websiteLink":"رابط الموقع",
       "supervisor":"المشرف",
       "driver":"السائق",
-      "orderStatus":"حالة الطلب"
+      "orderStatus":"حالة الطلب",
+      "supervisors":"المشرفين",
+      "tanks":"الصهاريج",
+    "mobilePhone":"رقم الهاتف"
     },
     "tanks":{
       "tanks":"الصهاريج",

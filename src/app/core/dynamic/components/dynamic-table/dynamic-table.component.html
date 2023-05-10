@@ -117,7 +117,7 @@
               <p-multiSelect #colVisible [(ngModel)]="selectedColumns" [options]="tableHeaders" optionLabel="header"
                 appendTo="body" selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
                 placeholder="Choose Columns" pTooltip="Column Visibility" tooltipPosition="top"></p-multiSelect>
-              <a pTooltip="print" tooltipPosition="top">
+              <!-- <a pTooltip="print" tooltipPosition="top">
                 <img src="assets/images/icons/print.svg" class="action-btn" alt="">
               </a>
               <a pTooltip="XLS" tooltipPosition="top">
@@ -125,7 +125,7 @@
               </a>
               <a pTooltip="PDF" tooltipPosition="top">
                 <img src="assets/images/icons/pdf.svg" class="action-btn" alt="">
-              </a>
+              </a> -->
             </div>
 
           </div>
@@ -190,7 +190,7 @@
                           </ng-template>
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-multiSelect [ngModel]="value"
-                              [options]="col?.list=='banks'?banksList:col?.list=='groups'?groupsList:col?.list=='roles'?rolesList:col?.list=='products'?productsList:col?.list=='sections'?sectionsList:col?.list=='examStatus'?examStatusList:col?.list=='parentSkills'?parentSkillsList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:''"
+                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?tanksList:col?.list=='products'?productsList:col?.list=='sections'?sectionsList:col?.list=='examStatus'?examStatusList:col?.list=='parentSkills'?parentSkillsList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:''"
                               placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
                               <ng-template let-option pTemplate="item">
                                 <div class="p-multiselect-representative-option">
@@ -535,7 +535,7 @@
                           </ng-template>
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-multiSelect [ngModel]="value"
-                              [options]="col?.list=='banks'?banksList:col?.list=='groups'?groupsList:col?.list=='roles'?rolesList:col?.list=='products'?productsList:col?.list=='sections'?sectionsList:col?.list=='examStatus'?examStatusList:col?.list=='parentSkills'?parentSkillsList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:''"
+                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?rolesList:col?.list=='products'?productsList:col?.list=='sections'?sectionsList:col?.list=='examStatus'?examStatusList:col?.list=='parentSkills'?parentSkillsList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:''"
                               placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
                               <ng-template let-option pTemplate="item">
                                 <div class="p-multiselect-representative-option">

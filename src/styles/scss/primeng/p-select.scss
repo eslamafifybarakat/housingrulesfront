@@ -44,3 +44,15 @@
     right: 2.5rem;
   }
 }
+.p-column-filter-constraint {
+  .p-multiselect .p-multiselect-panel {
+    min-width: 16rem !important;
+  }
+}
+.p-multiselect-panel
+  .p-multiselect-header
+  .p-multiselect-filter-container
+  .p-inputtext {
+  background-color: var(--bg-white-color) !important;
+  height: 2.8rem !important;
+}

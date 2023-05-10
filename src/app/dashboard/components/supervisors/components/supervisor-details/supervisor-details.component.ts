@@ -41,7 +41,7 @@ export class SupervisorDetailsComponent implements OnInit {
       },
       header: this.publicService?.translateTextFromJson('dashboard.supervisors.editSupervisor'),
       dismissableMask: false,
-      width: '50%',
+      width: '40%',
       styleClass: 'custom_modal'
     });
   }

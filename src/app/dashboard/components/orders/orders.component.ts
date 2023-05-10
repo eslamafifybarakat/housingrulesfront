@@ -123,7 +123,23 @@ export class OrdersComponent implements OnInit {
     this.publicService?.changePageSub?.next({ page: this.page });
     this.getOrders();
   }
-  filter(): void { }
+  filter(): void {
+    // const ref = this.dialogService?.open(AddEditTankComponent, {
+    //   header:this.publicService?.translateTextFromJson('dashboard.general.filter'),
+    //   dismissableMask: false,
+    //   width: '50%',
+    //   styleClass: 'custom_modal'
+    // });
+    // ref.onClose.subscribe((res: any) => {
+    //   if (res?.filter) {
+    //     this.page = 1;
+    //     this.publicService?.changePageSub?.next({ page: this.page });
+    //     this.getTanks();
+    //   }
+    // });
+  }
+  viewLocation(item: any): void { }
+
   addOrEditItem(item?: any, type?: any): void {
     // const ref = this.dialogService?.open(AddEditTankComponent, {
     //   data: {

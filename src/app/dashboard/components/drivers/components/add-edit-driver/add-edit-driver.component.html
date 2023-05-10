@@ -46,7 +46,7 @@
                 *ngIf="formControls?.username?.invalid && (formControls?.username?.dirty || formControls?.username?.touched)">
                 <ng-container *ngIf="formControls?.username?.errors?.['required']">
                   <span class="text-danger fs-8">
-                    {{'validations.required_field'|translate}}
+                    {{'validations.username'|translate}}
                   </span>
                 </ng-container>
                 <ng-container *ngIf="formControls?.username?.errors?.['pattern']">
@@ -199,9 +199,10 @@
                       {{'validations.requiredPassword'|translate}}
                     </span>
                   </ng-container>
-                  <ng-container *ngIf="formControls?.password?.errors?.['pattern']">
+                  <ng-container
+                    *ngIf="formControls?.password?.errors?.['minlength']||formControls?.password?.errors?.['maxlength']">
                     <span class="text-danger fs-8">
-                      {{'validations.passwordPattern'|translate}}
+                      {{'validations.pass_length'|translate}}
                     </span>
                   </ng-container>
                 </ng-container>
@@ -233,9 +234,10 @@
                       {{'validations.requiredConfirmPassword'|translate}}
                     </span>
                   </ng-container>
-                  <ng-container *ngIf="formControls?.confirmPassword?.errors?.['pattern']">
+                  <ng-container
+                    *ngIf="formControls?.confirmPassword?.errors?.['minlength']||formControls?.confirmPassword?.errors?.['maxlength']">
                     <span class="text-danger fs-8">
-                      {{'validations.passwordPattern'|translate}}
+                      {{'validations.pass_length'|translate}}
                     </span>
                   </ng-container>
                   <ng-container *ngIf="formControls?.confirmPassword?.errors?.['ConfirmPassword']">
@@ -253,18 +255,27 @@
 
       </div>
 
-
-
       <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
-        <button type="submit" class="btn btn-solid-main">
-          <span>
-            {{'general.save'|translate}}
-          </span>
+        <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+
+          <ng-container *ngIf="!isEdit;else edit">
+            <span>
+              {{'general.save'|translate}}
+            </span>
+            <i class="pi pi-save"></i>
+          </ng-container>
+          <ng-template #edit>
+            <span>
+              {{'general.edit'|translate}}
+            </span>
+            <i class="pi pi-pencil"></i>
+          </ng-template>
         </button>
-        <button type="button" class="btn btn-outline-main" (click)="cancel()">
+        <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
           <span>
             {{'general.cancel'|translate}}
           </span>
+          <i class="pi pi-times"></i>
         </button>
       </div>
     </form>

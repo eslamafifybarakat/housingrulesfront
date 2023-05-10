@@ -109,4 +109,13 @@ export class PublicService {
       form.get(c)?.updateValueAndValidity();
     });
   }
+
+  getDriverStatus(): any {
+    let arr = [
+      { id: 1, value: 'available', name: this.translateTextFromJson('general.available') },
+      { id: 2, value: 'busy', name: this.translateTextFromJson('general.busy') },
+      { id: 3, value: 'far', name: this.translateTextFromJson('general.far') },
+    ];
+    return arr;
+  }
 }

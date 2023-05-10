@@ -25,8 +25,6 @@ export class TankDetailsComponent implements OnInit {
     public alertsService: AlertsService,
     public publicService: PublicService,
     private config: DynamicDialogConfig,
-    private tanksService: TanksService,
-    private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     protected router: Router,
   ) { }
@@ -38,26 +36,6 @@ export class TankDetailsComponent implements OnInit {
   }
 
   edit(): void {
-    // if (this.tankId) {
-    //   let data = {
-    //     name: this.modalData?.name,
-    //     is_active: this.modalData?.is_active
-    //   }
-    //   this.tanksService?.addOrUpdateTank(data, this.tankId ? this.tankId : null)?.subscribe(
-    //     (res: any) => {
-    //       if (res?.code == 200) {
-    //         this.ref.close({ listChanged: true });
-    //         this.publicService?.show_loader?.next(false);
-    //       } else {
-    //         res?.message ? this.alertsService.openSnackBar(res?.message) : '';
-    //         this.publicService?.show_loader?.next(false);
-    //       }
-    //     },
-    //     (err: any) => {
-    //       err?.message ? this.alertsService.openSnackBar(err?.message) : '';
-    //       this.publicService?.show_loader?.next(false);
-    //     });
-    // }
     this.ref?.close();
     const ref = this.dialogService?.open(AddEditTankComponent, {
       data: {
@@ -66,7 +44,7 @@ export class TankDetailsComponent implements OnInit {
       },
       header: this.publicService?.translateTextFromJson('dashboard.tanks.editTank'),
       dismissableMask: false,
-      width: '50%',
+      width: '40%',
       styleClass: 'custom_modal'
     });
   }
