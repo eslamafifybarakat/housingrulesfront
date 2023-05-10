@@ -1,9 +1,10 @@
-﻿
- 
+﻿import { TankSize } from "../enums";
 
-    
+
+
+
     export class TankDTO  {
-        
+
         // ID
         public id: number = 0;
         // NAME
@@ -16,4 +17,4 @@
         public isWorking: boolean = false;
         // ISAVAILABLE
         public isAvailable: boolean = false;
-    } 
+    }
