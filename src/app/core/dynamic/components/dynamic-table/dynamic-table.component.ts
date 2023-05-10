@@ -225,9 +225,9 @@ export class DynamicTableComponent implements OnInit {
     if (this.enableFilterTanks == true) {
       this.getAllTanks();
     }
-    if (this.enableFilterTanks == true) {
-      this.getAllTanks();
-    }
+    // if (this.enableFilterTanks == true) {
+    //   this.getAllTanks();
+    // }
   }
 
   searchHandlerEmit(event: any): void {
@@ -574,9 +574,9 @@ export class DynamicTableComponent implements OnInit {
   getAllTanks(): any {
     this.tanksService?.getTanksList()?.subscribe(
       (res: any) => {
-        if (res?.data?.code == 200) {
+        if (res?.isSuccess == true) {
           let arr: any = [];
-          res?.data?.data ? res?.data?.data.forEach((item: any) => {
+          res?.data ? res?.data.forEach((item: any) => {
             arr.push({
               id: item?.id ? item?.id : null,
               name: item?.name ? item?.name : '',
@@ -593,15 +593,6 @@ export class DynamicTableComponent implements OnInit {
       });
     this.cdr.detectChanges();
 
-    let data: any = [
-      { id: 6, name: 'Kareem', is_active: true },
-      { id: 2, name: 'nour', is_active: true },
-      { id: 1, name: 'Celine', is_active: true },
-      { id: 3, name: 'lorena', is_active: true },
-      { id: 4, name: 'Ahmed', is_active: false },
-      { id: 5, name: 'Ali', is_active: false },
-    ];
-    this.tanksList = data;
   }
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());

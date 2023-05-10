@@ -203,12 +203,13 @@
                       </ng-container>
 
                       <ng-container *ngIf="col?.type=='status'">
-                        <p-columnFilter field="status" matchMode="equals" display="menu" [showAddButton]="false">
+                        <p-columnFilter class="statusDropdown" field="status" matchMode="equals" display="menu"
+                          [showAddButton]="false">
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
                               placeholder="Any">
                               <ng-template let-option pTemplate="item">
-                                <span [class]="'item-badge status-' + option.value">{{option.label}}</span>
+                                <span [class]="'item-badge status-' + option.value">{{option.value}}</span>
                               </ng-template>
                             </p-dropdown>
                           </ng-template>

@@ -32,3 +32,9 @@
   color: #743aef;
   background-color: #f1eef9;
 }
+.p-dropdown-items {
+  .item-badge {
+    display: flex !important;
+    justify-content: center !important;
+  }
+}

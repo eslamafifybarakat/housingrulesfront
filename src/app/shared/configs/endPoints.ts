@@ -10,8 +10,11 @@ export const roots = {
       tankToggleStatus: 'switch_status_tanks'
     },
     drivers: {
-      driversList: 'drivers',
-      getDriverById: '/drivers/get_data',
+      driversList: 'Drivers/GetAllAsync',
+      createDriver: 'Drivers/CreateAsync',
+      updateDriver: 'Drivers/UpdateAsync',
+      deleteDriver: 'Drivers/Delete',
+      getDriverById: 'Drivers/GetByIdAsync',
     },
     supervisors: {
       supervisorsList: 'supervisors',

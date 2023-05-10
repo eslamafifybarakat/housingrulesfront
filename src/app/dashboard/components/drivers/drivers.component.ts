@@ -25,7 +25,7 @@ export class DriversComponent implements OnInit {
   tableHeaders: any = [];
 
   page: number = 1;
-  perPage: number = 5;
+  perPage: number = 10000;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
 
@@ -42,7 +42,7 @@ export class DriversComponent implements OnInit {
   constructor(
     private driversService: DriversService,
     private alertsService: AlertsService,
-    private publicService: PublicService,
+    public publicService: PublicService,
     private dialogService: DialogService,
     private cdr: ChangeDetectorRef,
   ) { }
@@ -53,7 +53,7 @@ export class DriversComponent implements OnInit {
 
       { field: 'tanks', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), filter: true, type: 'filterArray', dataType: 'array', list: 'tanks', placeholder: this.publicService?.translateTextFromJson('placeholder.tank'), label: this.publicService?.translateTextFromJson('labels.tank') },
       { field: 'supervisors', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), filter: true, type: 'filterArray', dataType: 'array', list: 'supervisors', placeholder: this.publicService?.translateTextFromJson('placeholder.supervisor'), label: this.publicService?.translateTextFromJson('labels.supervisor') },
-      { field: 'mobile_phone', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
+      // { field: 'mobile_phone', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
 
       { field: 'driver_status', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), filter: true, type: 'status', list: 'driverStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.driverStatus'), label: this.publicService?.translateTextFromJson('labels.driverStatus') },
     ];
@@ -79,7 +79,7 @@ export class DriversComponent implements OnInit {
               supervisors: driver?.supervisors ? driver?.supervisors : []
             });
           }) : '';
-          this.driversList$ = arr;
+          // this.driversList$ = arr;
         }),
         finalize(() => {
           this.loadingIndicator = false;
@@ -161,13 +161,10 @@ export class DriversComponent implements OnInit {
   deleteItem(item: any): void {
     console.log(item);
     if (item?.confirmed) {
-      let data = {
-        name: item?.item?.name
-      }
       this.publicService?.show_loader.next(true);
       console.log('ff');
 
-      this.driversService?.deleteDriverId(item?.item?.id, data)?.subscribe(
+      this.driversService?.deleteDriverId(item?.item?.id)?.subscribe(
         (res: any) => {
           if (res?.code === 200) {
             res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
@@ -232,7 +229,6 @@ export class DriversComponent implements OnInit {
             } else {
               data = record?.value;
             }
-
             filterData = {
               column: key,
               type: record?.type,
@@ -269,7 +265,7 @@ export class DriversComponent implements OnInit {
     });
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getDrivers();
+    this.getAllDrivers();
   }
 
   ngOnDestroy(): void {

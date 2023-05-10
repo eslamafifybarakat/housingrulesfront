@@ -173,7 +173,7 @@ export class AddEditDriverComponent implements OnInit {
     this.isLoadingTanks = true;
     this.tanksService?.getTanksList()?.subscribe(
       (res: any) => {
-        if (res?.code == 200) {
+        if (res?.isSuccess == true) {
           res?.data ? res?.data?.forEach((tank: any) => {
             this.tanksList?.push({
               name: tank?.name,
@@ -200,28 +200,12 @@ export class AddEditDriverComponent implements OnInit {
         this.isLoadingTanks = false;
       });
     this.cdr?.detectChanges();
-
-    this.tanksList = [
-      { id: 1, name: 'tank1' },
-      { id: 2, name: 'tank1' },
-      { id: 21, name: 'tank1' },
-      { id: 31, name: 'tank1' },
-    ]
-    if (this.isEdit) {
-      this.tanksList?.forEach((tank: any) => {
-        if (tank?.id == this.driverData?.tankId) {
-          this.modalForm?.patchValue({
-            tank: tank
-          })
-        }
-      });
-    }
   }
   getDriverStatus(): void {
     this.driverStatusList = [
-      { id: 1, value: 'available', name: this.publicService?.translateTextFromJson('general.available') },
-      { id: 2, value: 'busy', name: this.publicService?.translateTextFromJson('general.busy') },
-      { id: 3, value: 'far', name: this.publicService?.translateTextFromJson('general.far') },
+      { id: 1, value: 0, name: this.publicService?.translateTextFromJson('general.available') },
+      { id: 2, value: 1, name: this.publicService?.translateTextFromJson('general.busy') },
+      { id: 3, value: 2, name: this.publicService?.translateTextFromJson('general.far') },
     ]
     if (this.isEdit) {
       this.driverStatusList?.forEach((status: any) => {
@@ -275,17 +259,22 @@ export class AddEditDriverComponent implements OnInit {
     const myObject: { [key: string]: any } = {};
     if (this.modalForm?.valid) {
       myObject['name'] = this.modalForm?.value?.name;
-      // myObject['username'] = this.modalForm?.value?.username;
+      myObject['userId'] = this.modalForm?.value?.username;
       myObject['supervisorId'] = this.modalForm?.value?.supervisor?.id;
       myObject['tankId'] = this.modalForm?.value?.tank?.id;
       myObject['driverStatus'] = this.modalForm?.value?.driverStatus?.value;
+      // myObject['driverStatus'] = this.modalForm?.value?.driverStatus?.value;
       // myObject['mobile_phone'] = this.modalForm?.value?.phone;
       // if (!this.isEdit) {
       //   myObject['password'] = this.modalForm?.value?.password;
       //   myObject['confirmPassword'] = this.modalForm?.value?.confirmPassword;
       // }
-      myObject['createBy'] = 0;
-      myObject['userId'] = 0;
+      if (this.isEdit) {
+        myObject['id'] = this.driverId;
+        myObject['lastModifiedBy'] = 0;
+      } else {
+        myObject['createBy'] = 0;
+      }
 
       this.publicService?.show_loader?.next(true);
       this.driversService?.addOrUpdateDriver(myObject, this.driverId ? this.driverId : null)?.subscribe(
