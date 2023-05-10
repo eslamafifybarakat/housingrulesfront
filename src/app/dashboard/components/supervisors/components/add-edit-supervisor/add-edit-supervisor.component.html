@@ -1,6 +1,9 @@
 <div id="modal">
   <form [formGroup]="modalForm" (ngSubmit)="submit()">
-
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold">{{'labels.supervisorActivation'|translate}}</label>
+      <p-inputSwitch id="active" formControlName="active"></p-inputSwitch>
+    </div>
     <div class="mb-4">
       <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
       <input type="text" class="form-control" formControlName="name" autocomplete="cc-name"
@@ -23,21 +26,28 @@
         </ng-container>
       </div>
     </div>
-    <div class="mb-3 d-flex align-items-center gap-2 flex-wrap">
-      <p-checkbox id="active" [binary]="true" formControlName="active"></p-checkbox>
-      <label for="active" class="fw-bold">{{'labels.active'|translate}}</label>
-    </div>
 
     <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
-      <button type="submit" class="btn btn-solid-main">
-        <span>
-          {{'general.save'|translate}}
-        </span>
+      <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+
+        <ng-container *ngIf="!isEdit;else edit">
+          <span>
+            {{'general.save'|translate}}
+          </span>
+          <i class="pi pi-save"></i>
+        </ng-container>
+        <ng-template #edit>
+          <span>
+            {{'general.edit'|translate}}
+          </span>
+          <i class="pi pi-pencil"></i>
+        </ng-template>
       </button>
-      <button type="button" class="btn btn-outline-main" (click)="cancel()">
+      <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
         <span>
           {{'general.cancel'|translate}}
         </span>
+        <i class="pi pi-times"></i>
       </button>
     </div>
   </form>

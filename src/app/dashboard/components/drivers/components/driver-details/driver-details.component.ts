@@ -35,27 +35,7 @@ export class DriverDetailsComponent implements OnInit {
     this.driverId = this.modalData?.id;
   }
 
-  submit(): void {
-    // if (this.driverId) {
-    //   let data = {
-    //     name: this.modalData?.name,
-    //     driver_status: this.modalData?.driver_status
-    //   }
-    //   this.driversService?.addOrUpdateDriver(data, this.driverId ? this.driverId : null)?.subscribe(
-    //     (res: any) => {
-    //       if (res?.code == 200) {
-    //         this.ref.close({ listChanged: true });
-    //         this.publicService?.show_loader?.next(false);
-    //       } else {
-    //         res?.message ? this.alertsService.openSnackBar(res?.message) : '';
-    //         this.publicService?.show_loader?.next(false);
-    //       }
-    //     },
-    //     (err: any) => {
-    //       err?.message ? this.alertsService.openSnackBar(err?.message) : '';
-    //       this.publicService?.show_loader?.next(false);
-    //     });
-    // }
+  edit(): void {
     this.ref?.close();
     const ref = this.dialogService?.open(AddEditDriverComponent, {
       data: {

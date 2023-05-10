@@ -37,16 +37,17 @@ export class LoginComponent implements OnInit {
 
   loginForm = this.fb?.group(
     {
-      email: ['', {
+      username: ['', {
         validators: [
           Validators.required,
-          Validators.pattern(patterns?.userName || patterns?.email),
+          Validators.pattern(patterns?.userName),
           Validators?.minLength(3)], updateOn: "blur"
       }],
       password: ['', {
         validators: [
           Validators.required,
-          Validators.pattern(patterns?.password)
+          Validators?.minLength(8),
+          Validators?.maxLength(20),
         ], updateOn: "blur"
       }],
       remember: [false, []]
@@ -71,7 +72,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm?.valid) {
       this.publicService?.show_loader?.next(true);
       let data = {
-        userNameOrEmailAddress: this.loginForm?.value?.email,
+        username: this.loginForm?.value?.username,
         password: this.loginForm?.value?.password,
         rememberClient: true
       };

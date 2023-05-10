@@ -34,14 +34,14 @@ export class AsideMenuComponent implements OnInit {
     this.menuList = [{
       id: 'dashboard',
       text: this.publicService?.translateTextFromJson('sideMenu.dashboard'),
-      icon: 'fa-house-user',
+      icon: 'fa-grip-horizontal',
       routerLink: '/dashboard',
       state: false
     },
     {
       id: 'tanks',
       text: this.publicService?.translateTextFromJson('sideMenu.tanks'),
-      icon: 'fa-car-rear',
+      icon: 'fa-house-user',
       routerLink: '/dashboard/tanks',
       state: false
     },

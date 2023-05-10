@@ -1,3 +1,5 @@
+import { TanksService } from './../../../../dashboard/services/tanks.service';
+import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { ConfirmDeleteComponent } from './../../../../shared/components/confirm-delete/confirm-delete.component';
 import { PublicService } from './../../../../shared/services/public.service';
 // import { ConfirmDeleteComponent } from 'src/app/shared/components/confirm-delete/confirm-delete.component';
@@ -82,6 +84,11 @@ export class DynamicTableComponent implements OnInit {
   @Input() notesSelectedItems: boolean = false;
   @Input() showDefaultSelect: boolean = false;
 
+
+  @Input() enableFilterDriverStatus: boolean = false;
+  @Input() enableFilterSupervisors: boolean = false;
+  @Input() enableFilterTanks: boolean = false;
+
   // send flag to the parent componenet to open dialogs and send data
   @Output() searchHandler: EventEmitter<any> = new EventEmitter();
 
@@ -128,7 +135,10 @@ export class DynamicTableComponent implements OnInit {
   isFilter: boolean = false;
   paginateOption: any = null;
 
-  banksList: any = [];
+  driverStatusList: any = [];
+  supervisorsList: any = [];
+  tanksList: any = [];
+
   assignedUsers: any = [];
   newAssignedUsers: any = [];
   articleStatusList: any = [];
@@ -178,9 +188,11 @@ export class DynamicTableComponent implements OnInit {
   collapseAssignMenu: boolean = false;
 
   constructor(
+    private supervisorsService: SupervisorsService,
     private dialogService: DialogService,
     private publicService: PublicService,
     private alertsService: AlertsService,
+    private tanksService: TanksService,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) { }
@@ -197,6 +209,16 @@ export class DynamicTableComponent implements OnInit {
     this.showReport == true ? this.skeletonItems?.push({ action: true }, { report: true }) : this.skeletonItems?.push({ action: true })
 
     this._selectedColumns = this.tableHeaders;
+
+    if (this.enableFilterDriverStatus == true) {
+      this.getDriverStatus();
+    }
+    if (this.enableFilterSupervisors == true) {
+      this.getAllSupervisors();
+    }
+    if (this.enableFilterTanks == true) {
+      this.getAllTanks();
+    }
   }
 
   searchHandlerEmit(event: any): void {
@@ -499,6 +521,75 @@ export class DynamicTableComponent implements OnInit {
     this.newAssignedUsers = this.assignedUsers;
   }
 
+
+  getDriverStatus(): any {
+    this.driverStatusList = this.publicService.getDriverStatus();
+    this.cdr.detectChanges();
+  }
+  getAllSupervisors(): any {
+    this.supervisorsService?.getSupervisorsList()?.subscribe(
+      (res: any) => {
+        if (res?.data?.code == 200) {
+          let arr: any = [];
+          res?.data?.data ? res?.data?.data.forEach((item: any) => {
+            arr.push({
+              id: item?.id ? item?.id : null,
+              name: item?.name ? item?.name : '',
+              is_active: item?.is_active ? item?.is_active : false
+            });
+          }) : '';
+          this.supervisorsList = arr;
+        } else {
+          res?.message ? this.alertsService.openSnackBar(res?.message) : '';
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService.openSnackBar(err?.message) : '';
+      });
+    this.cdr.detectChanges();
+
+    let data: any = [
+      { id: 1, name: 'Celine', is_active: true },
+      { id: 2, name: 'nour', is_active: true },
+      { id: 3, name: 'lorena', is_active: true },
+      { id: 4, name: 'Ahmed', is_active: false },
+      { id: 5, name: 'Ali', is_active: false },
+      { id: 6, name: 'Kareem', is_active: true },
+    ];
+    this.supervisorsList = data;
+  }
+  getAllTanks(): any {
+    this.tanksService?.getTanksList()?.subscribe(
+      (res: any) => {
+        if (res?.data?.code == 200) {
+          let arr: any = [];
+          res?.data?.data ? res?.data?.data.forEach((item: any) => {
+            arr.push({
+              id: item?.id ? item?.id : null,
+              name: item?.name ? item?.name : '',
+              is_active: item?.is_active ? item?.is_active : false
+            });
+          }) : '';
+          this.tanksList = arr;
+        } else {
+          res?.message ? this.alertsService.openSnackBar(res?.message) : '';
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService.openSnackBar(err?.message) : '';
+      });
+    this.cdr.detectChanges();
+
+    let data: any = [
+      { id: 6, name: 'Kareem', is_active: true },
+      { id: 2, name: 'nour', is_active: true },
+      { id: 1, name: 'Celine', is_active: true },
+      { id: 3, name: 'lorena', is_active: true },
+      { id: 4, name: 'Ahmed', is_active: false },
+      { id: 5, name: 'Ali', is_active: false },
+    ];
+    this.tanksList = data;
+  }
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
   }

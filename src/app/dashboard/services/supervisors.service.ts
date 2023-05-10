@@ -33,7 +33,7 @@ export class SupervisorsService {
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.supervisors?.supervisorsList}`, { params: params })
   }
   supervisorToggleStatus(id: number): Observable<any> {
-    return this.http?.post<any>(`${this.baseUrl}/${roots?.dashboard?.tanks?.tankToggleStatus}/` + id, {});
+    return this.http?.post<any>(`${this.baseUrl}/${roots?.dashboard?.supervisors?.supervisorToggleStatus}/` + id, {});
   }
   addOrUpdateSupervisor(data: any, id?: number): Observable<any> {
     if (id) {
@@ -47,6 +47,6 @@ export class SupervisorsService {
     if (data?.name) {
       params = params.append("name", data?.name);
     }
-    return this.http?.delete<any>(`${this.baseUrl}${roots?.dashboard?.supervisors?.supervisorsList}/` + id, { params: params });
+    return this.http?.delete<any>(`${this.baseUrl}/${roots?.dashboard?.supervisors?.supervisorsList}/` + id, { params: params });
   }
 }

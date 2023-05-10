@@ -46,10 +46,10 @@ export class DriversService {
     if (data?.name) {
       params = params.append("name", data?.name);
     }
-    return this.http?.delete<any>(`${this.baseUrl}${roots?.dashboard?.drivers?.driversList}/` + id, { params: params });
+    return this.http?.delete<any>(`${this.baseUrl}/${roots?.dashboard?.drivers?.driversList}/` + id, { params: params });
   }
 
   getDriverById(id: number): Observable<any> {
-    return this.http?.get<any>(`${this.baseUrl}${roots?.dashboard?.drivers?.getDriverById}/` + id);
+    return this.http?.get<any>(`${this.baseUrl}/${roots?.dashboard?.drivers?.getDriverById}/` + id);
   }
 }

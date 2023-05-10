@@ -17,25 +17,25 @@
           </div>
           <form [formGroup]="loginForm" (ngSubmit)="submit()" class="pt-5">
             <div class="mb-4">
-              <label for="email" class="mb-2 required">{{'labels.email'|translate}}</label>
-              <input type="text" class="form-control" formControlName="email" autocomplete="cc-name"
-                (input)="publicService?.clearValidationErrors(formControls?.email)"
-                [class.is-invalid]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)"
-                placeholder="{{'placeholder.email'|translate}}">
+              <label for="username" class="mb-2 required">{{'labels.username'|translate}}</label>
+              <input type="text" class="form-control" formControlName="username" autocomplete="cc-name"
+                (input)="publicService?.clearValidationErrors(formControls?.username)"
+                [class.is-invalid]="formControls?.username?.invalid && (formControls?.username?.dirty || formControls?.username?.touched)"
+                placeholder="{{'placeholder.username'|translate}}">
               <div class="mt-2">
                 <ng-container
-                  *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
-                  <ng-container *ngIf="formControls?.email?.errors?.['required']">
+                  *ngIf="formControls?.username?.invalid && (formControls?.username?.dirty || formControls?.username?.touched)">
+                  <ng-container *ngIf="formControls?.username?.errors?.['required']">
                     <span class="text-danger fs-8">
-                      {{'validations.requiredEmail'|translate}}
+                      {{'validations.username'|translate}}
                     </span>
                   </ng-container>
-                  <ng-container *ngIf="formControls?.email?.errors?.['pattern']">
+                  <ng-container *ngIf="formControls?.username?.errors?.['pattern']">
                     <span class="text-danger fs-8 d-block">
-                      {{'validations.emailNotCorrect'|translate}}
+                      {{'validations.not_valid'|translate}}
                     </span>
                   </ng-container>
-                  <ng-container *ngIf="formControls?.email?.errors?.['minlength']">
+                  <ng-container *ngIf="formControls?.username?.errors?.['minlength']">
                     <span class="text-danger fs-8 d-block">
                       {{'validations.length'|translate}}
                     </span>
@@ -60,9 +60,10 @@
                       {{'validations.requiredPassword'|translate}}
                     </span>
                   </ng-container>
-                  <ng-container *ngIf="formControls?.password?.errors?.['pattern']">
+                  <ng-container
+                    *ngIf="formControls?.password?.errors?.['minlength']|| formControls?.password?.errors?.['maxlength']">
                     <span class="text-danger fs-8">
-                      {{'validations.passwordPattern'|translate}}
+                      {{'validations.pass_length'|translate}}
                     </span>
                   </ng-container>
                 </ng-container>

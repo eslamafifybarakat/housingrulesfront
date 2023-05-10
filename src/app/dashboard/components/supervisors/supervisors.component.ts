@@ -51,7 +51,7 @@ export class SupervisorsComponent implements OnInit {
   ngOnInit(): void {
     this.tableHeaders = [
       { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'boolean' },
+      { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
 
     this.getAllSupervisors();
@@ -65,11 +65,11 @@ export class SupervisorsComponent implements OnInit {
           this.supervisorsCount = res?.data?.pagination?.total;
           this.pagesCount = Math.ceil(this.supervisorsCount / this.perPage);
           let arr: any = [];
-          res?.data?.data ? res?.data?.data.forEach((tank: any) => {
+          res?.data?.data ? res?.data?.data.forEach((item: any) => {
             arr.push({
-              id: tank?.id ? tank?.id : null,
-              name: tank?.name ? tank?.name : '',
-              is_active: tank?.is_active ? tank?.is_active : false
+              id: item?.id ? item?.id : null,
+              name: item?.name ? item?.name : '',
+              is_active: item?.is_active ? item?.is_active : false
             });
           }) : '';
           this.supervisorsList$ = arr;
@@ -140,15 +140,8 @@ export class SupervisorsComponent implements OnInit {
       data: item,
       header: this.publicService?.translateTextFromJson('dashboard.supervisors.supervisorDetails'),
       dismissableMask: true,
-      width: '50%',
+      width: '40%',
       styleClass: 'custom_modal'
-    });
-    ref.onClose.subscribe((res: any) => {
-      // if (res?.listChanged) {
-      //   this.page = 1;
-      //   this.publicService?.changePageSub?.next({ page: this.page });
-      //   this.getSupervisors();
-      // }
     });
   }
   addOrEditItem(item?: any, type?: any): void {
@@ -159,7 +152,7 @@ export class SupervisorsComponent implements OnInit {
       },
       header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.supervisors.editSupervisor') : this.publicService?.translateTextFromJson('dashboard.supervisors.addSupervisor'),
       dismissableMask: false,
-      width: '50%',
+      width: '40%',
       styleClass: 'custom_modal'
     });
     ref.onClose.subscribe((res: any) => {
@@ -179,7 +172,7 @@ export class SupervisorsComponent implements OnInit {
       this.publicService?.show_loader.next(true);
       console.log('ff');
 
-      this.supervisorsService?.deleteSupervisorId(item?.item?.id)?.subscribe(
+      this.supervisorsService?.deleteSupervisorId(item?.item?.id, data)?.subscribe(
         (res: any) => {
           if (res?.code === 200) {
             res?.message ? this.alertsService?.openSnackBar(res?.message) : '';

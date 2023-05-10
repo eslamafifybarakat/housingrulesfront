@@ -99,13 +99,15 @@ export class AddEditDriverComponent implements OnInit {
       password: ['', {
         validators: [
           Validators.required,
-          Validators.pattern(patterns?.password)
+          Validators?.minLength(8),
+          Validators?.maxLength(20),
         ], updateOn: "blur"
       }],
       confirmPassword: ['', {
         validators: [
           Validators.required,
-          Validators.pattern(patterns?.password)
+          Validators?.minLength(8),
+          Validators?.maxLength(20),
         ], updateOn: "blur"
       }]
     },
@@ -283,7 +285,7 @@ export class AddEditDriverComponent implements OnInit {
         myObject['password'] = this.modalForm?.value?.password;
         myObject['confirmPassword'] = this.modalForm?.value?.confirmPassword;
       }
-
+      this.publicService?.show_loader?.next(true);
       this.driversService?.addOrUpdateDriver(myObject, this.driverId ? this.driverId : null)?.subscribe(
         (res: any) => {
           if (res?.code == 200) {

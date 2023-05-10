@@ -1,13 +1,12 @@
 import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
+import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { PublicService } from './../../../../../shared/services/public.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { TanksService } from './../../../../services/tanks.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 
 @Component({
   selector: 'app-add-edit-supervisor',
@@ -72,6 +71,7 @@ export class AddEditSupervisorComponent implements OnInit {
       myObject['name'] = this.modalForm?.value?.name;
       myObject['is_active'] = this.modalForm?.value?.active;
 
+      this.publicService?.show_loader?.next(true);
       this.supervisorsService?.addOrUpdateSupervisor(myObject, this.supervisorId ? this.supervisorId : null)?.subscribe(
         (res: any) => {
           if (res?.code == 200) {
