@@ -76,11 +76,21 @@ export class TanksComponent implements OnInit {
             } else {
               isWorking = workingItems[0]?.name;
             }
+            let sizeTank: any;
+            if (tank?.tankSize == 0) {
+              sizeTank = 13;
+            }
+            if (tank?.tankSize == 1) {
+              sizeTank = 20;
+            }
+            if (tank?.tankSize == 2) {
+              sizeTank = 32;
+            }
 
             arr.push({
               id: tank?.id ? tank?.id : null,
               name: tank?.name ? tank?.name : '',
-              tankSize: tank?.tankSize ? tank?.tankSize : '0',
+              tankSize: sizeTank,
               palateNo: tank?.palateNo ? tank?.palateNo : '',
               isWorking: isWorking,
               isAvailable: tank?.isAvailable ? true : false
@@ -170,11 +180,8 @@ export class TanksComponent implements OnInit {
     });
   }
   deleteItem(item: any): void {
-    console.log(item?.item?.id);
     if (item?.confirmed) {
       this.publicService?.show_loader.next(true);
-      console.log('ff');
-
       this.tanksService?.deleteTankId(item?.item?.id)?.subscribe(
         (res: any) => {
           if (res?.code === 200) {
