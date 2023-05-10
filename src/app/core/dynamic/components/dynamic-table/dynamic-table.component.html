@@ -387,99 +387,108 @@
                         </a>
                       </ng-container>
                       <ng-template #normalRecord>
-                        <span [class.truncate-text]="col?.type=='text'" *ngIf="item && item[col.field]">
-                          {{ item[col.field] }}
-                        </span>
-                      </ng-template>
-                    </td>
-                  </ng-template>
+                        <ng-container *ngIf="(col?.addedText);else noAddText">
+                    <td><span [class.truncate-text]="col?.type=='text'" *ngIf="item && item[col.field]">
+                        {{col?.text}}{{ item[col.field] }}
+                      </span></td>
                 </ng-container>
-                <ng-container *ngIf="col?.type=='date'">
-                  <ng-container *ngIf="enableDateFormate; else initialFormate">
-                    <td>
-                      {{item[col?.field] | date:dateFormateString}}
-                    </td>
-                  </ng-container>
-                  <ng-template #initialFormate>
-                    <td>
-                      {{item[col?.field] | date: 'dd/MM/YYYY'}}
-                    </td>
-                  </ng-template>
-                </ng-container>
-                <ng-container *ngIf="col?.type=='status'">
-                  <td>
-                    <span [class]="'item-badge status-' +  item[col.field]">{{ item[col.field]}}</span>
-                  </td>
-                </ng-container>
-                <ng-container *ngIf="col?.type=='boolean'">
-                  <td>
-                    <p-inputSwitch [(ngModel)]="item.is_active" (onChange)="statusHandlerEmit(item)"
-                      pTooltip="{{'general.changeStatus'|translate}}" tooltipPosition="top">
-                    </p-inputSwitch>
-                  </td>
-                </ng-container>
-                <ng-container *ngIf="col?.type=='time'">
-                  <td>
-                    {{item[col?.field]}}
-                  </td>
-                </ng-container>
-              </ng-template>
-            </ng-container>
-            <ng-container *ngIf="showActions">
-              <td>
-                <div class="d-flex gap-2">
-                  <ng-container *ngIf="showDetails">
-                    <a class="fw-500 details" (click)="detailsHandlerEmit(item)"
-                      pTooltip="{{'general.details'|translate}}" tooltipPosition="top">
-                      <i class="far fa-eye"></i>
-                    </a>
-                  </ng-container>
+                <ng-template #noAddText>
+                  <span [class.truncate-text]="col?.type=='text'" *ngIf="item && item[col.field]">
+                    {{ item[col.field] }}
+                  </span>
+                </ng-template>
 
-                  <ng-container *ngIf="showEdit">
-                    <a class="d-flex align-items-center
-                      gap-2" (click)="editHandlerEmit(item)" pTooltip="{{'general.edit'|translate}}"
-                      tooltipPosition="top">
-                      <span><i class="fas fa-pen edit"></i></span>
-                    </a>
-                  </ng-container>
-                  <ng-container *ngIf="showCopyAction">
-                    <a class="d-flex align-items-center
-                      gap-2" (click)="copyActionHandlerEmit(item)" pTooltip="{{'general.copy'|translate}}"
-                      tooltipPosition="top">
-                      <span><i class="fas fa-copy"></i></span>
-                    </a>
-                  </ng-container>
-                  <ng-container *ngIf="showDelete">
-                    <a class="d-flex align-items-center
-                      gap-2" (click)="deleteHandlerEmit(item)" pTooltip="{{'general.delete'|translate}}"
-                      tooltipPosition="top">
-                      <span><i class="fas fa-trash-alt remove"></i></span>
-                    </a>
-                  </ng-container>
-                </div>
+              </ng-template>
               </td>
-            </ng-container>
-            <ng-container *ngIf="showReport">
-              <td>
-                <div class="d-flex gap-2">
-                  <a class="fw-500" (click)="reportHandlerEmit(item)" pTooltip="{{'general.report'|translate}}"
-                    tooltipPosition="top">
-                    <i class="pi pi-download fs-5-1"></i>
-                  </a>
-                </div>
-              </td>
-            </ng-container>
-            <ng-container *ngIf="showCopy">
-              <td>
-                <div class="d-flex gap-2">
-                  <a class="fw-500" (click)="copyHandlerEmit(item)">
-                    <i class="pi pi-copy"></i>
-                  </a>
-                </div>
-              </td>
-            </ng-container>
-          </tr>
+      </ng-template>
+      </ng-container>
+
+      <ng-container *ngIf="col?.type=='date'">
+        <ng-container *ngIf="enableDateFormate; else initialFormate">
+          <td>
+            {{item[col?.field] | date:dateFormateString}}
+          </td>
         </ng-container>
+        <ng-template #initialFormate>
+          <td>
+            {{item[col?.field] | date: 'dd/MM/YYYY'}}
+          </td>
+        </ng-template>
+      </ng-container>
+      <ng-container *ngIf="col?.type=='status'">
+        <td>
+          <span [class]="'item-badge status-' +  item[col.field]">{{ item[col.field]}}</span>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="col?.type=='boolean'">
+        <td>
+          <p-inputSwitch [(ngModel)]="item[col.field]" (onChange)="statusHandlerEmit(item)"
+            pTooltip="{{'general.changeStatus'|translate}}" tooltipPosition="top">
+          </p-inputSwitch>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="col?.type=='time'">
+        <td>
+          {{item[col?.field]}}
+        </td>
+      </ng-container>
+      </ng-template>
+      </ng-container>
+      <ng-container *ngIf="showActions">
+        <td>
+          <div class="d-flex gap-2">
+            <ng-container *ngIf="showDetails">
+              <a class="fw-500 details" (click)="detailsHandlerEmit(item)" pTooltip="{{'general.details'|translate}}"
+                tooltipPosition="top">
+                <i class="far fa-eye"></i>
+              </a>
+            </ng-container>
+
+            <ng-container *ngIf="showEdit">
+              <a class="d-flex align-items-center
+                      gap-2" (click)="editHandlerEmit(item)" pTooltip="{{'general.edit'|translate}}"
+                tooltipPosition="top">
+                <span><i class="fas fa-pen edit"></i></span>
+              </a>
+            </ng-container>
+            <ng-container *ngIf="showCopyAction">
+              <a class="d-flex align-items-center
+                      gap-2" (click)="copyActionHandlerEmit(item)" pTooltip="{{'general.copy'|translate}}"
+                tooltipPosition="top">
+                <span><i class="fas fa-copy"></i></span>
+              </a>
+            </ng-container>
+            <ng-container *ngIf="showDelete">
+              <a class="d-flex align-items-center
+                      gap-2" (click)="deleteHandlerEmit(item)" pTooltip="{{'general.delete'|translate}}"
+                tooltipPosition="top">
+                <span><i class="fas fa-trash-alt remove"></i></span>
+              </a>
+            </ng-container>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="showReport">
+        <td>
+          <div class="d-flex gap-2">
+            <a class="fw-500" (click)="reportHandlerEmit(item)" pTooltip="{{'general.report'|translate}}"
+              tooltipPosition="top">
+              <i class="pi pi-download fs-5-1"></i>
+            </a>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="showCopy">
+        <td>
+          <div class="d-flex gap-2">
+            <a class="fw-500" (click)="copyHandlerEmit(item)">
+              <i class="pi pi-copy"></i>
+            </a>
+          </div>
+        </td>
+      </ng-container>
+      </tr>
+      </ng-container>
 
       </ng-template>
       <ng-template pTemplate="rowexpansion" let-item>

@@ -49,9 +49,9 @@ export class TanksComponent implements OnInit {
   ngOnInit(): void {
     this.tableHeaders = [
       { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'numeric', addedText: true, text: 'Size' },
       { field: 'palateNo', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.palateNo'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.palateNo'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking') },
+      { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'status', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking') },
       { field: 'isAvailable', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
 
@@ -72,20 +72,20 @@ export class TanksComponent implements OnInit {
           console.log(workingItems);
 
           res?.data ? res?.data?.forEach((tank: any) => {
-            let isWorkingArr: any = [];
+            let isWorking: any = '';
             console.log(tank?.isWorking);
             tank?.isWorking ? workingItems?.forEach((element: any) => {
               if (element?.value == tank?.isWorking) {
-                isWorkingArr?.push(element);
+                isWorking = element?.name;
               }
             }) : '';
-            console.log(isWorkingArr);
+            console.log(isWorking);
             arr.push({
               id: tank?.id ? tank?.id : null,
               name: tank?.name ? tank?.name : '',
               tankSize: tank?.tankSize ? tank?.tankSize : '0',
               palateNo: tank?.palateNo ? tank?.palateNo : '',
-              isWorking: tank?.isWorking ? isWorkingArr : [],
+              isWorking: tank?.isWorking ? isWorking : '',
               isAvailable: tank?.isAvailable ? true : false
             });
           }) : '';
@@ -181,15 +181,12 @@ export class TanksComponent implements OnInit {
     });
   }
   deleteItem(item: any): void {
-    console.log(item);
+    console.log(item?.item?.id);
     if (item?.confirmed) {
-      let data = {
-        name: item?.item?.name
-      }
       this.publicService?.show_loader.next(true);
       console.log('ff');
 
-      this.tanksService?.deleteTankId(item?.item?.id, data)?.subscribe(
+      this.tanksService?.deleteTankId(item?.item?.id)?.subscribe(
         (res: any) => {
           if (res?.code === 200) {
             res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
@@ -291,7 +288,7 @@ export class TanksComponent implements OnInit {
     });
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getTanks();
+    this.getAllTanks();
   }
 
   ngOnDestroy(): void {

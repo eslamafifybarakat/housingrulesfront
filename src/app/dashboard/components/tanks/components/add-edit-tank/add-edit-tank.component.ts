@@ -1,3 +1,4 @@
+import { TankSize } from './../../../../../enums';
 import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../../../shared/services/public.service';
@@ -20,6 +21,9 @@ export class AddEditTankComponent implements OnInit {
   isEdit: boolean = false;
   tankId: any;
 
+  tanksSize: any = [{ value: 1 }, { value: 2 }, { value: 10 }];
+  isLoadingTanksSize: boolean = false;
+
   constructor(
     public checkValidityService: CheckValidityService,
     public alertsService: AlertsService,
@@ -34,6 +38,8 @@ export class AddEditTankComponent implements OnInit {
 
   ngOnInit(): void {
     this.modalData = this.config?.data;
+    console.log(this.modalData);
+
     if (this.modalData?.item?.id) {
       this.tankId = this.modalData?.item?.id;
     }
@@ -50,6 +56,8 @@ export class AddEditTankComponent implements OnInit {
           Validators.required,
           Validators?.minLength(3)], updateOn: "blur"
       }],
+      tankSize: [null, Validators?.required],
+      palateNo: ['', { validators: [Validators.required, Validators.minLength(3)], updateOn: "blur" }],
       active: [false, []]
     },
   );
@@ -58,8 +66,10 @@ export class AddEditTankComponent implements OnInit {
     return this.modalForm?.controls;
   }
   patchValue(): void {
+    let tankSize: any = { value: this.modalData?.item?.tankSize };
     this.modalForm?.patchValue({
       name: this.modalData?.item?.name,
+      tankSize: tankSize,
       active: this.modalData?.item?.is_active
     })
   }
@@ -69,11 +79,20 @@ export class AddEditTankComponent implements OnInit {
 
     if (this.modalForm?.valid) {
       myObject['name'] = this.modalForm?.value?.name;
-      myObject['is_active'] = this.modalForm?.value?.active;
+      myObject['isAvailable'] = this.modalForm?.value?.active;
+      myObject['tankSize'] = this.modalForm?.value?.tankSize?.['value'];
+      myObject['palateNo'] = this.modalForm?.value?.palateNo;
+      myObject['isWorking'] = false;
+      if (this.isEdit) {
+        myObject['id'] = this.tankId;
+        myObject['lastModifiedBy'] = 0;
+      } else {
+        myObject['createBy'] = 0;
+      }
       this.publicService?.show_loader?.next(true);
       this.tanksService?.addOrUpdateTank(myObject, this.tankId ? this.tankId : null)?.subscribe(
         (res: any) => {
-          if (res?.code == 200) {
+          if (res?.isSuccess == true) {
             this.ref.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
           } else {

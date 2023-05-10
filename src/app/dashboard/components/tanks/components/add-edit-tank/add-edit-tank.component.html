@@ -5,7 +5,7 @@
       <p-inputSwitch id="active" formControlName="active"></p-inputSwitch>
     </div>
 
-    <div class="mb-4">
+    <div class="mb-3">
       <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
       <input type="text" class="form-control" formControlName="name" autocomplete="cc-name"
         (input)="publicService?.clearValidationErrors(formControls?.name)"
@@ -27,7 +27,55 @@
         </ng-container>
       </div>
     </div>
+    <div class="mb-3">
+      <label class="form-label required">
+        {{"labels.tankSize"|translate}}
+      </label>
+      <span class="p-input-icon-right select-loading d-block">
+        <p-dropdown [options]="tanksSize" formControlName="tankSize" optionLabel="value" [filter]="true"
+          [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="value" appendTo="body"
+          [readonly]="isLoadingTanksSize" scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+          [class.ng-dirty]="formControls?.tankSize?.invalid && (formControls?.tankSize?.dirty || formControls?.tankSize?.touched)"
+          [showClear]="true" placeholder="{{'placeholder.tankSize'|translate}}">
+        </p-dropdown>
+        <ng-container *ngIf="isLoadingTanksSize">
+          <i class="pi pi-spin pi-spinner"></i>
+        </ng-container>
+      </span>
+      <div class="my-2">
+        <ng-container
+          *ngIf="formControls?.tankSize?.invalid && (formControls?.tankSize?.dirty || formControls?.tankSize?.touched)">
+          <ng-container *ngIf="formControls?.tankSize?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{"validations.required_field"|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="palateNo" class="mb-2 required">{{'labels.palateNo'|translate}}</label>
+      <input type="text" class="form-control" formControlName="palateNo" autocomplete="cc-name"
+        (input)="publicService?.clearValidationErrors(formControls?.palateNo)"
+        [class.is-invalid]="formControls?.palateNo?.invalid && (formControls?.palateNo?.dirty || formControls?.palateNo?.touched)"
+        placeholder="{{'placeholder.palateNo'|translate}}">
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.palateNo?.invalid && (formControls?.palateNo?.dirty || formControls?.palateNo?.touched)">
+          <ng-container *ngIf="formControls?.palateNo?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.required_field'|translate}}
+            </span>
+          </ng-container>
 
+          <ng-container *ngIf="formControls?.palateNo?.errors?.['minlength']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.length'|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
     <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
       <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
 

@@ -8,7 +8,8 @@
 }
 
 .status-qualified,
-.status-available {
+.status-available,
+.status-Available {
   color: #50cd89;
   background-color: #e8fff3;
 }
@@ -18,7 +19,8 @@
   background-color: #fff8df;
 }
 .status-unqualified,
-.status-busy {
+.status-busy,
+.status-Busy {
   color: #f1416c;
   background-color: #fff5f8;
 }

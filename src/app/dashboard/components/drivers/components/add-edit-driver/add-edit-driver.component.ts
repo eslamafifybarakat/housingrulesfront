@@ -273,18 +273,20 @@ export class AddEditDriverComponent implements OnInit {
 
   submit(): void {
     const myObject: { [key: string]: any } = {};
-
     if (this.modalForm?.valid) {
       myObject['name'] = this.modalForm?.value?.name;
-      myObject['username'] = this.modalForm?.value?.username;
-      myObject['supervisor'] = this.modalForm?.value?.supervisor?.id;
-      myObject['tank'] = this.modalForm?.value?.tank?.id;
-      myObject['driver_status'] = this.modalForm?.value?.driverStatus?.value;
-      myObject['mobile_phone'] = this.modalForm?.value?.phone;
-      if (!this.isEdit) {
-        myObject['password'] = this.modalForm?.value?.password;
-        myObject['confirmPassword'] = this.modalForm?.value?.confirmPassword;
-      }
+      // myObject['username'] = this.modalForm?.value?.username;
+      myObject['supervisorId'] = this.modalForm?.value?.supervisor?.id;
+      myObject['tankId'] = this.modalForm?.value?.tank?.id;
+      myObject['driverStatus'] = this.modalForm?.value?.driverStatus?.value;
+      // myObject['mobile_phone'] = this.modalForm?.value?.phone;
+      // if (!this.isEdit) {
+      //   myObject['password'] = this.modalForm?.value?.password;
+      //   myObject['confirmPassword'] = this.modalForm?.value?.confirmPassword;
+      // }
+      myObject['createBy'] = 0;
+      myObject['userId'] = 0;
+
       this.publicService?.show_loader?.next(true);
       this.driversService?.addOrUpdateDriver(myObject, this.driverId ? this.driverId : null)?.subscribe(
         (res: any) => {

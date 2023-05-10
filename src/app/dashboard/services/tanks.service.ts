@@ -45,9 +45,9 @@ export class TanksService {
   }
   deleteTankId(id: number, data?: any): Observable<any> {
     let params = new HttpParams();
-    if (data?.name) {
-      params = params.append("name", data?.name);
+    if (id) {
+      params = params.append("id", id);
     }
-    return this.http?.delete<any>(`${this.baseUrl}/${roots?.dashboard?.tanks?.tanksList}/` + id, { params: params });
+    return this.http?.delete<any>(`${this.baseUrl}/${roots?.dashboard?.tanks?.tanksList}`, { params: params });
   }
 }

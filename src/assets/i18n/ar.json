@@ -169,7 +169,8 @@
     "driver": "السائق",
     "startDate": "تاريخ البدأ",
     "endDate": "تاريخ الإنتهاء",
-    "orderStatus": "حالة الطلب"
+    "orderStatus": "حالة الطلب",
+    "palateNo": "رقم اللوحة"
   },
   "placeholder": {
     "isWorking": "متاح للتعين",
@@ -184,9 +185,11 @@
     "driver": "اختر السائق",
     "driverStatus": "اختر حالة السائق",
     "tankSize": "اختر سعة الصهريج",
-    "orderStatus": "اختر حالة الطلب"
+    "orderStatus": "اختر حالة الطلب",
+    "palateNo": "أدخل رقم اللوحة"
   },
   "validations": {
+    "required_field": "هذا الحقل مطلوب",
     "not_valid": "هذه البيانات غير صالحة",
     "notValidLink": "هذا الرابط غير صالح",
     "name_length": "يجب أن يكون الحد الأدنى لطول الاسم 3",
@@ -274,6 +277,7 @@
       "supervisor": "المشرف",
       "driver": "السائق",
       "orderStatus": "حالة الطلب",
+
       "supervisors": "المشرفين",
       "tanks": "الصهاريج",
       "mobilePhone": "رقم الهاتف"

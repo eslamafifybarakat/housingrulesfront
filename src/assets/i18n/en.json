@@ -160,6 +160,7 @@
     "supervisorActivation": "Supervisor activation",
     "driverStatus": "Driver status",
     "tankSize": "Tank Size",
+    "palateNo": "Palate No",
     "username": "Username",
     "supervisor": "Supervisor",
     "mobilePhone": "Mobile phone",
@@ -182,7 +183,8 @@
     "driver": "Select driver",
     "driverStatus": "Select driver status",
     "tankSize": "Select tank size",
-    "orderStatus": "Select order status"
+    "orderStatus": "Select order status",
+    "palateNo": "Enter palate no"
   },
   "validations": {
     "required_field": "This field is reuired",

@@ -182,7 +182,8 @@
   }
   .p-column-filter-menu-button:hover,
   .p-column-filter-menu-button.p-column-filter-menu-button-open,
-  .p-column-filter-menu-button.p-column-filter-menu-button-open:hover {
+  .p-column-filter-menu-button.p-column-filter-menu-button-open:hover,
+  .p-column-filter-menu-button.p-column-filter-menu-button-active {
     .pi-filter {
       color: var(--text-main-color) !important;
     }
