@@ -90,7 +90,7 @@ export class TanksComponent implements OnInit {
             arr.push({
               id: tank?.id ? tank?.id : null,
               name: tank?.name ? tank?.name : '',
-              tankSize: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.'+sizeTank),
+              tankSize: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.' + sizeTank),
               palateNo: tank?.palateNo ? tank?.palateNo : '',
               isWorking: isWorking,
               isAvailable: tank?.isAvailable ? true : false
@@ -113,7 +113,7 @@ export class TanksComponent implements OnInit {
       });
   }
   getTanks(): void {
-    let arr: any = this.tanksList$
+    let arr: any = this.tanksList$;
     arr?.length == 0 ? this.getAllTanks() : '';
   }
 
@@ -142,13 +142,14 @@ export class TanksComponent implements OnInit {
     this.tanksService?.tankToggleStatus(event?.id)?.subscribe(res => {
       if (res?.code == 200) {
         this.getAllTanks();
+        res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
         this.cdr.detectChanges();
       } else {
-        res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+        res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
       }
     },
       (err) => {
-        err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
       });
   }
   itemDetails(item?: any): void {
@@ -173,9 +174,10 @@ export class TanksComponent implements OnInit {
     });
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
+        console.log('sss');
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getTanks();
+        this.getAllTanks();
       }
     });
   }
@@ -184,17 +186,17 @@ export class TanksComponent implements OnInit {
       this.publicService?.show_loader.next(true);
       this.tanksService?.deleteTankId(item?.item?.id)?.subscribe(
         (res: any) => {
-          if (res?.code === 200) {
-            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+          if (res?.isSuccess == true && res?.statusCode == 200) {
+            res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
             this.getAllTanks();
             this.publicService?.show_loader?.next(false);
           } else {
-            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+            res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
             this.publicService?.show_loader?.next(false);
           }
         },
         (err) => {
-          err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
+          err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
           this.publicService?.show_loader?.next(false);
         });
     }

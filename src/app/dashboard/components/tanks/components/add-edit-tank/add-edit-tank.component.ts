@@ -21,9 +21,9 @@ export class AddEditTankComponent implements OnInit {
   isEdit: boolean = false;
   tankId: any;
 
-  tanksSize: any = [{ value: 0,name : this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size13') },
-   { value: 1,name : this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
-   { value: 2,name : this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
+  tanksSize: any = [{ value: 0, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size13') },
+  { value: 1, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
+  { value: 2, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
   isLoadingTanksSize: boolean = false;
 
   constructor(
@@ -92,16 +92,17 @@ export class AddEditTankComponent implements OnInit {
       this.publicService?.show_loader?.next(true);
       this.tanksService?.addOrUpdateTank(myObject, this.tankId ? this.tankId : null)?.subscribe(
         (res: any) => {
-          if (res?.isSuccess == true) {
+          if (res?.isSuccess == true && res?.statusCode == 200) {
             this.ref.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
+            res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
           } else {
-            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+            res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
             this.publicService?.show_loader?.next(false);
           }
         },
         (err: any) => {
-          err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
+          err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
           this.publicService?.show_loader?.next(false);
         });
     } else {
