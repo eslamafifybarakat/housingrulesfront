@@ -6,7 +6,8 @@
 p-inputnumber,
 .p-inputnumber,
 .p-dropdown,
-.p-input-icon-right > .p-inputtext {
+.p-input-icon-right > .p-inputtext,
+.p-calendar {
   width: 100% !important;
 }
 
@@ -40,6 +41,10 @@ p-inputnumber,
   background-color: transparent !important;
 }
 .p-inputnumber .p-button {
+  background-color: var(--bg-main-color) !important;
+  border-color: var(--bg-main-color) !important;
+}
+.p-calendar-w-btn .p-datepicker-trigger {
   background-color: var(--bg-main-color) !important;
   border-color: var(--bg-main-color) !important;
 }

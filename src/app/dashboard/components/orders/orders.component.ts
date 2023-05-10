@@ -4,6 +4,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { OrdersService } from './../../services/orders.service';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
+import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
 
 @Component({
   selector: 'app-orders',
@@ -124,19 +125,19 @@ export class OrdersComponent implements OnInit {
     this.getOrders();
   }
   filter(): void {
-    // const ref = this.dialogService?.open(AddEditTankComponent, {
-    //   header:this.publicService?.translateTextFromJson('dashboard.general.filter'),
-    //   dismissableMask: false,
-    //   width: '50%',
-    //   styleClass: 'custom_modal'
-    // });
-    // ref.onClose.subscribe((res: any) => {
-    //   if (res?.filter) {
-    //     this.page = 1;
-    //     this.publicService?.changePageSub?.next({ page: this.page });
-    //     this.getTanks();
-    //   }
-    // });
+    const ref = this.dialogService?.open(FilterOrdersComponent, {
+      header: this.publicService?.translateTextFromJson('general.filter'),
+      dismissableMask: false,
+      width: '50%',
+      styleClass: 'custom_modal'
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res?.filter) {
+        this.page = 1;
+        this.publicService?.changePageSub?.next({ page: this.page });
+        this.getOrders();
+      }
+    });
   }
   viewLocation(item: any): void { }
 

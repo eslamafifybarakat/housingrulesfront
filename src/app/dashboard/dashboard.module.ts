@@ -19,6 +19,7 @@ import { SupervisorsComponent } from './components/supervisors/supervisors.compo
 import { AddEditSupervisorComponent } from './components/supervisors/components/add-edit-supervisor/add-edit-supervisor.component';
 import { SupervisorDetailsComponent } from './components/supervisors/components/supervisor-details/supervisor-details.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { FilterOrdersComponent } from './components/orders/components/filter-orders/filter-orders.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { OrdersComponent } from './components/orders/orders.component';
     AddEditSupervisorComponent,
     SupervisorDetailsComponent,
     OrdersComponent,
+    FilterOrdersComponent,
   ],
   imports: [
     DashboardRoutingModule,

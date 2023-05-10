@@ -119,7 +119,8 @@ input:-webkit-autofill {
   .ng-select-container {
     border: 0 !important;
   }
-  .p-input-icon-right > .p-inputtext {
+  .p-input-icon-right > .p-inputtext,
+  .p-calendar {
     border: 0 !important;
   }
 }
