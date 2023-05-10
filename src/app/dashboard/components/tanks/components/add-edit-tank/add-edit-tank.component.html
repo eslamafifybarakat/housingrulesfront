@@ -32,7 +32,7 @@
         {{"labels.tankSize"|translate}}
       </label>
       <span class="p-input-icon-right select-loading d-block">
-        <p-dropdown [options]="tanksSize" formControlName="tankSize" optionLabel="value" [filter]="true"
+        <p-dropdown [options]="tanksSize" formControlName="tankSize" optionLabel="name" [filter]="true"
           [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="value" appendTo="body"
           [readonly]="isLoadingTanksSize" scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
           [class.ng-dirty]="formControls?.tankSize?.invalid && (formControls?.tankSize?.dirty || formControls?.tankSize?.touched)"

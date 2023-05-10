@@ -38,9 +38,9 @@ export class TanksService {
   }
   addOrUpdateTank(data: any, id?: number): Observable<any> {
     if (id) {
-      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.tanks?.tanksList}/` + id, data);
+      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.tanks?.UpdateAsync}/` + id, data);
     } else {
-      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.tanks?.tanksList}`, data);
+      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.tanks?.CreateAsync}`, data);
     }
   }
   deleteTankId(id: number, data?: any): Observable<any> {

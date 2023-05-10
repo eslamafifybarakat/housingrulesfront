@@ -49,7 +49,7 @@ export class TanksComponent implements OnInit {
   ngOnInit(): void {
     this.tableHeaders = [
       { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'numeric', addedText: true, text: 'Size' },
+      { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'palateNo', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.palateNo'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.palateNo'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'status', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking') },
       { field: 'isAvailable', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
@@ -78,19 +78,19 @@ export class TanksComponent implements OnInit {
             }
             let sizeTank: any;
             if (tank?.tankSize == 0) {
-              sizeTank = 13;
+              sizeTank = "Size13";
             }
             if (tank?.tankSize == 1) {
-              sizeTank = 20;
+              sizeTank = "Size20";
             }
             if (tank?.tankSize == 2) {
-              sizeTank = 32;
+              sizeTank = "Size32";
             }
 
             arr.push({
               id: tank?.id ? tank?.id : null,
               name: tank?.name ? tank?.name : '',
-              tankSize: sizeTank,
+              tankSize: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.'+sizeTank),
               palateNo: tank?.palateNo ? tank?.palateNo : '',
               isWorking: isWorking,
               isAvailable: tank?.isAvailable ? true : false

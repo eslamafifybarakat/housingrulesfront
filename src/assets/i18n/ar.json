@@ -277,7 +277,6 @@
       "supervisor": "المشرف",
       "driver": "السائق",
       "orderStatus": "حالة الطلب",
-
       "supervisors": "المشرفين",
       "tanks": "الصهاريج",
       "mobilePhone": "رقم الهاتف"
@@ -286,7 +285,12 @@
       "tanks": "الصهاريج",
       "addTank": "إضافة صهريج",
       "editTank": "تعديل صهريج",
-      "tankDetails": "تفاصيل الصهريج"
+      "tankDetails": "تفاصيل الصهريج",
+      "TankSize": {
+        "Size13": "13 طن",
+        "Size20": "20 طن",
+        "Size32": "32 طن"
+      }
     },
     "drivers": {
       "drivers": "السائقين",
