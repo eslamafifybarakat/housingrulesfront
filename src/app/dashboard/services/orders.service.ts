@@ -55,7 +55,7 @@ export class OrdersService {
 
   addOrUpdateOrder(data: any, id?: number): Observable<any> {
     if (id) {
-      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.updateOrder}`, data);
+      return this.http?.put<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.updateOrder}`, data);
     } else {
       return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.crateOrder}`, data);
     }

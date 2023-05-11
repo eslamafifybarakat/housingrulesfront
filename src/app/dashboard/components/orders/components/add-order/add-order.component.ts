@@ -155,13 +155,13 @@ export class AddOrderComponent implements OnInit {
     this.isLoadingCustomers = true;
     this.orderService?.getCustomersList()?.subscribe(
       (res: any) => {
-        if (res?.statusCode == 200) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           this.customersList = res?.data;
           if (this.isEdit) {
             this.customersList?.forEach((item: any) => {
-              if (item?.id == this.orderData?.customer) {
+              if (item?.id == this.orderData?.customerId) {
                 this.orderForm?.patchValue({
-                  customerName: this.orderData?.customer
+                  customerName: item
                 })
               }
             });
@@ -203,7 +203,7 @@ export class AddOrderComponent implements OnInit {
     this.isLoadingSupervisors = true;
     this.supervisorsService?.getSupervisorsList()?.subscribe(
       (res: any) => {
-        if (res?.statusCode == 200) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           res?.data ? res?.data?.forEach((supervisor: any) => {
             this.supervisorsList?.push({
               name: supervisor?.arName,
@@ -244,7 +244,7 @@ export class AddOrderComponent implements OnInit {
     this.isLoadingDrivers = true;
     this.driversService?.getDriversList()?.subscribe(
       (res: any) => {
-        if (res?.statusCode == 200) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           res?.data ? res?.data?.forEach((item: any) => {
             this.driversList?.push({
               name: item?.arName,
@@ -285,7 +285,7 @@ export class AddOrderComponent implements OnInit {
     this.isLoadingTanks = true;
     this.tanksService?.getTanksList()?.subscribe(
       (res: any) => {
-        if (res?.isSuccess == true) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           res?.data ? res?.data?.forEach((tank: any) => {
             this.tanksList?.push({
               name: tank?.name,
@@ -294,11 +294,11 @@ export class AddOrderComponent implements OnInit {
           }) : '';
           if (this.isEdit) {
             this.tanksList?.forEach((tank: any) => {
-              // if (tank?.id == this.driverData?.tankId) {
-              //   this.modalForm?.patchValue({
-              //     tank: tank
-              //   })
-              // }
+              if (tank?.id == this.orderData?.tankId) {
+                this.orderForm?.patchValue({
+                  tank: tank
+                })
+              }
             });
           }
           this.isLoadingTanks = false;
@@ -318,45 +318,61 @@ export class AddOrderComponent implements OnInit {
     this.isFullLoading = true;
     this.orderService?.getOrderById(id)?.subscribe(
       (res: any) => {
-        // if (res?.statusCode == 200) {
-        //   this.orderData = res?.data ? res?.data : null;
-        //   this.getAllSupervisors();
-        // this.getAllCustomers();
-        //   this.getAllDrivers();
-        // this.getAllTanks();
-        //   this.patchValue();
-        //   this.isFullLoading = false;
-        // } else {
-        //   res?.message ? this.alertsService.openSweetAlert('info', res?.message) : '';
-        //   this.isFullLoading = false;
-        // }
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
+          this.orderData = res?.data ? res?.data : null;
+          this.getAllSupervisors();
+          this.getAllCustomers();
+          this.getAllDrivers();
+          this.getAllTanks();
+          this.patchValue();
+          this.isFullLoading = false;
+        } else {
+          res?.message ? this.alertsService.openSweetAlert('info', res?.message) : '';
+          this.isFullLoading = false;
+        }
       },
       (err: any) => {
         err?.message ? this.alertsService.openSweetAlert('error', err?.message) : '';
         this.isFullLoading = false;
       });
-    this.cdr.detectChanges();
-
-    this.orderData = { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: { id: 4, name: "By Site" }, propertyType: { id: 2, name: "Governmental" }, district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: 'Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisorId: 11, driverId: 33, status: 'cancelled', tankSizeVal: 1, comment: 'jjjjjjj', orderNumber: 7777 },
-
-      this.getAllSupervisors();
-    this.getAllDrivers();
-    this.getAllTanks();
-    this.patchValue();
+    this.cdr?.detectChanges();
   }
   patchValue(): void {
-    console.log(this.orderData);
+    let orderOrigin: any;
+    this.orderOriginList?.forEach((item: any) => {
+      if (item?.value == this.orderData?.orderOrigin) {
+        orderOrigin = item
+      }
+    });
+    let district: any;
+    this.restrictsList?.forEach((item: any) => {
+      if (item?.value == this.orderData?.district) {
+        district = item
+      }
+    });
+    let propertyType: any;
+    this.propertyTypeList?.forEach((item: any) => {
+      if (item?.value == this.orderData?.propertyType) {
+        propertyType = item
+      }
+    });
+    let paymentMethod: any;
+    this.paymentMethodsList?.forEach((item: any) => {
+      if (item?.value == this.orderData?.paymentMethod) {
+        paymentMethod = item
+      }
+    });
     this.orderForm?.patchValue({
-      orderOrigin: this.orderData?.orderOrigin,
-      propertyType: this.orderData?.propertyType,
+      orderOrigin: orderOrigin,
+      propertyType: propertyType,
       customerMobileNumber: this.orderData?.customerMobileNumber,
-      district: this.orderData?.district,
+      district: district,
       locationLink: this.orderData?.locationLink,
-      comment: this.orderData?.comment,
+      comment: this.orderData?.comments,
       orderNumber: this.orderData?.orderNumber,
       paidAmount: this.orderData?.paidAmount,
-      paymentMethod: this.orderData?.paymentMethod,
-      customerName: this.orderData?.customerName,
+      paymentMethod: paymentMethod,
+      customerName: this.orderData?.customerName
     })
   }
 
@@ -378,10 +394,14 @@ export class AddOrderComponent implements OnInit {
       myObject['comments'] = formInfo?.comment;
       myObject['tankId'] = formInfo?.tank?.['id'];
       myObject['paymentMethod'] = formInfo?.paymentMethod?.['value'];
-      myObject['createBy'] = 0;
+
       if (this.isEdit) {
+        myObject['id'] = this.orderId;
         myObject['paidAmount'] = formInfo?.paidAmount;
         myObject['orderNumber'] = formInfo?.orderNumber;
+        myObject['lastModifiedBy'] = 0;
+      } else {
+        myObject['createBy'] = 0;
       }
 
       this.publicService?.show_loader?.next(true);
