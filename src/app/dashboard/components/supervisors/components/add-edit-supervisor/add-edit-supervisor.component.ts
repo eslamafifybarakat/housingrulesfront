@@ -88,16 +88,16 @@ export class AddEditSupervisorComponent implements OnInit {
       this.publicService?.show_loader?.next(true);
       this.supervisorsService?.addOrUpdateSupervisor(myObject, this.supervisorId ? this.supervisorId : null)?.subscribe(
         (res: any) => {
-          if (res?.code == 200) {
+          if (res?.statusCode == 200 && res?.isSuccess == true) {
             this.ref.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
           } else {
-            res?.message ? this.alertsService.openSnackBar(res?.message) : '';
+            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
             this.publicService?.show_loader?.next(false);
           }
         },
         (err: any) => {
-          err?.message ? this.alertsService.openSnackBar(err?.message) : '';
+          err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
           this.publicService?.show_loader?.next(false);
         });
     } else {
@@ -106,9 +106,9 @@ export class AddEditSupervisorComponent implements OnInit {
   }
 
   cancel(): void {
-    this.ref.close({ listChanged: false });
+    this.ref?.close({ listChanged: false });
   }
   ngOnDestroy(): void {
-    this.unsubscribe.forEach((sb) => sb.unsubscribe());
+    this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
   }
 }

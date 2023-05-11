@@ -53,6 +53,6 @@ export class DriverDetailsComponent implements OnInit {
     this.ref?.close({ listChanged: false });
   }
   ngOnDestroy(): void {
-    this.unsubscribe.forEach((sb) => sb.unsubscribe());
+    this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
   }
 }

@@ -123,7 +123,7 @@ export class AddEditDriverComponent implements OnInit {
     this.isLoadingSupervisors = true;
     this.supervisorsService?.getSupervisorsList()?.subscribe(
       (res: any) => {
-        if (res?.code == 200) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           res?.data ? res?.data?.forEach((supervisor: any) => {
             this.supervisorsList?.push({
               name: supervisor?.name,
@@ -173,7 +173,7 @@ export class AddEditDriverComponent implements OnInit {
     this.isLoadingTanks = true;
     this.tanksService?.getTanksList()?.subscribe(
       (res: any) => {
-        if (res?.isSuccess == true) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           res?.data ? res?.data?.forEach((tank: any) => {
             this.tanksList?.push({
               name: tank?.name,
@@ -228,7 +228,7 @@ export class AddEditDriverComponent implements OnInit {
     this.isFullLoading = true;
     this.driversService?.getDriverById(id)?.subscribe(
       (res: any) => {
-        if (res?.code == 200) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           this.driverData = res?.data ? res?.data : null;
           this.getAllTanks();
           this.getAllSupervisors();

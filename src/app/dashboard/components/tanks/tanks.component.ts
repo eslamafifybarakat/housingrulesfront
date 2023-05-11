@@ -126,7 +126,7 @@ export class TanksComponent implements OnInit {
     }
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getTanks();
+    this.getAllTanks();
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
@@ -201,7 +201,7 @@ export class TanksComponent implements OnInit {
           this.publicService?.show_loader?.next(false);
         });
     }
-    this.cdr.detectChanges();
+    this.cdr?.detectChanges();
   }
 
   clearTable(event: any): void {
@@ -210,7 +210,7 @@ export class TanksComponent implements OnInit {
     this.filtersArray = [];
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getTanks();
+    this.getAllTanks();
   }
   sortItems(event: any): void {
     if (event?.order == 1) {
