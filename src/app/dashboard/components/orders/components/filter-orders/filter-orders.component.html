@@ -78,23 +78,23 @@
       <div class="col-md-6">
         <div class="mb-3">
           <label class="form-label required">
-            {{"labels.tank"|translate}}
+            {{"labels.driver"|translate}}
           </label>
           <span class="p-input-icon-right select-loading d-block">
-            <p-dropdown [options]="tanksList" formControlName="tank" optionLabel="name" [filter]="true"
+            <p-dropdown [options]="driversList" formControlName="driver" optionLabel="name" [filter]="true"
               [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-              [readonly]="isLoadingTanks" scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
-              [class.ng-dirty]="formControls?.tank?.invalid && (formControls?.tank?.dirty || formControls?.tank?.touched)"
-              [showClear]="true" placeholder="{{'placeholder.tank'|translate}}">
+              [readonly]="isLoadingDrivers" scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
+              [class.ng-dirty]="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)"
+              [showClear]="true" placeholder="{{'placeholder.driver'|translate}}">
             </p-dropdown>
-            <ng-container *ngIf="isLoadingTanks">
+            <ng-container *ngIf="isLoadingDrivers">
               <i class="pi pi-spin pi-spinner"></i>
             </ng-container>
           </span>
           <div class="my-2">
             <ng-container
-              *ngIf="formControls?.tank?.invalid && (formControls?.tank?.dirty || formControls?.tank?.touched)">
-              <ng-container *ngIf="formControls?.tank?.errors?.['required']">
+              *ngIf="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)">
+              <ng-container *ngIf="formControls?.driver?.errors?.['required']">
                 <span class="text-danger fs-8">
                   {{"validations.required_field"|translate}}
                 </span>
@@ -103,35 +103,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="mb-3">
-          <label class="form-label required">
-            {{"labels.driverStatus"|translate}}
-          </label>
-          <span class="p-input-icon-right select-loading d-block">
-            <p-dropdown [options]="driverStatusList" formControlName="driverStatus" optionLabel="name" [filter]="true"
-              [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-              [readonly]="isLoadingDriverStatus" scrollHeight="200px"
-              emptyMessage="{{'general.no_result_found'|translate}}"
-              [class.ng-dirty]="formControls?.driverStatus?.invalid && (formControls?.driverStatus?.dirty || formControls?.driverStatus?.touched)"
-              [showClear]="true" placeholder="{{'placeholder.driverStatus'|translate}}">
-            </p-dropdown>
-            <ng-container *ngIf="isLoadingDriverStatus">
-              <i class="pi pi-spin pi-spinner"></i>
-            </ng-container>
-          </span>
-          <div class="my-2">
-            <ng-container
-              *ngIf="formControls?.driverStatus?.invalid && (formControls?.driverStatus?.dirty || formControls?.driverStatus?.touched)">
-              <ng-container *ngIf="formControls?.driverStatus?.errors?.['required']">
-                <span class="text-danger fs-8">
-                  {{"validations.required_field"|translate}}
-                </span>
-              </ng-container>
-            </ng-container>
-          </div>
-        </div>
-      </div>
+
       <div class="col-md-6">
         <div class="mb-3">
           <label for="phone" class="mb-2 required">{{'labels.mobilePhone'|translate}}</label>

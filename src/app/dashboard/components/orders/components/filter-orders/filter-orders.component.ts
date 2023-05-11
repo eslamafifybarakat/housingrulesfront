@@ -22,10 +22,10 @@ export class FilterOrdersComponent implements OnInit {
   supervisorsList: any = [];
   isLoadingSupervisors: boolean = false;
 
-  tanksList: any = [];
-  isLoadingTanks: boolean = false;
+  driversList: any = [];
+  isLoadingDrivers: boolean = false;
 
-  driverStatusList: any = [];
+  orderStatusList: any = [];
   isLoadingDriverStatus: boolean = false;
 
   minEndDate: any;
@@ -38,7 +38,6 @@ export class FilterOrdersComponent implements OnInit {
     public alertsService: AlertsService,
     public publicService: PublicService,
     private config: DynamicDialogConfig,
-    private tanksService: TanksService,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     protected router: Router,
@@ -46,31 +45,20 @@ export class FilterOrdersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllTanks();
     this.getAllSupervisors();
-    this.getDriverStatus();
+    this.orderStatusList = this.publicService?.getOrderStatus();
   }
 
   modalForm = this.fb?.group(
     {
       startDate: [null, [Validators.required]],
       endDate: [null, [Validators.required]],
-      name: ['', {
-        validators: [
-          Validators.required,
-          Validators?.minLength(3)], updateOn: "blur"
-      }],
-      username: ['', {
-        validators: [
-          Validators.required,
-          Validators?.pattern(patterns?.userName),
-          Validators?.minLength(3)], updateOn: "blur"
-      }],
+
       supervisor: ['', {
         validators: [
           Validators.required], updateOn: "blur"
       }],
-      tank: ['', {
+      driver: ['', {
         validators: [
           Validators.required], updateOn: "blur"
       }],
@@ -82,20 +70,7 @@ export class FilterOrdersComponent implements OnInit {
         validators: [
           Validators.required], updateOn: "blur"
       }],
-      password: ['', {
-        validators: [
-          Validators.required,
-          Validators?.minLength(8),
-          Validators?.maxLength(20),
-        ], updateOn: "blur"
-      }],
-      confirmPassword: ['', {
-        validators: [
-          Validators.required,
-          Validators?.minLength(8),
-          Validators?.maxLength(20),
-        ], updateOn: "blur"
-      }]
+
     },
   );
 
@@ -147,41 +122,34 @@ export class FilterOrdersComponent implements OnInit {
       { id: 1, name: "ali ahmed" },
     ]
   }
-  getAllTanks(): any {
-    this.isLoadingTanks = true;
-    this.tanksService?.getTanksList()?.subscribe(
+  getAllDrivers(): any {
+    this.isLoadingDrivers = true;
+    this.driversService?.getDriversList()?.subscribe(
       (res: any) => {
         if (res?.code == 200) {
-          res?.data ? res?.data?.forEach((tank: any) => {
-            this.tanksList?.push({
-              name: tank?.name,
-              id: tank?.id
+          res?.data ? res?.data?.forEach((item: any) => {
+            this.driversList?.push({
+              name: item?.name,
+              id: item?.id
             });
           }) : '';
-          this.isLoadingTanks = false;
+          this.isLoadingDrivers = false;
         } else {
           res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
-          this.isLoadingTanks = false;
+          this.isLoadingDrivers = false;
         }
       },
       (err: any) => {
         err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
-        this.isLoadingTanks = false;
+        this.isLoadingDrivers = false;
       });
     this.cdr?.detectChanges();
 
-    this.tanksList = [
+    this.driversList = [
       { id: 1, name: 'tank1' },
       { id: 2, name: 'tank1' },
       { id: 21, name: 'tank1' },
       { id: 31, name: 'tank1' },
-    ]
-  }
-  getDriverStatus(): void {
-    this.driverStatusList = [
-      { id: 1, value: 'available', name: this.publicService?.translateTextFromJson('general.available') },
-      { id: 2, value: 'busy', name: this.publicService?.translateTextFromJson('general.busy') },
-      { id: 3, value: 'far', name: this.publicService?.translateTextFromJson('general.far') },
     ]
   }
 
@@ -189,8 +157,8 @@ export class FilterOrdersComponent implements OnInit {
     const myObject: { [key: string]: any } = {};
 
     if (this.modalForm?.valid) {
-      myObject['name'] = this.modalForm?.value?.name;
-      myObject['username'] = this.modalForm?.value?.username;
+      // myObject['name'] = this.modalForm?.value?.name;
+      // myObject['username'] = this.modalForm?.value?.username;
       // myObject['supervisor'] = this.modalForm?.value?.supervisor?.id;
       // myObject['tank'] = this.modalForm?.value?.tank?.id;
       // myObject['driver_status'] = this.modalForm?.value?.driverStatus?.value;

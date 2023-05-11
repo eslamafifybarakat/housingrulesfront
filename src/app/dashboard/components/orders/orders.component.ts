@@ -78,6 +78,16 @@ export class OrdersComponent implements OnInit {
           this.pagesCount = Math.ceil(this.ordersCount / this.perPage);
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
+            let sizeTank: any;
+            if (item?.tankSize == 0) {
+              sizeTank = "Size13";
+            }
+            if (item?.tankSize == 1) {
+              sizeTank = "Size20";
+            }
+            if (item?.tankSize == 2) {
+              sizeTank = "Size32";
+            }
             arr.push({
               id: item?.id ? item?.id : null,
               date: item?.date ? new Date(item?.date) : null,
@@ -86,7 +96,8 @@ export class OrdersComponent implements OnInit {
               customerMobileNumber: item?.customerMobileNumber ? item?.customerMobileNumber : '',
               district: item?.district ? item?.district : '',
               locationLink: item?.locationLink ? item?.locationLink : '',
-              tankSize: item?.tankSize ? item?.tankSize : '0',
+              tankSize: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.' + sizeTank),
+              tankSizeVal: item?.tankSize ? item?.tankSize : '',
               status: item?.status ? item?.status : '',
               paymentMethod: item?.paymentMethod ? item?.paymentMethod : '',
               paidAmount: item?.paidAmount ? item?.paidAmount : '0',
@@ -117,7 +128,7 @@ export class OrdersComponent implements OnInit {
       { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: 'Governmental', district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'cancelled' },
       { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: 'Governmental', district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'pending' },
       { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: 'Governmental', district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'completed' },
-      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: 'Governmental', district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'assignedToDriver' }
+      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: 'Governmental', district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'Assigned_To_Driver' }
     ];
     this.ordersList$ = data;
   }
