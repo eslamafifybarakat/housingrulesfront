@@ -44,27 +44,6 @@
           <ng-container *ngIf="isEdit">
             <div class="col-md-6">
               <div class="mb-3">
-                <label for="paymentMethod" class="mb-2 required">{{'labels.paymentMethod'|translate}}</label>
-                <input type="text" class="form-control" formControlName="paymentMethod" autocomplete="cc-name"
-                  (input)="publicService?.clearValidationErrors(formControls?.paymentMethod)"
-                  [class.is-invalid]="formControls?.paymentMethod?.invalid && (formControls?.paymentMethod?.dirty || formControls?.paymentMethod?.touched)"
-                  placeholder="{{'placeholder.paymentMethod'|translate}}">
-                <div class="mt-2">
-                  <ng-container
-                    *ngIf="formControls?.paymentMethod?.invalid && (formControls?.paymentMethod?.dirty || formControls?.paymentMethod?.touched)">
-                    <ng-container *ngIf="formControls?.paymentMethod?.errors?.['required']">
-                      <span class="text-danger fs-8">
-                        {{'validations.required_field'|translate}}
-                      </span>
-                    </ng-container>
-                  </ng-container>
-                </div>
-              </div>
-            </div>
-          </ng-container>
-          <ng-container *ngIf="isEdit">
-            <div class="col-md-6">
-              <div class="mb-3">
                 <label for="paidAmount" class="mb-2 required">{{'labels.paidAmount'|translate}}</label>
                 <input type="number" class="form-control" formControlName="paidAmount" autocomplete="cc-name"
                   (input)="publicService?.clearValidationErrors(formControls?.paidAmount)"
@@ -146,10 +125,18 @@
           <div class="col-md-6">
             <div class="mb-3">
               <label for="name" class="mb-2 required">{{'labels.district'|translate}}</label>
-              <input type="text" class="form-control" formControlName="district" autocomplete="cc-name"
-                (input)="publicService?.clearValidationErrors(formControls?.district)"
-                [class.is-invalid]="formControls?.district?.invalid && (formControls?.district?.dirty || formControls?.district?.touched)"
-                placeholder="{{'placeholder.district'|translate}}">
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="restrictsList" formControlName="district" optionLabel="name" [filter]="true"
+                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                  [filterPlaceholder]="'placeholder.district'|translate" [readonly]="isLoadingRestricts"
+                  scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.propertyType?.invalid && (formControls?.propertyType?.dirty || formControls?.propertyType?.touched)"
+                  [showClear]="true" placeholder="{{'placeholder.district'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingRestricts">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
               <div class="mt-2">
                 <ng-container
                   *ngIf="formControls?.district?.invalid && (formControls?.district?.dirty || formControls?.district?.touched)">
@@ -162,6 +149,64 @@
                   <ng-container *ngIf="formControls?.district?.errors?.['minlength']">
                     <span class="text-danger fs-8 d-block">
                       {{'validations.length'|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label required">
+                {{"labels.supervisor"|translate}}
+              </label>
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="supervisorsList" formControlName="supervisor" optionLabel="name" [filter]="true"
+                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                  [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingSupervisors"
+                  scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)"
+                  [showClear]="true" placeholder="{{'placeholder.supervisor'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingSupervisors">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
+              <div class="my-2">
+                <ng-container
+                  *ngIf="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)">
+                  <ng-container *ngIf="formControls?.supervisor?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{"validations.required_field"|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label required">
+                {{"labels.driver"|translate}}
+              </label>
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="driversList" formControlName="driver" optionLabel="name" [filter]="true"
+                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                  [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDrivers"
+                  scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)"
+                  [showClear]="true" placeholder="{{'placeholder.driver'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingDrivers">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
+              <div class="my-2">
+                <ng-container
+                  *ngIf="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)">
+                  <ng-container *ngIf="formControls?.driver?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{"validations.required_field"|translate}}
                     </span>
                   </ng-container>
                 </ng-container>
@@ -200,20 +245,30 @@
           <div class="col-md-6">
             <div class="mb-3">
               <label class="form-label required">
-                {{"labels.tankSize"|translate}}
+                {{"labels.tank"|translate}}
               </label>
               <span class="p-input-icon-right select-loading d-block">
-                <p-dropdown [options]="tanksSize" formControlName="tankSize" optionLabel="name" [filter]="true"
-                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="value" appendTo="body"
-                  [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingTanksSize"
-                  scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
-                  [class.ng-dirty]="formControls?.tankSize?.invalid && (formControls?.tankSize?.dirty || formControls?.tankSize?.touched)"
-                  [showClear]="true" placeholder="{{'placeholder.tankSize'|translate}}">
+                <p-dropdown [options]="tanksList" formControlName="tank" optionLabel="name" [filter]="true"
+                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                  [readonly]="isLoadingTanks" scrollHeight="200px"
+                  emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.tank?.invalid && (formControls?.tank?.dirty || formControls?.tank?.touched)"
+                  [showClear]="true" placeholder="{{'placeholder.tank'|translate}}">
                 </p-dropdown>
-                <ng-container *ngIf="isLoadingTanksSize">
+                <ng-container *ngIf="isLoadingTanks">
                   <i class="pi pi-spin pi-spinner"></i>
                 </ng-container>
               </span>
+              <div class="my-2">
+                <ng-container
+                  *ngIf="formControls?.tank?.invalid && (formControls?.tank?.dirty || formControls?.tank?.touched)">
+                  <ng-container *ngIf="formControls?.tank?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{"validations.required_field"|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
               <div class="my-2">
                 <ng-container
                   *ngIf="formControls?.tankSize?.invalid && (formControls?.tankSize?.dirty || formControls?.tankSize?.touched)">
@@ -229,10 +284,20 @@
           <div class="col-md-6">
             <div class="mb-3">
               <label for="customerName" class="mb-2 required">{{'labels.customerName'|translate}}</label>
-              <input type="text" class="form-control" formControlName="customerName" autocomplete="cc-name"
-                (input)="publicService?.clearValidationErrors(formControls?.customerName)"
-                [class.is-invalid]="formControls?.customerName?.invalid && (formControls?.customerName?.dirty || formControls?.customerName?.touched)"
-                placeholder="{{'placeholder.customerName'|translate}}">
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="customersList" formControlName="customerName" optionLabel="name" [filter]="true"
+                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="value" appendTo="body"
+                  [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingCustomers"
+                  scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                  (onChange)="onSelectCustomer()" (onClear)="onClearCustomer()"
+                  [class.ng-dirty]="formControls?.customerName?.invalid && (formControls?.customerName?.dirty || formControls?.customerName?.touched)"
+                  [showClear]="true" placeholder="{{'general.select'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingCustomers">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
+
               <div class="mt-2">
                 <ng-container
                   *ngIf="formControls?.customerName?.invalid && (formControls?.customerName?.dirty || formControls?.customerName?.touched)">
@@ -279,35 +344,6 @@
           </div>
           <div class="col-md-6">
             <div class="mb-3">
-              <label class="form-label required">
-                {{"labels.supervisor"|translate}}
-              </label>
-              <span class="p-input-icon-right select-loading d-block">
-                <p-dropdown [options]="supervisorsList" formControlName="supervisor" optionLabel="name" [filter]="true"
-                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-                  [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingSupervisors"
-                  scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
-                  [class.ng-dirty]="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)"
-                  [showClear]="true" placeholder="{{'placeholder.supervisor'|translate}}">
-                </p-dropdown>
-                <ng-container *ngIf="isLoadingSupervisors">
-                  <i class="pi pi-spin pi-spinner"></i>
-                </ng-container>
-              </span>
-              <div class="my-2">
-                <ng-container
-                  *ngIf="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)">
-                  <ng-container *ngIf="formControls?.supervisor?.errors?.['required']">
-                    <span class="text-danger fs-8">
-                      {{"validations.required_field"|translate}}
-                    </span>
-                  </ng-container>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="mb-3">
               <label for="locationLink" class="mb-2 required">{{'labels.locationLink'|translate}}</label>
               <input type="text" class="form-control" formControlName="locationLink" autocomplete="cc-name"
                 (input)="publicService?.clearValidationErrors(formControls?.locationLink)"
@@ -325,6 +361,33 @@
                   <ng-container *ngIf="formControls?.locationLink?.errors?.['pattern']">
                     <span class="text-danger fs-8 d-block">
                       {{'validations.notValidLink'|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="paymentMethod" class="mb-2 required">{{'labels.paymentMethod'|translate}}</label>
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="paymentMethodsList" formControlName="paymentMethod" optionLabel="name"
+                  [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                  [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingPaymentMethods"
+                  scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.paymentMethod?.invalid && (formControls?.paymentMethod?.dirty || formControls?.paymentMethod?.touched)"
+                  [showClear]="true" placeholder="{{'placeholder.paymentMethod'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingPaymentMethods">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
+              <div class="mt-2">
+                <ng-container
+                  *ngIf="formControls?.paymentMethod?.invalid && (formControls?.paymentMethod?.dirty || formControls?.paymentMethod?.touched)">
+                  <ng-container *ngIf="formControls?.paymentMethod?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{'validations.required_field'|translate}}
                     </span>
                   </ng-container>
                 </ng-container>

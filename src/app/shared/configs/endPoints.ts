@@ -5,6 +5,7 @@ export const roots = {
     forgetPassword: '/forget-password',
   },
   dashboard: {
+    customersList: 'Customers/GetAllAsync',
     tanks: {
       tanksList: 'Tanks/GetAllAsync',
       CreateAsync: 'Tanks/CreateAsync',

@@ -1,14 +1,15 @@
-import { DriversService } from './../../../../services/drivers.service';
 import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../../../shared/services/public.service';
 import { patterns } from './../../../../../shared/configs/patternValidations';
+import { DriversService } from './../../../../services/drivers.service';
 import { OrdersService } from './../../../../services/orders.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { TanksService } from 'src/app/dashboard/services/tanks.service';
 
 @Component({
   selector: 'app-add-order',
@@ -29,26 +30,40 @@ export class AddOrderComponent implements OnInit {
   driversList: any = [];
   isLoadingDrivers: boolean = false;
 
-  tanksSize: any = [{ value: 0, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size13') },
-  { value: 1, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
-  { value: 2, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
-  isLoadingTanksSize: boolean = false;
+  tanksList: any = [];
+  isLoadingTanks: boolean = false;
+
+  paymentMethodsList: any = [
+    { id: 1, value: 0, name: "Cash" },
+    { id: 2, value: 1, name: "Mada" },
+    { id: 3, value: 2, name: "Transfer" },
+    { id: 4, value: 3, name: "Credit" }
+  ]
+  isLoadingPaymentMethods: boolean = false;
 
   orderOriginList: any = [
-    { id: 1, name: "By WhatsApp" },
-    { id: 2, name: "By TMS" },
-    { id: 3, name: "By Call" },
-    { id: 4, name: "By Site" },
-    { id: 5, name: "Other" },
+    { id: 1, value: 0, name: "By WhatsApp" },
+    { id: 2, value: 1, name: "By TMS" },
+    { id: 3, value: 2, name: "By Call" },
+    { id: 4, value: 3, name: "By Site" },
+    { id: 5, value: 4, name: "Other" },
   ]
   isLoadingOrderOrigin: boolean = false;
 
   propertyTypeList: any = [
-    { id: 1, name: "Residential" },
-    { id: 2, name: "Governmental" },
-    { id: 3, name: "Commercial" },
+    { id: 1, value: 0, name: "Residential" },
+    { id: 2, value: 1, name: "Governmental" },
+    { id: 3, value: 2, name: "Commercial" },
   ]
   isLoadingPropertyType: boolean = false;
+
+  restrictsList: any = [
+    { id: 1, value: 1, name: "جيزان" }
+  ]
+  isLoadingRestricts: boolean = false;
+  customersList: any = []
+  isLoadingCustomers: boolean = false;
+
   constructor(
     public checkValidityService: CheckValidityService,
     private supervisorsService: SupervisorsService,
@@ -57,6 +72,7 @@ export class AddOrderComponent implements OnInit {
     public alertsService: AlertsService,
     public publicService: PublicService,
     private orderService: OrdersService,
+    private tanksService: TanksService,
     private cdr: ChangeDetectorRef,
     protected router: Router,
     public fb: FormBuilder,
@@ -69,7 +85,10 @@ export class AddOrderComponent implements OnInit {
       this.getOrderData(this.orderId);
     } else {
       this.getAllSupervisors();
-    }
+      this.getAllCustomers();
+      this.getAllDrivers();
+      this.getAllTanks();
+    };
   }
 
   orderForm = this.fb?.group(
@@ -77,14 +96,14 @@ export class AddOrderComponent implements OnInit {
       orderNumber: ['', {
         validators: [], updateOn: "blur"
       }],
-      paymentMethod: ['', {
-        validators: [], updateOn: "blur"
-      }],
       paidAmount: ['', {
         validators: [], updateOn: "blur"
       }],
+      paymentMethod: ['', {
+        validators: [Validators.required], updateOn: "blur"
+      }],
       driver: ['', {
-        validators: [], updateOn: "blur"
+        validators: [Validators.required], updateOn: "blur"
       }],
       orderOrigin: ['', {
         validators: [
@@ -100,7 +119,7 @@ export class AddOrderComponent implements OnInit {
         validators: [
           Validators.required], updateOn: "blur"
       }],
-      tankSize: [null, Validators?.required],
+      tank: [null, Validators?.required],
       customerName: ['', {
         validators: [
           Validators.required,
@@ -132,6 +151,55 @@ export class AddOrderComponent implements OnInit {
   get formControls(): any {
     return this.orderForm?.controls;
   }
+
+  getAllCustomers(): any {
+    this.isLoadingCustomers = true;
+    this.orderService?.getCustomersList()?.subscribe(
+      (res: any) => {
+        if (res?.statusCode == 200) {
+          this.customersList = res?.data;
+          if (this.isEdit) {
+            this.customersList?.forEach((item: any) => {
+              if (item?.id == this.orderData?.customer) {
+                this.orderForm?.patchValue({
+                  customerName: this.orderData?.customer
+                })
+              }
+            });
+          }
+          this.isLoadingCustomers = false;
+        } else {
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+          this.isLoadingCustomers = false;
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+        this.isLoadingCustomers = false;
+      });
+    this.cdr?.detectChanges();
+    if (this.isEdit) {
+      this.supervisorsList?.forEach((supervisor: any) => {
+        if (supervisor?.id == this.orderData?.supervisorId) {
+          this.orderForm?.patchValue({
+            supervisor: supervisor
+          })
+        }
+      });
+    }
+  }
+  onSelectCustomer(): void {
+    let formInfo: any = this.orderForm?.value?.customerName;
+    this.orderForm?.patchValue({
+      customerMobileNumber: formInfo?.mobileNumber
+    });
+  }
+  onClearCustomer(): void {
+    this.orderForm?.patchValue({
+      customerMobileNumber: null
+    });
+  }
+
   getAllSupervisors(): any {
     this.isLoadingSupervisors = true;
     this.supervisorsService?.getSupervisorsList()?.subscribe(
@@ -139,7 +207,7 @@ export class AddOrderComponent implements OnInit {
         if (res?.statusCode == 200) {
           res?.data ? res?.data?.forEach((supervisor: any) => {
             this.supervisorsList?.push({
-              name: supervisor?.name,
+              name: supervisor?.arName,
               id: supervisor?.id
             });
           }) : '';
@@ -163,15 +231,6 @@ export class AddOrderComponent implements OnInit {
         this.isLoadingSupervisors = false;
       });
     this.cdr?.detectChanges();
-
-    this.supervisorsList = [
-      { id: 1, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 33, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 11, name: "ali ahmed" },
-    ]
     if (this.isEdit) {
       this.supervisorsList?.forEach((supervisor: any) => {
         if (supervisor?.id == this.orderData?.supervisorId) {
@@ -189,7 +248,7 @@ export class AddOrderComponent implements OnInit {
         if (res?.statusCode == 200) {
           res?.data ? res?.data?.forEach((item: any) => {
             this.driversList?.push({
-              name: item?.name,
+              name: item?.arName,
               id: item?.id
             });
           }) : '';
@@ -213,13 +272,6 @@ export class AddOrderComponent implements OnInit {
         this.isLoadingDrivers = false;
       });
     this.cdr?.detectChanges();
-
-    this.driversList = [
-      { id: 1, name: 'tank1' },
-      { id: 2, name: 'tank1' },
-      { id: 21, name: 'tank1' },
-      { id: 33, name: 'tank1' },
-    ];
     if (this.isEdit) {
       this.driversList?.forEach((driver: any) => {
         if (driver?.id == this.orderData?.driverId) {
@@ -230,6 +282,39 @@ export class AddOrderComponent implements OnInit {
       });
     }
   }
+  getAllTanks(): any {
+    this.isLoadingTanks = true;
+    this.tanksService?.getTanksList()?.subscribe(
+      (res: any) => {
+        if (res?.isSuccess == true) {
+          res?.data ? res?.data?.forEach((tank: any) => {
+            this.tanksList?.push({
+              name: tank?.name,
+              id: tank?.id
+            });
+          }) : '';
+          if (this.isEdit) {
+            this.tanksList?.forEach((tank: any) => {
+              // if (tank?.id == this.driverData?.tankId) {
+              //   this.modalForm?.patchValue({
+              //     tank: tank
+              //   })
+              // }
+            });
+          }
+          this.isLoadingTanks = false;
+        } else {
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+          this.isLoadingTanks = false;
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+        this.isLoadingTanks = false;
+      });
+    this.cdr?.detectChanges();
+  }
+
   getOrderData(id: number): void {
     this.isFullLoading = true;
     this.orderService?.getOrderById(id)?.subscribe(
@@ -237,7 +322,9 @@ export class AddOrderComponent implements OnInit {
         // if (res?.statusCode == 200) {
         //   this.orderData = res?.data ? res?.data : null;
         //   this.getAllSupervisors();
+        // this.getAllCustomers();
         //   this.getAllDrivers();
+        // this.getAllTanks();
         //   this.patchValue();
         //   this.isFullLoading = false;
         // } else {
@@ -255,18 +342,11 @@ export class AddOrderComponent implements OnInit {
 
       this.getAllSupervisors();
     this.getAllDrivers();
+    this.getAllTanks();
     this.patchValue();
   }
   patchValue(): void {
     console.log(this.orderData);
-    this.tanksSize?.forEach((element: any) => {
-      if (element?.value == this.orderData?.tankSizeVal) {
-        this.orderForm?.patchValue({
-          tankSize: element
-        })
-      }
-    });
-
     this.orderForm?.patchValue({
       orderOrigin: this.orderData?.orderOrigin,
       propertyType: this.orderData?.propertyType,
@@ -285,25 +365,29 @@ export class AddOrderComponent implements OnInit {
     const myObject: { [key: string]: any } = {};
 
     if (this.orderForm?.valid) {
+      let date: Date = new Date();
       let formInfo: any = this.orderForm?.value;
-      myObject['orderOrigin'] = formInfo?.orderOrigin?.['name'];
-      myObject['propertyType'] = formInfo?.propertyType?.['name'];
+      myObject['dateTime'] = date;
+      myObject['orderOrigin'] = formInfo?.orderOrigin?.['value'];
+      myObject['propertyType'] = formInfo?.propertyType?.['value'];
       myObject['customerMobileNumber'] = formInfo?.customerMobileNumber;
-      myObject['district'] = formInfo?.district;
+      myObject['districtId'] = formInfo?.district?.['value'];
       myObject['locationLink'] = formInfo?.locationLink;
       myObject['supervisorId'] = formInfo?.supervisor?.['id'];
-      myObject['customerId'] = formInfo?.customerName;
+      myObject['driverId'] = formInfo?.driver?.id;
+      myObject['customerId'] = formInfo?.customerName?.id;
       myObject['comments'] = formInfo?.comment;
-      myObject['tankSize'] = formInfo?.tankSize?.['value'];
-
+      myObject['tankId'] = formInfo?.tank?.['id'];
+      myObject['paymentMethod'] = formInfo?.paymentMethod?.['value'];
       myObject['createBy'] = 0;
       if (this.isEdit) {
         myObject['paidAmount'] = formInfo?.paidAmount;
-        myObject['paymentMethod'] = formInfo?.paymentMethod;
         myObject['orderNumber'] = formInfo?.orderNumber;
       }
 
       this.publicService?.show_loader?.next(true);
+      console.log(myObject);
+
       this.orderService?.addOrUpdateOrder(myObject, this.orderId ? this.orderId : null)?.subscribe(
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {

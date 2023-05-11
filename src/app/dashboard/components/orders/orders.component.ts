@@ -49,13 +49,14 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.tableHeaders = [
-      { field: 'date', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), sort: false, filter: true, type: 'date' },
+      { field: 'dateTime', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), sort: false, filter: true, type: 'date' },
       { field: 'orderOrigin', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'propertyType', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'filterArray', dataType: 'array', list: 'propertyType', placeholder: this.publicService?.translateTextFromJson('placeholder.propertyType'), label: this.publicService?.translateTextFromJson('labels.propertyType') },
       { field: 'customerMobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerMobileNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerMobileNumber'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'district', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'locationLink', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', enableItemLink: true },
-      { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'tank', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), filter: true, type: 'filterArray', dataType: 'array', list: 'tanks', placeholder: this.publicService?.translateTextFromJson('placeholder.tank'), label: this.publicService?.translateTextFromJson('labels.tank') },
+      // { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'status', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'filterArray', dataType: 'array', list: 'orderStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.status'), label: this.publicService?.translateTextFromJson('labels.status'), status: true },
       { field: 'paymentMethod', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.paymentMethod'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.paymentMethod'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'paidAmount', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.paidAmount'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.paidAmount'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'numeric' },
@@ -80,27 +81,35 @@ export class OrdersComponent implements OnInit {
           this.pagesCount = Math.ceil(this.ordersCount / this.perPage);
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
-            let sizeTank: any;
-            if (item?.tankSize == 0) {
-              sizeTank = "Size13";
+            let status: any = '';
+            if (item?.status == 0) {
+              status = 'Pending'
             }
-            if (item?.tankSize == 1) {
-              sizeTank = "Size20";
+            if (item?.status == 1) {
+              status = 'AssignedToDriver'
             }
-            if (item?.tankSize == 2) {
-              sizeTank = "Size32";
+            if (item?.status == 2) {
+              status = 'DriverArrivedToCustomer'
+            }
+            if (item?.status == 3) {
+              status = 'DriverArrivedAtStation'
+            }
+            if (item?.status == 3) {
+              status = 'Completed'
+            }
+            if (item?.status == 3) {
+              status = 'Cancelled'
             }
             arr.push({
               id: item?.id ? item?.id : null,
-              date: item?.date ? new Date(item?.date) : null,
+              dateTime: item?.dateTime ? new Date(item?.dateTime) : null,
               orderOrigin: item?.orderOrigin ? item?.orderOrigin : '',
               propertyType: item?.propertyType ? item?.propertyType : [],
               customerMobileNumber: item?.customerMobileNumber ? item?.customerMobileNumber : '',
               district: item?.district ? item?.district : '',
               locationLink: item?.locationLink ? item?.locationLink : '',
-              tankSize: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.' + sizeTank),
-              tankSizeVal: item?.tankSize ? item?.tankSize : '',
-              status: item?.status ? item?.status : '',
+              tank: item?.tank ? item?.tank : [],
+              status: item?.status ? status : '',
               paymentMethod: item?.paymentMethod ? item?.paymentMethod : '',
               paidAmount: item?.paidAmount ? item?.paidAmount : '0',
               cancellationCauses: item?.cancellationCauses ? item?.cancellationCauses : '',
@@ -112,7 +121,7 @@ export class OrdersComponent implements OnInit {
 
             });
           }) : '';
-          // this.ordersList$ = arr;
+          this.ordersList$ = arr;
         }),
         finalize(() => {
           this.loadingIndicator = false;
@@ -125,14 +134,6 @@ export class OrdersComponent implements OnInit {
 
       ).subscribe((res: any) => {
       });
-
-    let data: any = [
-      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'cancelled' },
-      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'pending' },
-      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'completed' },
-      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'Assigned_To_Driver' }
-    ];
-    this.ordersList$ = data;
   }
   getOrders(): void {
     let arr: any = this.ordersList$
