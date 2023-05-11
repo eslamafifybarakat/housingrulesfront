@@ -45,60 +45,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="mb-3">
-          <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
-          <input type="text" class="form-control" formControlName="name" autocomplete="cc-name"
-            (input)="publicService?.clearValidationErrors(formControls?.name)"
-            [class.is-invalid]="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)"
-            placeholder="{{'placeholder.name'|translate}}">
-          <div class="mt-2">
-            <ng-container
-              *ngIf="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)">
-              <ng-container *ngIf="formControls?.name?.errors?.['required']">
-                <span class="text-danger fs-8">
-                  {{'validations.requiredName'|translate}}
-                </span>
-              </ng-container>
 
-              <ng-container *ngIf="formControls?.name?.errors?.['minlength']">
-                <span class="text-danger fs-8 d-block">
-                  {{'validations.name_length'|translate}}
-                </span>
-              </ng-container>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="mb-3">
-          <label for="username" class="mb-2 required">{{'labels.username'|translate}}</label>
-          <input type="text" class="form-control" formControlName="username" autocomplete="cc-name"
-            (input)="publicService?.clearValidationErrors(formControls?.username)"
-            [class.is-invalid]="formControls?.username?.invalid && (formControls?.username?.dirty || formControls?.username?.touched)"
-            placeholder="{{'placeholder.username'|translate}}">
-          <div class="mt-2">
-            <ng-container
-              *ngIf="formControls?.username?.invalid && (formControls?.username?.dirty || formControls?.username?.touched)">
-              <ng-container *ngIf="formControls?.username?.errors?.['required']">
-                <span class="text-danger fs-8">
-                  {{'validations.username'|translate}}
-                </span>
-              </ng-container>
-              <ng-container *ngIf="formControls?.username?.errors?.['pattern']">
-                <span class="text-danger fs-8">
-                  {{'validations.not_valid'|translate}}
-                </span>
-              </ng-container>
-              <ng-container *ngIf="formControls?.username?.errors?.['minlength']">
-                <span class="text-danger fs-8 d-block">
-                  {{'validations.name_length'|translate}}
-                </span>
-              </ng-container>
-            </ng-container>
-          </div>
-        </div>
-      </div>
       <div class="col-md-6">
         <div class="mb-3">
           <label class="form-label required">

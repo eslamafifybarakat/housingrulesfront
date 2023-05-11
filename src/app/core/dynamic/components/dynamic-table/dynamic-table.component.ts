@@ -542,9 +542,9 @@ export class DynamicTableComponent implements OnInit {
   getAllSupervisors(): any {
     this.supervisorsService?.getSupervisorsList()?.subscribe(
       (res: any) => {
-        if (res?.data?.code == 200) {
+        if (res?.statusCode == 200) {
           let arr: any = [];
-          res?.data?.data ? res?.data?.data.forEach((item: any) => {
+          res?.data ? res?.data.forEach((item: any) => {
             arr.push({
               id: item?.id ? item?.id : null,
               name: item?.name ? item?.name : '',
