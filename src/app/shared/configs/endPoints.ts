@@ -9,7 +9,7 @@ export const roots = {
       tanksList: 'Tanks/GetAllAsync',
       CreateAsync: 'Tanks/CreateAsync',
       UpdateAsync: 'Tanks/UpdateAsync',
-      Delete:'Tanks/Delete',
+      Delete: 'Tanks/Delete',
       tankToggleStatus: 'switch_status_tanks'
     },
     drivers: {
@@ -20,7 +20,15 @@ export const roots = {
       getDriverById: 'Drivers/GetByIdAsync',
     },
     supervisors: {
-      supervisorsList: 'supervisors',
+      supervisorsList: 'Tanks/GetAllAsync',
+      createSupervisor: 'Tanks/CreateAsync',
+      updateSupervisor: 'Tanks/UpdateAsync',
+      deleteSupervisor: 'Tanks/Delete',
+      // supervisorsList: 'SuperVisors/GetAllAsync',
+      // createSupervisor: 'SuperVisors/CreateAsync',
+      // updateSupervisor: 'SuperVisors/UpdateAsync',
+      // deleteSupervisor: 'SuperVisors/Delete',
+
       supervisorToggleStatus: 'switch_status_supervisors'
     },
     orders: {

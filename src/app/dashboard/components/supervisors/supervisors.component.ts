@@ -1,13 +1,12 @@
 
+import { AddEditSupervisorComponent } from './components/add-edit-supervisor/add-edit-supervisor.component';
+import { SupervisorDetailsComponent } from './components/supervisor-details/supervisor-details.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
+import { SupervisorsService } from '../../services/supervisors.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subscription, finalize, map } from 'rxjs';
-import { TanksService } from '../../services/tanks.service';
 import { DialogService } from 'primeng/dynamicdialog';
-import { SupervisorsService } from '../../services/supervisors.service';
-import { SupervisorDetailsComponent } from './components/supervisor-details/supervisor-details.component';
-import { AddEditSupervisorComponent } from './components/add-edit-supervisor/add-edit-supervisor.component';
 
 @Component({
   selector: 'app-supervisors',
@@ -42,16 +41,17 @@ export class SupervisorsComponent implements OnInit {
 
   constructor(
     private supervisorsService: SupervisorsService,
-    private alertsService: AlertsService,
-    private publicService: PublicService,
     private dialogService: DialogService,
+    private alertsService: AlertsService,
+    public publicService: PublicService,
     private cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
     this.tableHeaders = [
       { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
+      { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
+      // { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
 
     this.getAllSupervisors();
@@ -65,11 +65,20 @@ export class SupervisorsComponent implements OnInit {
           this.supervisorsCount = res?.data?.pagination?.total;
           this.pagesCount = Math.ceil(this.supervisorsCount / this.perPage);
           let arr: any = [];
-          res?.data?.data ? res?.data?.data.forEach((item: any) => {
+          let workingItems: any = [];
+          workingItems = this.publicService?.getIsWorking();
+          res?.data ? res?.data.forEach((item: any) => {
+            let isWorking: any = '';
+            if (item?.isWorking == true) {
+              isWorking = workingItems[1]?.name;
+            } else {
+              isWorking = workingItems[0]?.name;
+            }
             arr.push({
               id: item?.id ? item?.id : null,
               name: item?.name ? item?.name : '',
-              is_active: item?.is_active ? item?.is_active : false
+              isWorking: isWorking,
+              // is_active: item?.is_active ? item?.is_active : false
             });
           }) : '';
           this.supervisorsList$ = arr;
@@ -87,13 +96,14 @@ export class SupervisorsComponent implements OnInit {
       });
 
     let data: any = [
-      { id: 1, name: 'Celine', is_active: true },
-      { id: 2, name: 'nour', is_active: true },
-      { id: 3, name: 'lorena', is_active: true },
-      { id: 4, name: 'Ahmed', is_active: false },
-      { id: 5, name: 'Ali', is_active: false },
-      { id: 6, name: 'Kareem', is_active: true },
+      { id: 1, name: 'Celine', isWorking: true },
+      { id: 2, name: 'nour', isWorking: true },
+      { id: 3, name: 'lorena', isWorking: true },
+      { id: 4, name: 'Ahmed', isWorking: false },
+      { id: 5, name: 'Ali', isWorking: false },
+      { id: 6, name: 'Kareem', isWorking: true },
     ];
+
     this.supervisorsList$ = data;
   }
   getSupervisors(): void {
@@ -166,13 +176,8 @@ export class SupervisorsComponent implements OnInit {
   deleteItem(item: any): void {
     console.log(item);
     if (item?.confirmed) {
-      let data = {
-        name: item?.item?.name
-      }
       this.publicService?.show_loader.next(true);
-      console.log('ff');
-
-      this.supervisorsService?.deleteSupervisorId(item?.item?.id, data)?.subscribe(
+      this.supervisorsService?.deleteSupervisorId(item?.item?.id)?.subscribe(
         (res: any) => {
           if (res?.code === 200) {
             res?.message ? this.alertsService?.openSnackBar(res?.message) : '';

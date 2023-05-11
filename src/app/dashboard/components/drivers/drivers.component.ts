@@ -70,13 +70,17 @@ export class DriversComponent implements OnInit {
           this.pagesCount = Math.ceil(this.driversCount / this.perPage);
           let arr: any = [];
           res?.data ? res?.data?.forEach((driver: any) => {
+            let tankArr: any = [];
+            driver?.tank ? tankArr?.push(driver?.tank) : '';
+            let supervisorArr: any = [];
+            driver?.supervisor ? supervisorArr?.push(driver?.supervisor) : '';
             arr.push({
               id: driver?.id ? driver?.id : null,
               name: driver?.name ? driver?.name : '',
               driverStatus: driver?.driverStatus ? driver?.driverStatus : null,
               mobileNumber: driver?.mobileNumber ? driver?.mobileNumber : '',
-              tanks: driver?.tanks ? driver?.tanks : [],
-              supervisors: driver?.supervisors ? driver?.supervisors : []
+              tank: tankArr,
+              supervisor: supervisorArr
             });
           }) : '';
           this.driversList$ = arr;

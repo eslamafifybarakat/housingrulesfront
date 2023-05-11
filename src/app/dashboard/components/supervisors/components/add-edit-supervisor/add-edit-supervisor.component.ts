@@ -2,6 +2,7 @@ import { CheckValidityService } from './../../../../../shared/services/check-val
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { PublicService } from './../../../../../shared/services/public.service';
+import { patterns } from './../../../../../shared/configs/patternValidations';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
@@ -45,12 +46,18 @@ export class AddEditSupervisorComponent implements OnInit {
 
   modalForm = this.fb?.group(
     {
+      username: ['', {
+        validators: [
+          Validators.required,
+          Validators?.pattern(patterns?.userName),
+          Validators?.minLength(3)], updateOn: "blur"
+      }],
       name: ['', {
         validators: [
           Validators.required,
           Validators?.minLength(3)], updateOn: "blur"
       }],
-      active: [false, []]
+      isWorking: [false, []]
     },
   );
 
@@ -60,7 +67,7 @@ export class AddEditSupervisorComponent implements OnInit {
   patchValue(): void {
     this.modalForm?.patchValue({
       name: this.modalData?.item?.name,
-      active: this.modalData?.item?.is_active
+      isWorking: this.modalData?.item?.isWorking
     })
   }
 
@@ -69,8 +76,15 @@ export class AddEditSupervisorComponent implements OnInit {
 
     if (this.modalForm?.valid) {
       myObject['name'] = this.modalForm?.value?.name;
-      myObject['is_active'] = this.modalForm?.value?.active;
-
+      // myObject['is_active'] = this.modalForm?.value?.active;
+      myObject['isWorking'] = this.modalForm?.value?.isWorking;
+      myObject['userId'] = '0';
+      if (this.isEdit) {
+        myObject['id'] = this.supervisorId;
+        myObject['lastModifiedBy'] = 0;
+      } else {
+        myObject['createBy'] = 0;
+      }
       this.publicService?.show_loader?.next(true);
       this.supervisorsService?.addOrUpdateSupervisor(myObject, this.supervisorId ? this.supervisorId : null)?.subscribe(
         (res: any) => {

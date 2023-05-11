@@ -207,7 +207,7 @@
                           [showAddButton]="false">
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
-                              placeholder="Any">
+                              placeholder="Any" []>
                               <ng-template let-option pTemplate="item">
                                 <span [class]="'item-badge status-' + option.value">{{option.value}}</span>
                               </ng-template>
@@ -347,23 +347,29 @@
             <ng-container *ngFor="let col of columns">
               <ng-container *ngIf="col?.dataType=='array'; else noChild">
                 <td>
-                  <ng-container *ngIf="item && item[col.field]">
-                    <span class="d-flex gap-2">
-                      <ng-container *ngFor="let child of item[col.field];let i=index">
-                        <ng-container *ngIf="i<2">
-                          <span class="child">{{ child[arrayChildKey] }} </span>
+                  <ng-container *ngIf="col?.status; else noStatus">
+                    <span [class]="'item-badge status-' +  item[col.field]">{{ item[col.field]}}</span>
+                  </ng-container>
+                  <ng-template #noStatus>
+                    <ng-container *ngIf="item && item[col.field]">
+                      <span class="d-flex gap-2">
+                        <ng-container *ngFor="let child of item[col.field];let i=index">
+                          <ng-container *ngIf="i<2">
+                            <span class="child">{{ child[arrayChildKey] }} </span>
+                          </ng-container>
                         </ng-container>
-                      </ng-container>
-                      <ng-container *ngIf="item[col.field]?.length>2">
-                        <span class="child"> +{{item[col.field]?.length - 2}}</span>
-                      </ng-container>
-                    </span>
-                  </ng-container>
-                  <ng-container *ngIf="item[col.field]?.length==0">
-                    <p class="text-center noItemAdded">
-                      {{'general.noItemAdded'|translate}}
-                    </p>
-                  </ng-container>
+                        <ng-container *ngIf="item[col.field]?.length>2">
+                          <span class="child"> +{{item[col.field]?.length - 2}}</span>
+                        </ng-container>
+                      </span>
+                    </ng-container>
+                    <ng-container *ngIf="item[col.field]?.length==0">
+                      <p class="text-center noItemAdded">
+                        {{'general.noItemAdded'|translate}}
+                      </p>
+                    </ng-container>
+                  </ng-template>
+
                 </td>
               </ng-container>
               <ng-template #noChild>
