@@ -36,9 +36,17 @@ export class OrdersService {
 
   addOrUpdateOrder(data: any, id?: number): Observable<any> {
     if (id) {
-      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}`, data);
+      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.updateOrder}`, data);
     } else {
       return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.crateOrder}`, data);
     }
+  }
+
+  getOrderById(id: number): Observable<any> {
+    let params = new HttpParams();
+    if (id) {
+      params = params.append("id", id);
+    }
+    return this.http?.get<any>(`${this.baseUrl}/${roots?.dashboard?.orders?.getOrderById}`, { params: params });
   }
 }

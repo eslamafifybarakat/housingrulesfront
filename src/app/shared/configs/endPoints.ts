@@ -29,7 +29,9 @@ export const roots = {
     },
     orders: {
       ordersList: 'Orders/GetAllAsync',
-      crateOrder: 'Orders/CreateAsync'
+      crateOrder: 'Orders/CreateAsync',
+      updateOrder: 'Orders/UpdateAsync',
+      getOrderById: 'Orders/GetByIdAsync',
     },
   }
 }

@@ -185,8 +185,10 @@
     "customerMobileNumber":"رقم هاتف العميل",
     "district":"المنطقة",
     "locationLink":"رابط الموقع",
-    "orderOrigin": "اصل الطلب"
-
+    "orderOrigin": "اصل الطلب",
+    "orderNumber": "رقم الطلب",
+    "paymentMethod":"طريقة الدفع ",
+    "paidAmount":"المبلغ المدفوع"
   },
   "placeholder": {
     "status":"الحالة",
@@ -211,8 +213,10 @@
     "district":"أدخل المنطقة",
     "locationLink":"أدخل رابط الموقع",
     "comment":"أكتب تعليق",
-    "orderOrigin": "أدخل اصل الطلب"
-
+    "orderOrigin": "أدخل اصل الطلب",
+    "orderNumber": "أدخل رقم الطلب",
+    "paymentMethod":"أدخل طريقة الدفع ",
+    "paidAmount":"أدخل المبلغ المدفوع"
   },
   "validations": {
     "required_field": "هذا الحقل مطلوب",
@@ -312,7 +316,7 @@
 "customerMobileNumber":"رقم هاتف العميل",
 "district":"المنطقة",
 "locationLink":"رابط الموقع",
-"paymentMethod":"طريقة الدفع او السداد",
+"paymentMethod":"طريقة الدفع ",
 "paidAmount":"المبلغ المدفوع",
 "cancellationCauses":"أسباب الإلغاء",
 "closedAt":"مغلق عند",

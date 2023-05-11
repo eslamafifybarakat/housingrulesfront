@@ -184,7 +184,10 @@
 "district":"District",
 "orderOrigin": "Order origin",
 "propertyType":"Property type",
-"locationLink":"Location link"
+"locationLink":"Location link",
+"paidAmount":"Paid amount",
+"paymentMethod":"Payment method",
+"orderNumber": "Order number"
   },
   "placeholder": {
     "status":"Status",
@@ -208,7 +211,10 @@
 "customerName": "Enter customer name",
 "customerMobileNumber":"Enter customer mobile number",
 "locationLink":"Enter location link",
-"comment":"Write comment"
+"comment":"Write comment",
+"paidAmount":"Enter paid amount",
+"paymentMethod":"Enter payment method",
+"orderNumber": "Enter order number"
   },
   "validations": {
     "required_field": "This field is reuired",

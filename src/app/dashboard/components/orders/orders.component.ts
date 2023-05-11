@@ -126,13 +126,13 @@ export class OrdersComponent implements OnInit {
       ).subscribe((res: any) => {
       });
 
-    // let data: any = [
-    //   { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'cancelled' },
-    //   { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'pending' },
-    //   { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'completed' },
-    //   { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'Assigned_To_Driver' }
-    // ];
-    // this.ordersList$ = data;
+    let data: any = [
+      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'cancelled' },
+      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'pending' },
+      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'completed' },
+      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: [{ name: 'Governmental' }], district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'Assigned_To_Driver' }
+    ];
+    this.ordersList$ = data;
   }
   getOrders(): void {
     let arr: any = this.ordersList$
@@ -178,11 +178,7 @@ export class OrdersComponent implements OnInit {
   viewLocation(item: any): void { }
 
   addOrEditItem(item?: any, type?: any): void {
-    if (type == 'edit') {
-
-    } else {
-      this.router?.navigate(['/dashboard/addOrder'])
-    }
+    type == 'edit' ? this.router.navigate(['/dashboard/addOrder', { id: item?.id }]) : this.router.navigate(['/dashboard/addOrder']);
     // const ref = this.dialogService?.open(AddEditTankComponent, {
     //   data: {
     //     item,
