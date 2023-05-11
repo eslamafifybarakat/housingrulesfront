@@ -301,8 +301,10 @@ export class DynamicTableComponent implements OnInit {
   copyHandlerEmit(item: any): void {
     this.copyHandler.emit({ item: item });
   }
-  colEventHandlerEmit(item: any, type: string): void {
+  colEventHandlerEmit(item: any, type?: string): void {
     this.colEventHandler.emit({ item: item, type: type });
+    console.log();
+
   }
   editHandlerEmit(item: any): void {
     this.editHandler.emit(item);

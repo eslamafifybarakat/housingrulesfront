@@ -10,11 +10,12 @@
 .status-qualified,
 .status-available,
 .status-Available,
-.status-completed {
+.status-Completed {
   color: #50cd89;
   background-color: #e8fff3;
 }
 .status-pending,
+.status-Pending,
 .status-far {
   color: #fdc604;
   background-color: #fff8df;
@@ -22,19 +23,24 @@
 .status-unqualified,
 .status-busy,
 .status-Busy,
-.status-cancelled {
+.status-Cancelled {
   color: #f1416c;
   background-color: #fff5f8;
 }
 .status-new,
-.status-assignedToDriver,
+.status-AssignedToDriver,
 .status-Assigned_To_Driver {
   color: #009ef7;
   background-color: #f1faff;
 }
-.status-renewal {
+.status-renewal,
+.status-DriverArrivedAtStation {
   color: #743aef;
   background-color: #f1eef9;
+}
+.status-DriverArrivedToCustomer {
+  color: #3a70ef;
+  background-color: #eef1f9;
 }
 .p-dropdown-items {
   .item-badge {

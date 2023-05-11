@@ -141,10 +141,21 @@ export class PublicService {
 
   getPropertyType(): any {
     let arr: any = [
-      { id: 1, name: "Residential" },
-      { id: 2, name: "Governmental" },
-      { id: 3, name: "Commercial" },
+      { id: 1, value: 0, name: "Residential" },
+      { id: 2, value: 1, name: "Governmental" },
+      { id: 3, value: 2, name: "Commercial" },
     ];
     return arr;
+  }
+
+  getOrderOrigin(): any {
+    let orderOriginList: any = [
+      { id: 1, value: 0, name: "By WhatsApp" },
+      { id: 2, value: 1, name: "By TMS" },
+      { id: 3, value: 2, name: "By Call" },
+      { id: 4, value: 3, name: "By Site" },
+      { id: 5, value: 4, name: "Other" },
+    ]
+    return orderOriginList;
   }
 }

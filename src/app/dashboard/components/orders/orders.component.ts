@@ -1,11 +1,11 @@
-import { Router } from '@angular/router';
+import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { OrdersService } from './../../services/orders.service';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
-import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -38,6 +38,9 @@ export class OrdersComponent implements OnInit {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
+  orderOriginList: any = [];
+  propertyTypeList: any = [];
+
   constructor(
     private alertsService: AlertsService,
     private publicService: PublicService,
@@ -53,12 +56,12 @@ export class OrdersComponent implements OnInit {
       { field: 'district', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'customer', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerName'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.customers'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'customerMobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerMobileNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerMobileNumber'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'tank', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text'},
+      { field: 'tank', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'supervisor', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisor'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
-      { field: 'driver', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driver'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.drivers'),sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+      { field: 'driver', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driver'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.drivers'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'orderOrigin', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'propertyType', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'filterArray', dataType: 'array', list: 'propertyType', placeholder: this.publicService?.translateTextFromJson('placeholder.propertyType'), label: this.publicService?.translateTextFromJson('labels.propertyType') },
-      { field: 'locationLink', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', enableItemLink: true },
+      { field: 'locationLink', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', enableItemLink: true, typeViewModal: 'location' },
       // { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'status', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'filterArray', dataType: 'array', list: 'orderStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.status'), label: this.publicService?.translateTextFromJson('labels.status'), status: true },
       { field: 'paymentMethod', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.paymentMethod'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.paymentMethod'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
@@ -69,6 +72,8 @@ export class OrdersComponent implements OnInit {
     ];
 
     this.getAllOrders();
+    this.propertyTypeList = this.publicService?.getPropertyType();
+    this.orderOriginList = this.publicService?.getOrderOrigin();
   }
 
   getAllOrders(): any {
@@ -99,16 +104,28 @@ export class OrdersComponent implements OnInit {
             if (item?.status == 3) {
               status = 'Cancelled'
             }
+            let orderOrigin: any;
+            this.orderOriginList?.forEach((element: any) => {
+              if (element?.value == item?.orderOrigin) {
+                orderOrigin = element?.name
+              }
+            });
+            let propertyType: any = [];
+            this.propertyTypeList?.forEach((element: any) => {
+              if (element?.value == item?.propertyType) {
+                propertyType?.push(element);
+              }
+            });
             arr.push({
               id: item?.id ? item?.id : null,
               dateTime: item?.dateTime ? new Date(item?.dateTime) : null,
-              orderOrigin: item?.orderOrigin ? item?.orderOrigin : '',
-              propertyType: item?.propertyType ? item?.propertyType : [],
+              orderOrigin: orderOrigin,
+              propertyType: propertyType,
               customerMobileNumber: item?.customerMobileNumber ? item?.customerMobileNumber : '',
               district: item?.district ? item?.district : '',
               locationLink: item?.locationLink ? item?.locationLink : '',
               tank: item?.tank ? item?.tank : '',
-              status: item?.status ? status : '',
+              status: status,
               paymentMethod: item?.paymentMethod ? item?.paymentMethod : '',
               paidAmount: item?.paidAmount ? item?.paidAmount : '0',
               cancellationCauses: item?.cancellationCauses ? item?.cancellationCauses : '',
@@ -147,7 +164,7 @@ export class OrdersComponent implements OnInit {
     }
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getOrders();
+    this.getAllOrders();
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
@@ -158,7 +175,6 @@ export class OrdersComponent implements OnInit {
     this.pagesCount = Math?.ceil(this.ordersCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getOrders();
   }
   filter(): void {
     const ref = this.dialogService?.open(FilterOrdersComponent, {
@@ -171,31 +187,16 @@ export class OrdersComponent implements OnInit {
       if (res?.filter) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getOrders();
+        this.getAllOrders();
       }
     });
   }
-  viewLocation(item: any): void { }
+  viewLocation(item: any): void {
+    window?.open(item?.locationLink, "_blank");
+  }
 
   addOrEditItem(item?: any, type?: any): void {
     type == 'edit' ? this.router.navigate(['/dashboard/addOrder', { id: item?.id }]) : this.router.navigate(['/dashboard/addOrder']);
-    // const ref = this.dialogService?.open(AddEditTankComponent, {
-    //   data: {
-    //     item,
-    //     type: type == 'edit' ? 'edit' : 'add'
-    //   },
-    //   header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.tanks.editTank') : this.publicService?.translateTextFromJson('dashboard.tanks.addTank'),
-    //   dismissableMask: false,
-    //   width: '50%',
-    //   styleClass: 'custom_modal'
-    // });
-    // ref.onClose.subscribe((res: any) => {
-    //   if (res?.listChanged) {
-    //     this.page = 1;
-    //     this.publicService?.changePageSub?.next({ page: this.page });
-    //     this.getTanks();
-    //   }
-    // });
   }
 
   clearTable(event: any): void {
@@ -204,7 +205,7 @@ export class OrdersComponent implements OnInit {
     this.filtersArray = [];
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getOrders();
+    this.getAllOrders();
   }
   sortItems(event: any): void {
     if (event?.order == 1) {
@@ -281,7 +282,7 @@ export class OrdersComponent implements OnInit {
     });
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getOrders();
+    this.getAllOrders();
   }
 
   ngOnDestroy(): void {

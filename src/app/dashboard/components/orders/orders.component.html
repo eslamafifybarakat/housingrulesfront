@@ -20,7 +20,7 @@
     (filterHandler)="enableSortFilter?filterItems($event):''" [results]="ordersCount" [paginatorRows]="perPage"
     [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
     [enableConfirmDeleteDialog]="true" [keyDelete]="'name'" (paginateOptionsHandler)="onPaginatorOptionsChange($event)"
-    (colEventHandler)="viewLocation($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
+    (itemActionHandler)="viewLocation($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
     [enableFilterSupervisors]="true" [enableFilterDrivers]="true" [enableFilterOrderStatus]="true"
     [enableFilterPropertyType]="true" [enableFilterTanks]="true"></app-dynamic-table>
 </div>
