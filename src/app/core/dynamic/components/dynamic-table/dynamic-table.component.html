@@ -554,9 +554,18 @@
                               [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?rolesList:col?.list=='products'?productsList:col?.list=='sections'?sectionsList:col?.list=='examStatus'?examStatusList:col?.list=='parentSkills'?parentSkillsList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:col?.list=='isWorking'?isWorkingList:''"
                               placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
                               <ng-template let-option pTemplate="item">
-                                <div class="p-multiselect-representative-option">
-                                  <span class="ml-1">{{option.name}}</span>
-                                </div>
+                                <ng-container *ngIf="col?.status; else noStatus">
+                                  <div [class]="'item-badge status-' + option.value"
+                                    class="p-multiselect-representative-option">
+                                    <span class="ml-1">{{option.name}}</span>
+                                  </div>
+                                </ng-container>
+                                <ng-template #noStatus>
+                                  <div class="p-multiselect-representative-option">
+                                    <span class="ml-1">{{option.name}}</span>
+                                  </div>
+                                </ng-template>
+
                               </ng-template>
                             </p-multiSelect>
                           </ng-template>

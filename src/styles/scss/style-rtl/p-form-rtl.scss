@@ -92,3 +92,9 @@
   padding-right: 0.8rem !important;
   padding-left: inherit !important;
 }
+.p-column-filter-constraint {
+  .p-multiselect .p-multiselect-panel {
+    left: 0 !important;
+    right: inherit !important;
+  }
+}

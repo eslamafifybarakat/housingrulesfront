@@ -47,6 +47,8 @@
 .p-column-filter-constraint {
   .p-multiselect .p-multiselect-panel {
     min-width: 16rem !important;
+    right: 0;
+    position: absolute;
   }
 }
 .p-multiselect-panel
