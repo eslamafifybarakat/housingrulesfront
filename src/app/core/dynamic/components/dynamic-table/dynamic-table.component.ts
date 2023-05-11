@@ -560,7 +560,7 @@ export class DynamicTableComponent implements OnInit {
   getAllSupervisors(): any {
     this.supervisorsService?.getSupervisorsList()?.subscribe(
       (res: any) => {
-        if (res?.statusCode == 200) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             arr.push({
@@ -592,7 +592,7 @@ export class DynamicTableComponent implements OnInit {
   getAllTanks(): any {
     this.tanksService?.getTanksList()?.subscribe(
       (res: any) => {
-        if (res?.isSuccess == true) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             arr.push({
@@ -615,7 +615,7 @@ export class DynamicTableComponent implements OnInit {
   getAllDrivers(): any {
     this.driversService?.getDriversList()?.subscribe(
       (res: any) => {
-        if (res?.isSuccess == true) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             arr.push({

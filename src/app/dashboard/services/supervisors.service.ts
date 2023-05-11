@@ -21,15 +21,15 @@ export class SupervisorsService {
     // if (per_page) {
     //   params = params?.append("per_page", per_page);
     // }
-    if (search) {
-      params = params?.append("search", search);
-    }
-    if (sort && Object.keys(sort)?.length > 0) {
-      params = params?.append("sort", JSON?.stringify(sort));
-    }
-    if (conditions && conditions?.length > 0) {
-      params = params?.append("conditions", JSON?.stringify(conditions));
-    }
+    // if (search) {
+    //   params = params?.append("search", search);
+    // }
+    // if (sort && Object.keys(sort)?.length > 0) {
+    //   params = params?.append("sort", JSON?.stringify(sort));
+    // }
+    // if (conditions && conditions?.length > 0) {
+    //   params = params?.append("conditions", JSON?.stringify(conditions));
+    // }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.supervisors?.supervisorsList}`, { params: params })
   }
   supervisorToggleStatus(id: number): Observable<any> {

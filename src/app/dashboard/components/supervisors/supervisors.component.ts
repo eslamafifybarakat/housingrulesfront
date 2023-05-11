@@ -134,7 +134,7 @@ export class SupervisorsComponent implements OnInit {
   }
   toggleStatus(event: any): void {
     this.supervisorsService?.supervisorToggleStatus(event?.id)?.subscribe(res => {
-      if (res?.code == 200) {
+      if (res?.statusCode == 200 && res?.isSuccess == true) {
         this.getAllSupervisors();
         this.cdr.detectChanges();
       } else {
@@ -179,7 +179,7 @@ export class SupervisorsComponent implements OnInit {
       this.publicService?.show_loader.next(true);
       this.supervisorsService?.deleteSupervisorId(item?.item?.id)?.subscribe(
         (res: any) => {
-          if (res?.code === 200) {
+          if (res?.statusCode == 200 && res?.isSuccess == true) {
             res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
             this.getAllSupervisors();
             this.publicService?.show_loader?.next(false);
