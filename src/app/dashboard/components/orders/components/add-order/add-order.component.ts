@@ -127,8 +127,7 @@ export class AddOrderComponent implements OnInit {
       }],
       customerMobileNumber: ['', {
         validators: [
-          Validators.required,
-          Validators.pattern(patterns?.phone)], updateOn: "blur"
+          Validators.required], updateOn: "blur"
       }],
       supervisor: [null, {
         validators: [
