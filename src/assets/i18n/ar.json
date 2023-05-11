@@ -144,7 +144,13 @@
     "allRights": "جميع الحقوق محفوظة 2023",
     "available": "متاح",
     "busy": "مشغول",
-    "far": "بعيد"
+    "far": "بعيد",
+    "cancelled":"ألغيت",
+"completed":"مكتمل",
+"assignedToDriver":"مخصص للسائق",
+"driverOnWayToCustomer":"سائق في الطريق إلى الزبون",
+"driverArrivedToCustomer":"وصل السائق إلى العميل",
+"driverArrivedToStation":"وصل السائق إلى المحطة"
   },
   "labels": {
     "isWorking": "متاح للتعين",
@@ -170,9 +176,11 @@
     "startDate": "تاريخ البدأ",
     "endDate": "تاريخ الإنتهاء",
     "orderStatus": "حالة الطلب",
+    "status":"الحالة",
     "palateNo": "رقم اللوحة"
   },
   "placeholder": {
+    "status":"الحالة",
     "isWorking": "متاح للتعين",
     "email": "أدخل البريد الإلكتروني",
     "password": "أدخل كلمة المرور",
@@ -269,7 +277,7 @@
       "driverStatus": "حالة السائق",
       "tankSize": "سعة الصهريج",
       "orderNumber": "رقم الطلب",
-      "requestOrigin": "اصل الطلب",
+      "orderOrigin": "اصل الطلب",
       "entityType": "نوع الجهة",
       "customerName": "اسم العميل",
       "customerNumber": "رقم العميل",
@@ -279,7 +287,19 @@
       "orderStatus": "حالة الطلب",
       "supervisors": "المشرفين",
       "tanks": "الصهاريج",
-      "mobilePhone": "رقم الهاتف"
+      "mobilePhone": "رقم الهاتف",
+      "date":"التاريخ",
+      "propertyType":"نوع الملكية",
+"customerMobileNumber":"رقم هاتف العميل",
+"district":"يصرف",
+"locationLink":"رابط الموقع",
+"paymentMethod":"طريقة الدفع او السداد",
+"paidAmount":"المبلغ المدفوع",
+"cancellationCauses":"أسباب الإلغاء",
+"closedAt":"مغلق عند",
+"drivers":"السائقين",
+"customers":"العملاء",
+"comments":"تعليقات"
     },
     "tanks": {
       "tanks": "الصهاريج",

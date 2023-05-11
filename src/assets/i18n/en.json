@@ -143,7 +143,14 @@
     "allRights": "All rights reserved 2023",
     "available": "Available",
     "busy": "Busy",
-    "far": "Far"
+    "far": "Far",
+"cancelled":"cancelled",
+"completed":"completed",
+"assignedToDriver":"Assigned To Driver",
+"driverOnWayToCustomer":"Driver On The Way To Customer",
+"driverArrivedToCustomer":"Driver Arrived To Customer",
+"driverArrivedToStation":"Driver Arrived To Station"
+
   },
   "labels": {
     "isWorking": "Is working",
@@ -168,9 +175,11 @@
     "driver": "Driver",
     "startDate": "Start Date",
     "endDate": "End Date",
-    "orderStatus": "Order status"
+    "orderStatus": "Order status",
+    "status":"Status"
   },
   "placeholder": {
+    "status":"Status",
     "isWorking": "isWorking",
     "email": "Enter email address",
     "password": "Enter password",
@@ -268,7 +277,7 @@
       "tankSize": "Tank Size",
       "email": "Email",
       "orderNumber": "Order number",
-      "requestOrigin": "Request origin",
+      "orderOrigin": "Request origin",
       "entityType": "Entity type",
       "customerName": "Customer name",
       "customerNumber": "Customer number",
@@ -278,7 +287,20 @@
       "orderStatus": "Order status",
       "tanks": "Tanks",
       "supervisors": "Supervisors",
-      "mobilePhone": "Mobile Number"
+      "mobilePhone": "Mobile Number",
+      "date":"Date",
+"propertyType":"Property type",
+"customerMobileNumber":"Customer mobile number",
+"district":"District",
+"locationLink":"Location link",
+"paymentMethod":"Payment method",
+"paidAmount":"Paid amount",
+"cancellationCauses":"Cancellation causes",
+"closedAt":"Closed at",
+"drivers":"Drivers",
+"customers":"Customers",
+"comments":"Comments"
+
     },
     "tanks": {
       "tanks": "Tanks",

@@ -9,22 +9,25 @@
 
 .status-qualified,
 .status-available,
-.status-Available {
+.status-Available,
+.status-completed {
   color: #50cd89;
   background-color: #e8fff3;
 }
-.status-proposal,
+.status-pending,
 .status-far {
   color: #fdc604;
   background-color: #fff8df;
 }
 .status-unqualified,
 .status-busy,
-.status-Busy {
+.status-Busy,
+.status-cancelled {
   color: #f1416c;
   background-color: #fff5f8;
 }
-.status-new {
+.status-new,
+.status-assignedToDriver {
   color: #009ef7;
   background-color: #f1faff;
 }

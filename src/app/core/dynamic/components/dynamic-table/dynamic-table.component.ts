@@ -1,6 +1,7 @@
-import { TanksService } from './../../../../dashboard/services/tanks.service';
-import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { ConfirmDeleteComponent } from './../../../../shared/components/confirm-delete/confirm-delete.component';
+import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
+import { DriversService } from './../../../../dashboard/services/drivers.service';
+import { TanksService } from './../../../../dashboard/services/tanks.service';
 import { PublicService } from './../../../../shared/services/public.service';
 // import { ConfirmDeleteComponent } from 'src/app/shared/components/confirm-delete/confirm-delete.component';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef } from '@angular/core';
@@ -86,10 +87,12 @@ export class DynamicTableComponent implements OnInit {
 
 
   @Input() enableFilterDriverStatus: boolean = false;
+  @Input() enableFilterOrderStatus: boolean = false;
   @Input() enableFilterIsWorking: boolean = false;
 
   @Input() enableFilterSupervisors: boolean = false;
   @Input() enableFilterTanks: boolean = false;
+  @Input() enableFilterDrivers: boolean = false;
 
   // send flag to the parent componenet to open dialogs and send data
   @Output() searchHandler: EventEmitter<any> = new EventEmitter();
@@ -138,8 +141,10 @@ export class DynamicTableComponent implements OnInit {
   paginateOption: any = null;
 
   driverStatusList: any = [];
+  orderStatusList: any = [];
   supervisorsList: any = [];
   tanksList: any = [];
+  driversList: any = [];
   isWorkingList: any = [];
 
   assignedUsers: any = [];
@@ -192,6 +197,7 @@ export class DynamicTableComponent implements OnInit {
 
   constructor(
     private supervisorsService: SupervisorsService,
+    private driversService: DriversService,
     private dialogService: DialogService,
     private publicService: PublicService,
     private alertsService: AlertsService,
@@ -216,6 +222,9 @@ export class DynamicTableComponent implements OnInit {
     if (this.enableFilterDriverStatus == true) {
       this.getDriverStatus();
     }
+    if (this.enableFilterOrderStatus == true) {
+      this.getOrderStatus();
+    }
     if (this.enableFilterIsWorking == true) {
       this.getIsWorking();
     }
@@ -225,9 +234,9 @@ export class DynamicTableComponent implements OnInit {
     if (this.enableFilterTanks == true) {
       this.getAllTanks();
     }
-    // if (this.enableFilterTanks == true) {
-    //   this.getAllTanks();
-    // }
+    if (this.enableFilterDrivers == true) {
+      this.getAllDrivers();
+    }
   }
 
   searchHandlerEmit(event: any): void {
@@ -535,6 +544,10 @@ export class DynamicTableComponent implements OnInit {
     this.driverStatusList = this.publicService.getDriverStatus();
     this.cdr.detectChanges();
   }
+  getOrderStatus(): any {
+    this.orderStatusList = this.publicService.getOrderStatus();
+    this.cdr.detectChanges();
+  }
   getIsWorking(): any {
     this.isWorkingList = this.publicService.getIsWorking();
     this.cdr.detectChanges();
@@ -584,6 +597,28 @@ export class DynamicTableComponent implements OnInit {
             });
           }) : '';
           this.tanksList = arr;
+        } else {
+          res?.message ? this.alertsService.openSnackBar(res?.message) : '';
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService.openSnackBar(err?.message) : '';
+      });
+    this.cdr.detectChanges();
+
+  }
+  getAllDrivers(): any {
+    this.driversService?.getDriversList()?.subscribe(
+      (res: any) => {
+        if (res?.isSuccess == true) {
+          let arr: any = [];
+          res?.data ? res?.data.forEach((item: any) => {
+            arr.push({
+              id: item?.id ? item?.id : null,
+              name: item?.name ? item?.name : ''
+            });
+          }) : '';
+          this.driversList = arr;
         } else {
           res?.message ? this.alertsService.openSnackBar(res?.message) : '';
         }
