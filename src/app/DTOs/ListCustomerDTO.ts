@@ -14,8 +14,8 @@
         public location: string = null;
         // LOCATIONLINK
         public locationLink: string = null;
-        // PHONE
-        public phone: string = null;
+        // MOBILENUMBER
+        public mobileNumber: string = null;
         // PHONEWUP
         public phoneWup: boolean = false;
     } 

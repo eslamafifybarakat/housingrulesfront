@@ -11,5 +11,5 @@
         // USERID
         public userId: string = null;
         // CREATEBY
-        public createBy: number = 0;
+        public createBy: number = null;
     } 

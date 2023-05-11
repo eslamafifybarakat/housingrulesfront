@@ -6,8 +6,10 @@
         
         // ID
         public id: number = 0;
-        // NAME
-        public name: string = null;
+        // ARNAME
+        public arName: string = null;
+        // ENNAME
+        public enName: string = null;
         // TANKID
         public tankId: number = 0;
         // SUPERVISORID

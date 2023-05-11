@@ -6,8 +6,10 @@
         
         // ID
         public id: number = 0;
-        // NAME
-        public name: string = null;
+        // ARNAME
+        public arName: string = null;
+        // ENNAME
+        public enName: string = null;
         // ISWORKING
         public isWorking: boolean = false;
         // USERID
