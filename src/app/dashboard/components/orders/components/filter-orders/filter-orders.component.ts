@@ -94,7 +94,7 @@ export class FilterOrdersComponent implements OnInit {
     this.isLoadingSupervisors = true;
     this.supervisorsService?.getSupervisorsList()?.subscribe(
       (res: any) => {
-        if (res?.code == 200) {
+        if (res?.statusCode == 200) {
           res?.data ? res?.data?.forEach((supervisor: any) => {
             this.supervisorsList?.push({
               name: supervisor?.name,

@@ -28,10 +28,11 @@ export class AddOrderComponent implements OnInit {
   isLoadingTanksSize: boolean = false;
 
   orderOriginList: any = [
-    { id: 1, name: "BY TMS" },
-    { id: 2, name: "WHATSAPP" },
-    { id: 3, name: "BY TMS" },
-    { id: 4, name: "BY TMS" },
+    { id: 1, name: "By WhatsApp" },
+    { id: 2, name: "By TMS" },
+    { id: 3, name: "By Call" },
+    { id: 4, name: "By Site" },
+    { id: 5, name: "Other" },
   ]
   isLoadingOrderOrigin: boolean = false;
 
@@ -84,7 +85,7 @@ export class AddOrderComponent implements OnInit {
           Validators.required,
           Validators.pattern(patterns?.phone)], updateOn: "blur"
       }],
-      supervisor: ['', {
+      supervisor: [null, {
         validators: [
           Validators.required], updateOn: "blur"
       }],
@@ -112,7 +113,7 @@ export class AddOrderComponent implements OnInit {
         if (res?.statusCode == 200) {
           res?.data ? res?.data?.forEach((supervisor: any) => {
             this.supervisorsList?.push({
-              name: supervisor?.arName,
+              name: supervisor?.name,
               id: supervisor?.id
             });
           }) : '';
@@ -128,28 +129,29 @@ export class AddOrderComponent implements OnInit {
       });
     this.cdr?.detectChanges();
 
-    this.supervisorsList = [
-      { id: 1, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 33, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-    ]
+    // this.supervisorsList = [
+    //   { id: 1, name: "ali ahmed" },
+    //   { id: 1, name: "ali ahmed" },
+    //   { id: 33, name: "ali ahmed" },
+    //   { id: 1, name: "ali ahmed" },
+    //   { id: 1, name: "ali ahmed" },
+    //   { id: 1, name: "ali ahmed" },
+    // ]
   }
   submit(): void {
     const myObject: { [key: string]: any } = {};
 
     if (this.orderForm?.valid) {
-      myObject['orderOrigin'] = this.orderForm?.value?.orderOrigin;
-      myObject['propertyType'] = this.orderForm?.value?.propertyType;
-      myObject['customerMobileNumber'] = this.orderForm?.value?.customerMobileNumber;
-      myObject['district'] = this.orderForm?.value?.district;
-      myObject['locationLink'] = this.orderForm?.value?.locationLink;
-      myObject['supervisorId'] = this.orderForm?.value?.supervisor;
-      myObject['customerId'] = this.orderForm?.value?.customerName;
-      myObject['comments'] = this.orderForm?.value?.comment;
-      myObject['tankSize'] = this.orderForm?.value?.tankSize?.['value'];
+      let formInfo: any = this.orderForm?.value;
+      myObject['orderOrigin'] = formInfo?.orderOrigin?.['name'];
+      myObject['propertyType'] = formInfo?.propertyType?.['name'];
+      myObject['customerMobileNumber'] = formInfo?.customerMobileNumber;
+      myObject['district'] = formInfo?.district;
+      myObject['locationLink'] = formInfo?.locationLink;
+      myObject['supervisorId'] = formInfo?.supervisor?.['id'];
+      myObject['customerId'] = formInfo?.customerName;
+      myObject['comments'] = formInfo?.comment;
+      myObject['tankSize'] = formInfo?.tankSize?.['value'];
 
       myObject['createBy'] = 0;
 

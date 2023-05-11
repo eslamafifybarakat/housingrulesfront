@@ -138,4 +138,13 @@ export class PublicService {
     ];
     return arr;
   }
+
+  getPropertyType(): any {
+    let arr: any = [
+      { id: 1, name: "Residential" },
+      { id: 2, name: "Governmental" },
+      { id: 3, name: "Commercial" },
+    ];
+    return arr;
+  }
 }

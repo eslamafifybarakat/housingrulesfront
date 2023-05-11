@@ -190,7 +190,7 @@
                           </ng-template>
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-multiSelect [ngModel]="value"
-                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?tanksList:col?.list=='drivers'?driversList:col?.list=='orderStatus'?orderStatusList:col?.list=='examStatus'?examStatusList:col?.list=='parentSkills'?parentSkillsList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:col?.list=='isWorking'?isWorkingList:''"
+                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?tanksList:col?.list=='drivers'?driversList:col?.list=='orderStatus'?orderStatusList:col?.list=='propertyType'?propertyTypeList:col?.list=='parentSkills'?parentSkillsList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:col?.list=='isWorking'?isWorkingList:''"
                               placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
                               <ng-template let-option pTemplate="item">
                                 <div class="p-multiselect-representative-option">
@@ -551,7 +551,7 @@
                           </ng-template>
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-multiSelect [ngModel]="value"
-                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?rolesList:col?.list=='drivers'?driversList:col?.list=='orderStatus'?orderStatusList:col?.list=='examStatus'?examStatusList:col?.list=='parentSkills'?parentSkillsList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:col?.list=='isWorking'?isWorkingList:''"
+                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?rolesList:col?.list=='drivers'?driversList:col?.list=='orderStatus'?orderStatusList:col?.list=='propertyType'?propertyTypeList:col?.list=='parentSkills'?parentSkillsList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:col?.list=='isWorking'?isWorkingList:''"
                               placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
                               <ng-template let-option pTemplate="item">
                                 <ng-container *ngIf="col?.status; else noStatus">

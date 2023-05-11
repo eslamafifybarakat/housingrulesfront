@@ -89,6 +89,7 @@ export class DynamicTableComponent implements OnInit {
   @Input() enableFilterDriverStatus: boolean = false;
   @Input() enableFilterOrderStatus: boolean = false;
   @Input() enableFilterIsWorking: boolean = false;
+  @Input() enableFilterPropertyType: boolean = false;
 
   @Input() enableFilterSupervisors: boolean = false;
   @Input() enableFilterTanks: boolean = false;
@@ -146,6 +147,7 @@ export class DynamicTableComponent implements OnInit {
   tanksList: any = [];
   driversList: any = [];
   isWorkingList: any = [];
+  propertyTypeList: any = [];
 
   assignedUsers: any = [];
   newAssignedUsers: any = [];
@@ -236,6 +238,9 @@ export class DynamicTableComponent implements OnInit {
     }
     if (this.enableFilterDrivers == true) {
       this.getAllDrivers();
+    }
+    if (this.enableFilterPropertyType == true) {
+      this.getPropertyType();
     }
   }
 
@@ -628,6 +633,12 @@ export class DynamicTableComponent implements OnInit {
       });
     this.cdr.detectChanges();
 
+  }
+  getPropertyType(): any {
+    this.propertyTypeList = this.publicService?.getPropertyType();
+    console.log(this.propertyTypeList);
+
+    this.cdr.detectChanges();
   }
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
