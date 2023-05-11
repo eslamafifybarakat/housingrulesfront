@@ -120,7 +120,7 @@ export class DriversComponent implements OnInit {
     }
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getDrivers();
+    this.getAllDrivers();
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
@@ -131,7 +131,7 @@ export class DriversComponent implements OnInit {
     this.pagesCount = Math?.ceil(this.driversCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getDrivers();
+    // this.getDrivers();
   }
 
   itemDetails(item?: any): void {
@@ -167,7 +167,7 @@ export class DriversComponent implements OnInit {
       this.publicService?.show_loader.next(true);
       this.driversService?.deleteDriverId(item?.item?.id)?.subscribe(
         (res: any) => {
-          if (res?.code === 200) {
+          if (res?.statusCode == 200 && res?.isSuccess == true) {
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
             this.getAllDrivers();
             this.publicService?.show_loader?.next(false);
@@ -190,7 +190,7 @@ export class DriversComponent implements OnInit {
     this.filtersArray = [];
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getDrivers();
+    this.getAllDrivers();
   }
   sortItems(event: any): void {
     if (event?.order == 1) {

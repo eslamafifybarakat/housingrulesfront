@@ -95,16 +95,16 @@ export class SupervisorsComponent implements OnInit {
       ).subscribe((res: any) => {
       });
 
-    let data: any = [
-      { id: 1, name: 'Celine', isWorking: true },
-      { id: 2, name: 'nour', isWorking: true },
-      { id: 3, name: 'lorena', isWorking: true },
-      { id: 4, name: 'Ahmed', isWorking: false },
-      { id: 5, name: 'Ali', isWorking: false },
-      { id: 6, name: 'Kareem', isWorking: true },
-    ];
+    // let data: any = [
+    //   { id: 1, name: 'Celine', isWorking: true },
+    //   { id: 2, name: 'nour', isWorking: true },
+    //   { id: 3, name: 'lorena', isWorking: true },
+    //   { id: 4, name: 'Ahmed', isWorking: false },
+    //   { id: 5, name: 'Ali', isWorking: false },
+    //   { id: 6, name: 'Kareem', isWorking: true },
+    // ];
 
-    this.supervisorsList$ = data;
+    // this.supervisorsList$ = data;
   }
   getSupervisors(): void {
     let arr: any = this.supervisorsList$
@@ -119,7 +119,7 @@ export class SupervisorsComponent implements OnInit {
     }
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getSupervisors();
+    this.getAllSupervisors();
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
@@ -130,7 +130,7 @@ export class SupervisorsComponent implements OnInit {
     this.pagesCount = Math?.ceil(this.supervisorsCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getSupervisors();
+    // this.getSupervisors();
   }
   toggleStatus(event: any): void {
     this.supervisorsService?.supervisorToggleStatus(event?.id)?.subscribe(res => {
@@ -169,7 +169,7 @@ export class SupervisorsComponent implements OnInit {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getSupervisors();
+        this.getAllSupervisors();
       }
     });
   }
@@ -202,7 +202,7 @@ export class SupervisorsComponent implements OnInit {
     this.filtersArray = [];
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getSupervisors();
+    this.getAllSupervisors();
   }
   sortItems(event: any): void {
     if (event?.order == 1) {
@@ -279,7 +279,7 @@ export class SupervisorsComponent implements OnInit {
     });
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getSupervisors();
+    this.getAllSupervisors();
   }
 
   ngOnDestroy(): void {

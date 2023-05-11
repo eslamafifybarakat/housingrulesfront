@@ -88,7 +88,7 @@ export class AddEditSupervisorComponent implements OnInit {
       this.publicService?.show_loader?.next(true);
       this.supervisorsService?.addOrUpdateSupervisor(myObject, this.supervisorId ? this.supervisorId : null)?.subscribe(
         (res: any) => {
-          if (res?.code == 200) {
+          if (res?.statusCode == 200 && res?.isSuccess == true) {
             this.ref.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
           } else {

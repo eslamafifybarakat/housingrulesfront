@@ -82,7 +82,6 @@ export class AddEditTankComponent implements OnInit {
 
   submit(): void {
     const myObject: { [key: string]: any } = {};
-
     if (this.modalForm?.valid) {
       myObject['name'] = this.modalForm?.value?.name;
       myObject['isAvailable'] = this.modalForm?.value?.active;
