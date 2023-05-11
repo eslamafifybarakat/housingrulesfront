@@ -20,14 +20,10 @@ export const roots = {
       getDriverById: 'Drivers/GetByIdAsync',
     },
     supervisors: {
-      supervisorsList: 'Tanks/GetAllAsync',
-      createSupervisor: 'Tanks/CreateAsync',
-      updateSupervisor: 'Tanks/UpdateAsync',
-      deleteSupervisor: 'Tanks/Delete',
-      // supervisorsList: 'SuperVisors/GetAllAsync',
-      // createSupervisor: 'SuperVisors/CreateAsync',
-      // updateSupervisor: 'SuperVisors/UpdateAsync',
-      // deleteSupervisor: 'SuperVisors/Delete',
+      supervisorsList: 'SuperVisors/GetAllAsync',
+      createSupervisor: 'SuperVisors/CreateAsync',
+      updateSupervisor: 'SuperVisors/UpdateAsync',
+      deleteSupervisor: 'SuperVisors/Delete',
 
       supervisorToggleStatus: 'switch_status_supervisors'
     },
