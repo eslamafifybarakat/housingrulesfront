@@ -1,22 +1,22 @@
-import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
+import { CheckValidityService } from '../../../../../shared/services/check-validity/check-validity.service';
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
-import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
-import { PublicService } from './../../../../../shared/services/public.service';
-import { patterns } from './../../../../../shared/configs/patternValidations';
-import { DriversService } from './../../../../services/drivers.service';
-import { OrdersService } from './../../../../services/orders.service';
+import { AlertsService } from '../../../../../core/services/alerts/alerts.service';
+import { PublicService } from '../../../../../shared/services/public.service';
+import { patterns } from '../../../../../shared/configs/patternValidations';
+import { TanksService } from 'src/app/dashboard/services/tanks.service';
+import { DriversService } from '../../../../services/drivers.service';
+import { OrdersService } from '../../../../services/orders.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { TanksService } from 'src/app/dashboard/services/tanks.service';
 
 @Component({
-  selector: 'app-add-order',
-  templateUrl: './add-order.component.html',
-  styleUrls: ['./add-order.component.scss']
+  selector: 'app-add-edit-order',
+  templateUrl: './add-edit-order.component.html',
+  styleUrls: ['./add-edit-order.component.scss']
 })
-export class AddOrderComponent implements OnInit {
+export class AddEditOrderComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
 
   isEdit: boolean = false;

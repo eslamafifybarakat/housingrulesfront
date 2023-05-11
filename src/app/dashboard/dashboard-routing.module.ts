@@ -1,14 +1,14 @@
+import { AddEditOrderComponent } from './components/orders/components/add-edit-order/add-edit-order.component';
 import { WelcomeDashboardComponent } from './components/welcome-dashboard/welcome-dashboard.component';
+import { SupervisorsComponent } from './components/supervisors/supervisors.component';
+import { DriversComponent } from './components/drivers/drivers.component';
+import { OrdersComponent } from './components/orders/orders.component';
 import { UsersComponent } from './components/users/users.component';
 import { TanksComponent } from './components/tanks/tanks.component';
 import { DashboardComponent } from './dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutes } from '../shared/configs/routes';
 import { NgModule } from '@angular/core';
-import { DriversComponent } from './components/drivers/drivers.component';
-import { SupervisorsComponent } from './components/supervisors/supervisors.component';
-import { OrdersComponent } from './components/orders/orders.component';
-import { AddOrderComponent } from './components/orders/components/add-order/add-order.component';
 
 const routes: Routes = [
   {
@@ -57,7 +57,7 @@ const routes: Routes = [
       },
       {
         path: AppRoutes?.dashboard?.addOrder,
-        component: AddOrderComponent,
+        component: AddEditOrderComponent,
         data: {
           title: 'titles.addOrder',
           type: 'dashboard'
