@@ -36,9 +36,9 @@ export class OrdersService {
 
   addOrUpdateOrder(data: any, id?: number): Observable<any> {
     if (id) {
-      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}/` + id, data);
-    } else {
       return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}`, data);
+    } else {
+      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.crateOrder}`, data);
     }
   }
 }

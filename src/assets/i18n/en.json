@@ -176,7 +176,15 @@
     "startDate": "Start Date",
     "endDate": "End Date",
     "orderStatus": "Order status",
-    "status":"Status"
+    "status":"Status",
+"comments":"Comments",
+"comment":"Comment",
+"customerMobileNumber":"Customer mobile number",
+"customerName": "Customer name",
+"district":"District",
+"orderOrigin": "Order origin",
+"propertyType":"Property type",
+"locationLink":"Location link"
   },
   "placeholder": {
     "status":"Status",
@@ -193,7 +201,14 @@
     "driverStatus": "Select driver status",
     "tankSize": "Select tank size",
     "orderStatus": "Select order status",
-    "palateNo": "Enter palate no"
+    "palateNo": "Enter palate no",
+"orderOrigin": "select order origin",
+"propertyType":"select property type",
+"district":"Enter district",
+"customerName": "Enter customer name",
+"customerMobileNumber":"Enter customer mobile number",
+"locationLink":"Enter location link",
+"comment":"Write comment"
   },
   "validations": {
     "required_field": "This field is reuired",
@@ -218,7 +233,8 @@
     "MinimumCharacters": "Minimum 5 characters",
     "startDate": "Start date is required",
     "endDate": "End date is required",
-    "orderStatus": "Order status is required"
+    "orderStatus": "Order status is required",
+    "phone_length":"Phone number must be 11 digit"
   },
   "form": {
     "welcomeBack": "Welcome back",

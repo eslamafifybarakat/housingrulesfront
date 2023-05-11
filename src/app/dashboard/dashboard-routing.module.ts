@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { DriversComponent } from './components/drivers/drivers.component';
 import { SupervisorsComponent } from './components/supervisors/supervisors.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { AddOrderComponent } from './components/orders/components/add-order/add-order.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,14 @@ const routes: Routes = [
         component: OrdersComponent,
         data: {
           title: 'titles.orders',
+          type: 'dashboard'
+        }
+      },
+      {
+        path: AppRoutes?.dashboard?.addOrder,
+        component: AddOrderComponent,
+        data: {
+          title: 'titles.addOrder',
           type: 'dashboard'
         }
       },

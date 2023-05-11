@@ -165,9 +165,9 @@
                   </span>
                 </ng-container>
 
-                <ng-container *ngIf="formControls?.phone?.errors?.['minlength']">
+                <ng-container *ngIf="formControls?.phone?.errors?.['pattern']">
                   <span class="text-danger fs-8 d-block">
-                    {{'validations.name_length'|translate}}
+                    {{'validations.phone_length'|translate}}
                   </span>
                 </ng-container>
               </ng-container>

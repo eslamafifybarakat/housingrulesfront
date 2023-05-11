@@ -54,7 +54,8 @@
 .p-multiselect-panel
   .p-multiselect-header
   .p-multiselect-filter-container
-  .p-inputtext {
+  .p-inputtext,
+.p-dropdown-panel .p-dropdown-header .p-dropdown-filter {
   background-color: var(--bg-white-color) !important;
   height: 2.8rem !important;
 }

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -43,6 +44,7 @@ export class OrdersComponent implements OnInit {
     private dialogService: DialogService,
     private ordersService: OrdersService,
     private cdr: ChangeDetectorRef,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -176,6 +178,11 @@ export class OrdersComponent implements OnInit {
   viewLocation(item: any): void { }
 
   addOrEditItem(item?: any, type?: any): void {
+    if (type == 'edit') {
+
+    } else {
+      this.router?.navigate(['/dashboard/addOrder'])
+    }
     // const ref = this.dialogService?.open(AddEditTankComponent, {
     //   data: {
     //     item,

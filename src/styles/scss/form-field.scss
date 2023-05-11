@@ -124,7 +124,9 @@ input:-webkit-autofill {
     border: 0 !important;
   }
 }
-
+textarea.form-control {
+  min-height: 5rem !important;
+}
 .border-green {
   border: 1px solid #198754 !important;
   border-radius: 0.625rem !important;
@@ -134,9 +136,6 @@ input:-webkit-autofill {
   }
 }
 
-.textarea {
-  height: 120px;
-}
 .required {
   &:after {
     content: "*";

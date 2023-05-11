@@ -20,6 +20,7 @@ import { AddEditSupervisorComponent } from './components/supervisors/components/
 import { SupervisorDetailsComponent } from './components/supervisors/components/supervisor-details/supervisor-details.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { FilterOrdersComponent } from './components/orders/components/filter-orders/filter-orders.component';
+import { AddOrderComponent } from './components/orders/components/add-order/add-order.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { FilterOrdersComponent } from './components/orders/components/filter-ord
     SupervisorDetailsComponent,
     OrdersComponent,
     FilterOrdersComponent,
+    AddOrderComponent,
   ],
   imports: [
     DashboardRoutingModule,

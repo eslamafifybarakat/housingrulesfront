@@ -177,7 +177,16 @@
     "endDate": "تاريخ الإنتهاء",
     "orderStatus": "حالة الطلب",
     "status":"الحالة",
-    "palateNo": "رقم اللوحة"
+    "palateNo": "رقم اللوحة",
+    "customerName": "اسم العميل",
+    "comments":"تعليقات",
+    "comment":"تعليق",
+    "propertyType":"نوع الملكية",
+    "customerMobileNumber":"رقم هاتف العميل",
+    "district":"المنطقة",
+    "locationLink":"رابط الموقع",
+    "orderOrigin": "اصل الطلب"
+
   },
   "placeholder": {
     "status":"الحالة",
@@ -194,7 +203,16 @@
     "driverStatus": "اختر حالة السائق",
     "tankSize": "اختر سعة الصهريج",
     "orderStatus": "اختر حالة الطلب",
-    "palateNo": "أدخل رقم اللوحة"
+    "palateNo": "أدخل رقم اللوحة",
+    "customerName": "اسم العميل",
+    "comments":"أدخل التعليقات",
+    "propertyType":"اختر نوع الملكية",
+    "customerMobileNumber":"أدخل رقم هاتف العميل",
+    "district":"أدخل المنطقة",
+    "locationLink":"أدخل رابط الموقع",
+    "comment":"أكتب تعليق",
+    "orderOrigin": "أدخل اصل الطلب"
+
   },
   "validations": {
     "required_field": "هذا الحقل مطلوب",
@@ -219,7 +237,8 @@
     "MinimumCharacters": "5 أحرف على الأقل",
     "startDate": "تاريخ البدء مطلوب",
     "endDate": "تاريخ اإلانتهاء مطلوب",
-    "orderStatus": "حالة الطلب مطلوبة"
+    "orderStatus": "حالة الطلب مطلوبة",
+    "phone_length":"رقم الهاتف يجب ان يكون 11 رقم"
   },
   "form": {
     "welcomeBack": "مرحبًا بعودتك",
@@ -291,7 +310,7 @@
       "date":"التاريخ",
       "propertyType":"نوع الملكية",
 "customerMobileNumber":"رقم هاتف العميل",
-"district":"يصرف",
+"district":"المنطقة",
 "locationLink":"رابط الموقع",
 "paymentMethod":"طريقة الدفع او السداد",
 "paidAmount":"المبلغ المدفوع",

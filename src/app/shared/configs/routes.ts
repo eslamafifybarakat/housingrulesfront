@@ -10,6 +10,7 @@ export const AppRoutes = {
     tanks: 'tanks',
     drivers: 'drivers',
     supervisors: 'supervisors',
-    orders: 'orders'
+    orders: 'orders',
+    addOrder: "addOrder"
   }
 }

@@ -28,7 +28,8 @@ export const roots = {
       supervisorToggleStatus: 'switch_status_supervisors'
     },
     orders: {
-      ordersList: 'Orders/GetAllAsync'
+      ordersList: 'Orders/GetAllAsync',
+      crateOrder: 'Orders/CreateAsync'
     },
   }
 }

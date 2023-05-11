@@ -94,7 +94,7 @@ export class AddEditDriverComponent implements OnInit {
       }],
       phone: ['', {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required, Validators.pattern(patterns?.phone)], updateOn: "blur"
       }],
       password: ['', {
         validators: [
