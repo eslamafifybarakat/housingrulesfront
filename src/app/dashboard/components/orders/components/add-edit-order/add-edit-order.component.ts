@@ -415,7 +415,7 @@ export class AddEditOrderComponent implements OnInit {
       orderOrigin: orderOrigin,
       propertyType: propertyType,
       customerMobileNumber: this.orderData?.customerMobileNumber,
-      district: district,
+      district: district ? district : 1,
       locationLink: this.orderData?.locationLink,
       comment: this.orderData?.comments,
       orderNumber: this.orderData?.orderNumber,

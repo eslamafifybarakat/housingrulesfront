@@ -252,7 +252,7 @@
                   </ng-container>
                 </ng-container>
               </div>
-              <ng-container *ngIf="!orderForm?.value?.district&& isEdit">
+              <ng-container *ngIf="!orderForm?.value?.district">
                 <div class=" my-2">
                   <span class="text-danger fs-8">
                     {{"warning.selectDistrictFirst"|translate}}
@@ -321,7 +321,7 @@
                   </ng-container>
                 </ng-container>
               </div>
-              <ng-container *ngIf="!orderForm?.value?.supervisor && isEdit">
+              <ng-container *ngIf="!orderForm?.value?.supervisor">
                 <div class="my-2">
                   <span class="text-danger fs-8">
                     {{"warning.selectSupervisorFirst"|translate}}
