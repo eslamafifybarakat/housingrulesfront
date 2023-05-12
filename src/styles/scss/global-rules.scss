@@ -91,7 +91,12 @@ hr {
 .pt-global-header {
   padding-top: 8rem;
 }
-
+.badge-main {
+  width: 25px;
+  height: 25px;
+  color: var(--text-main-color) !important;
+  background-color: #00664228;
+}
 .main-card {
   background-color: var(--bg-white-color);
   border-radius: 35px;

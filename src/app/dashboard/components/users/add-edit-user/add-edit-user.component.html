@@ -112,7 +112,7 @@
       <!-- <div class="col-md-6">
         <div class="mb-3">
           <label for="mobilePhone" class="mb-2 required">{{'labels.mobilePhone'|translate}}</label>
-          <input type="number" class="form-control" formControlName="mobilePhone" autocomplete="cc-name"
+          <input type="number" class="form-control" formControlName="mobilePhone" autocomplete="cc-name" [min]="0"
             (input)="publicService?.clearValidationErrors(formControls?.mobilePhone)"
             [class.is-invalid]="formControls?.mobilePhone?.invalid && (formControls?.mobilePhone?.dirty || formControls?.mobilePhone?.touched)"
             placeholder="{{'placeholder.mobilePhone'|translate}}">

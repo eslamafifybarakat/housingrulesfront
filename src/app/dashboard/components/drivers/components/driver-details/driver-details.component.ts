@@ -17,7 +17,8 @@ export class DriverDetailsComponent implements OnInit {
 
   modalData: any;
   driverId: any;
-
+  tankName: any = '';
+  supervisorName: any = '';
   constructor(
     private driversService: DriversService,
     private dialogService: DialogService,
@@ -33,6 +34,8 @@ export class DriverDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.modalData = this.config?.data;
     this.driverId = this.modalData?.id;
+    this.tankName = this.modalData?.tanks[0]?.name;
+    this.supervisorName = this.modalData?.supervisors[0]?.name;
   }
 
   edit(): void {

@@ -62,7 +62,7 @@ export class SupervisorsComponent implements OnInit {
     this.supervisorsService?.getSupervisorsList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
       .pipe(
         map((res: any) => {
-          this.supervisorsCount = res?.data?.pagination?.total;
+          this.supervisorsCount = res?.total;
           this.pagesCount = Math.ceil(this.supervisorsCount / this.perPage);
           let arr: any = [];
           let workingItems: any = [];

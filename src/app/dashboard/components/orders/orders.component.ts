@@ -83,7 +83,7 @@ export class OrdersComponent implements OnInit {
     this.ordersService?.getOrdersList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
       .pipe(
         map((res: any) => {
-          this.ordersCount = res?.data?.pagination?.total;
+          this.ordersCount = res?.total;
           this.pagesCount = Math.ceil(this.ordersCount / this.perPage);
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {

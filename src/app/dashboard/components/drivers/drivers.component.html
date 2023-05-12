@@ -1,6 +1,11 @@
 <div id="drivers" class="bg-white-color global-card">
   <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
-    <h4 class="mb-0 text-capitalize">{{'dashboard.drivers.drivers'|translate}}</h4>
+    <div class="d-flex align-items-center gap-2">
+      <h4 class="mb-0 text-capitalize">{{'dashboard.drivers.drivers'|translate}}</h4>
+      <span class="badge badge-main d-flex justify-content-center align-items-center">
+        {{driversCount}}
+      </span>
+    </div>
     <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto" (click)="addOrEditItem()">
       <i class="pi pi-plus-circle"></i>
       <span>{{'dashboard.createNew'|translate}}</span>

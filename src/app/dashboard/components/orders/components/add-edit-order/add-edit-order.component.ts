@@ -7,6 +7,7 @@ import { TanksService } from 'src/app/dashboard/services/tanks.service';
 import { DriversService } from '../../../../services/drivers.service';
 import { OrdersService } from '../../../../services/orders.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { keys } from 'src/app/shared/configs/localstorage-key';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -18,7 +19,7 @@ import { Subscription } from 'rxjs';
 })
 export class AddEditOrderComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
-
+  userData: any;
   isEdit: boolean = false;
   orderId: any;
   orderData: any;
@@ -79,6 +80,12 @@ export class AddEditOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userData = JSON.parse(window.localStorage.getItem(keys?.userLoginData) || '{}');
+    if (this.isEdit && (this.userData?.userType == 2 || this.userData?.userType == 4)) {
+      this.publicService?.addValidators(this.orderForm, ['driver']);
+    } else {
+      this.publicService?.removeValidators(this.orderForm, ['driver']);
+    }
     this.orderId = this.activatedRoute.snapshot.params['id'];
     this.isEdit = this.orderId ? true : false;
     this.orderForm?.controls?.supervisor?.disable();
@@ -111,7 +118,7 @@ export class AddEditOrderComponent implements OnInit {
         validators: [Validators.required], updateOn: "blur"
       }],
       driver: [null, {
-        validators: [Validators.required]
+        validators: []
       }],
       orderOrigin: ['', {
         validators: [

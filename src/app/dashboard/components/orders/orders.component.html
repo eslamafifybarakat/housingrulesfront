@@ -1,6 +1,11 @@
 <div id="orders" class="bg-white-color global-card">
   <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
-    <h4 class="mb-0 text-capitalize">{{'dashboard.orders.orders'|translate}}</h4>
+    <div class="d-flex align-items-center gap-2">
+      <h4 class="mb-0 text-capitalize">{{'dashboard.orders.orders'|translate}}</h4>
+      <span class="badge badge-main d-flex justify-content-center align-items-center">
+        {{ordersCount}}
+      </span>
+    </div>
     <div class="d-flex justify-content-end align-items-center me-auto gap-3">
       <!-- <button class="btn btn-solid-main" (click)="filter()">
         <span>{{'general.filter'|translate}}</span>

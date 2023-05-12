@@ -39,6 +39,8 @@ export class DriversComponent implements OnInit {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
+  driverStatusList: any = [];
+
   constructor(
     private driversService: DriversService,
     private alertsService: AlertsService,
@@ -59,6 +61,9 @@ export class DriversComponent implements OnInit {
     ];
 
     this.getAllDrivers();
+    this.driverStatusList = this.publicService?.getDriverStatus();
+    console.log(this.driverStatusList);
+
   }
 
   getAllDrivers(): any {
@@ -74,10 +79,20 @@ export class DriversComponent implements OnInit {
             driver?.tank ? tankArr?.push(driver?.tank) : '';
             let supervisorArr: any = [];
             driver?.supervisor ? supervisorArr?.push(driver?.supervisor) : '';
+            let driverStatus: any = '';
+            if (driver?.driverStatus == 0) {
+              driverStatus = this.driverStatusList[0].name;
+            }
+            if (driver?.driverStatus == 1) {
+              driverStatus = this.driverStatusList[1].name;
+            }
+            if (driver?.driverStatus == 2) {
+              driverStatus = this.driverStatusList[2].name;
+            }
             arr.push({
               id: driver?.id ? driver?.id : null,
               arName: driver?.arName ? driver?.arName : '',
-              driverStatus: driver?.driverStatus ? driver?.driverStatus : null,
+              driverStatus: driverStatus,
               mobileNumber: driver?.mobileNumber ? driver?.mobileNumber : '',
               tank: tankArr,
               supervisor: supervisorArr

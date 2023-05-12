@@ -45,7 +45,7 @@
             <div class="col-md-6">
               <div class="mb-3">
                 <label for="paidAmount" class="mb-2 required">{{'labels.paidAmount'|translate}}</label>
-                <input type="number" class="form-control" formControlName="paidAmount" autocomplete="cc-name"
+                <input type="number" class="form-control" formControlName="paidAmount" autocomplete="cc-name" [min]="0"
                   (input)="publicService?.clearValidationErrors(formControls?.paidAmount)"
                   [class.is-invalid]="formControls?.paidAmount?.invalid && (formControls?.paidAmount?.dirty || formControls?.paidAmount?.touched)"
                   placeholder="{{'placeholder.paidAmount'|translate}}">
@@ -254,8 +254,11 @@
               </div>
               <ng-container *ngIf="!orderForm?.value?.district">
                 <div class=" my-2">
-                  <span class="text-danger fs-8">
-                    {{"warning.selectDistrictFirst"|translate}}
+                  <span class="info-color fs-8 d-flex align-items-center gap-1">
+                    <i class="pi pi-info-circle"></i>
+                    <span>
+                      {{"warning.selectDistrictFirst"|translate}}
+                    </span>
                   </span>
                 </div>
               </ng-container>
@@ -323,8 +326,11 @@
               </div>
               <ng-container *ngIf="!orderForm?.value?.supervisor">
                 <div class="my-2">
-                  <span class="text-danger fs-8">
-                    {{"warning.selectSupervisorFirst"|translate}}
+                  <span class="info-color fs-8 d-flex align-items-center gap-1">
+                    <i class="pi pi-info-circle"></i>
+                    <span>
+                      {{"warning.selectSupervisorFirst"|translate}}
+                    </span>
                   </span>
                 </div>
               </ng-container>
@@ -438,7 +444,7 @@
               <label for="customerMobileNumber"
                 class="mb-2 required">{{'labels.customerMobileNumber'|translate}}</label>
               <input type="number" class="form-control" formControlName="customerMobileNumber" autocomplete="cc-name"
-                (input)="publicService?.clearValidationErrors(formControls?.customerMobileNumber)"
+                (input)="publicService?.clearValidationErrors(formControls?.customerMobileNumber)" [min]="0"
                 [class.is-invalid]="formControls?.customerMobileNumber?.invalid && (formControls?.customerMobileNumber?.dirty || formControls?.customerMobileNumber?.touched)"
                 placeholder="{{'placeholder.customerMobileNumber'|translate}}">
               <div class="mt-2">
