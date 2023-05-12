@@ -1,141 +1,302 @@
 <div id="modal">
-  <form [formGroup]="userForm" (ngSubmit)="submit()" class="pt-4">
-    <div class="mb-3 d-flex justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold">{{'labels.userActivation'|translate}}</label>
-      <p-inputSwitch id="active" formControlName="active"></p-inputSwitch>
-    </div>
-    <div class="mb-4">
-      <label for="email" class="mb-2 required">{{'labels.email'|translate}}</label>
-      <input type="text" class="form-control" formControlName="email" autocomplete="cc-name"
-        (input)="publicService?.clearValidationErrors(formControls?.email)"
-        [class.is-invalid]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)"
-        placeholder="{{'placeholder.email'|translate}}">
-      <div class="mt-2">
-        <ng-container
-          *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
-          <ng-container *ngIf="formControls?.email?.errors?.['required']">
-            <span class="text-danger fs-8">
-              {{'validations.requiredEmail'|translate}}
-            </span>
-          </ng-container>
-          <ng-container *ngIf="formControls?.email?.errors?.['pattern']">
-            <span class="text-danger fs-8 d-block">
-              {{'validations.emailNotCorrect'|translate}}
-            </span>
-          </ng-container>
-          <ng-container *ngIf="formControls?.email?.errors?.['minlength']">
-            <span class="text-danger fs-8 d-block">
-              {{'validations.length'|translate}}
-            </span>
-          </ng-container>
-        </ng-container>
-      </div>
-    </div>
-    <!-- <div class="mb-4">
-      <label for="password" class="mb-2 required">{{'labels.password'|translate}}</label>
-      <div class="rounded-input p-mask"
-        [class.border-red]="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched)"
-        [class.is-valid]="formControls?.password?.valid && (formControls?.password?.dirty || formControls?.password?.touched)">
-        <p-password [toggleMask]="true" formControlName="password" placeholder="{{'placeholder.password'|translate}}"
-          autocomplete="cc-name" [feedback]="false">
-        </p-password>
-      </div>
-      <div class="mt-2">
-        <ng-container
-          *ngIf="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched)">
-          <ng-container *ngIf="formControls?.password?.errors?.['required']">
-            <span class="text-danger fs-8">
-              {{'validations.requiredPassword'|translate}}
-            </span>
-          </ng-container>
-          <ng-container *ngIf="formControls?.password?.errors?.['pattern']">
-            <span class="text-danger fs-8">
-              {{'validations.passwordPattern'|translate}}
-            </span>
-          </ng-container>
-        </ng-container>
-      </div>
-    </div> -->
-    <div class="mb-3">
-      <label for="newpassword" class="form-label required">{{"labels.newPassword"|translate}}</label>
-      <p-password [toggleMask]="true" formControlName="newpassword" appendTo="body"
-        placeholder="{{'labels.newPassword'|translate}}"
-        [class.ng-dirty]="formControls?.newpassword?.invalid && (formControls?.newpassword?.dirty || formControls?.newpassword?.touched)">
-        <ng-template pTemplate="footer">
-          <p-divider></p-divider>
-          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-            <li class="mb-2">{{"validations.oneLowercase"|translate}}</li>
-            <li class="mb-2">{{"validations.oneUppercase"|translate}}</li>
-            <li class="mb-2">{{"validations.oneNumeric"|translate}}</li>
-            <li class="mb-2">{{"validations.MinimumCharacters"|translate}}</li>
-          </ul>
-        </ng-template>
-      </p-password>
-      <div class="mt-2">
-        <ng-container
-          *ngIf="formControls?.newpassword?.invalid && (formControls?.newpassword?.dirty || formControls?.newpassword?.touched)">
-          <ng-container *ngIf="formControls?.newpassword?.errors?.['required']">
-            <span class="text-danger fs-8">
-              {{'validations.requiredPassword'|translate}}
-            </span>
-          </ng-container>
-          <ng-container *ngIf="formControls?.newpassword?.errors?.['pattern']">
-            <span class="text-danger fs-8">
-              {{'validations.passwordPattern'|translate}}
-            </span>
-          </ng-container>
-        </ng-container>
-      </div>
-    </div>
-    <div class="mb-3">
-      <label for="confirmpassword" class="form-label required">{{"labels.confirmNewPassword"|translate}}</label>
-      <p-password [toggleMask]="true" id="confirmpassword" formControlName="confirmpassword" appendTo="body"
-        placeholder="{{'labels.confirmNewPassword'|translate}}" autocomplete="off"
-        [class.ng-dirty]="formControls?.confirmpassword?.invalid && (formControls?.confirmpassword?.dirty || formControls?.confirmpassword?.touched)">
+  <form [formGroup]="userForm" (ngSubmit)="submit()">
+    <div class="row">
+      <!-- <div class="col-md-6">
+        <div class="mb-3">
+          <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
+          <input type="text" class="form-control" formControlName="name" autocomplete="cc-name"
+            (input)="publicService?.clearValidationErrors(formControls?.name)"
+            [class.is-invalid]="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)"
+            placeholder="{{'placeholder.name'|translate}}">
+          <div class="mt-2">
+            <ng-container
+              *ngIf="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)">
+              <ng-container *ngIf="formControls?.name?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.requiredName'|translate}}
+                </span>
+              </ng-container>
 
-        <ng-template pTemplate="footer">
-          <p-divider></p-divider>
-          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-            <li class="mb-2">{{"validations.oneLowercase"|translate}}</li>
-            <li class="mb-2">{{"validations.oneUppercase"|translate}}</li>
-            <li class="mb-2">{{"validations.oneNumeric"|translate}}</li>
-            <li class="mb-2">{{"validations.MinimumCharacters"|translate}}</li>
-          </ul>
-        </ng-template>
-      </p-password>
-      <div class="mt-2">
-        <ng-container
-          *ngIf="formControls?.confirmpassword?.invalid && (formControls?.confirmpassword?.dirty || formControls?.confirmpassword?.touched)">
-          <ng-container *ngIf="formControls?.confirmpassword?.errors?.['required']">
-            <span class="text-danger fs-8">
-              {{'validations.requiredConfirmPassword'|translate}}
-            </span>
-          </ng-container>
-          <ng-container *ngIf="formControls?.confirmpassword?.errors?.['pattern']">
-            <span class="text-danger fs-8">
-              {{'validations.passwordPattern'|translate}}
-            </span>
-          </ng-container>
-          <ng-container *ngIf="formControls?.confirmpassword?.errors?.['ConfirmPassword']">
-            <span class="text-danger fs-6">
-              {{'validations.not_match'|translate}}
-            </span>
-          </ng-container>
-
-
-        </ng-container>
+              <ng-container *ngIf="formControls?.name?.errors?.['minlength']">
+                <span class="text-danger fs-8 d-block">
+                  {{'validations.name_length'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div> -->
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="username" class="mb-2 required">{{'labels.username'|translate}}</label>
+          <input type="text" class="form-control" formControlName="username" autocomplete="cc-name"
+            (input)="publicService?.clearValidationErrors(formControls?.username)"
+            [class.is-invalid]="formControls?.username?.invalid && (formControls?.username?.dirty || formControls?.username?.touched)"
+            placeholder="{{'placeholder.username'|translate}}">
+          <div class="mt-2">
+            <ng-container
+              *ngIf="formControls?.username?.invalid && (formControls?.username?.dirty || formControls?.username?.touched)">
+              <ng-container *ngIf="formControls?.username?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.username'|translate}}
+                </span>
+              </ng-container>
+              <ng-container *ngIf="formControls?.username?.errors?.['pattern']">
+                <span class="text-danger fs-8">
+                  {{'validations.not_valid'|translate}}
+                </span>
+              </ng-container>
+              <ng-container *ngIf="formControls?.username?.errors?.['minlength']">
+                <span class="text-danger fs-8 d-block">
+                  {{'validations.name_length'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
       </div>
+      <!-- <div class="col-md-6">
+        <div class="mb-3">
+          <label for="email" class="mb-2 required">{{'labels.email'|translate}}</label>
+          <input type="text" class="form-control" formControlName="email" autocomplete="cc-name"
+            (input)="publicService?.clearValidationErrors(formControls?.email)"
+            [class.is-invalid]="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)"
+            placeholder="{{'placeholder.email'|translate}}">
+          <div class="mt-2">
+            <ng-container
+              *ngIf="formControls?.email?.invalid && (formControls?.email?.dirty || formControls?.email?.touched)">
+              <ng-container *ngIf="formControls?.email?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.requiredEmail'|translate}}
+                </span>
+              </ng-container>
+              <ng-container *ngIf="formControls?.email?.errors?.['pattern']">
+                <span class="text-danger fs-8 d-block">
+                  {{'validations.emailNotCorrect'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div> -->
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label required">
+            {{"labels.userType"|translate}}
+          </label>
+          <span class="p-input-icon-right select-loading d-block">
+            <p-dropdown [options]="userTypesList" formControlName="userType" optionLabel="name" [filter]="true"
+              [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+              [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingUserTypes" scrollHeight="150px"
+              emptyMessage="{{'general.no_result_found'|translate}}"
+              [class.ng-dirty]="formControls?.userType?.invalid && (formControls?.userType?.dirty || formControls?.userType?.touched)"
+              [showClear]="true" placeholder="{{'placeholder.userType'|translate}}"
+              (onChange)="changeUserType($event?.value)">
+            </p-dropdown>
+            <ng-container *ngIf="isLoadingUserTypes">
+              <i class="pi pi-spin pi-spinner"></i>
+            </ng-container>
+          </span>
+          <div class="my-2">
+            <ng-container
+              *ngIf="formControls?.userType?.invalid && (formControls?.userType?.dirty || formControls?.userType?.touched)">
+              <ng-container *ngIf="formControls?.userType?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{"validations.required_field"|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-6">
+        <div class="mb-3">
+          <label for="mobilePhone" class="mb-2 required">{{'labels.mobilePhone'|translate}}</label>
+          <input type="number" class="form-control" formControlName="mobilePhone" autocomplete="cc-name"
+            (input)="publicService?.clearValidationErrors(formControls?.mobilePhone)"
+            [class.is-invalid]="formControls?.mobilePhone?.invalid && (formControls?.mobilePhone?.dirty || formControls?.mobilePhone?.touched)"
+            placeholder="{{'placeholder.mobilePhone'|translate}}">
+          <div class="mt-2">
+            <ng-container
+              *ngIf="formControls?.mobilePhone?.invalid && (formControls?.mobilePhone?.dirty || formControls?.mobilePhone?.touched)">
+              <ng-container *ngIf="formControls?.mobilePhone?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.required_field'|translate}}
+                </span>
+              </ng-container>
+
+              <ng-container *ngIf="formControls?.mobilePhone?.errors?.['pattern']">
+                <span class="text-danger fs-8 d-block">
+                  {{'validations.phone_length'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div> -->
+      <ng-container *ngIf="userForm?.value?.userType?.value == 2 || userForm?.value?.userType?.value == 4">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label required">
+              {{"labels.supervisor"|translate}}
+            </label>
+            <span class="p-input-icon-right select-loading d-block">
+              <p-dropdown [options]="supervisorsList" formControlName="supervisor" optionLabel="name" [filter]="true"
+                [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingSupervisors"
+                scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                [class.ng-dirty]="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)"
+                [showClear]="true" placeholder="{{'placeholder.supervisor'|translate}}">
+              </p-dropdown>
+              <ng-container *ngIf="isLoadingSupervisors">
+                <i class="pi pi-spin pi-spinner"></i>
+              </ng-container>
+            </span>
+            <div class="my-2">
+              <ng-container
+                *ngIf="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)">
+                <ng-container *ngIf="formControls?.supervisor?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{"validations.required_field"|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="userForm?.value?.userType?.value == 5">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label required">
+              {{"labels.driver"|translate}}
+            </label>
+            <span class="p-input-icon-right select-loading d-block">
+              <p-dropdown [options]="driversList" formControlName="driver" optionLabel="name" [filter]="true"
+                [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDrivers" scrollHeight="150px"
+                emptyMessage="{{'general.no_result_found'|translate}}"
+                [class.ng-dirty]="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)"
+                [showClear]="true" placeholder="{{'placeholder.driver'|translate}}">
+              </p-dropdown>
+              <ng-container *ngIf="isLoadingDrivers">
+                <i class="pi pi-spin pi-spinner"></i>
+              </ng-container>
+            </span>
+            <div class="my-2">
+              <ng-container
+                *ngIf="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)">
+                <ng-container *ngIf="formControls?.driver?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{"validations.required_field"|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="!isEdit">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="password" class="form-label required">{{"labels.password"|translate}}</label>
+            <p-password [toggleMask]="true" formControlName="password" appendTo="body"
+              placeholder="{{'labels.password'|translate}}"
+              [class.ng-dirty]="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched)">
+              <ng-template pTemplate="footer">
+                <p-divider></p-divider>
+                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                  <li class="mb-2">{{"validations.oneLowercase"|translate}}</li>
+                  <li class="mb-2">{{"validations.oneUppercase"|translate}}</li>
+                  <li class="mb-2">{{"validations.oneNumeric"|translate}}</li>
+                  <li class="mb-2">{{"validations.MinimumCharacters"|translate}}</li>
+                </ul>
+              </ng-template>
+            </p-password>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.password?.invalid && (formControls?.password?.dirty || formControls?.password?.touched)">
+                <ng-container *ngIf="formControls?.password?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredPassword'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container
+                  *ngIf="formControls?.password?.errors?.['minlength']||formControls?.password?.errors?.['maxlength']">
+                  <span class="text-danger fs-8">
+                    {{'validations.pass_length'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="confirmpassword" class="form-label required">{{"labels.confirmPassword"|translate}}</label>
+            <p-password [toggleMask]="true" id="confirmpassword" formControlName="confirmPassword" appendTo="body"
+              placeholder="{{'labels.confirmPassword'|translate}}" autocomplete="off"
+              [class.ng-dirty]="formControls?.confirmPassword?.invalid && (formControls?.confirmPassword?.dirty || formControls?.confirmPassword?.touched)">
+
+              <ng-template pTemplate="footer">
+                <p-divider></p-divider>
+                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                  <li class="mb-2">{{"validations.oneLowercase"|translate}}</li>
+                  <li class="mb-2">{{"validations.oneUppercase"|translate}}</li>
+                  <li class="mb-2">{{"validations.oneNumeric"|translate}}</li>
+                  <li class="mb-2">{{"validations.MinimumCharacters"|translate}}</li>
+                </ul>
+              </ng-template>
+            </p-password>
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.confirmPassword?.invalid && (formControls?.confirmPassword?.dirty || formControls?.confirmPassword?.touched)">
+                <ng-container *ngIf="formControls?.confirmPassword?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredConfirmPassword'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container
+                  *ngIf="formControls?.confirmPassword?.errors?.['minlength']||formControls?.confirmPassword?.errors?.['maxlength']">
+                  <span class="text-danger fs-8">
+                    {{'validations.pass_length'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.confirmPassword?.errors?.['ConfirmPassword']">
+                  <span class="text-danger fs-6">
+                    {{'validations.not_matched'|translate}}
+                  </span>
+                </ng-container>
+
+
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </div>
+
     <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
-      <button type="submit" class="btn btn-solid-main">
-        <span>
-          {{'general.save'|translate}}
-        </span>
+      <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+        <ng-container *ngIf="!isEdit;else edit">
+          <span>
+            {{'general.save'|translate}}
+          </span>
+          <i class="pi pi-save"></i>
+        </ng-container>
+        <ng-template #edit>
+          <span>
+            {{'general.edit'|translate}}
+          </span>
+          <i class="pi pi-pencil"></i>
+        </ng-template>
       </button>
-      <button type="button" class="btn btn-outline-main" (click)="cancel()">
+      <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
         <span>
           {{'general.cancel'|translate}}
         </span>
+        <i class="pi pi-times"></i>
       </button>
     </div>
   </form>

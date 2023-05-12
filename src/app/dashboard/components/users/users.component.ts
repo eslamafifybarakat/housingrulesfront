@@ -38,15 +38,15 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.tableHeaders = [
-      {
-        field: 'emo_number', header: this.publicService?.translateTextFromJson('dashboard.usersList.tableHeader.id'), title: this.publicService?.translateTextFromJson('dashboard.usersList.tableHeader.id'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false
-        , filter: true, type: 'numeric'
-      },
-      { field: 'full_name', header: this.publicService?.translateTextFromJson('dashboard.usersList.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.usersList.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'email', header: this.publicService?.translateTextFromJson('dashboard.usersList.tableHeader.email'), title: this.publicService?.translateTextFromJson('dashboard.usersList.tableHeader.email'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'banks', header: this.publicService?.translateTextFromJson('dashboard.usersList.tableHeader.banks'), title: this.publicService?.translateTextFromJson('dashboard.usersList.tableHeader.banks'), sort: false, filter: true, type: 'filterArray', dataType: 'array', list: 'banks', placeholder: this.publicService?.translateTextFromJson('placeholder.chooseBank'), label: this.publicService?.translateTextFromJson('labels.bank') },
+      // {
+      //   field: 'emo_number', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false
+      //   , filter: true, type: 'numeric'
+      // },
+      { field: 'full_name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'email', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.email'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.email'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      // { field: 'banks', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.banks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.banks'), sort: false, filter: true, type: 'filterArray', dataType: 'array', list: 'banks', placeholder: this.publicService?.translateTextFromJson('placeholder.chooseBank'), label: this.publicService?.translateTextFromJson('labels.bank') },
 
-      { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.usersList.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.usersList.tableHeader.status'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'boolean' },
+      { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'boolean' },
     ];
     this.getAllUsers();
   }
@@ -102,7 +102,7 @@ export class UsersComponent implements OnInit {
         item,
         type: type == 'edit' ? 'edit' : 'add'
       },
-      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.usersList.editUser') : this.publicService?.translateTextFromJson('dashboard.usersList.addUser'),
+      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.users.editUser') : this.publicService?.translateTextFromJson('dashboard.users.addUser'),
       dismissableMask: false,
       width: '50%',
       styleClass: 'user-modal'

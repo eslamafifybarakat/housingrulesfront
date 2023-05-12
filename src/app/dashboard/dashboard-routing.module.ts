@@ -64,7 +64,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'users',
+        path: AppRoutes?.dashboard?.users,
         component: UsersComponent,
         data: {
           title: 'titles.users',

@@ -11,6 +11,7 @@ export const AppRoutes = {
     drivers: 'drivers',
     supervisors: 'supervisors',
     orders: 'orders',
-    addOrder: "addOrder"
+    addOrder: "addOrder",
+    users: 'users'
   }
 }

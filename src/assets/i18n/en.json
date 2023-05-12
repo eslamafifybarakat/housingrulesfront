@@ -190,7 +190,8 @@
     "locationLink": "Location link",
     "paidAmount": "Paid amount",
     "paymentMethod": "Payment method",
-    "orderNumber": "Order number"
+    "orderNumber": "Order number",
+    "userType":"User type"
   },
   "placeholder": {
     "status": "Status",
@@ -208,8 +209,8 @@
     "tankSize": "Select tank size",
     "orderStatus": "Select order status",
     "palateNo": "Enter palate no",
-    "orderOrigin": "select order origin",
-    "propertyType": "select property type",
+    "orderOrigin": "Select order origin",
+    "propertyType": "Select property type",
     "district": "Select district",
     "customerName": "Enter customer name",
     "customerMobileNumber": "Enter customer mobile number",
@@ -217,7 +218,8 @@
     "comment": "Write comment",
     "paidAmount": "Enter paid amount",
     "paymentMethod": "Enter payment method",
-    "orderNumber": "Enter order number"
+    "orderNumber": "Enter order number",
+    "userType":"Select user type"
   },
   "validations": {
     "required_field": "This field is reuired",
@@ -264,13 +266,7 @@
     "goHome": "Go to home",
     "resetPassword": "Reset password"
   },
-  "sideMenu": {
-    "dashboard": "Dashboard",
-    "tanks": "Tanks",
-    "driver": "Drivers",
-    "supervisors": "Supervisors",
-    "orders": "Orders"
-  },
+
   "user_info": {
     "my_profile": "My Profile",
     "my_performance": "My Performance",
@@ -291,6 +287,14 @@
     "dashboard": "Dashboard",
     "total": "total",
     "createNew": "Create new",
+    "sideMenu": {
+      "dashboard": "Dashboard",
+      "tanks": "Tanks",
+      "driver": "Drivers",
+      "supervisors": "Supervisors",
+      "orders": "Orders",
+      "users": "Users"
+    },
     "tableHeader": {
       "isWorking": "Is Working",
       "palateNo": "palate No",
@@ -355,35 +359,23 @@
       "editOrder": "Edit order",
       "orderDetails": "Order details"
     },
-    "usersList": {
+    "users": {
       "users": "Users",
       "allUsers": "all users",
       "addUser": "Add User",
-      "uploadUsersFile": "Upload users file",
-      "downloadUsersFile": "Download users file",
-      "downloadUsersExample": "Download users file example",
-      "UsersFile": "Download users file",
-      "addNewQuestion": "Add new question",
-      "SetSetOfQuestions": "Set a set of questions",
-      "CreateSetOfQuestions": "Create a set of questions",
-      "CreateNewQuestion": "Create a new question",
-      "tableHeader": {
-        "isWorking": "isWorking",
-        "palateNo": "palate No",
-        "id": "Id",
-        "name": "Name",
-        "email": "Email",
-        "banks": "banks",
-        "role": "role",
-        "group": "group",
-        "lastSeen": "Last seen",
-        "status": "Status",
-        "settings": "settings"
-      },
-      "isTotal": "There is a total",
       "user": "user",
       "editUser": "Edit User",
-      "youChoose": "You choose"
+      "userTypes":{
+        "superAdmin":"Super admin",
+        "admin":"Admin ",
+        "customerServicesSupervisor":"Customer services supervisor",
+        "customerService":"Customer service",
+        "driversSupervisor":"Drivers supervisor",
+        "driver":"Driver",
+        "gateIn":"Gate in ",
+        "gateOut":"Gate out",
+        "accountant":"Accountant"
+      }
     }
   },
   "welcome": {

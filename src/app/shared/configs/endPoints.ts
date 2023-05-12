@@ -34,5 +34,11 @@ export const roots = {
       updateOrder: 'Orders/UpdateAsync',
       getOrderById: 'Orders/GetByIdAsync',
     },
+    users: {
+      usersList: 'Auth/GetAllAsync',
+      crateUser: 'Auth/CreateAsync',
+      updateUser: 'Auth/UpdateAsync',
+      getUserById: 'Auth/GetByIdAsync',
+    },
   }
 }

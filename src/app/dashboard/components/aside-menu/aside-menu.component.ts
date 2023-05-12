@@ -33,39 +33,47 @@ export class AsideMenuComponent implements OnInit {
   ngOnInit(): void {
     this.menuList = [{
       id: 'dashboard',
-      text: this.publicService?.translateTextFromJson('sideMenu.dashboard'),
+      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.dashboard'),
       // icon: 'fa-grip-horizontal',
       routerLink: '/dashboard',
       state: false
     },
     {
       id: 'tanks',
-      text: this.publicService?.translateTextFromJson('sideMenu.tanks'),
+      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.tanks'),
       icon: 'fa-house-user',
       routerLink: '/dashboard/tanks',
       state: false
     },
     {
       id: 'driver',
-      text: this.publicService?.translateTextFromJson('sideMenu.driver'),
+      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.driver'),
       icon: 'fa-car-rear',
       routerLink: '/dashboard/drivers',
       state: false
     },
     {
       id: 'supervisors',
-      text: this.publicService?.translateTextFromJson('sideMenu.supervisors'),
+      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.supervisors'),
       icon: 'fa-people-roof',
       routerLink: '/dashboard/supervisors',
       state: false
     },
     {
       id: 'orders',
-      text: this.publicService?.translateTextFromJson('sideMenu.orders'),
+      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.orders'),
       icon: 'fa-file-pen',
       routerLink: '/dashboard/orders',
       state: false,
-    },]
+    },
+    {
+      id: 'users',
+      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.users'),
+      icon: 'fa-users',
+      routerLink: '/dashboard/users',
+      state: false,
+    },
+    ]
 
     this.screenWidth = window?.innerWidth;
     this.sharedService?.showSideMenu?.subscribe((res: any) => {

@@ -192,7 +192,9 @@
     "orderOrigin": "اصل الطلب",
     "orderNumber": "رقم الطلب",
     "paymentMethod": "طريقة الدفع ",
-    "paidAmount": "المبلغ المدفوع"
+    "paidAmount": "المبلغ المدفوع",
+    "userType":"نوع المستخدم"
+
   },
   "placeholder": {
     "status": "الحالة",
@@ -220,7 +222,8 @@
     "orderOrigin": "أدخل اصل الطلب",
     "orderNumber": "أدخل رقم الطلب",
     "paymentMethod": "أدخل طريقة الدفع ",
-    "paidAmount": "أدخل المبلغ المدفوع"
+    "paidAmount": "أدخل المبلغ المدفوع",
+    "userType":"اختر نوع المستخدم"
   },
   "validations": {
     "required_field": "هذا الحقل مطلوب",
@@ -267,13 +270,7 @@
     "goHome": "إذهب الي الرئيسية",
     "resetPassword": "تغيير كلمة المرور"
   },
-  "sideMenu": {
-    "dashboard": "لوحة التحكم",
-    "tanks": "الصهاريج",
-    "driver": "السائقين",
-    "supervisors": "المشرفين",
-    "orders": "الطلبات"
-  },
+
   "user_info": {
     "my_profile": "الملف الشخصي",
     "my_performance": "أدائي",
@@ -294,6 +291,14 @@
     "dashboard": "لوحة التحكم",
     "total": "المجموع",
     "createNew": "انشاء جديد",
+    "sideMenu": {
+      "dashboard": "لوحة التحكم",
+      "tanks": "الصهاريج",
+      "driver": "السائقين",
+      "supervisors": "المشرفين",
+      "orders": "الطلبات",
+      "users": " المستخدمين"
+    },
     "tableHeader": {
       "isWorking": "متاح للتعين",
       "palateNo": "رقم اللوحة",
@@ -357,31 +362,22 @@
       "editOrder": "تعديل الطلب",
       "orderDetails": "تفاصيل الطلب"
     },
-    "usersList": {
+    "users": {
       "allUsers": "كل المستخدمين",
       "addUser": "إضافة مستخدم",
-      "uploadUsersFile": "رفع ملف المستخدمين",
-      "downloadUsersFile": "تنزيل ملف المستخدمين",
-      "downloadUsersExample": "تنزيل مثال ملف المستخدمين",
-      "addNewQuestion": "إضافة سؤال جديد",
-      "SetSetOfQuestions": "تعيين مجموعة أسئلة",
-      "CreateSetOfQuestions": "إنشاء مجموعة اسئلة",
-      "CreateNewQuestion": "إنشاء سؤال جديد",
-      "tableHeader": {
-        "id": "الرقم التعريفي",
-        "name": "الإسم",
-        "email": "البريد الإلكتروني",
-        "banks": "البنوك",
-        "role": "الدور",
-        "group": "المجموعة",
-        "lastSeen": "آخر ظهور",
-        "status": "الحالة",
-        "actions": "إجراءات"
-      },
-      "isTotal": "يوجد إجمالا",
       "user": "مستخدم",
       "editUser": "تعديل مستخدم",
-      "youChoose": "قمت بإختيار"
+      "userTypes":{
+        "superAdmin":"مشرف فائق",
+        "admin":"مسؤل ",
+        "customerServicesSupervisor":"مشرف خدمات العملاء",
+        "customerService":"خدمة الزبائن",
+        "driversSupervisor":"مشرف السائقين",
+        "driver":"سائق",
+        "gateIn":"بوابة في",
+        "gateOut":"بوابة الخروج",
+        "accountant":"محاسب"
+      }
     }
   },
   "welcome": {

@@ -166,7 +166,21 @@ export class PublicService {
       { id: 3, value: 2, name: "Transfer" },
       { id: 4, value: 3, name: "Credit" }
     ]
-
     return paymentMethodsList;
+  }
+
+  getUserTypes(): any {
+    let arr: any = [
+      { id: 1, value: 0, name: this.translateTextFromJson('dashboard.users.userTypes.superAdmin') },
+      { id: 2, value: 1, name: this.translateTextFromJson('dashboard.users.userTypes.admin') },
+      { id: 3, value: 2, name: this.translateTextFromJson('dashboard.users.userTypes.customerServicesSupervisor') },
+      { id: 4, value: 3, name: this.translateTextFromJson('dashboard.users.userTypes.customerService') },
+      { id: 5, value: 4, name: this.translateTextFromJson('dashboard.users.userTypes.driversSupervisor') },
+      { id: 6, value: 5, name: this.translateTextFromJson('dashboard.users.userTypes.driver') },
+      { id: 7, value: 6, name: this.translateTextFromJson('dashboard.users.userTypes.gateIn') },
+      { id: 8, value: 7, name: this.translateTextFromJson('dashboard.users.userTypes.gateOut') },
+      { id: 9, value: 8, name: this.translateTextFromJson('dashboard.users.userTypes.accountant') }
+    ]
+    return arr;
   }
 }
