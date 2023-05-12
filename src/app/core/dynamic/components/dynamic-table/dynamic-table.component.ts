@@ -53,6 +53,7 @@ export class DynamicTableComponent implements OnInit {
   @Input() showDelete: boolean = false;
   @Input() showEdit: boolean = false;
   @Input() showCopyAction: boolean = false;
+  @Input() showResetPassword: boolean = false;
 
   @Input() showPaginationText: boolean = false;
   @Input() pageNumber: number = 1;
@@ -90,6 +91,7 @@ export class DynamicTableComponent implements OnInit {
   @Input() enableFilterOrderStatus: boolean = false;
   @Input() enableFilterIsWorking: boolean = false;
   @Input() enableFilterPropertyType: boolean = false;
+  @Input() enableFilterUserType: boolean = false;
 
   @Input() enableFilterSupervisors: boolean = false;
   @Input() enableFilterTanks: boolean = false;
@@ -126,6 +128,7 @@ export class DynamicTableComponent implements OnInit {
 
   @Output() editChildHandler: EventEmitter<any> = new EventEmitter();
   @Output() copyChildHandler: EventEmitter<any> = new EventEmitter();
+  @Output() resetPasswordHandler: EventEmitter<any> = new EventEmitter();
 
   @Output() itemActionHandler: EventEmitter<any> = new EventEmitter();
   @Output() itemAssignUserHandler: EventEmitter<any> = new EventEmitter();
@@ -148,6 +151,7 @@ export class DynamicTableComponent implements OnInit {
   driversList: any = [];
   isWorkingList: any = [];
   propertyTypeList: any = [];
+  userTypeList: any = [];
 
   assignedUsers: any = [];
   newAssignedUsers: any = [];
@@ -242,6 +246,9 @@ export class DynamicTableComponent implements OnInit {
     if (this.enableFilterPropertyType == true) {
       this.getPropertyType();
     }
+    if (this.enableFilterUserType == true) {
+      this.getUserTypes();
+    }
   }
 
   searchHandlerEmit(event: any): void {
@@ -318,6 +325,9 @@ export class DynamicTableComponent implements OnInit {
   }
   copyChildHandlerEmit(item: any): void {
     this.copyChildHandler.emit(item);
+  }
+  resetPasswordHandlerEmit(item: any): void {
+    this.resetPasswordHandler.emit(item);
   }
   deleteHandlerEmit(item: any): void {
     if (this.enableConfirmDeleteDialog) {
@@ -639,6 +649,11 @@ export class DynamicTableComponent implements OnInit {
   getPropertyType(): any {
     this.propertyTypeList = this.publicService?.getPropertyType();
     console.log(this.propertyTypeList);
+
+    this.cdr.detectChanges();
+  }
+  getUserTypes(): any {
+    this.userTypeList = this.publicService?.getUserTypes();
 
     this.cdr.detectChanges();
   }

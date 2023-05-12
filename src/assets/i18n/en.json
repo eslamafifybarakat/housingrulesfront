@@ -296,6 +296,8 @@
       "users": "Users"
     },
     "tableHeader": {
+      "username": "Username",
+      "id":"Id",
       "isWorking": "Is Working",
       "palateNo": "palate No",
       "actions": "Actions",
@@ -328,7 +330,9 @@
       "closedAt": "Closed at",
       "drivers": "Drivers",
       "customers": "Customers",
-      "comments": "Comments"
+      "comments": "Comments",
+    "userType":"User type"
+
     },
     "tanks": {
       "tanks": "Tanks",

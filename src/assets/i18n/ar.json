@@ -300,6 +300,8 @@
       "users": " المستخدمين"
     },
     "tableHeader": {
+    "username": "اسم المستخدم",
+      "id":"الرقم التعريفي",
       "isWorking": "متاح للتعين",
       "palateNo": "رقم اللوحة",
       "actions": "الإجراءات",
@@ -331,7 +333,8 @@
       "closedAt": "مغلق عند",
       "drivers": "السائقين",
       "customers": "العملاء",
-      "comments": "تعليقات"
+      "comments": "تعليقات",
+    "userType":"نوع المستخدم"
     },
     "tanks": {
       "tanks": "الصهاريج",
