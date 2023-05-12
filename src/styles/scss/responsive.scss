@@ -50,8 +50,21 @@
   .p-dialog {
     min-width: 90% !important;
   }
-}
+  .error .title {
+    font-size: 200px !important;
+    letter-spacing: -20px !important;
 
+    .fs-lg {
+      font-size: 2.5rem !important;
+    }
+  }
+}
+@media (max-width: 565px) {
+  .error .title {
+    font-size: 150px !important;
+    letter-spacing: -20px;
+  }
+}
 @media (max-width: 425px) {
   .otp-code {
     input {

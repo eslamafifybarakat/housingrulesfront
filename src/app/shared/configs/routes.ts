@@ -1,4 +1,5 @@
 export const AppRoutes = {
+  error: 'error',
   auth: {
     login: 'login',
     register: 'register',

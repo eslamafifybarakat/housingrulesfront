@@ -4,6 +4,9 @@
     "arabic": "Arabic"
   },
   "general": {
+    "backToHome": "العودة للرئيسية",
+    "pageNotFound": "الصفحة غير موجوده",
+    "serverError": "حدث خطأ في السيرفر",
     "filter": "التصفية",
     "details": "التفاصيل",
     "default": "الافتراضي",

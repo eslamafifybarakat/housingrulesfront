@@ -2,6 +2,7 @@ import { NoInternetComponent } from './core/componenets/no-internet/no-internet.
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { NgModule } from '@angular/core';
+import { AppRoutes } from './shared/configs/routes';
 
 const routes: Routes = [
   {
@@ -32,6 +33,8 @@ const routes: Routes = [
     redirectTo: 'auth',
     pathMatch: 'full',
   },
+  { path: 'error', loadChildren: () => import('./error/error.module').then(m => m.ErrorModule) },
+  { path: '**', redirectTo: AppRoutes?.error }
 ];
 
 @NgModule({
