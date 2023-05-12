@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
     public authService: AuthUserService,
     public router: Router,
   ) {
-    this.userData = JSON?.parse(window?.localStorage?.getItem(keys?.userData) || "{}");
+    this.userData = JSON?.parse(window?.localStorage?.getItem(keys?.userLoginData) || "{}");
   }
 
   checkLogin(): boolean {
@@ -30,7 +30,6 @@ export class AuthGuard implements CanActivate {
   }
   authState(): boolean {
     if (this.checkLogin()) {
-      // this.router.navigate(['/']);
       return false;
     }
     return true;
@@ -39,7 +38,6 @@ export class AuthGuard implements CanActivate {
     if (this.checkLogin()) {
       return true;
     }
-    this.router?.navigate(['/auth/login']);
     return false;
   }
 

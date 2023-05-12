@@ -1,10 +1,10 @@
 import { environment } from './../../../environments/environment';
-import { roots } from './../../shared/configs/endPoints';
-import { Router } from '@angular/router';
 import { keys } from './../../shared/configs/localstorage-key';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { roots } from './../../shared/configs/endPoints';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class AuthUserService {
     return this.http?.post<any>(this.apiUrl + roots?.auth?.forgetPassword, data);
   }
   isLoggedIn(): boolean {
-    return window?.localStorage?.getItem(keys?.userLoginData) ? true : false;
+    return window?.localStorage?.getItem(keys?.token) ? true : false;
   }
   isLoggedOut(): boolean {
     return !this.isLoggedIn();

@@ -1,13 +1,26 @@
 import { NoInternetComponent } from './core/componenets/no-internet/no-internet.component';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [
-  { path: 'layout', loadChildren: () => import('./layout/layout.module').then(m => m.LayoutModule) },
-
-  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   {
-    path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+    path: 'layout',
+    loadChildren: () => import('./layout/layout.module')
+      .then(m => m.LayoutModule)
+  },
+
+  {
+    path: 'auth',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./auth/auth.module')
+      .then(m => m.AuthModule)
+  },
+  {
+    path: 'dashboard',
+    // canActivate: [AuthGuard],
+    loadChildren: () => import('./dashboard/dashboard.module')
+      .then(m => m.DashboardModule),
     data: {
       moduleType: 'dashboard'
     }

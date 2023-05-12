@@ -1,15 +1,15 @@
-import { TranslationService } from './../../../shared/services/i18n/translation.service';
-import { keys } from './../../../shared/configs/localstorage-key';
-import { AppRoutes } from './../../../shared/configs/routes';
-import { patterns } from './../../../shared/configs/patternValidations';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { PublicService } from './../../../shared/services/public.service';
-import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { CheckValidityService } from './../../../shared/services/check-validity/check-validity.service';
-import { Subscription } from 'rxjs';
+import { TranslationService } from './../../../shared/services/i18n/translation.service';
+import { AlertsService } from './../../../core/services/alerts/alerts.service';
+import { PublicService } from './../../../shared/services/public.service';
+import { patterns } from './../../../shared/configs/patternValidations';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthUserService } from '../../services/auth-user.service';
+import { keys } from './../../../shared/configs/localstorage-key';
+import { AppRoutes } from './../../../shared/configs/routes';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -46,8 +46,8 @@ export class LoginComponent implements OnInit {
       password: ['', {
         validators: [
           Validators.required,
-          Validators?.minLength(8),
-          Validators?.maxLength(20),
+          // Validators?.minLength(8),
+          // Validators?.maxLength(20),
         ], updateOn: "blur"
       }],
       remember: [false, []]
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
   }
 
   forgetPassWord(): void {
-    this.router?.navigateByUrl(`auth/${AppRoutes?.auth?.forgetPassword}`);
+    // this.router?.navigateByUrl(`auth/${AppRoutes?.auth?.forgetPassword}`);
   }
 
   submit(): void {
@@ -74,42 +74,39 @@ export class LoginComponent implements OnInit {
       let data = {
         username: this.loginForm?.value?.username,
         password: this.loginForm?.value?.password,
-        rememberClient: true
       };
-      setTimeout(() => {
-        this.router?.navigateByUrl('/dashboard');
-        this.publicService?.show_loader?.next(false);
-        console.log(this.loginForm?.value);
-
-      }, 1000);
-      // this.authUserService?.login(data)?.subscribe(
-      //   (res: any) => {
-      //     if (res?.success == true) {
-      //       this.publicService?.show_loader?.next(false);
-      //       this.loginForm?.reset();
-      //       this.authUserService?.getUserData()?.subscribe(
-      //         (res: any) => {
-      //           if (res?.success == true) {
-      //             this.publicService?.show_loader?.next(false);
-      //           } else {
-      //             this.publicService?.show_loader?.next(false);
-      //             res?.error?.message ? this.alertsService?.openSweetAlert('error', res?.error?.message) : '';
-      //           }
-      //         },
-      //         (err: any) => {
-      //           err ? this.alertsService?.openSweetAlert('error', err) : '';
-      //           this.publicService?.show_loader?.next(false);
-      //         });
-      //     } else {
-      //       this.publicService?.show_loader?.next(false);
-      //       res?.error?.message ? this.alertsService?.openSweetAlert('error', res?.error?.message) : '';
-      //     }
-      //   },
-      //   (err: any) => {
-      //     err ? this.alertsService?.openSweetAlert('error', err) : '';
-      //     this.publicService?.show_loader?.next(false);
-      //   }
-      // );
+      this.authUserService?.login(data)?.subscribe(
+        (res: any) => {
+          if (res?.statusCode == 200) {
+            this.router?.navigateByUrl('/dashboard');
+            window.localStorage.setItem(keys.token, res?.data?.token);
+            window.localStorage.setItem(keys.userLoginData, res?.data?.user);
+            this.publicService?.show_loader?.next(false);
+            // this.authUserService?.getUserData()?.subscribe(
+            //   (res: any) => {
+            //     if (res?.success == true) {
+            //       this.loginForm?.reset();
+            //       this.router?.navigateByUrl('/dashboard');
+            //       this.publicService?.show_loader?.next(false);
+            //     } else {
+            //       this.publicService?.show_loader?.next(false);
+            //       res?.error?.message ? this.alertsService?.openSweetAlert('error', res?.error?.message) : '';
+            //     }
+            //   },
+            //   (err: any) => {
+            //     err ? this.alertsService?.openSweetAlert('error', err) : '';
+            //     this.publicService?.show_loader?.next(false);
+            //   });
+          } else {
+            this.publicService?.show_loader?.next(false);
+            res?.error?.message ? this.alertsService?.openSweetAlert('error', res?.error?.message) : '';
+          }
+        },
+        (err: any) => {
+          err ? this.alertsService?.openSweetAlert('error', err) : '';
+          this.publicService?.show_loader?.next(false);
+        }
+      );
     } else {
       this.publicService?.show_loader?.next(false);
       this.checkValidityService?.validateAllFormFields(this.loginForm);

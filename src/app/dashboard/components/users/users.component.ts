@@ -81,7 +81,7 @@ export class UsersComponent implements OnInit {
           this.usersCount = res?.total;
           this.pagesCount = Math.ceil(this.usersCount / this.perPage);
           let arr: any = [];
-          res ? res?.forEach((item: any, index: any) => {
+          res?.data ? res?.data?.forEach((item: any, index: any) => {
 
             let userTypeArr: any = [];
             this.userTypesList?.forEach((element: any) => {
@@ -107,7 +107,7 @@ export class UsersComponent implements OnInit {
             }
             arr.push({
               id: item?.id ? item?.id : '',
-              index: index++,
+              index: index + 1,
               name: item?.name ? item?.name : '',
               username: item?.username ? item?.username : '',
               itemStatus: item?.itemStatus ? item?.itemStatus : null,
