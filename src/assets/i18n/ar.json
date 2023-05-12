@@ -164,7 +164,7 @@
     "password": "كلمة المرور",
     "confirmPassword": "تأكيد كلمة المرور",
     "phoneNumber": "رقم الهاتف",
-    "newPassword": "أدخل كلمة المرور الجديدة",
+    "newPassword": " كلمة المرور الجديدة",
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
     "userActivation": "تفعيل المستخدم",
     "tankActivation": "تفعيل الصهريج",
@@ -197,6 +197,8 @@
 
   },
   "placeholder": {
+    "newPassword": "أدخل كلمة المرور الجديدة",
+    "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
     "status": "الحالة",
     "isWorking": "متاح للتعين",
     "email": "أدخل البريد الإلكتروني",
@@ -239,6 +241,8 @@
     "emailNotCorrect": "البريد الإلكتروني ليس نمط بريد إلكتروني صحيحًا",
     "requiredPassword": "كلمة المرور مطلوبة",
     "requiredConfirmPassword": "تأكيد كلمة المرور مطلوبة",
+    "requiredNewPassword": "كلمة المرور الجديدة مطلوبة",
+    "requiredConfirmNewPassword": "تأكيد كلمة المرور الجديدة مطلوبة",
     "passwordPattern": "يجب أن تتكون كلمة المرور الخاصة بك من 8 أحرف أو أكثر ، وتحتوي على أحرف كبيرة وصغيرة وأرقام وحرف خاص واحد على الأقل (!٪ *؟ & | ...)",
     "not_matched": "تأكيد كلمه المرور غير متطابقة",
     "PickPassword": "اختار كلمه سر",

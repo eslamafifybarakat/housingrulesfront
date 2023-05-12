@@ -39,6 +39,7 @@ export const roots = {
       crateUser: 'Auth/CreateAsync',
       updateUser: 'Auth/UpdateAsync',
       getUserById: 'Auth/GetByIdAsync',
+      resetPassword: 'Auth/reset-password',
     },
   }
 }

@@ -162,7 +162,7 @@
     "active": "Active",
     "password": "Password",
     "confirmPassword": "Confirm Password",
-    "newPassword": "Enter new password",
+    "newPassword": "New password",
     "confirmNewPassword": "Confirm new password",
     "userActivation": "User activation",
     "tankActivation": "Tank activation",
@@ -194,6 +194,8 @@
     "userType":"User type"
   },
   "placeholder": {
+    "newPassword": "Enter new password",
+    "confirmNewPassword": "Confirm new password",
     "status": "Status",
     "isWorking": "isWorking",
     "email": "Enter email address",
@@ -235,6 +237,8 @@
     "emailNotCorrect": "Email is not correct email pattern",
     "requiredPassword": "Password is required",
     "requiredConfirmPassword": "Confirm password is required",
+    "requiredNewPassword": "New password is required",
+    "requiredConfirmNewPassword": "Confirm new password is required",
     "passwordPattern": "Your password must be 8 or more characters, contains upper & lower case letters, numbers, at least one special character (!%*?&|...)",
     "not_matched": "Confirm password must match password",
     "PickPassword": "Pick a password",

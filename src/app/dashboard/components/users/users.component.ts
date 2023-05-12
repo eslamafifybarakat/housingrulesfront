@@ -1,4 +1,5 @@
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AddEditUserComponent } from './add-edit-user/add-edit-user.component';
 import { DriversService } from 'src/app/dashboard/services/drivers.service';
 import { AlertsService } from 'src/app/core/services/alerts/alerts.service';
@@ -56,7 +57,7 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.tableHeaders = [
       {
-        field: 'id', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false
+        field: 'index', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false
         , filter: false, type: 'numeric'
       },
       // { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
@@ -105,7 +106,8 @@ export class UsersComponent implements OnInit {
               });
             }
             arr.push({
-              id: index++,
+              id: item?.id ? item?.id : '',
+              index: index++,
               name: item?.name ? item?.name : '',
               username: item?.username ? item?.username : '',
               itemStatus: item?.itemStatus ? item?.itemStatus : null,
@@ -156,8 +158,20 @@ export class UsersComponent implements OnInit {
     this.publicService?.changePageSub?.next({ page: this.page });
 
   }
-  resetPassword(event: any): void {
-
+  resetPassword(item: any): void {
+    const ref = this.dialogService?.open(ResetPasswordComponent, {
+      data: item,
+      header: this.publicService?.translateTextFromJson('form.resetPassword'),
+      dismissableMask: false,
+      width: '50%',
+      styleClass: 'custom_modal'
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+        this.page = 1;
+        this.getAllUsers();
+      }
+    });
   }
   addOrEditItem(item?: any, type?: any): void {
     console.log(item);
