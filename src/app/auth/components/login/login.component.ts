@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
           if (res?.statusCode == 200) {
             this.router?.navigateByUrl('/dashboard');
             window.localStorage.setItem(keys.token, res?.data?.token);
-            window.localStorage.setItem(keys.userLoginData, res?.data?.user);
+            window.localStorage.setItem(keys.userLoginData, JSON.stringify(res?.data?.user));
             this.publicService?.show_loader?.next(false);
             // this.authUserService?.getUserData()?.subscribe(
             //   (res: any) => {
