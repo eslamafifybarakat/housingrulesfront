@@ -40,6 +40,7 @@ export class OrdersComponent implements OnInit {
 
   orderOriginList: any = [];
   propertyTypeList: any = [];
+  paymentMethodList: any = [];
 
   constructor(
     private alertsService: AlertsService,
@@ -74,6 +75,7 @@ export class OrdersComponent implements OnInit {
     this.getAllOrders();
     this.propertyTypeList = this.publicService?.getPropertyType();
     this.orderOriginList = this.publicService?.getOrderOrigin();
+    this.paymentMethodList = this.publicService?.getPaymentMethods();
   }
 
   getAllOrders(): any {
@@ -116,6 +118,12 @@ export class OrdersComponent implements OnInit {
                 propertyType?.push(element);
               }
             });
+            let paymentMethod: any = '';
+            this.paymentMethodList?.forEach((element: any) => {
+              if (element?.value == item?.paymentMethod) {
+                paymentMethod = element?.name;
+              }
+            });
             arr.push({
               id: item?.id ? item?.id : null,
               dateTime: item?.dateTime ? new Date(item?.dateTime) : null,
@@ -126,7 +134,7 @@ export class OrdersComponent implements OnInit {
               locationLink: item?.locationLink ? item?.locationLink : '',
               tank: item?.tank ? item?.tank : '',
               status: status,
-              paymentMethod: item?.paymentMethod ? item?.paymentMethod : '',
+              paymentMethod: paymentMethod,
               paidAmount: item?.paidAmount ? item?.paidAmount : '0',
               cancellationCauses: item?.cancellationCauses ? item?.cancellationCauses : '',
               closedAt: item?.closedAt ? item?.closedAt : '',

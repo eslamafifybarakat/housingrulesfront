@@ -158,4 +158,15 @@ export class PublicService {
     ]
     return orderOriginList;
   }
+
+  getPaymentMethods(): any {
+    let paymentMethodsList: any = [
+      { id: 1, value: 0, name: "Cash" },
+      { id: 2, value: 1, name: "Mada" },
+      { id: 3, value: 2, name: "Transfer" },
+      { id: 4, value: 3, name: "Credit" }
+    ]
+
+    return paymentMethodsList;
+  }
 }
