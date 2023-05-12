@@ -83,3 +83,14 @@
     }
   }
 }
+.ng-dropdown-panel .scroll-host {
+  margin: 10px;
+  &::-webkit-scrollbar-thumb {
+    background: var(--bg-main-color);
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    max-height: 80% !important;
+  }
+}

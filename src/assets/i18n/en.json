@@ -151,6 +151,10 @@
     "driverArrivedToCustomer": "Driver Arrived To Customer",
     "driverArrivedToStation": "Driver Arrived To Station"
   },
+  "warning":{
+"selectDistrictFirst":"You must select district first",
+"selectSupervisorFirst":"You must select supervisor first"
+  },
   "labels": {
     "isWorking": "Is working",
     "email": "Email",

@@ -152,6 +152,10 @@
     "driverArrivedToCustomer": "وصل السائق إلى العميل",
     "driverArrivedToStation": "وصل السائق إلى المحطة"
   },
+  "warning":{
+    "selectDistrictFirst":"يجب اختيار المنطقه اولا",
+    "selectSupervisorFirst":"يجب اختيار المشرف اولا"
+      },
   "labels": {
     "isWorking": "متاح للتعين",
     "name": "الاسم",

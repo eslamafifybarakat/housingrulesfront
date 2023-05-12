@@ -81,14 +81,22 @@ export class AddEditOrderComponent implements OnInit {
   ngOnInit(): void {
     this.orderId = this.activatedRoute.snapshot.params['id'];
     this.isEdit = this.orderId ? true : false;
+    this.orderForm?.controls?.supervisor?.disable();
+    this.orderForm?.controls?.driver?.disable();
     if (this.isEdit) {
       this.getOrderData(this.orderId);
     } else {
-      this.getAllSupervisors();
+      // this.getAllSupervisors();
       this.getAllCustomers();
-      this.getAllDrivers();
+      // this.getAllDrivers();
       this.getAllTanks();
     };
+    // if (!this.orderForm?.value?.district) {
+    //   this.orderForm?.patchValue({
+    //     supervisor: null,
+    //     driver: null
+    //   });
+    // }
   }
 
   orderForm = this.fb?.group(
@@ -102,18 +110,18 @@ export class AddEditOrderComponent implements OnInit {
       paymentMethod: ['', {
         validators: [Validators.required], updateOn: "blur"
       }],
-      driver: ['', {
-        validators: [Validators.required], updateOn: "blur"
+      driver: [null, {
+        validators: [Validators.required]
       }],
       orderOrigin: ['', {
         validators: [
           Validators.required], updateOn: "blur"
       }],
 
-      district: ['', {
+      district: [null, {
         validators: [
           Validators.required,
-          Validators?.minLength(3)], updateOn: "blur"
+          Validators?.minLength(3)]
       }],
       propertyType: ['', {
         validators: [
@@ -123,7 +131,7 @@ export class AddEditOrderComponent implements OnInit {
       customerName: ['', {
         validators: [
           Validators.required,
-          Validators?.minLength(3)], updateOn: "blur"
+          Validators?.minLength(3)]
       }],
       customerMobileNumber: ['', {
         validators: [
@@ -131,7 +139,7 @@ export class AddEditOrderComponent implements OnInit {
       }],
       supervisor: [null, {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required]
       }],
       locationLink: ['', {
         validators: [
@@ -149,6 +157,41 @@ export class AddEditOrderComponent implements OnInit {
 
   get formControls(): any {
     return this.orderForm?.controls;
+  }
+  onChangeDistrict(item: any): void {
+    console.log(item);
+
+    if (item?.value?.id) {
+      this.getAllSupervisors();
+      this.orderForm?.controls?.supervisor?.enable();
+    }
+  }
+  onClearDistrict(): void {
+    this.orderForm?.patchValue({
+      supervisor: null,
+      driver: null
+    });
+    this.supervisorsList = [];
+    this.driversList = [];
+
+    this.orderForm?.controls?.supervisor?.disable();
+    this.orderForm?.controls?.driver?.disable();
+  }
+
+  onChangeSupervisor(item: any): void {
+    if (item?.value?.id) {
+      this.getAllDrivers();
+      this.orderForm?.controls?.driver?.enable();
+    }
+    console.log(this.orderForm?.value);
+
+  }
+  onClearSupervisor(): void {
+    this.orderForm?.patchValue({
+      driver: null
+    });
+    this.driversList = [];
+    this.orderForm?.controls?.driver?.disable();
   }
 
   getAllCustomers(): any {
@@ -204,18 +247,22 @@ export class AddEditOrderComponent implements OnInit {
     this.supervisorsService?.getSupervisorsList()?.subscribe(
       (res: any) => {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
+          let arr: any = [];
           res?.data ? res?.data?.forEach((supervisor: any) => {
-            this.supervisorsList?.push({
+            arr?.push({
               name: supervisor?.arName,
               id: supervisor?.id
             });
           }) : '';
+          this.supervisorsList = arr;
           if (this.isEdit) {
             this.supervisorsList?.forEach((supervisor: any) => {
               if (supervisor?.id == this.orderData?.supervisorId) {
                 this.orderForm?.patchValue({
                   supervisor: supervisor
                 })
+                this.orderForm?.controls?.driver?.enable();
+                this.getAllDrivers();
               }
             });
           }
@@ -245,12 +292,14 @@ export class AddEditOrderComponent implements OnInit {
     this.driversService?.getDriversList()?.subscribe(
       (res: any) => {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
+          let arr: any = [];
           res?.data ? res?.data?.forEach((item: any) => {
-            this.driversList?.push({
+            arr?.push({
               name: item?.arName,
               id: item?.id
             });
           }) : '';
+          this.driversList = arr;
           if (this.isEdit) {
             this.driversList?.forEach((driver: any) => {
               if (driver?.id == this.orderData?.driverId) {
@@ -320,9 +369,9 @@ export class AddEditOrderComponent implements OnInit {
       (res: any) => {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
           this.orderData = res?.data ? res?.data : null;
-          this.getAllSupervisors();
+          // this.getAllSupervisors();
           this.getAllCustomers();
-          this.getAllDrivers();
+          // this.getAllDrivers();
           this.getAllTanks();
           this.patchValue();
           this.isFullLoading = false;
@@ -412,6 +461,7 @@ export class AddEditOrderComponent implements OnInit {
           if (res?.isSuccess == true && res?.statusCode == 200) {
             this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+            this.router.navigate(['/dashboard/orders'])
           } else {
             res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
             this.publicService?.show_loader?.next(false);
