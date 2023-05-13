@@ -563,14 +563,14 @@
                               placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
                               <ng-template let-option pTemplate="item">
                                 <ng-container *ngIf="col?.status; else noStatus">
-                                  <div [class]="'item-badge status-' + option.value"
+                                  <div [class]="'item-badge status-' + option?.value"
                                     class="p-multiselect-representative-option">
-                                    <span class="ml-1">{{option.name}}</span>
+                                    <span class="ml-1">{{option?.name}}</span>
                                   </div>
                                 </ng-container>
                                 <ng-template #noStatus>
                                   <div class="p-multiselect-representative-option">
-                                    <span class="ml-1">{{option.name}}</span>
+                                    <span class="ml-1">{{option?.name}}</span>
                                   </div>
                                 </ng-template>
 

@@ -161,10 +161,10 @@
             <div class="mb-3">
               <label for="name" class="mb-2 required">{{'labels.district'|translate}}</label>
               <span class="p-input-icon-right select-loading d-block">
-                <p-dropdown [options]="districtsList" formControlName="district" optionLabel="name" [filter]="true"
-                  (onChange)="onChangeDistrict($event)" (onClear)="onClearDistrict()" [virtualScroll]="true"
-                  [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-                  [filterPlaceholder]="'placeholder.district'|translate" [readonly]="isLoadingDistricts"
+                <p-dropdown [options]="districtsList" formControlName="district"
+                  [optionLabel]="currLang=='ar'?'arName':'enName'" [filter]="true" (onChange)="onChangeDistrict($event)"
+                  (onClear)="onClearDistrict()" [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name"
+                  appendTo="body" [filterPlaceholder]="'placeholder.district'|translate" [readonly]="isLoadingDistricts"
                   scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
                   [class.ng-dirty]="formControls?.propertyType?.invalid && (formControls?.propertyType?.dirty || formControls?.propertyType?.touched)"
                   [showClear]="true" placeholder="{{'placeholder.district'|translate}}">
@@ -192,40 +192,6 @@
             </div>
           </div>
           <div class="col-md-6">
-            <!-- <div class="mb-3">
-              <label class="form-label required">
-                {{"labels.supervisor"|translate}}
-              </label>
-              <span class="p-input-icon-right select-loading d-block">
-                <ng-select notFoundText="{{'general.no_item_founded'|translate}}" class=""
-                  [loading]="isLoadingSupervisors" formControlName="supervisor"
-                  [placeholder]="'placeholder.supervisor' | translate"
-                  [class.border-red]="(formControls?.['supervisor']?.touched ||formControls?.['supervisor']?.dirty) && formControls?.['supervisor']?.invalid"
-                  [searchable]="true" [clearSearchOnAdd]="true" (change)="onChangeSupervisor($event)"
-                  (clear)="onClearSupervisor()">
-                  <ng-container *ngIf="supervisorsList?.length>0; else elseNoItemSupervisor">
-                    <ng-container *ngFor="let item of supervisorsList">
-                      <ng-option [value]="item?.id">
-                        {{item?.name}}
-                      </ng-option>
-                    </ng-container>
-                  </ng-container>
-                  <ng-template #elseNoItemSupervisor>
-                    <ng-option [disabled]="true">{{'general.no_result_found' | translate}}</ng-option>
-                  </ng-template>
-                </ng-select>
-              </span>
-              <div class="my-2">
-                <ng-container
-                  *ngIf="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)">
-                  <ng-container *ngIf="formControls?.supervisor?.errors?.['required']">
-                    <span class="text-danger fs-8">
-                      {{"validations.required_field"|translate}}
-                    </span>
-                  </ng-container>
-                </ng-container>
-              </div>
-            </div> -->
             <div class="mb-3">
               <label class="form-label required">
                 {{"labels.supervisor"|translate}}
@@ -266,8 +232,9 @@
 
             </div>
           </div>
-          <div class="col-md-6">
-            <!-- <div class="mb-3">
+          <ng-container *ngIf="isEdit&& (userData?.userType == 2 || userData?.userType == 4)">
+            <div class="col-md-6">
+              <!-- <div class="mb-3">
               <label class="form-label required">
                 {{"labels.driver"|translate}}
               </label>
@@ -299,44 +266,46 @@
                 </ng-container>
               </div>
             </div> -->
-            <div class="mb-3">
-              <label class="form-label required">
-                {{"labels.driver"|translate}}
-              </label>
-              <span class="p-input-icon-right select-loading d-block">
-                <p-dropdown [options]="driversList" formControlName="driver" optionLabel="name" [filter]="true"
-                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-                  [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDrivers"
-                  scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
-                  [class.ng-dirty]="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)"
-                  [showClear]="true" placeholder="{{'placeholder.driver'|translate}}">
-                </p-dropdown>
-                <ng-container *ngIf="isLoadingDrivers">
-                  <i class="pi pi-spin pi-spinner"></i>
-                </ng-container>
-              </span>
-              <div class="my-2">
-                <ng-container
-                  *ngIf="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)">
-                  <ng-container *ngIf="formControls?.driver?.errors?.['required']">
-                    <span class="text-danger fs-8">
-                      {{"validations.required_field"|translate}}
-                    </span>
+              <div class="mb-3">
+                <label class="form-label"
+                  [class.required]="isEdit && (userData?.userType == 2 || userData?.userType == 4)">
+                  {{"labels.driver"|translate}}
+                </label>
+                <span class="p-input-icon-right select-loading d-block">
+                  <p-dropdown [options]="driversList" formControlName="driver" optionLabel="name" [filter]="true"
+                    [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                    [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDrivers"
+                    scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                    [class.ng-dirty]="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)"
+                    [showClear]="true" placeholder="{{'placeholder.driver'|translate}}">
+                  </p-dropdown>
+                  <ng-container *ngIf="isLoadingDrivers">
+                    <i class="pi pi-spin pi-spinner"></i>
                   </ng-container>
+                </span>
+                <div class="my-2">
+                  <ng-container
+                    *ngIf="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)">
+                    <ng-container *ngIf="formControls?.driver?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{"validations.required_field"|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                </div>
+                <ng-container *ngIf="!orderForm?.value?.supervisor">
+                  <div class="my-2">
+                    <span class="info-color fs-8 d-flex align-items-center gap-1">
+                      <i class="pi pi-info-circle"></i>
+                      <span>
+                        {{"warning.selectSupervisorFirst"|translate}}
+                      </span>
+                    </span>
+                  </div>
                 </ng-container>
               </div>
-              <ng-container *ngIf="!orderForm?.value?.supervisor">
-                <div class="my-2">
-                  <span class="info-color fs-8 d-flex align-items-center gap-1">
-                    <i class="pi pi-info-circle"></i>
-                    <span>
-                      {{"warning.selectSupervisorFirst"|translate}}
-                    </span>
-                  </span>
-                </div>
-              </ng-container>
             </div>
-          </div>
+          </ng-container>
           <div class="col-md-6">
             <div class="mb-3">
               <label class="form-label required">

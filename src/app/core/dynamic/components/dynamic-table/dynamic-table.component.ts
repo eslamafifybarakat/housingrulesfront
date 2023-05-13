@@ -1,3 +1,5 @@
+import { keys } from 'src/app/shared/configs/localstorage-key';
+import { OrdersService } from './../../../../dashboard/services/orders.service';
 import { ConfirmDeleteComponent } from './../../../../shared/components/confirm-delete/confirm-delete.component';
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { DriversService } from './../../../../dashboard/services/drivers.service';
@@ -203,18 +205,22 @@ export class DynamicTableComponent implements OnInit {
   url: any;
   collapseAssignMenu: boolean = false;
 
+  currLang: any = '';
+
   constructor(
     private supervisorsService: SupervisorsService,
     private driversService: DriversService,
     private dialogService: DialogService,
     private publicService: PublicService,
     private alertsService: AlertsService,
+    private orderService: OrdersService,
     private tanksService: TanksService,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.currLang = window.localStorage.getItem(keys?.language);
     // this.publicService?.changePageSub?.subscribe((res: any) => {
     //   if (res?.page) {
     //     this.changePageActiveNumber(res?.page);
@@ -551,7 +557,6 @@ export class DynamicTableComponent implements OnInit {
   }
   filterUsers(event: any): void {
     this.newAssignedUsers = this.assignedUsers?.filter((bank: any) => {
-      console.log(bank);
       return bank?.name?.toLocaleLowerCase()?.includes(event?.toLocaleLowerCase());
     });
 
@@ -575,8 +580,28 @@ export class DynamicTableComponent implements OnInit {
     this.cdr.detectChanges();
   }
   getDistricts(): any {
-    this.districtsList = this.publicService.getDistricts();
-    this.cdr.detectChanges();
+    this.orderService?.getDistrictsList()?.subscribe(
+      (res: any) => {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
+          res?.data[0]?.districts?.forEach((element: any) => {
+            let name: any = '';
+            name = this.currLang == 'ar' ? element?.arName : element?.enName;
+            console.log(name);
+            this.districtsList?.push({
+              id: element?.id,
+              value: element?.id,
+              name: name,
+            });
+          });
+          this.districtsList = res?.data[0]?.districts;
+        } else {
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+      });
+    this.cdr?.detectChanges();
   }
   getAllSupervisors(): any {
     this.supervisorsService?.getSupervisorsList()?.subscribe(

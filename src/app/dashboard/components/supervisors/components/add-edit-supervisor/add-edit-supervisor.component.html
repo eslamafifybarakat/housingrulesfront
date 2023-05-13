@@ -4,7 +4,7 @@
       <label for="isWorking" class="fw-bold">{{'labels.isWorking'|translate}}</label>
       <p-inputSwitch id="isWorking" formControlName="isWorking"></p-inputSwitch>
     </div>
-    <div class="mb-3">
+    <!-- <div class="mb-3">
       <label for="username" class="mb-2 required">{{'labels.username'|translate}}</label>
       <input type="text" class="form-control" formControlName="username" autocomplete="cc-name"
         (input)="publicService?.clearValidationErrors(formControls?.username)"
@@ -30,7 +30,7 @@
           </ng-container>
         </ng-container>
       </div>
-    </div>
+    </div> -->
     <div class="mb-3">
       <label for="name" class="mb-2 required">{{'labels.name'|translate}}<span
           class="ps-1">({{'general.inArabic'|translate}})</span></label>
@@ -95,7 +95,7 @@
         <p-multiSelect appendTo="body" [options]="districtsList" formControlName="district" display="chip"
           [readonly]="isLoadingDistricts" [virtualScroll]="true" [showClear]="true" [virtualScrollItemSize]="38"
           scrollHeight="200px" defaultLabel="{{'placeholder.district'|translate}}" [showToggleAll]="true"
-          optionLabel="name"
+          [optionLabel]="currLang=='ar'?'arName':'enName'"
           [class.ng-dirty]="formControls?.district?.invalid && (formControls?.district?.dirty || formControls?.district?.touched)"></p-multiSelect>
         <ng-container *ngIf="isLoadingDistricts">
           <i class="pi pi-spin pi-spinner"></i>

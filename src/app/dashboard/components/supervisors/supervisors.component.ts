@@ -39,7 +39,6 @@ export class SupervisorsComponent implements OnInit {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
-  districtsList: any = [];
 
   constructor(
     private supervisorsService: SupervisorsService,
@@ -52,7 +51,7 @@ export class SupervisorsComponent implements OnInit {
   ngOnInit(): void {
     this.tableHeaders = [
       { field: 'arName', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'district', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), filter: true, type: 'filterArray', dataType: 'array', list: 'districts', placeholder: this.publicService?.translateTextFromJson('placeholder.district'), label: this.publicService?.translateTextFromJson('labels.district') },
+      // { field: 'district', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), filter: true, type: 'filterArray', dataType: 'array', list: 'districts', placeholder: this.publicService?.translateTextFromJson('placeholder.district'), label: this.publicService?.translateTextFromJson('labels.district') },
       { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
       // { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
@@ -71,8 +70,6 @@ export class SupervisorsComponent implements OnInit {
           let workingItems: any = [];
           workingItems = this.publicService?.getIsWorking();
           let districtsItems: any = [];
-          this.districtsList = this.publicService?.getDistricts();
-
           res?.data ? res?.data.forEach((item: any) => {
             let isWorking: any = '';
             if (item?.isWorking == true) {
@@ -82,11 +79,7 @@ export class SupervisorsComponent implements OnInit {
             }
 
             item?.districts?.forEach((item: any) => {
-              this.districtsList?.forEach((element: any) => {
-                if (element?.value == item) {
-                  districtsItems?.push({ name: element?.name });
-                }
-              });
+              districtsItems?.push({ name: item?.name });
             });
 
             arr.push({

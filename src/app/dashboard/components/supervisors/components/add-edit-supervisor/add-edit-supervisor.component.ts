@@ -1,3 +1,4 @@
+import { keys } from 'src/app/shared/configs/localstorage-key';
 import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
@@ -8,6 +9,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { OrdersService } from 'src/app/dashboard/services/orders.service';
 
 @Component({
   selector: 'app-add-edit-supervisor',
@@ -23,6 +25,7 @@ export class AddEditSupervisorComponent implements OnInit {
 
   districtsList: any = [];
   isLoadingDistricts: boolean = false;
+  currLang: any = '';
 
   constructor(
     public checkValidityService: CheckValidityService,
@@ -30,6 +33,7 @@ export class AddEditSupervisorComponent implements OnInit {
     public alertsService: AlertsService,
     public publicService: PublicService,
     private config: DynamicDialogConfig,
+    private orderService: OrdersService,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     protected router: Router,
@@ -37,7 +41,7 @@ export class AddEditSupervisorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.districtsList = this.publicService?.getDistricts();
+    this.currLang = window.localStorage.getItem(keys?.language);
     this.modalData = this.config?.data;
     if (this.modalData?.item?.id) {
       this.supervisorId = this.modalData?.item?.id;
@@ -45,6 +49,8 @@ export class AddEditSupervisorComponent implements OnInit {
     this.isEdit = this.modalData?.type == 'edit' ? true : false;
     if (this.isEdit) {
       this.patchValue();
+    } else {
+      this.getAllDistricts();
     }
   }
 
@@ -54,12 +60,12 @@ export class AddEditSupervisorComponent implements OnInit {
         validators: [
           Validators.required], updateOn: "blur"
       }],
-      username: ['', {
-        validators: [
-          Validators.required,
-          Validators?.pattern(patterns?.userName),
-          Validators?.minLength(3)], updateOn: "blur"
-      }],
+      // username: ['', {
+      //   validators: [
+      //     Validators.required,
+      //     Validators?.pattern(patterns?.userName),
+      //     Validators?.minLength(3)], updateOn: "blur"
+      // }],
       arName: ['', {
         validators: [
           Validators.required,
@@ -74,9 +80,41 @@ export class AddEditSupervisorComponent implements OnInit {
       isWorking: [false, []]
     },
   );
-
   get formControls(): any {
     return this.modalForm?.controls;
+  }
+
+  getAllDistricts(): any {
+    this.isLoadingDistricts = true;
+    this.orderService?.getDistrictsList()?.subscribe(
+      (res: any) => {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
+          this.districtsList = res?.data[0]?.districts;
+          if (this.isEdit) {
+            let ids: any = [];
+            this.modalData?.item?.districtIds?.forEach((element: any) => {
+              this.districtsList?.forEach((item: any) => {
+                if (element == item?.id) {
+                  ids?.push(item);
+                }
+              });
+            });
+            this.isLoadingDistricts = false;
+            this.modalData?.item?.patchValue({
+              district: ids
+            })
+          }
+          this.isLoadingDistricts = false;
+        } else {
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+          this.isLoadingDistricts = false;
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+        this.isLoadingDistricts = false;
+      });
+    this.cdr?.detectChanges();
   }
   patchValue(): void {
     let districtsArr: any = [];
@@ -93,29 +131,27 @@ export class AddEditSupervisorComponent implements OnInit {
       district: districtsArr,
       isWorking: this.modalData?.item?.isWorkingVal
     });
+    this.getAllDistricts();
   }
 
   submit(): void {
     const myObject: { [key: string]: any } = {};
-
     if (this.modalForm?.valid) {
       let disticts: any = [];
       let formData: any = this.modalForm?.value;
-      console.log(formData);
-
       formData?.district?.forEach((element: any) => {
-        disticts?.push(element.value);
+        disticts?.push(element?.id);
       });
       myObject['arName'] = this.modalForm?.value?.arName;
       myObject['enName'] = this.modalForm?.value?.enName;
       myObject['isWorking'] = this.modalForm?.value?.isWorking;
-      myObject['disticts'] = disticts;
-      myObject['userId'] = '0';
+      myObject['districtIds'] = disticts;
+      // myObject['userId'] = '0';
       if (this.isEdit) {
         myObject['id'] = this.supervisorId;
-        myObject['lastModifiedBy'] = 0;
+        // myObject['lastModifiedBy'] = 0;
       } else {
-        myObject['createBy'] = 0;
+        // myObject['createBy'] = 0;
       }
       this.publicService?.show_loader?.next(true);
       this.supervisorsService?.addOrUpdateSupervisor(myObject, this.supervisorId ? this.supervisorId : null)?.subscribe(
@@ -123,14 +159,14 @@ export class AddEditSupervisorComponent implements OnInit {
           if (res?.statusCode == 200 && res?.isSuccess == true) {
             this.ref.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
-            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+            res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
           } else {
-            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+            res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
             this.publicService?.show_loader?.next(false);
           }
         },
         (err: any) => {
-          err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
+          err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
           this.publicService?.show_loader?.next(false);
         });
     } else {

@@ -6,6 +6,7 @@ export const roots = {
   },
   dashboard: {
     customersList: 'Customers/GetAllAsync',
+    districtsList: 'Regions/GetAllCitiesAsync',
     tanks: {
       tanksList: 'Tanks/GetAllAsync',
       CreateAsync: 'Tanks/CreateAsync',

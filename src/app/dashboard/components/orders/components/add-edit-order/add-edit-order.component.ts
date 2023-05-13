@@ -63,6 +63,8 @@ export class AddEditOrderComponent implements OnInit {
   customersList: any = [];
   isLoadingCustomers: boolean = false;
 
+  currLang: any = '';
+
   constructor(
     public checkValidityService: CheckValidityService,
     private supervisorsService: SupervisorsService,
@@ -78,7 +80,8 @@ export class AddEditOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.districtsList = this.publicService?.getDistricts();
+    this.currLang = window.localStorage.getItem(keys?.language);
+    // this.districtsList = this.publicService?.getDistricts();
     this.userData = JSON.parse(window.localStorage.getItem(keys?.userLoginData) || '{}');
     if (this.isEdit && (this.userData?.userType == 2 || this.userData?.userType == 4)) {
       this.publicService?.addValidators(this.orderForm, ['driver']);
@@ -95,6 +98,7 @@ export class AddEditOrderComponent implements OnInit {
       // this.getAllSupervisors();
       this.getAllCustomers();
       // this.getAllDrivers();
+      this.getAllDistricts();
       this.getAllTanks();
     };
     // if (!this.orderForm?.value?.district) {
@@ -160,9 +164,38 @@ export class AddEditOrderComponent implements OnInit {
       active: [false, []]
     },
   );
-
   get formControls(): any {
     return this.orderForm?.controls;
+  }
+
+  getAllDistricts(): any {
+    this.isLoadingDistricts = true;
+    this.orderService?.getDistrictsList()?.subscribe(
+      (res: any) => {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
+          this.districtsList = res?.data[0]?.districts;
+          if (this.isEdit) {
+            this.districtsList?.forEach((item: any) => {
+              if (item?.id == this.orderData?.districtId) {
+                this.orderForm?.patchValue({
+                  district: item
+                })
+              }
+            });
+            this.orderForm?.controls?.supervisor?.enable();
+            this.getAllSupervisors();
+          }
+          this.isLoadingDistricts = false;
+        } else {
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+          this.isLoadingDistricts = false;
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+        this.isLoadingDistricts = false;
+      });
+    this.cdr?.detectChanges();
   }
   onChangeDistrict(item: any): void {
     console.log(item);
@@ -266,7 +299,8 @@ export class AddEditOrderComponent implements OnInit {
               if (supervisor?.id == this.orderData?.supervisorId) {
                 this.orderForm?.patchValue({
                   supervisor: supervisor
-                })
+                });
+                this.isLoadingSupervisors = false;
                 this.orderForm?.controls?.driver?.enable();
                 this.getAllDrivers();
               }
@@ -378,6 +412,7 @@ export class AddEditOrderComponent implements OnInit {
           // this.getAllSupervisors();
           this.getAllCustomers();
           // this.getAllDrivers();
+          this.getAllDistricts();
           this.getAllTanks();
           this.patchValue();
           this.isFullLoading = false;
@@ -399,12 +434,12 @@ export class AddEditOrderComponent implements OnInit {
         orderOrigin = item
       }
     });
-    let district: any;
-    this.districtsList?.forEach((item: any) => {
-      if (item?.value == this.orderData?.district) {
-        district = item
-      }
-    });
+    // let district: any;
+    // this.districtsList?.forEach((item: any) => {
+    //   if (item?.value == this.orderData?.district) {
+    //     district = item
+    //   }
+    // });
     let propertyType: any;
     this.propertyTypeList?.forEach((item: any) => {
       if (item?.value == this.orderData?.propertyType) {
@@ -421,7 +456,7 @@ export class AddEditOrderComponent implements OnInit {
       orderOrigin: orderOrigin,
       propertyType: propertyType,
       customerMobileNumber: this.orderData?.customerMobileNumber,
-      district: district ? district : 1,
+      // district: district ? district : 1,
       locationLink: this.orderData?.locationLink,
       comment: this.orderData?.comments,
       orderNumber: this.orderData?.orderNumber,
@@ -441,7 +476,7 @@ export class AddEditOrderComponent implements OnInit {
       myObject['orderOrigin'] = formInfo?.orderOrigin?.['value'];
       myObject['propertyType'] = formInfo?.propertyType?.['value'];
       myObject['customerMobileNumber'] = formInfo?.customerMobileNumber;
-      myObject['districtId'] = formInfo?.district?.['value'];
+      myObject['districtId'] = formInfo?.district?.['id'];
       myObject['locationLink'] = formInfo?.locationLink;
       myObject['supervisorId'] = formInfo?.supervisor?.['id'];
       myObject['driverId'] = formInfo?.driver?.id;
