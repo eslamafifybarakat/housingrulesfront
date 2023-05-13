@@ -10,21 +10,28 @@ export const roots = {
       tanksList: 'Tanks/GetAllAsync',
       CreateAsync: 'Tanks/CreateAsync',
       UpdateAsync: 'Tanks/UpdateAsync',
-      Delete: 'Tanks/Delete',
+      Delete: 'Tanks/SoftDelete',
       tankToggleStatus: 'switch_status_tanks'
+    },
+    serviceAgents: {
+      serviceAgentsList: 'ServicesAgents/GetAllAsync',
+      CreateAsync: 'ServicesAgents/CreateAsync',
+      UpdateAsync: 'ServicesAgents/UpdateAsync',
+      Delete: 'ServicesAgents/SoftDelete',
+      serviceAgentToggleStatus: 'switch_status_service_agent'
     },
     drivers: {
       driversList: 'Drivers/GetAllAsync',
       createDriver: 'Drivers/CreateAsync',
       updateDriver: 'Drivers/UpdateAsync',
-      deleteDriver: 'Drivers/Delete',
+      deleteDriver: 'Drivers/SoftDelete',
       getDriverById: 'Drivers/GetByIdAsync',
     },
     supervisors: {
       supervisorsList: 'SuperVisors/GetAllAsync',
       createSupervisor: 'SuperVisors/CreateAsync',
       updateSupervisor: 'SuperVisors/UpdateAsync',
-      deleteSupervisor: 'SuperVisors/Delete',
+      deleteSupervisor: 'SuperVisors/SoftDelete',
 
       supervisorToggleStatus: 'switch_status_supervisors'
     },

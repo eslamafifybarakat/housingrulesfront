@@ -73,7 +73,14 @@ export class AsideMenuComponent implements OnInit {
       routerLink: '/dashboard/users',
       state: false,
     },
-    ]
+    {
+      id: 'service-agent',
+      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.serviceAgent'),
+      icon: 'fa-user',
+      routerLink: '/dashboard/service-agent',
+      state: false,
+    }
+    ];
 
     this.screenWidth = window?.innerWidth;
     this.sharedService?.showSideMenu?.subscribe((res: any) => {

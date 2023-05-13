@@ -1,10 +1,9 @@
 import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
+import { DynamicDialogConfig, DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
 import { AddEditTankComponent } from './../add-edit-tank/add-edit-tank.component';
 import { PublicService } from './../../../../../shared/services/public.service';
-import { DynamicDialogConfig, DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
-import { TanksService } from './../../../../services/tanks.service';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 

@@ -1,0 +1,31 @@
+<div id="modal">
+  <div class="mb-4">
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.userAgentActivation'|translate}}</label>
+      <p-inputSwitch id="active" [readonly]="true" [(ngModel)]="modalData.isWorking"></p-inputSwitch>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.name'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.arName}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.mobilePhone'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.mobileNumber}}</p>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
+    <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2"
+      (click)="edit()">
+      <span>
+        {{'general.edit'|translate}}
+      </span>
+      <i class="pi pi-pencil"></i>
+    </button>
+    <button type="button" class="btn btn-outline-main" (click)="cancel()">
+      <span>
+        {{'general.cancel'|translate}}
+      </span>
+    </button>
+  </div>
+</div>

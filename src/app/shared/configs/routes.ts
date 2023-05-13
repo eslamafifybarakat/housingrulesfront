@@ -12,6 +12,7 @@ export const AppRoutes = {
     drivers: 'drivers',
     supervisors: 'supervisors',
     orders: 'orders',
+    serviceAgent: 'service-agent',
     addOrder: "addOrder",
     users: 'users'
   }

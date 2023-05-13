@@ -1,5 +1,6 @@
 import { AddEditOrderComponent } from './components/orders/components/add-edit-order/add-edit-order.component';
 import { WelcomeDashboardComponent } from './components/welcome-dashboard/welcome-dashboard.component';
+import { ServiceAgentComponent } from './components/service-agent/service-agent.component';
 import { SupervisorsComponent } from './components/supervisors/supervisors.component';
 import { DriversComponent } from './components/drivers/drivers.component';
 import { OrdersComponent } from './components/orders/orders.component';
@@ -44,6 +45,14 @@ const routes: Routes = [
         component: SupervisorsComponent,
         data: {
           title: 'titles.supervisors',
+          type: 'dashboard'
+        }
+      },
+      {
+        path: AppRoutes?.dashboard?.serviceAgent,
+        component: ServiceAgentComponent,
+        data: {
+          title: 'titles.serviceAgent',
           type: 'dashboard'
         }
       },

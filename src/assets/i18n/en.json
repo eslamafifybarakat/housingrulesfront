@@ -154,9 +154,9 @@
     "driverArrivedToCustomer": "Driver Arrived To Customer",
     "driverArrivedToStation": "Driver Arrived To Station"
   },
-  "warning":{
-"selectDistrictFirst":"You must select district first",
-"selectSupervisorFirst":"You must select supervisor first"
+  "warning": {
+    "selectDistrictFirst": "You must select district first",
+    "selectSupervisorFirst": "You must select supervisor first"
   },
   "labels": {
     "isWorking": "Is working",
@@ -169,6 +169,7 @@
     "confirmNewPassword": "Confirm new password",
     "userActivation": "User activation",
     "tankActivation": "Tank activation",
+    "userAgentActivation": "User agent activation",
     "driverActivation": "Driver activation",
     "supervisorActivation": "Supervisor activation",
     "driverStatus": "Driver status",
@@ -176,7 +177,7 @@
     "palateNo": "Palate No",
     "username": "Username",
     "supervisor": "Supervisor",
-    "mobilePhone": "Mobile phone",
+    "mobilePhone": "Mobile Number",
     "tank": "Tank",
     "driver": "Driver",
     "startDate": "Start Date",
@@ -194,7 +195,7 @@
     "paidAmount": "Paid amount",
     "paymentMethod": "Payment method",
     "orderNumber": "Order number",
-    "userType":"User type"
+    "userType": "User type"
   },
   "placeholder": {
     "newPassword": "Enter new password",
@@ -207,7 +208,7 @@
     "name": "Enter name",
     "username": "Enter username",
     "supervisor": "Select supervisor",
-    "mobilePhone": "Enter mobile phone",
+    "mobilePhone": "Enter mobile number",
     "tank": "Select tank",
     "driver": "Select driver",
     "driverStatus": "Select driver status",
@@ -224,7 +225,7 @@
     "paidAmount": "Enter paid amount",
     "paymentMethod": "Enter payment method",
     "orderNumber": "Enter order number",
-    "userType":"Select user type"
+    "userType": "Select user type"
   },
   "validations": {
     "required_field": "This field is reuired",
@@ -252,7 +253,9 @@
     "startDate": "Start date is required",
     "endDate": "End date is required",
     "orderStatus": "Order status is required",
-    "phone_length": "Phone number must be 11 digit"
+    "phone_length": "Phone number must be 11 digit",
+    "name_en": "Name must be with english letters only",
+    "name_ar": "Name must be with arabic letters only"
   },
   "form": {
     "welcomeBack": "Welcome back",
@@ -273,7 +276,6 @@
     "goHome": "Go to home",
     "resetPassword": "Reset password"
   },
-
   "user_info": {
     "my_profile": "My Profile",
     "my_performance": "My Performance",
@@ -300,11 +302,12 @@
       "driver": "Drivers",
       "supervisors": "Supervisors",
       "orders": "Orders",
-      "users": "Users"
+      "users": "Users",
+      "serviceAgent": "Service Agent"
     },
     "tableHeader": {
       "username": "Username",
-      "id":"Id",
+      "id": "Id",
       "isWorking": "Is Working",
       "palateNo": "palate No",
       "actions": "Actions",
@@ -338,8 +341,7 @@
       "drivers": "Drivers",
       "customers": "Customers",
       "comments": "Comments",
-    "userType":"User type"
-
+      "userType": "User type"
     },
     "tanks": {
       "tanks": "Tanks",
@@ -357,6 +359,12 @@
       "addDriver": "Add driver",
       "editDriver": "Edit driver",
       "driverDetails": "Driver details"
+    },
+    "serviceAgent": {
+      "serviceAgent": "Service Agent",
+      "adddServiceAgent": "Add service agent",
+      "editServiceAgent": "Edit service agent",
+      "ServiceAgentDetails": "Service agent details"
     },
     "supervisors": {
       "supervisors": "Supervisors",
@@ -376,16 +384,16 @@
       "addUser": "Add User",
       "user": "user",
       "editUser": "Edit User",
-      "userTypes":{
-        "superAdmin":"Super admin",
-        "admin":"Admin ",
-        "customerServicesSupervisor":"Customer services supervisor",
-        "customerService":"Customer service",
-        "driversSupervisor":"Drivers supervisor",
-        "driver":"Driver",
-        "gateIn":"Gate in ",
-        "gateOut":"Gate out",
-        "accountant":"Accountant"
+      "userTypes": {
+        "superAdmin": "Super admin",
+        "admin": "Admin ",
+        "customerServicesSupervisor": "Customer services supervisor",
+        "customerService": "Customer service",
+        "driversSupervisor": "Drivers supervisor",
+        "driver": "Driver",
+        "gateIn": "Gate in ",
+        "gateOut": "Gate out",
+        "accountant": "Accountant"
       }
     }
   },

@@ -1,0 +1,114 @@
+<div id="modal">
+  <form [formGroup]="modalForm" (ngSubmit)="submit()">
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="isWorking" class="fw-bold">{{'labels.userAgentActivation'|translate}}</label>
+      <p-inputSwitch id="isWorking" formControlName="isWorking"></p-inputSwitch>
+    </div>
+
+    <div class="mb-3">
+      <label for="name" class="mb-2 required">{{'labels.name'|translate}}<span
+          class="ps-1">({{'general.inArabic'|translate}})</span></label>
+      <input type="text" class="form-control" formControlName="arName" autocomplete="cc-name"
+        (input)="publicService?.clearValidationErrors(formControls?.arName)"
+        [class.is-invalid]="formControls?.arName?.invalid && (formControls?.arName?.dirty || formControls?.arName?.touched)"
+        placeholder="{{'placeholder.name'|translate}} ({{'general.inArabic'|translate}})">
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.arName?.invalid && (formControls?.arName?.dirty || formControls?.arName?.touched)">
+          <ng-container *ngIf="formControls?.arName?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.requiredName'|translate}}
+            </span>
+          </ng-container>
+
+          <ng-container *ngIf="formControls?.arName?.errors?.['minlength']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.name_length'|translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="formControls?.arName?.errors?.['pattern']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.name_ar'|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="name" class="mb-2">{{'labels.name'|translate}}<span
+          class="ps-1">({{'general.inEnglish'|translate}})</span></label>
+      <input type="text" class="form-control" formControlName="enName" autocomplete="cc-name"
+        (input)="publicService?.clearValidationErrors(formControls?.enName)"
+        [class.is-invalid]="formControls?.enName?.invalid && (formControls?.enName?.dirty || formControls?.enName?.touched)"
+        placeholder="{{'placeholder.name'|translate}} ({{'general.inEnglish'|translate}})">
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.enName?.invalid && (formControls?.enName?.dirty || formControls?.enName?.touched)">
+          <ng-container *ngIf="formControls?.enName?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.requiredName'|translate}}
+            </span>
+          </ng-container>
+
+          <ng-container *ngIf="formControls?.enName?.errors?.['minlength']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.name_length'|translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="formControls?.enName?.errors?.['pattern']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.name_en'|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="mb-2 required">{{'labels.mobilePhone'|translate}}</label>
+      <input type="text" class="form-control" formControlName="phone" autocomplete="cc-name" [min]="0"
+        (input)="publicService?.clearValidationErrors(formControls?.phone)"
+        [class.is-invalid]="formControls?.phone?.invalid && (formControls?.phone?.dirty || formControls?.phone?.touched)"
+        placeholder="{{'placeholder.mobilePhone'|translate}}">
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.phone?.invalid && (formControls?.phone?.dirty || formControls?.phone?.touched)">
+          <ng-container *ngIf="formControls?.phone?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.required_field'|translate}}
+            </span>
+          </ng-container>
+
+          <ng-container *ngIf="formControls?.phone?.errors?.['pattern']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.phone_length'|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
+      <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+
+        <ng-container *ngIf="!isEdit;else edit">
+          <span>
+            {{'general.save'|translate}}
+          </span>
+          <i class="pi pi-save"></i>
+        </ng-container>
+        <ng-template #edit>
+          <span>
+            {{'general.edit'|translate}}
+          </span>
+          <i class="pi pi-pencil"></i>
+        </ng-template>
+      </button>
+      <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+        <span>
+          {{'general.cancel'|translate}}
+        </span>
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+  </form>
+</div>

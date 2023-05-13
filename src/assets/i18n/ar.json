@@ -155,10 +155,10 @@
     "driverArrivedToCustomer": "وصل السائق إلى العميل",
     "driverArrivedToStation": "وصل السائق إلى المحطة"
   },
-  "warning":{
-    "selectDistrictFirst":"يجب اختيار المنطقه اولا",
-    "selectSupervisorFirst":"يجب اختيار المشرف اولا"
-      },
+  "warning": {
+    "selectDistrictFirst": "يجب اختيار المنطقه اولا",
+    "selectSupervisorFirst": "يجب اختيار المشرف اولا"
+  },
   "labels": {
     "isWorking": "متاح للتعين",
     "name": "الاسم",
@@ -171,6 +171,7 @@
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
     "userActivation": "تفعيل المستخدم",
     "tankActivation": "تفعيل الصهريج",
+    "userAgentActivation": "تفعيل خدمة العميل",
     "driverActivation": "تفعيل السائق",
     "supervisorActivation": "تفعيل المشرف",
     "driverStatus": "حالة السائق",
@@ -196,8 +197,7 @@
     "orderNumber": "رقم الطلب",
     "paymentMethod": "طريقة الدفع ",
     "paidAmount": "المبلغ المدفوع",
-    "userType":"نوع المستخدم"
-
+    "userType": "نوع المستخدم"
   },
   "placeholder": {
     "newPassword": "أدخل كلمة المرور الجديدة",
@@ -228,7 +228,7 @@
     "orderNumber": "أدخل رقم الطلب",
     "paymentMethod": "أدخل طريقة الدفع ",
     "paidAmount": "أدخل المبلغ المدفوع",
-    "userType":"اختر نوع المستخدم"
+    "userType": "اختر نوع المستخدم"
   },
   "validations": {
     "required_field": "هذا الحقل مطلوب",
@@ -256,7 +256,9 @@
     "startDate": "تاريخ البدء مطلوب",
     "endDate": "تاريخ اإلانتهاء مطلوب",
     "orderStatus": "حالة الطلب مطلوبة",
-    "phone_length": "رقم الهاتف يجب ان يكون 11 رقم"
+    "phone_length": "رقم الهاتف يجب ان يكون 11 رقم",
+    "name_en": "يجب أن يحتوي الإسم ع أحرف إنجليزية فقط",
+    "name_ar": "يجب أن يحتوي الإسم ع أحرف عربية فقط"
   },
   "form": {
     "welcomeBack": "مرحبًا بعودتك",
@@ -277,7 +279,6 @@
     "goHome": "إذهب الي الرئيسية",
     "resetPassword": "تغيير كلمة المرور"
   },
-
   "user_info": {
     "my_profile": "الملف الشخصي",
     "my_performance": "أدائي",
@@ -307,8 +308,8 @@
       "users": " المستخدمين"
     },
     "tableHeader": {
-    "username": "اسم المستخدم",
-      "id":"الرقم التعريفي",
+      "username": "اسم المستخدم",
+      "id": "الرقم التعريفي",
       "isWorking": "متاح للتعين",
       "palateNo": "رقم اللوحة",
       "actions": "الإجراءات",
@@ -341,7 +342,7 @@
       "drivers": "السائقين",
       "customers": "العملاء",
       "comments": "تعليقات",
-    "userType":"نوع المستخدم"
+      "userType": "نوع المستخدم"
     },
     "tanks": {
       "tanks": "الصهاريج",
@@ -360,6 +361,12 @@
       "editDriver": "تعديل سائق",
       "driverDetails": "تفاصيل السائق"
     },
+    "serviceAgent": {
+      "serviceAgent": "خدمة العملاء",
+      "adddServiceAgent": "إضافة جديد",
+      "editServiceAgent": "تعديل خدمة عميل",
+      "ServiceAgentDetails": "تفاصيل خدمة عميل"
+    },
     "supervisors": {
       "supervisors": "المشرفين",
       "addSupervisor": "إضافة مشرف",
@@ -377,16 +384,16 @@
       "addUser": "إضافة مستخدم",
       "user": "مستخدم",
       "editUser": "تعديل مستخدم",
-      "userTypes":{
-        "superAdmin":"مشرف فائق",
-        "admin":"مسؤل ",
-        "customerServicesSupervisor":"مشرف خدمات العملاء",
-        "customerService":"خدمة الزبائن",
-        "driversSupervisor":"مشرف السائقين",
-        "driver":"سائق",
-        "gateIn":"بوابة في",
-        "gateOut":"بوابة الخروج",
-        "accountant":"محاسب"
+      "userTypes": {
+        "superAdmin": "مشرف فائق",
+        "admin": "مسؤل ",
+        "customerServicesSupervisor": "مشرف خدمات العملاء",
+        "customerService": "خدمة الزبائن",
+        "driversSupervisor": "مشرف السائقين",
+        "driver": "سائق",
+        "gateIn": "بوابة في",
+        "gateOut": "بوابة الخروج",
+        "accountant": "محاسب"
       }
     }
   },
