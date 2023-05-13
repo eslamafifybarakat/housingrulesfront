@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
       this.authUserService?.login(data)?.subscribe(
         (res: any) => {
           if (res?.statusCode == 200) {
-            this.router?.navigateByUrl('/dashboard');
+            this.router?.navigate(['/dashboard/orders']);
             window.localStorage.setItem(keys.token, res?.data?.token);
             window.localStorage.setItem(keys.userLoginData, JSON.stringify(res?.data?.user));
             this.publicService?.show_loader?.next(false);

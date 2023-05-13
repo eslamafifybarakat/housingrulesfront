@@ -10,18 +10,22 @@
       <!-- <button class="btn btn-solid-main" (click)="filter()">
         <span>{{'general.filter'|translate}}</span>
       </button> -->
-      <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto" (click)="addOrEditItem()">
-        <i class="pi pi-plus-circle"></i>
-        <span>{{'dashboard.createNew'|translate}}</span>
-      </button>
+      <ng-container
+        *ngIf="userLoginDataType==1 || userLoginDataType==2 || userLoginDataType==3 || userLoginDataType==4|| userLoginDataType==5">
+        <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto" (click)="addOrEditItem()">
+          <i class="pi pi-plus-circle"></i>
+          <span>{{'dashboard.createNew'|translate}}</span>
+        </button>
+      </ng-container>
     </div>
   </div>
   <hr>
   <app-dynamic-table [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
     (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
     (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="ordersList$"
-    [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'" [showActions]="true" [showEdit]="true"
-    (editHandler)="addOrEditItem($event,'edit')" (customSortHandler)="enableSortFilter?sortItems($event):''"
+    [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'" [showActions]="showActionTableColumn"
+    [showEdit]="showEditAction" (editHandler)="addOrEditItem($event,'edit')"
+    (customSortHandler)="enableSortFilter?sortItems($event):''"
     (filterHandler)="enableSortFilter?filterItems($event):''" [results]="ordersCount" [paginatorRows]="perPage"
     [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
     [enableConfirmDeleteDialog]="true" [keyDelete]="'name'" (paginateOptionsHandler)="onPaginatorOptionsChange($event)"

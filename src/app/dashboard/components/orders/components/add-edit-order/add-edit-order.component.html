@@ -489,7 +489,7 @@
           </div>
           <div class="col-md-6">
             <div class="mb-3">
-              <label for="comment" class="mb-2 required">{{'labels.comment'|translate}}</label>
+              <label for="comment" class="mb-2">{{'labels.comment'|translate}}</label>
               <textarea type="text" class="form-control" formControlName="comment" autocomplete="cc-name"
                 (input)="publicService?.clearValidationErrors(formControls?.comment)"
                 [class.is-invalid]="formControls?.comment?.invalid && (formControls?.comment?.dirty || formControls?.comment?.touched)"

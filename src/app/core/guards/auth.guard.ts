@@ -20,18 +20,17 @@ export class AuthGuard implements CanActivate {
   }
 
   checkLogin(): boolean {
-    if (
-      this.url.includes('/auth/login') ||
-      this.url.includes('/auth/forget-password')
-    ) {
+    if (this.url.includes('/auth/login')) {
       return true;
     }
     return false;
   }
   authState(): boolean {
     if (this.checkLogin()) {
+      this.router.navigate(['/auth/login']);
       return false;
     }
+    this.router.navigate(['/dashboard']);
     return true;
   }
   notAuthState(): boolean {
@@ -46,6 +45,8 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.url = state?.url;
+
+    console.log(this.userData);
 
     if (this.authService?.isLoggedIn()) {
       return this.authState();

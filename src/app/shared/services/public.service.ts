@@ -121,7 +121,7 @@ export class PublicService {
   getIsWorking(): any {
     let arr = [
       { id: 1, value: 'available', name: this.translateTextFromJson('general.available') },
-      { id: 2, value: 'busy', name: this.translateTextFromJson('general.busy') }
+      { id: 2, value: 'busy', name: this.translateTextFromJson('general.notAvailable') }
     ];
     return arr;
   }

@@ -52,7 +52,7 @@ export class SupervisorsComponent implements OnInit {
     this.tableHeaders = [
       { field: 'arName', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       // { field: 'district', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), filter: true, type: 'filterArray', dataType: 'array', list: 'districts', placeholder: this.publicService?.translateTextFromJson('placeholder.district'), label: this.publicService?.translateTextFromJson('labels.district') },
-      { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
+      { field: 'status', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
       // { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
 
@@ -78,18 +78,18 @@ export class SupervisorsComponent implements OnInit {
               isWorking = workingItems[0]?.name;
             }
 
-            item?.districts?.forEach((item: any) => {
-              districtsItems?.push({ name: item?.name });
-            });
+            // item?.districts?.forEach((item: any) => {
+            //   districtsItems?.push({ name: item?.name });
+            // });
 
             arr.push({
               id: item?.id ? item?.id : null,
               arName: item?.arName ? item?.arName : '',
               enName: item?.enName ? item?.enName : '',
-              districtsVal: item?.districts ? item?.districts : [],
+              districtsVal: item?.districtIds ? item?.districtIds : [],
               district: districtsItems,
               isWorkingVal: item?.isWorking,
-              isWorking: isWorking
+              status: isWorking
             });
           }) : '';
           this.supervisorsList$ = arr;

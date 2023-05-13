@@ -4,7 +4,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { keys } from './../../../shared/configs/localstorage-key';
 import { ConfirmationService } from 'primeng/api';
 import { Router } from '@angular/router';
-import { menuList } from './menu-list';
 
 @Component({
   selector: 'app-aside-menu',
@@ -21,6 +20,7 @@ export class AsideMenuComponent implements OnInit {
   menuList: any;
 
   currentLanguage: string = 'en';
+  userLoginData: any;
 
   @Output() onToggleSideNav: EventEmitter<any> = new EventEmitter();
   constructor(
@@ -31,54 +31,55 @@ export class AsideMenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userLoginData = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}');
     this.menuList = [{
       id: 'dashboard',
       text: this.publicService?.translateTextFromJson('dashboard.sideMenu.dashboard'),
       // icon: 'fa-grip-horizontal',
       routerLink: '/dashboard',
-      state: false
+      state: (this.userLoginData?.userType !== 6 && this.userLoginData?.userType !== 9)
     },
     {
       id: 'tanks',
       text: this.publicService?.translateTextFromJson('dashboard.sideMenu.tanks'),
       icon: 'fa-house-user',
       routerLink: '/dashboard/tanks',
-      state: false
+      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2)
     },
     {
       id: 'driver',
       text: this.publicService?.translateTextFromJson('dashboard.sideMenu.driver'),
       icon: 'fa-car-rear',
       routerLink: '/dashboard/drivers',
-      state: false
+      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2)
     },
     {
       id: 'supervisors',
       text: this.publicService?.translateTextFromJson('dashboard.sideMenu.supervisors'),
       icon: 'fa-people-roof',
       routerLink: '/dashboard/supervisors',
-      state: false
+      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2)
     },
     {
       id: 'orders',
       text: this.publicService?.translateTextFromJson('dashboard.sideMenu.orders'),
       icon: 'fa-file-pen',
       routerLink: '/dashboard/orders',
-      state: false,
+      state: (this.userLoginData?.userType !== 9),
     },
     {
       id: 'users',
       text: this.publicService?.translateTextFromJson('dashboard.sideMenu.users'),
       icon: 'fa-users',
       routerLink: '/dashboard/users',
-      state: false,
+      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2),
     },
     {
       id: 'service-agent',
       text: this.publicService?.translateTextFromJson('dashboard.sideMenu.serviceAgent'),
       icon: 'fa-user',
       routerLink: '/dashboard/service-agent',
-      state: false,
+      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2 || this.userLoginData?.userType == 3),
     }
     ];
 
@@ -96,14 +97,14 @@ export class AsideMenuComponent implements OnInit {
   }
 
   handelClick(item: any) {
-    console.log(item?.id);
-    localStorage?.setItem(keys?.lastRoute, item.id)
+    // console.log(item?.id);
+    // localStorage?.setItem(keys?.lastRoute, item.id)
     this.menuList?.forEach((ele: any) => {
-      ele.state = ele.state;
+      // ele.state = ele.state;
       // ele.state = false
     });
     // item.state = true
-    item.state = !item?.state;
+    // item.state = !item?.state;
     console.log(item.state);
 
     // let index=this.menuList[item];

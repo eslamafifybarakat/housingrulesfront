@@ -3,6 +3,7 @@ import { TankDetailsComponent } from './components/tank-details/tank-details.com
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { TanksService } from '../../services/tanks.service';
 import { DialogService } from 'primeng/dynamicdialog';

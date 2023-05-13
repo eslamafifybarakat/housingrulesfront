@@ -35,26 +35,26 @@ export class AddEditOrderComponent implements OnInit {
   isLoadingTanks: boolean = false;
 
   paymentMethodsList: any = [
-    { id: 1, value: 0, name: "Cash" },
-    { id: 2, value: 1, name: "Mada" },
-    { id: 3, value: 2, name: "Transfer" },
-    { id: 4, value: 3, name: "Credit" }
+    { id: 1, value: 1, name: "Cash" },
+    { id: 2, value: 2, name: "Mada" },
+    { id: 3, value: 3, name: "Transfer" },
+    { id: 4, value: 4, name: "Credit" }
   ]
   isLoadingPaymentMethods: boolean = false;
 
   orderOriginList: any = [
-    { id: 1, value: 0, name: "By WhatsApp" },
-    { id: 2, value: 1, name: "By TMS" },
-    { id: 3, value: 2, name: "By Call" },
-    { id: 4, value: 3, name: "By Site" },
-    { id: 5, value: 4, name: "Other" },
+    { id: 1, value: 1, name: "By WhatsApp" },
+    { id: 2, value: 2, name: "By TMS" },
+    { id: 3, value: 3, name: "By Call" },
+    { id: 4, value: 4, name: "By Site" },
+    { id: 5, value: 5, name: "Other" },
   ]
   isLoadingOrderOrigin: boolean = false;
 
   propertyTypeList: any = [
-    { id: 1, value: 0, name: "Residential" },
-    { id: 2, value: 1, name: "Governmental" },
-    { id: 3, value: 2, name: "Commercial" },
+    { id: 1, value: 1, name: "Residential" },
+    { id: 2, value: 2, name: "Governmental" },
+    { id: 3, value: 3, name: "Commercial" },
   ]
   isLoadingPropertyType: boolean = false;
 
@@ -158,7 +158,6 @@ export class AddEditOrderComponent implements OnInit {
       }],
       comment: ['', {
         validators: [
-          Validators.required,
           Validators.minLength(3)], updateOn: "blur"
       }],
       active: [false, []]

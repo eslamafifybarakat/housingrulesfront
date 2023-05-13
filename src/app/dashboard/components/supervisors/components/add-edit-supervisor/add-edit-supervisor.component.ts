@@ -1,15 +1,15 @@
-import { keys } from 'src/app/shared/configs/localstorage-key';
 import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { PublicService } from './../../../../../shared/services/public.service';
 import { patterns } from './../../../../../shared/configs/patternValidations';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { OrdersService } from 'src/app/dashboard/services/orders.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { keys } from 'src/app/shared/configs/localstorage-key';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { OrdersService } from 'src/app/dashboard/services/orders.service';
 
 @Component({
   selector: 'app-add-edit-supervisor',
@@ -92,7 +92,8 @@ export class AddEditSupervisorComponent implements OnInit {
           this.districtsList = res?.data[0]?.districts;
           if (this.isEdit) {
             let ids: any = [];
-            this.modalData?.item?.districtIds?.forEach((element: any) => {
+            console.log(this.modalData?.item);
+            this.modalData?.item?.districtsVal?.forEach((element: any) => {
               this.districtsList?.forEach((item: any) => {
                 if (element == item?.id) {
                   ids?.push(item);
@@ -100,9 +101,9 @@ export class AddEditSupervisorComponent implements OnInit {
               });
             });
             this.isLoadingDistricts = false;
-            this.modalData?.item?.patchValue({
+            this.modalForm?.patchValue({
               district: ids
-            })
+            });
           }
           this.isLoadingDistricts = false;
         } else {
