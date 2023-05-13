@@ -65,7 +65,8 @@
           <ng-container *ngIf="isEdit">
             <div class="col-md-6">
               <div class="mb-3">
-                <label class="form-label required">
+                <label class="form-label"
+                  [class.required]="this.isEdit && (userData?.userType == 2 ||userData?.userType == 4)">
                   {{"labels.driver"|translate}}
                 </label>
                 <span class="p-input-icon-right select-loading d-block">
