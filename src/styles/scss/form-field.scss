@@ -66,7 +66,11 @@ input:-webkit-autofill {
   background-color: #fafafa;
   // border-color: #d7d7d799;
 }
+.p-multiselect .p-multiselect-label {
+  padding: 1rem !important;
+}
 .p-dropdown,
+.p-multiselect,
 .ng-select.ng-select-single .ng-select-container {
   background-color: #fafafa;
   border-radius: var(--border-input-radius);
