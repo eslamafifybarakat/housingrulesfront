@@ -58,11 +58,9 @@ export class AddEditOrderComponent implements OnInit {
   ]
   isLoadingPropertyType: boolean = false;
 
-  restrictsList: any = [
-    { id: 1, value: 1, name: "جيزان" }
-  ]
-  isLoadingRestricts: boolean = false;
-  customersList: any = []
+  districtsList: any = [];
+  isLoadingDistricts: boolean = false;
+  customersList: any = [];
   isLoadingCustomers: boolean = false;
 
   constructor(
@@ -80,6 +78,7 @@ export class AddEditOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.districtsList = this.publicService?.getDistricts();
     this.userData = JSON.parse(window.localStorage.getItem(keys?.userLoginData) || '{}');
     if (this.isEdit && (this.userData?.userType == 2 || this.userData?.userType == 4)) {
       this.publicService?.addValidators(this.orderForm, ['driver']);
@@ -401,7 +400,7 @@ export class AddEditOrderComponent implements OnInit {
       }
     });
     let district: any;
-    this.restrictsList?.forEach((item: any) => {
+    this.districtsList?.forEach((item: any) => {
       if (item?.value == this.orderData?.district) {
         district = item
       }

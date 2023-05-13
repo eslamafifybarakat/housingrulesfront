@@ -36,17 +36,18 @@ export class DriversService {
 
   addOrUpdateDriver(data: any, id?: number): Observable<any> {
     if (id) {
-      return this.http?.put<any[]>(`${this.baseUrl}/${roots?.dashboard?.drivers?.updateDriver}`, data);
+      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.drivers?.updateDriver}`, data);
     } else {
       return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.drivers?.createDriver}`, data);
     }
   }
-  deleteDriverId(id: number, data?: any): Observable<any> {
-    let params = new HttpParams();
-    if (id) {
-      params = params.append("id", id);
-    }
-    return this.http?.delete<any>(`${this.baseUrl}/${roots?.dashboard?.drivers?.deleteDriver}`, { params: params });
+  deleteDriverId(id: number): Observable<any> {
+    // let params = new HttpParams();
+    // if (id) {
+    //   params = params.append("id", id);
+    // }
+    let data: any = { id: id };
+    return this.http?.post<any>(`${this.baseUrl}/${roots?.dashboard?.drivers?.deleteDriver}`, data);
   }
 
   getDriverById(id: number): Observable<any> {

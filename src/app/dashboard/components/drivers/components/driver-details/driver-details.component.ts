@@ -1,7 +1,7 @@
-import { AddEditDriverComponent } from '../add-edit-driver/add-edit-driver.component';
 import { DynamicDialogConfig, DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
-import { PublicService } from './../../../../../shared/services/public.service';
+import { AddEditDriverComponent } from '../add-edit-driver/add-edit-driver.component';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
+import { PublicService } from './../../../../../shared/services/public.service';
 import { DriversService } from './../../../../services/drivers.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';

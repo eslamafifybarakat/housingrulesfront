@@ -21,6 +21,9 @@ export class AddEditSupervisorComponent implements OnInit {
   isEdit: boolean = false;
   supervisorId: any;
 
+  districtsList: any = [];
+  isLoadingDistricts: boolean = false;
+
   constructor(
     public checkValidityService: CheckValidityService,
     private supervisorsService: SupervisorsService,
@@ -30,10 +33,11 @@ export class AddEditSupervisorComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     protected router: Router,
-    public fb: FormBuilder,
+    public fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
+    this.districtsList = this.publicService?.getDistricts();
     this.modalData = this.config?.data;
     if (this.modalData?.item?.id) {
       this.supervisorId = this.modalData?.item?.id;
@@ -46,16 +50,26 @@ export class AddEditSupervisorComponent implements OnInit {
 
   modalForm = this.fb?.group(
     {
+      district: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
       username: ['', {
         validators: [
           Validators.required,
           Validators?.pattern(patterns?.userName),
           Validators?.minLength(3)], updateOn: "blur"
       }],
-      name: ['', {
+      arName: ['', {
         validators: [
           Validators.required,
-          Validators?.minLength(3)], updateOn: "blur"
+          Validators?.minLength(3), Validators.pattern(patterns?.arName)],
+        updateOn: "blur"
+      }],
+      enName: ['', {
+        validators: [
+          Validators?.minLength(3), Validators.pattern(patterns?.enName)],
+        updateOn: "blur"
       }],
       isWorking: [false, []]
     },
@@ -65,19 +79,37 @@ export class AddEditSupervisorComponent implements OnInit {
     return this.modalForm?.controls;
   }
   patchValue(): void {
+    let districtsArr: any = [];
+    this.modalData?.item?.disticts?.forEach((element: any) => {
+      this.districtsList.forEach((item: any) => {
+        if (item?.value == element) {
+          districtsArr?.push(item);
+        }
+      });
+    });
     this.modalForm?.patchValue({
-      name: this.modalData?.item?.name,
-      isWorking: this.modalData?.item?.isWorking
-    })
+      arName: this.modalData?.item?.arName,
+      enName: this.modalData?.item?.enName,
+      district: districtsArr,
+      isWorking: this.modalData?.item?.isWorkingVal
+    });
   }
 
   submit(): void {
     const myObject: { [key: string]: any } = {};
 
     if (this.modalForm?.valid) {
-      myObject['name'] = this.modalForm?.value?.name;
-      // myObject['is_active'] = this.modalForm?.value?.active;
+      let disticts: any = [];
+      let formData: any = this.modalForm?.value;
+      console.log(formData);
+
+      formData?.district?.forEach((element: any) => {
+        disticts?.push(element.value);
+      });
+      myObject['arName'] = this.modalForm?.value?.arName;
+      myObject['enName'] = this.modalForm?.value?.enName;
       myObject['isWorking'] = this.modalForm?.value?.isWorking;
+      myObject['disticts'] = disticts;
       myObject['userId'] = '0';
       if (this.isEdit) {
         myObject['id'] = this.supervisorId;
@@ -91,6 +123,7 @@ export class AddEditSupervisorComponent implements OnInit {
           if (res?.statusCode == 200 && res?.isSuccess == true) {
             this.ref.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
+            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
           } else {
             res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
             this.publicService?.show_loader?.next(false);

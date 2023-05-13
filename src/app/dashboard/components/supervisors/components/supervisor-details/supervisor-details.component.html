@@ -6,12 +6,12 @@
     </div> -->
     <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
       <label for="active" class="fw-bold fs-5-1">{{'labels.name'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.name}}</p>
+      <p class="fs-5-1">{{modalData?.arName}}</p>
     </div>
   </div>
   <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
     <label for="active" class="fw-bold fs-5-1">{{'labels.isWorking'|translate}}</label>
-    <p class=" item-badge" [class]="'status-'+modalData?.isWorking">{{modalData?.isWorking}}</p>
+    <p class="item-badge" [class]="'status-'+modalData?.isWorking">{{modalData?.isWorking}}</p>
   </div>
   <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
     <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2"

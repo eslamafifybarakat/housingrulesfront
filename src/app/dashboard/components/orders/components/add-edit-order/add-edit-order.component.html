@@ -130,13 +130,13 @@
               </label>
               <span class="p-input-icon-right select-loading d-block">
                 <ng-select notFoundText="{{'general.no_item_founded'|translate}}" class=""
-                  [loading]="isLoadingRestricts" formControlName="district"
+                  [loading]="isLoadingDistricts" formControlName="district"
                   [placeholder]="'placeholder.district' | translate"
                   [class.border-red]="(formControls?.['district']?.touched ||formControls?.['district']?.dirty) && formControls?.['district']?.invalid"
                   [searchable]="true" [clearSearchOnAdd]="true" (change)="onChangeDistrict($event)"
                   (clear)="onClearDistrict()">
-                  <ng-container *ngIf="restrictsList?.length>0; else elseNoItemDistrict">
-                    <ng-container *ngFor="let item of restrictsList">
+                  <ng-container *ngIf="districtsList?.length>0; else elseNoItemDistrict">
+                    <ng-container *ngFor="let item of districtsList">
                       <ng-option [value]="item?.id">
                         {{item?.name}}
                       </ng-option>
@@ -161,15 +161,15 @@
             <div class="mb-3">
               <label for="name" class="mb-2 required">{{'labels.district'|translate}}</label>
               <span class="p-input-icon-right select-loading d-block">
-                <p-dropdown [options]="restrictsList" formControlName="district" optionLabel="name" [filter]="true"
+                <p-dropdown [options]="districtsList" formControlName="district" optionLabel="name" [filter]="true"
                   (onChange)="onChangeDistrict($event)" (onClear)="onClearDistrict()" [virtualScroll]="true"
                   [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-                  [filterPlaceholder]="'placeholder.district'|translate" [readonly]="isLoadingRestricts"
+                  [filterPlaceholder]="'placeholder.district'|translate" [readonly]="isLoadingDistricts"
                   scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
                   [class.ng-dirty]="formControls?.propertyType?.invalid && (formControls?.propertyType?.dirty || formControls?.propertyType?.touched)"
                   [showClear]="true" placeholder="{{'placeholder.district'|translate}}">
                 </p-dropdown>
-                <ng-container *ngIf="isLoadingRestricts">
+                <ng-container *ngIf="isLoadingDistricts">
                   <i class="pi pi-spin pi-spinner"></i>
                 </ng-container>
               </span>

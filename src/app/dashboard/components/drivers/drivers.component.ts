@@ -53,8 +53,8 @@ export class DriversComponent implements OnInit {
     this.tableHeaders = [
       { field: 'arName', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
 
-      { field: 'tanks', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), filter: true, type: 'filterArray', dataType: 'array', list: 'tanks', placeholder: this.publicService?.translateTextFromJson('placeholder.tank'), label: this.publicService?.translateTextFromJson('labels.tank') },
-      { field: 'supervisors', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), filter: true, type: 'filterArray', dataType: 'array', list: 'supervisors', placeholder: this.publicService?.translateTextFromJson('placeholder.supervisor'), label: this.publicService?.translateTextFromJson('labels.supervisor') },
+      { field: 'tank', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), filter: true, type: 'filterArray', dataType: 'array', list: 'tanks', placeholder: this.publicService?.translateTextFromJson('placeholder.tank'), label: this.publicService?.translateTextFromJson('labels.tank') },
+      { field: 'supervisor', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), filter: true, type: 'filterArray', dataType: 'array', list: 'supervisors', placeholder: this.publicService?.translateTextFromJson('placeholder.supervisor'), label: this.publicService?.translateTextFromJson('labels.supervisor') },
       { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
 
       { field: 'driverStatus', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), filter: true, type: 'filterArray', dataType: 'array', list: 'driverStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.driverStatus'), label: this.publicService?.translateTextFromJson('labels.driverStatus'), status: true },
@@ -76,9 +76,9 @@ export class DriversComponent implements OnInit {
           let arr: any = [];
           res?.data ? res?.data?.forEach((driver: any) => {
             let tankArr: any = [];
-            driver?.tank ? tankArr?.push(driver?.tank) : '';
+            driver?.tank ? tankArr?.push({ name: driver?.tank }) : '';
             let supervisorArr: any = [];
-            driver?.supervisor ? supervisorArr?.push(driver?.supervisor) : '';
+            driver?.supervisor ? supervisorArr?.push({ name: driver?.supervisor }) : '';
             let driverStatus: any = '';
             if (driver?.driverStatus == 0) {
               driverStatus = this.driverStatusList[0].name;
@@ -92,7 +92,11 @@ export class DriversComponent implements OnInit {
             arr.push({
               id: driver?.id ? driver?.id : null,
               arName: driver?.arName ? driver?.arName : '',
+              enName: driver?.enName ? driver?.enName : '',
               driverStatus: driverStatus,
+              statusVal: driver?.driverStatus,
+              tankId: driver?.tankId,
+              supervisorId: driver?.supervisorId,
               mobileNumber: driver?.mobileNumber ? driver?.mobileNumber : '',
               tank: tankArr,
               supervisor: supervisorArr

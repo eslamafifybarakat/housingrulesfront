@@ -125,6 +125,12 @@ export class PublicService {
     ];
     return arr;
   }
+  getDistricts(): any {
+    let arr = [
+      { id: 1, value: 1, name: "جيزان" }
+    ];
+    return arr;
+  }
   getOrderStatus(): any {
     let arr = [
       { id: 1, value: 'pending', name: this.translateTextFromJson('general.pending') },

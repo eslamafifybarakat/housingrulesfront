@@ -1,8 +1,8 @@
 <div id="modal">
   <form [formGroup]="modalForm" (ngSubmit)="submit()">
     <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold">{{'labels.isWorking'|translate}}</label>
-      <p-inputSwitch id="active" formControlName="isWorking"></p-inputSwitch>
+      <label for="isWorking" class="fw-bold">{{'labels.isWorking'|translate}}</label>
+      <p-inputSwitch id="isWorking" formControlName="isWorking"></p-inputSwitch>
     </div>
     <div class="mb-3">
       <label for="username" class="mb-2 required">{{'labels.username'|translate}}</label>
@@ -31,23 +31,82 @@
         </ng-container>
       </div>
     </div>
-    <div class="mb-4">
-      <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
-      <input type="text" class="form-control" formControlName="name" autocomplete="cc-name"
-        (input)="publicService?.clearValidationErrors(formControls?.name)"
-        [class.is-invalid]="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)"
-        placeholder="{{'placeholder.name'|translate}}">
+    <div class="mb-3">
+      <label for="name" class="mb-2 required">{{'labels.name'|translate}}<span
+          class="ps-1">({{'general.inArabic'|translate}})</span></label>
+      <input type="text" class="form-control" formControlName="arName" autocomplete="cc-name"
+        (input)="publicService?.clearValidationErrors(formControls?.arName)"
+        [class.is-invalid]="formControls?.arName?.invalid && (formControls?.arName?.dirty || formControls?.arName?.touched)"
+        placeholder="{{'placeholder.name'|translate}} ({{'general.inArabic'|translate}})">
       <div class="mt-2">
-        <ng-container *ngIf="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)">
-          <ng-container *ngIf="formControls?.name?.errors?.['required']">
+        <ng-container
+          *ngIf="formControls?.arName?.invalid && (formControls?.arName?.dirty || formControls?.arName?.touched)">
+          <ng-container *ngIf="formControls?.arName?.errors?.['required']">
             <span class="text-danger fs-8">
               {{'validations.requiredName'|translate}}
             </span>
           </ng-container>
 
-          <ng-container *ngIf="formControls?.name?.errors?.['minlength']">
+          <ng-container *ngIf="formControls?.arName?.errors?.['minlength']">
             <span class="text-danger fs-8 d-block">
               {{'validations.name_length'|translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="formControls?.arName?.errors?.['pattern']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.name_ar'|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="name" class="mb-2">{{'labels.name'|translate}}<span
+          class="ps-1">({{'general.inEnglish'|translate}})</span></label>
+      <input type="text" class="form-control" formControlName="enName" autocomplete="cc-name"
+        (input)="publicService?.clearValidationErrors(formControls?.enName)"
+        [class.is-invalid]="formControls?.enName?.invalid && (formControls?.enName?.dirty || formControls?.enName?.touched)"
+        placeholder="{{'placeholder.name'|translate}} ({{'general.inEnglish'|translate}})">
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.enName?.invalid && (formControls?.enName?.dirty || formControls?.enName?.touched)">
+          <ng-container *ngIf="formControls?.enName?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.requiredName'|translate}}
+            </span>
+          </ng-container>
+
+          <ng-container *ngIf="formControls?.enName?.errors?.['minlength']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.name_length'|translate}}
+            </span>
+          </ng-container>
+          <ng-container *ngIf="formControls?.enName?.errors?.['pattern']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.name_en'|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="district" class="mb-2 required">{{'labels.district'|translate}}</label>
+      <span class="p-input-icon-right select-loading d-block">
+        <p-multiSelect appendTo="body" [options]="districtsList" formControlName="district" display="chip"
+          [readonly]="isLoadingDistricts" [virtualScroll]="true" [showClear]="true" [virtualScrollItemSize]="38"
+          scrollHeight="200px" defaultLabel="{{'placeholder.district'|translate}}" [showToggleAll]="true"
+          optionLabel="name"
+          [class.ng-dirty]="formControls?.district?.invalid && (formControls?.district?.dirty || formControls?.district?.touched)"></p-multiSelect>
+        <ng-container *ngIf="isLoadingDistricts">
+          <i class="pi pi-spin pi-spinner"></i>
+        </ng-container>
+      </span>
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.district?.invalid && (formControls?.district?.dirty || formControls?.district?.touched)">
+          <ng-container *ngIf="formControls?.district?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.required_field'|translate}}
             </span>
           </ng-container>
         </ng-container>

@@ -39,17 +39,20 @@ export class SupervisorsComponent implements OnInit {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
+  districtsList: any = [];
+
   constructor(
     private supervisorsService: SupervisorsService,
     private dialogService: DialogService,
     private alertsService: AlertsService,
     public publicService: PublicService,
-    private cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.tableHeaders = [
-      { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'arName', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'district', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), filter: true, type: 'filterArray', dataType: 'array', list: 'districts', placeholder: this.publicService?.translateTextFromJson('placeholder.district'), label: this.publicService?.translateTextFromJson('labels.district') },
       { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
       // { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
@@ -67,6 +70,9 @@ export class SupervisorsComponent implements OnInit {
           let arr: any = [];
           let workingItems: any = [];
           workingItems = this.publicService?.getIsWorking();
+          let districtsItems: any = [];
+          this.districtsList = this.publicService?.getDistricts();
+
           res?.data ? res?.data.forEach((item: any) => {
             let isWorking: any = '';
             if (item?.isWorking == true) {
@@ -74,11 +80,23 @@ export class SupervisorsComponent implements OnInit {
             } else {
               isWorking = workingItems[0]?.name;
             }
+
+            item?.districts?.forEach((item: any) => {
+              this.districtsList?.forEach((element: any) => {
+                if (element?.value == item) {
+                  districtsItems?.push({ name: element?.name });
+                }
+              });
+            });
+
             arr.push({
               id: item?.id ? item?.id : null,
-              name: item?.name ? item?.name : '',
-              isWorking: isWorking,
-              // is_active: item?.is_active ? item?.is_active : false
+              arName: item?.arName ? item?.arName : '',
+              enName: item?.enName ? item?.enName : '',
+              districtsVal: item?.districts ? item?.districts : [],
+              district: districtsItems,
+              isWorkingVal: item?.isWorking,
+              isWorking: isWorking
             });
           }) : '';
           this.supervisorsList$ = arr;
@@ -94,17 +112,6 @@ export class SupervisorsComponent implements OnInit {
 
       ).subscribe((res: any) => {
       });
-
-    // let data: any = [
-    //   { id: 1, name: 'Celine', isWorking: true },
-    //   { id: 2, name: 'nour', isWorking: true },
-    //   { id: 3, name: 'lorena', isWorking: true },
-    //   { id: 4, name: 'Ahmed', isWorking: false },
-    //   { id: 5, name: 'Ali', isWorking: false },
-    //   { id: 6, name: 'Kareem', isWorking: true },
-    // ];
-
-    // this.supervisorsList$ = data;
   }
   getSupervisors(): void {
     let arr: any = this.supervisorsList$

@@ -11,23 +11,29 @@
       <div class="row">
         <div class="col-md-6">
           <div class="mb-3">
-            <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
-            <input type="text" class="form-control" formControlName="name" autocomplete="cc-name"
-              (input)="publicService?.clearValidationErrors(formControls?.name)"
-              [class.is-invalid]="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)"
-              placeholder="{{'placeholder.name'|translate}}">
+            <label for="name" class="mb-2 required">{{'labels.name'|translate}}<span
+                class="ps-1">({{'general.inArabic'|translate}})</span></label>
+            <input type="text" class="form-control" formControlName="arName" autocomplete="cc-name"
+              (input)="publicService?.clearValidationErrors(formControls?.arName)"
+              [class.is-invalid]="formControls?.arName?.invalid && (formControls?.arName?.dirty || formControls?.arName?.touched)"
+              placeholder="{{'placeholder.name'|translate}} ({{'general.inArabic'|translate}})">
             <div class="mt-2">
               <ng-container
-                *ngIf="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)">
-                <ng-container *ngIf="formControls?.name?.errors?.['required']">
+                *ngIf="formControls?.arName?.invalid && (formControls?.arName?.dirty || formControls?.arName?.touched)">
+                <ng-container *ngIf="formControls?.arName?.errors?.['required']">
                   <span class="text-danger fs-8">
                     {{'validations.requiredName'|translate}}
                   </span>
                 </ng-container>
 
-                <ng-container *ngIf="formControls?.name?.errors?.['minlength']">
+                <ng-container *ngIf="formControls?.arName?.errors?.['minlength']">
                   <span class="text-danger fs-8 d-block">
                     {{'validations.name_length'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.arName?.errors?.['pattern']">
+                  <span class="text-danger fs-8 d-block">
+                    {{'validations.name_ar'|translate}}
                   </span>
                 </ng-container>
               </ng-container>
@@ -36,6 +42,35 @@
         </div>
         <div class="col-md-6">
           <div class="mb-3">
+            <label for="name" class="mb-2">{{'labels.name'|translate}}<span
+                class="ps-1">({{'general.inEnglish'|translate}})</span></label>
+            <input type="text" class="form-control" formControlName="enName" autocomplete="cc-name"
+              (input)="publicService?.clearValidationErrors(formControls?.enName)"
+              [class.is-invalid]="formControls?.enName?.invalid && (formControls?.enName?.dirty || formControls?.enName?.touched)"
+              placeholder="{{'placeholder.name'|translate}} ({{'general.inEnglish'|translate}})">
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.enName?.invalid && (formControls?.enName?.dirty || formControls?.enName?.touched)">
+                <ng-container *ngIf="formControls?.enName?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredName'|translate}}
+                  </span>
+                </ng-container>
+
+                <ng-container *ngIf="formControls?.enName?.errors?.['minlength']">
+                  <span class="text-danger fs-8 d-block">
+                    {{'validations.name_length'|translate}}
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="formControls?.enName?.errors?.['pattern']">
+                  <span class="text-danger fs-8 d-block">
+                    {{'validations.name_en'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+          <!-- <div class="mb-3">
             <label for="username" class="mb-2 required">{{'labels.username'|translate}}</label>
             <input type="text" class="form-control" formControlName="username" autocomplete="cc-name"
               (input)="publicService?.clearValidationErrors(formControls?.username)"
@@ -61,7 +96,7 @@
                 </ng-container>
               </ng-container>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="col-md-6">
           <div class="mb-3">
@@ -152,7 +187,7 @@
         <div class="col-md-6">
           <div class="mb-3">
             <label for="phone" class="mb-2 required">{{'labels.mobilePhone'|translate}}</label>
-            <input type="number" class="form-control" formControlName="phone" autocomplete="cc-name" [min]="0"
+            <input type="text" class="form-control" formControlName="phone" autocomplete="cc-name" [min]="0"
               (input)="publicService?.clearValidationErrors(formControls?.phone)"
               [class.is-invalid]="formControls?.phone?.invalid && (formControls?.phone?.dirty || formControls?.phone?.touched)"
               placeholder="{{'placeholder.mobilePhone'|translate}}">
@@ -209,7 +244,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <!-- <div class="col-md-6">
             <div class="mb-3">
               <label for="confirmpassword" class="form-label required">{{"labels.confirmPassword"|translate}}</label>
               <p-password [toggleMask]="true" id="confirmpassword" formControlName="confirmPassword" appendTo="body"
@@ -250,7 +285,7 @@
                 </ng-container>
               </div>
             </div>
-          </div>
+          </div> -->
         </ng-container>
 
       </div>

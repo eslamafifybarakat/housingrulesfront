@@ -49,12 +49,12 @@ export class AddEditServiceAgentComponent implements OnInit {
       arName: ['', {
         validators: [
           Validators.required,
-          Validators?.minLength(3), Validators.pattern('^[\u0600-\u06FF\s]*$')],
+          Validators?.minLength(3), Validators.pattern(patterns?.arName)],
         updateOn: "blur"
       }],
       enName: ['', {
         validators: [
-          Validators?.minLength(3), Validators.pattern('^([a-zA-Z]+\s)*[a-zA-Z]+$')],
+          Validators?.minLength(3), Validators.pattern(patterns?.enName)],
         updateOn: "blur"
       }],
       phone: ['', {
