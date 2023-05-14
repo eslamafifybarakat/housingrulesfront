@@ -25,7 +25,7 @@ export class OrdersComponent implements OnInit {
   tableHeaders: any = [];
 
   page: number = 1;
-  perPage: number = 5;
+  perPage: number = 100000;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
 
@@ -99,22 +99,28 @@ export class OrdersComponent implements OnInit {
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             let status: any = '';
-            if (item?.status == 0) {
+            if (item?.status == 1) {
               status = 'Pending'
             }
-            if (item?.status == 1) {
+            if (item?.status == 2) {
               status = 'AssignedToDriver'
             }
-            if (item?.status == 2) {
+            if (item?.status == 3) {
+              status = 'DriverOnTheWayToCustomer'
+            }
+            if (item?.status == 4) {
               status = 'DriverArrivedToCustomer'
             }
-            if (item?.status == 3) {
+            if (item?.status == 5) {
+              status = 'DriverOnTheWayStation'
+            }
+            if (item?.status == 6) {
               status = 'DriverArrivedAtStation'
             }
-            if (item?.status == 3) {
+            if (item?.status == 7) {
               status = 'Completed'
             }
-            if (item?.status == 3) {
+            if (item?.status == 8) {
               status = 'Cancelled'
             }
             let orderOrigin: any;

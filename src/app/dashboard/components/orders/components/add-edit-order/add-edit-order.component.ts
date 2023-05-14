@@ -42,20 +42,10 @@ export class AddEditOrderComponent implements OnInit {
   ]
   isLoadingPaymentMethods: boolean = false;
 
-  orderOriginList: any = [
-    { id: 1, value: 1, name: "By WhatsApp" },
-    { id: 2, value: 2, name: "By TMS" },
-    { id: 3, value: 3, name: "By Call" },
-    { id: 4, value: 4, name: "By Site" },
-    { id: 5, value: 5, name: "Other" },
-  ]
+  orderOriginList: any = [];
   isLoadingOrderOrigin: boolean = false;
 
-  propertyTypeList: any = [
-    { id: 1, value: 1, name: "Residential" },
-    { id: 2, value: 2, name: "Governmental" },
-    { id: 3, value: 3, name: "Commercial" },
-  ]
+  propertyTypeList: any = [];
   isLoadingPropertyType: boolean = false;
 
   districtsList: any = [];
@@ -80,6 +70,8 @@ export class AddEditOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.orderOriginList = this.publicService.getOrderOrigin();
+    this.propertyTypeList = this.publicService.getPropertyType();
     this.currLang = window.localStorage.getItem(keys?.language);
     // this.districtsList = this.publicService?.getDistricts();
     this.userData = JSON.parse(window.localStorage.getItem(keys?.userLoginData) || '{}');
@@ -138,6 +130,7 @@ export class AddEditOrderComponent implements OnInit {
           Validators.required], updateOn: "blur"
       }],
       tank: [null, Validators?.required],
+      tankPrice: [null, []],
       customerName: ['', {
         validators: [
           Validators.required,
@@ -376,6 +369,7 @@ export class AddEditOrderComponent implements OnInit {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
           res?.data ? res?.data?.forEach((tank: any) => {
             this.tanksList?.push({
+              price: tank?.price,
               name: tank?.name,
               id: tank?.id
             });
@@ -383,6 +377,7 @@ export class AddEditOrderComponent implements OnInit {
           if (this.isEdit) {
             this.tanksList?.forEach((tank: any) => {
               if (tank?.id == this.orderData?.tankId) {
+                this.onTankChange(tank);
                 this.orderForm?.patchValue({
                   tank: tank
                 })
@@ -400,6 +395,12 @@ export class AddEditOrderComponent implements OnInit {
         this.isLoadingTanks = false;
       });
     this.cdr?.detectChanges();
+  }
+  onTankChange(value: any): void {
+    console.log(value);
+    this.orderForm?.patchValue({
+      tankPrice: value?.price
+    })
   }
 
   getOrderData(id: number): void {
@@ -461,7 +462,7 @@ export class AddEditOrderComponent implements OnInit {
       orderNumber: this.orderData?.orderNumber,
       paidAmount: this.orderData?.paidAmount,
       paymentMethod: paymentMethod,
-      customerName: this.orderData?.customerName
+      // customerName: this.orderData?.customerName
     })
   }
 
@@ -486,11 +487,11 @@ export class AddEditOrderComponent implements OnInit {
 
       if (this.isEdit) {
         myObject['id'] = this.orderId;
-        myObject['paidAmount'] = formInfo?.paidAmount;
+        // myObject['paidAmount'] = formInfo?.paidAmount;
         myObject['orderNumber'] = formInfo?.orderNumber;
-        myObject['lastModifiedBy'] = 0;
+        // myObject['lastModifiedBy'] = 0;
       } else {
-        myObject['createBy'] = 0;
+        // myObject['createBy'] = 0;
       }
 
       this.publicService?.show_loader?.next(true);

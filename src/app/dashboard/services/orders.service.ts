@@ -16,21 +16,21 @@ export class OrdersService {
 
   getOrdersList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
     let params = new HttpParams();
-    // if (page) {
-    //   params = params?.append("page", page);
-    // }
-    // if (per_page) {
-    //   params = params?.append("per_page", per_page);
-    // }
-    // if (search) {
-    //   params = params?.append("search", search);
-    // }
-    // if (sort && Object.keys(sort)?.length > 0) {
-    //   params = params?.append("sort", JSON?.stringify(sort));
-    // }
-    // if (conditions && conditions?.length > 0) {
-    //   params = params?.append("conditions", JSON?.stringify(conditions));
-    // }
+    if (page) {
+      params = params?.append("page", page);
+    }
+    if (per_page) {
+      params = params?.append("per_page", per_page);
+    }
+    if (search) {
+      params = params?.append("search", search);
+    }
+    if (sort && Object.keys(sort)?.length > 0) {
+      params = params?.append("sort", JSON?.stringify(sort));
+    }
+    if (conditions && conditions?.length > 0) {
+      params = params?.append("conditions", JSON?.stringify(conditions));
+    }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}`, { params: params })
   }
   getCustomersList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {

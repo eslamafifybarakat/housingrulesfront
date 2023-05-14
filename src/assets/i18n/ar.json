@@ -154,13 +154,22 @@
     "assignedToDriver": "مخصص للسائق",
     "driverOnWayToCustomer": "سائق في الطريق إلى الزبون",
     "driverArrivedToCustomer": "وصل السائق إلى العميل",
-    "driverArrivedToStation": "وصل السائق إلى المحطة"
+    "driverArrivedToStation": "وصل السائق إلى المحطة",
+    "Residential": "سكني",
+    "Governmental": "حكومي",
+    "Commercial": "تجاري",
+    "byWhatsApp": "عن طريق الواتساب",
+    "byTMS": "عن طريق نظام شركة المياه الوطنية",
+    "byCall": "اتصال",
+    "bySite": "عن طريق الموقع",
+    "others": "أخري"
   },
   "warning": {
-    "selectDistrictFirst": "يجب اختيار المنطقه اولا",
+    "selectDistrictFirst": "يجب اختيار الحي اولا",
     "selectSupervisorFirst": "يجب اختيار المشرف اولا"
   },
   "labels": {
+    "tankPrice": "سعر الصهريج",
     "isWorking": "متاح للتعين",
     "name": "الاسم",
     "active": "نشط",
@@ -192,7 +201,7 @@
     "comment": "تعليق",
     "propertyType": "نوع الملكية",
     "customerMobileNumber": "رقم هاتف العميل",
-    "district": "المنطقة",
+    "district": "الحي",
     "locationLink": "رابط الموقع",
     "orderOrigin": "اصل الطلب",
     "orderNumber": "رقم الطلب",
@@ -201,6 +210,7 @@
     "userType": "نوع المستخدم"
   },
   "placeholder": {
+    "tankPrice": "سعر الصهريج",
     "newPassword": "أدخل كلمة المرور الجديدة",
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
     "status": "الحالة",
@@ -222,7 +232,7 @@
     "comments": "أدخل التعليقات",
     "propertyType": "اختر نوع الملكية",
     "customerMobileNumber": "أدخل رقم هاتف العميل",
-    "district": "اختر المنطقة",
+    "district": "اختر الحي",
     "locationLink": "أدخل رابط الموقع",
     "comment": "أكتب تعليق",
     "orderOrigin": "أدخل اصل الطلب",
@@ -334,7 +344,7 @@
       "date": "التاريخ",
       "propertyType": "نوع الملكية",
       "customerMobileNumber": "رقم هاتف العميل",
-      "district": "المنطقة",
+      "district": "الحي",
       "locationLink": "رابط الموقع",
       "paymentMethod": "طريقة الدفع ",
       "paidAmount": "المبلغ المدفوع",

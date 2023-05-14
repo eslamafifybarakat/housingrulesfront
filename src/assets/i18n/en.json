@@ -153,13 +153,22 @@
     "assignedToDriver": "Assigned To Driver",
     "driverOnWayToCustomer": "Driver On The Way To Customer",
     "driverArrivedToCustomer": "Driver Arrived To Customer",
-    "driverArrivedToStation": "Driver Arrived To Station"
+    "driverArrivedToStation": "Driver Arrived To Station",
+    "Residential": "Residential",
+    "Governmental": "Governmental",
+    "Commercial": "Commercial",
+    "byWhatsApp": "By WhatsApp",
+    "byTMS": "By TMS",
+    "byCall": "By Call",
+    "bySite": "By Site",
+    "others": "Other"
   },
   "warning": {
     "selectDistrictFirst": "You must select district first",
     "selectSupervisorFirst": "You must select supervisor first"
   },
   "labels": {
+    "tankPrice": "Tank Price",
     "isWorking": "Is working",
     "email": "Email",
     "name": "Name",
@@ -199,6 +208,7 @@
     "userType": "User type"
   },
   "placeholder": {
+    "tankPrice": "Tank Price",
     "newPassword": "Enter new password",
     "confirmNewPassword": "Confirm new password",
     "status": "Status",
