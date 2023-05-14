@@ -7,7 +7,7 @@
 
     <div class="mb-3">
       <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
-      <input type="text" class="form-control" formControlName="name" autocomplete="cc-name"
+      <input type="text" class="form-control" formControlName="name"
         (input)="publicService?.clearValidationErrors(formControls?.name)"
         [class.is-invalid]="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)"
         placeholder="{{'placeholder.name'|translate}}">
@@ -24,6 +24,24 @@
               {{'validations.name_length'|translate}}
             </span>
           </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="price" class="mb-2 required">{{'labels.price'|translate}}</label>
+      <input type="text"  class="form-control" formControlName="price"
+        (input)="publicService?.clearValidationErrors(formControls?.price)"
+        [class.is-invalid]="formControls?.price?.invalid && (formControls?.price?.dirty || formControls?.price?.touched)"
+        placeholder="{{'placeholder.price'|translate}}">
+      <div class="mt-2">
+        <ng-container *ngIf="formControls?.price?.invalid && (formControls?.price?.dirty || formControls?.price?.touched)">
+          <ng-container *ngIf="formControls?.price?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.requiredName'|translate}}
+            </span>
+          </ng-container>
+
+
         </ng-container>
       </div>
     </div>
@@ -54,25 +72,26 @@
       </div>
     </div>
     <div class="mb-3">
-      <label for="palateNo" class="mb-2 required">{{'labels.palateNo'|translate}}</label>
-      <input type="text" class="form-control" formControlName="palateNo" autocomplete="cc-name"
-        (input)="publicService?.clearValidationErrors(formControls?.palateNo)"
-        [class.is-invalid]="formControls?.palateNo?.invalid && (formControls?.palateNo?.dirty || formControls?.palateNo?.touched)"
-        placeholder="{{'placeholder.palateNo'|translate}}">
+      <label for="plateNumber" class="mb-2 required">{{'labels.plateNumber'|translate}}</label>
+      <input type="text" class="form-control" formControlName="plateNumber" autocomplete="cc-name"
+        (input)="publicService?.clearValidationErrors(formControls?.plateNumber)"
+        [class.is-invalid]="formControls?.plateNumber?.invalid && (formControls?.plateNumber?.dirty || formControls?.plateNumber?.touched)"
+        placeholder="{{'placeholder.plateNumber'|translate}}">
       <div class="mt-2">
         <ng-container
-          *ngIf="formControls?.palateNo?.invalid && (formControls?.palateNo?.dirty || formControls?.palateNo?.touched)">
-          <ng-container *ngIf="formControls?.palateNo?.errors?.['required']">
+          *ngIf="formControls?.plateNumber?.invalid && (formControls?.plateNumber?.dirty || formControls?.plateNumber?.touched)">
+          <ng-container *ngIf="formControls?.plateNumber?.errors?.['required']">
             <span class="text-danger fs-8">
               {{'validations.required_field'|translate}}
             </span>
           </ng-container>
 
-          <ng-container *ngIf="formControls?.palateNo?.errors?.['minlength']">
+          <ng-container *ngIf="formControls?.plateNumber?.errors?.['minlength']">
             <span class="text-danger fs-8 d-block">
               {{'validations.length'|translate}}
             </span>
           </ng-container>
+
         </ng-container>
       </div>
     </div>

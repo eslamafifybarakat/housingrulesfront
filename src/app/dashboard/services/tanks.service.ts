@@ -38,7 +38,7 @@ export class TanksService {
   }
   addOrUpdateTank(data: any, id?: number): Observable<any> {
     if (id) {
-      return this.http?.put<any[]>(`${this.baseUrl}/${roots?.dashboard?.tanks?.UpdateAsync}`, data);
+      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.tanks?.UpdateAsync}`, data);
     } else {
       return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.tanks?.CreateAsync}`, data);
     }

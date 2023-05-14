@@ -54,12 +54,17 @@ export class AddEditTankComponent implements OnInit {
       name: ['', {
         validators: [
           Validators.required,
-          Validators?.minLength(3)], updateOn: "blur"
+          Validators?.minLength(3)]
       }],
       tankSize: [null, Validators?.required],
-      palateNo: ['', { validators: [Validators.required, Validators.minLength(3)], updateOn: "blur" }],
+      price: ['', Validators?.required],
+      plateNumber: ['', {
+        validators: [
+          Validators.required,
+          Validators?.minLength(3)]
+      }],
       active: [false, []]
-    },
+    },{ updateOn: "blur" }
   );
 
   get formControls(): any {
@@ -76,23 +81,28 @@ export class AddEditTankComponent implements OnInit {
     });
     this.modalForm?.patchValue({
       name: this.modalData?.item?.name,
-      active: this.modalData?.item?.isAvailable
+      price: this.modalData?.item?.price,
+      active: this.modalData?.item?.isAvailable,
+      plateNumber: this.modalData?.item?.plateNumber
     })
   }
 
   submit(): void {
+    console.log(this.modalForm);
+
     const myObject: { [key: string]: any } = {};
     if (this.modalForm?.valid) {
       myObject['name'] = this.modalForm?.value?.name;
       myObject['isAvailable'] = this.modalForm?.value?.active;
       myObject['tankSize'] = this.modalForm?.value?.tankSize?.['value'];
-      myObject['palateNo'] = this.modalForm?.value?.palateNo;
+      myObject['plateNumber'] = this.modalForm?.value?.plateNumber;
+      myObject['price'] = this.modalForm?.value?.price;
       myObject['isWorking'] = false;
       if (this.isEdit) {
         myObject['id'] = this.tankId;
-        myObject['lastModifiedBy'] = 0;
+        // myObject['lastModifiedBy'] = 0;
       } else {
-        myObject['createBy'] = 0;
+        // myObject['createBy'] = 0;
       }
       this.publicService?.show_loader?.next(true);
       this.tanksService?.addOrUpdateTank(myObject, this.tankId ? this.tankId : null)?.subscribe(

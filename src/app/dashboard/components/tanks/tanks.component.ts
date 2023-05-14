@@ -51,7 +51,8 @@ export class TanksComponent implements OnInit {
     this.tableHeaders = [
       { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'palateNo', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.palateNo'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.palateNo'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'plateNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.plateNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.plateNumber'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'price', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.price'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.price'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
       { field: 'isAvailable', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
@@ -93,7 +94,8 @@ export class TanksComponent implements OnInit {
               name: tank?.name ? tank?.name : '',
               tankSize: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.' + sizeTank),
               tankSizeVal: tank?.tankSize ? tank?.tankSize : '',
-              palateNo: tank?.palateNo ? tank?.palateNo : '',
+              plateNumber: tank?.plateNumber ? tank?.plateNumber : '',
+              price: tank?.price ? tank?.price : 0,
               isWorking: isWorking,
               isAvailable: tank?.isAvailable ? true : false
             });
