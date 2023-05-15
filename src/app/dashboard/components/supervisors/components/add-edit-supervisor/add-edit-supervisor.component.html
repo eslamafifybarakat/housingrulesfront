@@ -112,7 +112,29 @@
         </ng-container>
       </div>
     </div>
+    <div class="mb-3">
+      <label for="phone" class="mb-2 required">{{'labels.mobilePhone'|translate}}</label>
+      <input type="text" class="form-control" formControlName="phone" autocomplete="cc-name" [min]="0"
+        (input)="publicService?.clearValidationErrors(formControls?.phone)"
+        [class.is-invalid]="formControls?.phone?.invalid && (formControls?.phone?.dirty || formControls?.phone?.touched)"
+        placeholder="{{'placeholder.mobilePhone'|translate}}">
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.phone?.invalid && (formControls?.phone?.dirty || formControls?.phone?.touched)">
+          <ng-container *ngIf="formControls?.phone?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.required_field'|translate}}
+            </span>
+          </ng-container>
 
+          <ng-container *ngIf="formControls?.phone?.errors?.['pattern']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.phone_length'|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
     <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
       <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
 

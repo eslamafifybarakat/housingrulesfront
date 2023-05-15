@@ -48,6 +48,6 @@ export class TanksService {
     if (id) {
       params = params.append("id", id);
     }
-    return this.http?.delete<any>(`${this.baseUrl}/${roots?.dashboard?.tanks?.Delete}`, { params: params });
+    return this.http?.post<any>(`${this.baseUrl}/${roots?.dashboard?.tanks?.Delete}`, { "id": id });
   }
 }
