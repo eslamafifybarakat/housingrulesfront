@@ -317,6 +317,7 @@
       "serviceAgent": "Service Agent"
     },
     "tableHeader": {
+      "price":"Price",
       "username": "Username",
       "id": "Id",
       "isWorking": "Is Working",

@@ -8,15 +8,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { DynamicTableLocalActionsComponent } from './dynamic/components/dynamic-table-local-actions/dynamic-table-local-actions.component';
 
 let coreComponents = [
   DynamicTableComponent,
+  DynamicTableLocalActionsComponent
 ];
 
 @NgModule({
   declarations: [
     NoInternetComponent,
-    ...coreComponents
+    ...coreComponents,
   ],
   imports: [
     CommonModule,
