@@ -46,8 +46,8 @@ export class LoginComponent implements OnInit {
       password: ['', {
         validators: [
           Validators.required,
-          // Validators?.minLength(8),
-          // Validators?.maxLength(20),
+          Validators?.minLength(8),
+          Validators?.maxLength(20),
         ], updateOn: "blur"
       }],
       remember: [false, []]

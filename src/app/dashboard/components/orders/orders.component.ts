@@ -56,7 +56,6 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.userLoginDataType = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}')?.userType;
-    console.log(this.userLoginDataType);
     if (this.userLoginDataType !== 9) {
       this.showActionTableColumn = true;
       this.showEditAction = true;
@@ -64,14 +63,15 @@ export class OrdersComponent implements OnInit {
 
     this.tableHeaders = [
       { field: 'orderNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+      { field: 'dateTime', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), sort: false, filter: true, type: 'date' },
       { field: 'orderOrigin', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+      { field: 'createdByName', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.createdBy'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.createdBy'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'customer', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerName'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.customers'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'customerMobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerMobileNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerMobileNumber'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'locationLink', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', enableItemLink: true, typeViewModal: 'location' },
       { field: 'supervisor', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisor'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       // { field: 'driver', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driver'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.drivers'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'status', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'filterArray', dataType: 'array', list: 'orderStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.status'), label: this.publicService?.translateTextFromJson('labels.status'), status: true },
-      // { field: 'dateTime', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), sort: false, filter: true, type: 'date' },
       // { field: 'district', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       // { field: 'tank', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       // { field: 'propertyType', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'filterArray', dataType: 'array', list: 'propertyType', placeholder: this.publicService?.translateTextFromJson('placeholder.propertyType'), label: this.publicService?.translateTextFromJson('labels.propertyType') },
@@ -91,7 +91,7 @@ export class OrdersComponent implements OnInit {
 
   getAllOrders(): any {
     this.loadingIndicator = true;
-    this.ordersService?.getOrdersList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
+    this.ordersService?.getOrdersEntityList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
       .pipe(
         map((res: any) => {
           this.ordersCount = res?.total;
@@ -100,28 +100,28 @@ export class OrdersComponent implements OnInit {
           res?.data ? res?.data.forEach((item: any) => {
             let status: any = '';
             if (item?.status == 1) {
-              status = 'Pending'
+              status = this.publicService.translateTextFromJson('general.pending')
             }
             if (item?.status == 2) {
-              status = 'AssignedToDriver'
+              status = this.publicService.translateTextFromJson('general.assignedToDriver')
             }
             if (item?.status == 3) {
-              status = 'DriverOnTheWayToCustomer'
+              status = this.publicService.translateTextFromJson('general.driverOnWayToCustomer')
             }
             if (item?.status == 4) {
-              status = 'DriverArrivedToCustomer'
+              status = this.publicService.translateTextFromJson('general.driverArrivedToCustomer')
             }
             if (item?.status == 5) {
-              status = 'DriverOnTheWayStation'
+              status = this.publicService.translateTextFromJson('general.driverOnWayToStation')
             }
             if (item?.status == 6) {
-              status = 'DriverArrivedAtStation'
+              status = this.publicService.translateTextFromJson('general.driverArrivedToStation')
             }
             if (item?.status == 7) {
-              status = 'Completed'
+              status = this.publicService.translateTextFromJson('general.completed')
             }
             if (item?.status == 8) {
-              status = 'Cancelled'
+              status = this.publicService.translateTextFromJson('general.cancelled')
             }
             let orderOrigin: any;
             this.orderOriginList?.forEach((element: any) => {
@@ -145,11 +145,12 @@ export class OrdersComponent implements OnInit {
               id: item?.id ? item?.id : null,
               dateTime: item?.dateTime ? new Date(item?.dateTime) : null,
               orderOrigin: orderOrigin,
+              createdByName: item?.createdByName ? item?.createdByName : '',
               orderNumber: item?.orderNumber ? item?.orderNumber : '',
               propertyType: propertyType,
               customerMobileNumber: item?.customerMobileNumber ? item?.customerMobileNumber : '',
               district: item?.district ? item?.district : '',
-              locationLink: item?.locationLink ? this.publicService.translateTextFromJson('dashboard.tableHeader.locationLink') : '',
+              locationLink: item?.locationLink ? item?.locationLink : null,
               tank: item?.tank ? item?.tank : '',
               status: status,
               paymentMethod: paymentMethod,
@@ -218,7 +219,8 @@ export class OrdersComponent implements OnInit {
     });
   }
   viewLocation(item: any): void {
-    window?.open(item?.locationLink, "_blank");
+    console.log(item?.locationLink);
+    item?.locationLink ? window?.open(item?.locationLink, "_blank") : '';
   }
 
   addOrEditItem(item?: any, type?: any): void {

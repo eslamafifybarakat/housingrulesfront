@@ -20,10 +20,10 @@
     </div>
   </div>
   <hr>
-  <app-dynamic-table [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
+  <app-dynamic-table [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="false"
     (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
     (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="ordersList$"
-    [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'" [showActions]="showActionTableColumn"
+    [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY | hh:mm a'" [showActions]="showActionTableColumn"
     [showEdit]="showEditAction" (editHandler)="addOrEditItem($event,'edit')"
     (customSortHandler)="enableSortFilter?sortItems($event):''"
     (filterHandler)="enableSortFilter?filterItems($event):''" [results]="ordersCount" [paginatorRows]="perPage"

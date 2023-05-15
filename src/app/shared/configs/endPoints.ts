@@ -38,6 +38,7 @@ export const roots = {
     },
     orders: {
       ordersList: 'Orders/GetAllAsync',
+      ordersByTypeList: 'Orders/GetOrdersByUserIdParm',
       crateOrder: 'Orders/CreateAsync',
       updateOrder: 'Orders/UpdateAsync',
       getOrderById: 'Orders/GetByIdAsync',

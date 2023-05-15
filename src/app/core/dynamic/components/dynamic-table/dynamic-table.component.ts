@@ -211,7 +211,7 @@ export class DynamicTableComponent implements OnInit {
     private supervisorsService: SupervisorsService,
     private driversService: DriversService,
     private dialogService: DialogService,
-    private publicService: PublicService,
+    public publicService: PublicService,
     private alertsService: AlertsService,
     private orderService: OrdersService,
     private tanksService: TanksService,

@@ -240,7 +240,7 @@
           <div class="col-md-6">
             <div class="mb-3">
               <label class="form-label required">
-                {{"labels.tank"|translate}}
+                {{"labels.tankSize"|translate}}
               </label>
               <span class="p-input-icon-right select-loading d-block">
                 <p-dropdown [options]="tanksList" formControlName="tank" optionLabel="name" [filter]="true"
@@ -248,7 +248,7 @@
                   [readonly]="isLoadingTanks" scrollHeight="200px" (onChange)="onTankChange(formControls?.tank?.value)"
                   emptyMessage="{{'general.no_result_found'|translate}}"
                   [class.ng-dirty]="formControls?.tank?.invalid && (formControls?.tank?.dirty || formControls?.tank?.touched)"
-                  [showClear]="true" placeholder="{{'placeholder.tank'|translate}}">
+                  [showClear]="true" placeholder="{{'placeholder.tankSize'|translate}}">
                 </p-dropdown>
                 <ng-container *ngIf="isLoadingTanks">
                   <i class="pi pi-spin pi-spinner"></i>
@@ -340,7 +340,7 @@
           </div>
           <div class="col-md-6">
             <div class="mb-3">
-              <label for="locationLink" class="mb-2 required">{{'labels.locationLink'|translate}}</label>
+              <label for="locationLink" class="mb-2">{{'labels.locationLink'|translate}}</label>
               <input type="text" class="form-control" formControlName="locationLink" autocomplete="cc-name"
                 (input)="publicService?.clearValidationErrors(formControls?.locationLink)"
                 [class.is-invalid]="formControls?.locationLink?.invalid && (formControls?.locationLink?.dirty || formControls?.locationLink?.touched)"
@@ -365,7 +365,7 @@
           </div>
           <div class="col-md-6">
             <div class="mb-3">
-              <label for="paymentMethod" class="mb-2 required">{{'labels.paymentMethod'|translate}}</label>
+              <label for="paymentMethod" class="mb-2">{{'labels.paymentMethod'|translate}}</label>
               <span class="p-input-icon-right select-loading d-block">
                 <p-dropdown [options]="paymentMethodsList" formControlName="paymentMethod" optionLabel="name"
                   [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"

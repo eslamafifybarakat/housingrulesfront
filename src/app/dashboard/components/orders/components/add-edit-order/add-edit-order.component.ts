@@ -110,7 +110,7 @@ export class AddEditOrderComponent implements OnInit {
         validators: [], updateOn: "blur"
       }],
       paymentMethod: ['', {
-        validators: [Validators.required], updateOn: "blur"
+        validators: [], updateOn: "blur"
       }],
       driver: [null, {
         validators: []
@@ -146,7 +146,7 @@ export class AddEditOrderComponent implements OnInit {
       }],
       locationLink: ['', {
         validators: [
-          Validators.required,
+          // Validators.required,
           Validators.pattern(patterns?.url)], updateOn: "blur"
       }],
       comment: ['', {
@@ -175,7 +175,7 @@ export class AddEditOrderComponent implements OnInit {
               }
             });
             this.orderForm?.controls?.supervisor?.enable();
-            this.getAllSupervisors();
+            this.getSupervisorsByDistrictId(this.orderData?.districtId);
           }
           this.isLoadingDistricts = false;
         } else {
@@ -193,7 +193,7 @@ export class AddEditOrderComponent implements OnInit {
     console.log(item);
 
     if (item?.value?.id) {
-      this.getAllSupervisors();
+      this.getSupervisorsByDistrictId(item?.value?.id);
       this.orderForm?.controls?.supervisor?.enable();
     }
   }
@@ -211,7 +211,7 @@ export class AddEditOrderComponent implements OnInit {
 
   onChangeSupervisor(item: any): void {
     if (item?.value?.id) {
-      this.getAllDrivers();
+      this.getDriversBysuperVisorId(item?.value?.id);
       this.orderForm?.controls?.driver?.enable();
     }
     console.log(this.orderForm?.value);
@@ -273,9 +273,9 @@ export class AddEditOrderComponent implements OnInit {
     });
   }
 
-  getAllSupervisors(): any {
+  getSupervisorsByDistrictId(districtId: any): any {
     this.isLoadingSupervisors = true;
-    this.supervisorsService?.getSupervisorsList()?.subscribe(
+    this.supervisorsService?.getSupervisorsByDistrictId(districtId)?.subscribe(
       (res: any) => {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
           let arr: any = [];
@@ -294,7 +294,7 @@ export class AddEditOrderComponent implements OnInit {
                 });
                 this.isLoadingSupervisors = false;
                 this.orderForm?.controls?.driver?.enable();
-                this.getAllDrivers();
+                this.getDriversBysuperVisorId(this.orderData?.supervisorId);
               }
             });
           }
@@ -319,47 +319,49 @@ export class AddEditOrderComponent implements OnInit {
       });
     }
   }
-  getAllDrivers(): any {
-    this.isLoadingDrivers = true;
-    this.driversService?.getDriversList()?.subscribe(
-      (res: any) => {
-        if (res?.statusCode == 200 && res?.isSuccess == true) {
-          let arr: any = [];
-          res?.data ? res?.data?.forEach((item: any) => {
-            arr?.push({
-              name: item?.arName,
-              id: item?.id
-            });
-          }) : '';
-          this.driversList = arr;
-          if (this.isEdit) {
-            this.driversList?.forEach((driver: any) => {
-              if (driver?.id == this.orderData?.driverId) {
-                this.orderForm?.patchValue({
-                  driver: driver
-                })
-              }
-            });
+  getDriversBysuperVisorId(superVisorId: any): any {
+    if (this.isEdit && (this.userData?.userType == 2 || this.userData?.userType == 4)) {
+      this.isLoadingDrivers = true;
+      this.driversService?.getDriversBysuperVisorId(superVisorId)?.subscribe(
+        (res: any) => {
+          if (res?.statusCode == 200 && res?.isSuccess == true) {
+            let arr: any = [];
+            res?.data ? res?.data?.forEach((item: any) => {
+              arr?.push({
+                name: item?.arName,
+                id: item?.id
+              });
+            }) : '';
+            this.driversList = arr;
+            if (this.isEdit) {
+              this.driversList?.forEach((driver: any) => {
+                if (driver?.id == this.orderData?.driverId) {
+                  this.orderForm?.patchValue({
+                    driver: driver
+                  })
+                }
+              });
+            }
+            this.isLoadingDrivers = false;
+          } else {
+            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+            this.isLoadingDrivers = false;
           }
+        },
+        (err: any) => {
+          err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
           this.isLoadingDrivers = false;
-        } else {
-          res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
-          this.isLoadingDrivers = false;
-        }
-      },
-      (err: any) => {
-        err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
-        this.isLoadingDrivers = false;
-      });
-    this.cdr?.detectChanges();
-    if (this.isEdit) {
-      this.driversList?.forEach((driver: any) => {
-        if (driver?.id == this.orderData?.driverId) {
-          this.orderForm?.patchValue({
-            driver: driver
-          })
-        }
-      });
+        });
+      this.cdr?.detectChanges();
+      if (this.isEdit) {
+        this.driversList?.forEach((driver: any) => {
+          if (driver?.id == this.orderData?.driverId) {
+            this.orderForm?.patchValue({
+              driver: driver
+            })
+          }
+        });
+      }
     }
   }
   getAllTanks(): any {
