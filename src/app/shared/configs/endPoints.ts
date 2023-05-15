@@ -52,5 +52,12 @@ export const roots = {
       getUserById: 'Auth/GetByIdAsync',
       resetPassword: 'Auth/reset-password',
     },
+    customers: {
+      customersList: 'Customers/GetAllAsync',
+      createCustomer: 'Customers/CreateAsync',
+      updateCustomer: 'Customers/UpdateAsync',
+      getCustomerById: 'Customers/GetByIdAsync',
+      deleteCustomer: 'Customers/SoftDelete',
+    },
   }
 }
