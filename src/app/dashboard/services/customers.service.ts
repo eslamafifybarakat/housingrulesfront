@@ -36,7 +36,7 @@ export class CustomersService {
 
   addOrUpdateCustomer(data: any, id?: number): Observable<any> {
     if (id) {
-      return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.customers?.updateCustomer}`, data);
+      return this.http?.put<any[]>(`${this.baseUrl}/${roots?.dashboard?.customers?.updateCustomer}`, data);
     } else {
       return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.customers?.createCustomer}`, data);
     }
