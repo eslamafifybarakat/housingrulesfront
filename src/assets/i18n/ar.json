@@ -322,7 +322,8 @@
       "driver": "السائقين",
       "supervisors": "المشرفين",
       "orders": "الطلبات",
-      "users": " المستخدمين"
+      "users": " المستخدمين",
+      "customers": "العملاء"
     },
     "tableHeader": {
       "createdBy": "منشئ الطلب",
@@ -415,6 +416,12 @@
         "gateOut": "بوابة الخروج",
         "accountant": "محاسب"
       }
+    },
+    "customers": {
+      "customers": "العملاء",
+      "addCustomer": "إضافة عميل",
+      "customerDetails": "تفاصيل العميل",
+      "editCustomer": "تعديل العميل"
     }
   },
   "welcome": {

@@ -317,7 +317,8 @@
       "supervisors": "Supervisors",
       "orders": "Orders",
       "users": "Users",
-      "serviceAgent": "Service Agent"
+      "serviceAgent": "Service Agent",
+      "customers": "Customers"
     },
     "tableHeader": {
       "createdBy": "Created By",
@@ -412,6 +413,12 @@
         "gateOut": "Gate out",
         "accountant": "Accountant"
       }
+    },
+    "customers": {
+      "customers": "Customers",
+      "addCustomer": "Add Customer",
+      "customerDetails": "Customer details",
+      "editCustomer": "Edit Customer"
     }
   },
   "welcome": {
