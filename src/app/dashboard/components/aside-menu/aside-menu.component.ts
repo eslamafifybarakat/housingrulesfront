@@ -80,6 +80,13 @@ export class AsideMenuComponent implements OnInit {
       icon: 'fa-user',
       routerLink: '/dashboard/service-agent',
       state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2 || this.userLoginData?.userType == 3),
+    },
+    {
+      id: 'customers',
+      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.customers'),
+      icon: 'fa-people-group',
+      routerLink: '/dashboard/customers',
+      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2 || this.userLoginData?.userType == 3),
     }
     ];
 

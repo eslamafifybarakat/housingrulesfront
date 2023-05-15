@@ -14,6 +14,7 @@ export const AppRoutes = {
     orders: 'orders',
     serviceAgent: 'service-agent',
     addOrder: "addOrder",
-    users: 'users'
+    users: 'users',
+    customers: 'customers'
   }
 }
