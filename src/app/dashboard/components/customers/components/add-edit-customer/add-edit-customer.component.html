@@ -1,10 +1,5 @@
 <div id="modal">
   <form [formGroup]="modalForm" (ngSubmit)="submit()">
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold">{{'labels.tankActivation'|translate}}</label>
-      <p-inputSwitch id="active" formControlName="active"></p-inputSwitch>
-    </div>
-
     <div class="mb-3">
       <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
       <input type="text" class="form-control" formControlName="name"

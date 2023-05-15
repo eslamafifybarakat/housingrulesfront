@@ -172,6 +172,8 @@
     "selectSupervisorFirst": "يجب اختيار المشرف اولا"
   },
   "labels": {
+    "address":"العنوان",
+    "location":"الموقع",
     "tankprice": "سعر الصهريج",
     "isWorking": "متاح للتعين",
     "name": "الاسم",

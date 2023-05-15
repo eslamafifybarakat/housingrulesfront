@@ -171,6 +171,8 @@
     "selectSupervisorFirst": "You must select supervisor first"
   },
   "labels": {
+    "address":"Address",
+    "location":"Location",
     "tankPrice": "Tank Price",
     "isWorking": "Is working",
     "email": "Email",
