@@ -322,6 +322,7 @@
       "driver": "السائقين",
       "supervisors": "المشرفين",
       "orders": "الطلبات",
+      "serviceAgent":"خدمة العملاء",
       "users": " المستخدمين"
     },
     "tableHeader": {
@@ -411,8 +412,8 @@
         "customerService": "خدمة الزبائن",
         "driversSupervisor": "مشرف السائقين",
         "driver": "سائق",
-        "gateIn": "بوابة في",
-        "gateOut": "بوابة الخروج",
+        "gateIn": "موظف بوابة دخول",
+        "gateOut": "موظف بوابة الخروج",
         "accountant": "محاسب"
       }
     }
