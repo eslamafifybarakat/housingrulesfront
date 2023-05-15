@@ -26,6 +26,9 @@ import { ServiceAgentComponent } from './components/service-agent/service-agent.
 import { AddEditServiceAgentComponent } from './components/service-agent/components/add-edit-service-agent/add-edit-service-agent.component';
 import { ServiceAgentDetailsComponent } from './components/service-agent/components/service-agent-details/service-agent-details.component';
 import { ConfirmCompleteOrderComponent } from './components/orders/components/confirm-complete-order/confirm-complete-order.component';
+import { CustomersComponent } from './components/customers/customers.component';
+import { AddEditCustomerComponent } from './components/customers/components/add-edit-customer/add-edit-customer.component';
+import { CustomerDetailsComponent } from './components/customers/components/customer-details/customer-details.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { ConfirmCompleteOrderComponent } from './components/orders/components/co
     AddEditServiceAgentComponent,
     ServiceAgentDetailsComponent,
     ConfirmCompleteOrderComponent,
+    CustomersComponent,
+    AddEditCustomerComponent,
+    CustomerDetailsComponent,
   ],
   imports: [
     DashboardRoutingModule,

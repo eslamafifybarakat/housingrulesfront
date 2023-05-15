@@ -2,6 +2,7 @@ import { AddEditOrderComponent } from './components/orders/components/add-edit-o
 import { WelcomeDashboardComponent } from './components/welcome-dashboard/welcome-dashboard.component';
 import { ServiceAgentComponent } from './components/service-agent/service-agent.component';
 import { SupervisorsComponent } from './components/supervisors/supervisors.component';
+import { CustomersComponent } from './components/customers/customers.component';
 import { DriversComponent } from './components/drivers/drivers.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { UsersComponent } from './components/users/users.component';
@@ -77,6 +78,14 @@ const routes: Routes = [
         component: UsersComponent,
         data: {
           title: 'titles.users',
+          type: 'dashboard'
+        }
+      },
+      {
+        path: AppRoutes?.dashboard?.customers,
+        component: CustomersComponent,
+        data: {
+          title: 'titles.customers',
           type: 'dashboard'
         }
       },

@@ -317,9 +317,12 @@
       "supervisors": "Supervisors",
       "orders": "Orders",
       "users": "Users",
-      "serviceAgent": "Service Agent"
+      "serviceAgent": "Service Agent",
+      "customers": "Customers"
     },
     "tableHeader": {
+      "location":"Location",
+      "address":"Address",
       "createdBy": "Created By",
       "price": "Price",
       "username": "Username",
@@ -412,6 +415,12 @@
         "gateOut": "Gate out",
         "accountant": "Accountant"
       }
+    },
+    "customers": {
+      "customers": "Customers",
+      "addCustomer": "Add Customer",
+      "customerDetails": "Customer details",
+      "editCustomer": "Edit Customer"
     }
   },
   "welcome": {

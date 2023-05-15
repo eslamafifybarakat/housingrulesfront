@@ -326,6 +326,8 @@
       "users": " المستخدمين"
     },
     "tableHeader": {
+      "location":"الموقع",
+      "address":"العنوان",
       "createdBy": "منشئ الطلب",
       "username": "اسم المستخدم",
       "id": "الرقم التعريفي",
@@ -416,6 +418,12 @@
         "gateOut": "موظف بوابة الخروج",
         "accountant": "محاسب"
       }
+    },
+    "customers": {
+      "customers": "العملاء",
+      "addCustomer": "إضافة عميل",
+      "customerDetails": "تفاصيل العميل",
+      "editCustomer": "تعديل العميل"
     }
   },
   "welcome": {
