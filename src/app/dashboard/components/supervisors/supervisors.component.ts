@@ -25,7 +25,7 @@ export class SupervisorsComponent implements OnInit {
   tableHeaders: any = [];
 
   page: number = 1;
-  perPage: number = 100000;
+  perPage: number = 5;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
 

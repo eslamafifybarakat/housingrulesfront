@@ -196,6 +196,7 @@
     "endDate": "تاريخ الإنتهاء",
     "orderStatus": "حالة الطلب",
     "status": "الحالة",
+    "tankPrice":"السعر",
     "plateNumber": "رقم اللوحة",
     "customerName": "اسم العميل",
     "comments": "تعليقات",

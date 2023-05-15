@@ -29,7 +29,7 @@
     </div>
     <div class="mb-3">
       <label for="price" class="mb-2 required">{{'labels.price'|translate}}</label>
-      <input type="text"  class="form-control" formControlName="price"
+      <input type="number" min="0" max="9999"  class="form-control" formControlName="price"
         (input)="publicService?.clearValidationErrors(formControls?.price)"
         [class.is-invalid]="formControls?.price?.invalid && (formControls?.price?.dirty || formControls?.price?.touched)"
         placeholder="{{'placeholder.price'|translate}}">

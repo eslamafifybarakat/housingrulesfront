@@ -25,7 +25,7 @@ export class TanksComponent implements OnInit {
   tableHeaders: any = [];
 
   page: number = 1;
-  perPage: number = 100000;
+  perPage: number = 5;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
 
@@ -133,14 +133,14 @@ export class TanksComponent implements OnInit {
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
-    this.getAllTanks();
+  //  this.getAllTanks();
   }
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
     this.pagesCount = Math?.ceil(this.tanksCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getTanks();
+    //this.getTanks();
   }
   toggleStatus(event: any): void {
     this.tanksService?.tankToggleStatus(event?.id)?.subscribe(res => {

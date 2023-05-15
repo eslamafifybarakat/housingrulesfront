@@ -1,6 +1,7 @@
 <div id="dynamic-global-data-table">
   <div class="table-content">
-    <p-table #dt1 [value]="tableData" (onFilter)="customFilter($event,dt1)" [(selection)]="selectedItems"
+    <p-table #dt1 [value]="tableData" (onFilter)="customFilter($event,dt1)" [(selection)]="selectedItems"  [paginator]="true"
+    [rows]="paginatorRows"
       [columns]="selectedColumns" responsiveLayout="scroll" [rowHover]="false" [resizableColumns]="true"
       styleClass="p-datatable-striped" [customSort]="true" (onSort)="customSort($event)" dataKey="id">
       <ng-template pTemplate="caption">
@@ -819,17 +820,17 @@
   </ng-template>
   </p-table>
 </div>
-<ng-container *ngIf="tableData?.length>0">
+  <!--<ng-container *ngIf="tableData?.length>0">
   <div class="d-flex justify-content-center my-3">
     <ng-container *ngIf="showPaginationText">
       <p>Showing {{pageNumber}} to {{pages}} of {{results}} results</p>
     </ng-container>
     <p-paginator #paginator [rows]="paginatorRows" [totalRecords]="results" [showPageLinks]="true" [pageLinkSize]="3"
       (onPageChange)="paginate($event)"></p-paginator>
-    <!-- <div class="d-flex align-items-center gap-3">
+   <div class="d-flex align-items-center gap-3">
       <p-dropdown #dropdown [options]="rowsPerPageOptions" (onChange)="paginatorOption($event)"
         (onHide)="hide()"></p-dropdown>
-    </div> -->
+    </div>
   </div>
-</ng-container>
+</ng-container> -->
 </div>

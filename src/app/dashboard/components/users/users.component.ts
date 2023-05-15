@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit {
   tableHeaders: any = [];
 
   page: number = 1;
-  perPage: number = 100000;
+  perPage: number = 5;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
 
@@ -90,7 +90,7 @@ export class UsersComponent implements OnInit {
               }
             });
             let supervisorName: any = '';
-            if (item?.userType == 2 || item?.userType == 4) {
+            if (item?.userType == 3 || item?.userType == 5) {
               this.supervisorsList?.forEach((supervisor: any) => {
                 if (supervisor?.id == item?.entityId) {
                   supervisorName = supervisor?.name;
@@ -98,7 +98,7 @@ export class UsersComponent implements OnInit {
               });
             }
             let driverName: any = '';
-            if (item?.userType == 5) {
+            if (item?.userType == 6) {
               this.driversList?.forEach((driver: any) => {
                 if (driver?.id == item?.entityId) {
                   driverName = driver?.name;

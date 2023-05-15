@@ -207,13 +207,13 @@ export class AddEditUserComponent implements OnInit {
 
   changeUserType(item: any): void {
     console.log(item);
-    if (item?.value == 2 || item?.value == 4) {
+    if (item?.value == 3 || item?.value == 5) {
       this.publicService?.addValidators(this.userForm, ['supervisor']);
       this.getAllSupervisors();
     } else {
       this.publicService?.removeValidators(this.userForm, ['supervisor']);
     }
-    if (item?.value == 5) {
+    if (item?.value == 6) {
       this.publicService?.addValidators(this.userForm, ['driver']);
       this.getAllDrivers();
     } else {
@@ -241,13 +241,13 @@ export class AddEditUserComponent implements OnInit {
       myObject['password'] = this.userForm?.value?.password;
       // myObject['confirmPassword'] = this.userForm?.value?.confirmPassword;
 
-      if (this.userForm?.value?.userType?.value == 2 || this.userForm?.value?.userType?.value == 4) {
+      if (this.userForm?.value?.userType?.value == 3 || this.userForm?.value?.userType?.value == 5) {
         myObject['entityId'] = this.userForm?.value?.supervisor?.id;
       }
-      if (this.userForm?.value?.userType?.value == 5) {
+      if (this.userForm?.value?.userType?.value == 6) {
         myObject['entityId'] = this.userForm?.value?.driver?.id;
       }
-      myObject['isSuspended'] = true;
+      myObject['isSuspended'] = false;
       myObject['allowTerminal'] = true;
       if (this.isEdit) {
         myObject['id'] = this.userId;
