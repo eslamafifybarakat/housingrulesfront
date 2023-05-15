@@ -77,6 +77,10 @@ export class AddEditSupervisorComponent implements OnInit {
           Validators?.minLength(3), Validators.pattern(patterns?.enName)],
         updateOn: "blur"
       }],
+      phone: ['', {
+        validators: [
+          Validators.required, Validators.pattern(patterns?.phone)], updateOn: "blur"
+      }],
       isWorking: [false, []]
     },
   );
@@ -130,6 +134,7 @@ export class AddEditSupervisorComponent implements OnInit {
       arName: this.modalData?.item?.arName,
       enName: this.modalData?.item?.enName,
       district: districtsArr,
+      phone: this.modalData?.item?.mobileNumber,
       isWorking: this.modalData?.item?.isWorkingVal
     });
     this.getAllDistricts();
@@ -146,6 +151,7 @@ export class AddEditSupervisorComponent implements OnInit {
       myObject['arName'] = this.modalForm?.value?.arName;
       myObject['enName'] = this.modalForm?.value?.enName;
       myObject['isWorking'] = this.modalForm?.value?.isWorking;
+      myObject['mobileNumber'] = this.modalForm?.value?.phone;
       myObject['districtIds'] = disticts;
       // myObject['userId'] = '0';
       if (this.isEdit) {

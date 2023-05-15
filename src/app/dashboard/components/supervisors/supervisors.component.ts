@@ -52,6 +52,7 @@ export class SupervisorsComponent implements OnInit {
     this.tableHeaders = [
       { field: 'arName', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       // { field: 'district', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), filter: true, type: 'filterArray', dataType: 'array', list: 'districts', placeholder: this.publicService?.translateTextFromJson('placeholder.district'), label: this.publicService?.translateTextFromJson('labels.district') },
+      { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
       { field: 'status', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
       // { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
@@ -88,6 +89,7 @@ export class SupervisorsComponent implements OnInit {
               enName: item?.enName ? item?.enName : '',
               districtsVal: item?.districtIds ? item?.districtIds : [],
               district: districtsItems,
+              mobileNumber: item?.mobileNumber ? item?.mobileNumber : '',
               isWorkingVal: item?.isWorking,
               status: isWorking
             });

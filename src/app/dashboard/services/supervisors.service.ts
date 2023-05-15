@@ -66,6 +66,6 @@ export class SupervisorsService {
     if (id) {
       params = params.append("id", id);
     }
-    return this.http?.delete<any>(`${this.baseUrl}/${roots?.dashboard?.supervisors?.deleteSupervisor}`, { params: params });
+    return this.http?.post<any>(`${this.baseUrl}/${roots?.dashboard?.supervisors?.deleteSupervisor}`, { "id": id });
   }
 }
