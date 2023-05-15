@@ -37,6 +37,8 @@ export const roots = {
       supervisorToggleStatus: 'switch_status_supervisors'
     },
     orders: {
+      updateOrderDriverArrivedAtStation: 'Orders/DriverArrivedAtStation',
+      updateOrderComplete: 'Orders/CompleteOrder',
       ordersList: 'Orders/GetAllAsync',
       ordersByTypeList: 'Orders/GetOrdersByUserIdParm',
       crateOrder: 'Orders/CreateAsync',

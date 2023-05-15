@@ -25,6 +25,7 @@ import { ResetPasswordComponent } from './components/users/reset-password/reset-
 import { ServiceAgentComponent } from './components/service-agent/service-agent.component';
 import { AddEditServiceAgentComponent } from './components/service-agent/components/add-edit-service-agent/add-edit-service-agent.component';
 import { ServiceAgentDetailsComponent } from './components/service-agent/components/service-agent-details/service-agent-details.component';
+import { ConfirmCompleteOrderComponent } from './components/orders/components/confirm-complete-order/confirm-complete-order.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ServiceAgentDetailsComponent } from './components/service-agent/compone
     ServiceAgentComponent,
     AddEditServiceAgentComponent,
     ServiceAgentDetailsComponent,
+    ConfirmCompleteOrderComponent,
   ],
   imports: [
     DashboardRoutingModule,

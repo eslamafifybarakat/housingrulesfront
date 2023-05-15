@@ -41,27 +41,6 @@
               </div>
             </div>
           </ng-container>
-          <!-- <ng-container *ngIf="isEdit">
-            <div class="col-md-6">
-              <div class="mb-3">
-                <label for="paidAmount" class="mb-2 required">{{'labels.paidAmount'|translate}}</label>
-                <input type="number" class="form-control" formControlName="paidAmount" autocomplete="cc-name" [min]="0"
-                  (input)="publicService?.clearValidationErrors(formControls?.paidAmount)"
-                  [class.is-invalid]="formControls?.paidAmount?.invalid && (formControls?.paidAmount?.dirty || formControls?.paidAmount?.touched)"
-                  placeholder="{{'placeholder.paidAmount'|translate}}">
-                <div class="mt-2">
-                  <ng-container
-                    *ngIf="formControls?.paidAmount?.invalid && (formControls?.paidAmount?.dirty || formControls?.paidAmount?.touched)">
-                    <ng-container *ngIf="formControls?.paidAmount?.errors?.['required']">
-                      <span class="text-danger fs-8">
-                        {{'validations.required_field'|translate}}
-                      </span>
-                    </ng-container>
-                  </ng-container>
-                </div>
-              </div>
-            </div>
-          </ng-container> -->
           <div class="col-md-6">
             <div class="mb-3">
               <label class="form-label required">
@@ -365,7 +344,8 @@
           </div>
           <div class="col-md-6">
             <div class="mb-3">
-              <label for="paymentMethod" class="mb-2">{{'labels.paymentMethod'|translate}}</label>
+              <label for="paymentMethod" class="mb-2"
+                [class.required]="isEdit && userData?.userType == 7">{{'labels.paymentMethod'|translate}}</label>
               <span class="p-input-icon-right select-loading d-block">
                 <p-dropdown [options]="paymentMethodsList" formControlName="paymentMethod" optionLabel="name"
                   [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
@@ -390,6 +370,27 @@
               </div>
             </div>
           </div>
+          <ng-container *ngIf="isEdit && userData?.userType == 7">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="paidAmount" class="mb-2 required">{{'labels.paidAmount'|translate}}</label>
+                <input type="number" class="form-control" formControlName="paidAmount" autocomplete="cc-name" [min]="0"
+                  (input)="publicService?.clearValidationErrors(formControls?.paidAmount)"
+                  [class.is-invalid]="formControls?.paidAmount?.invalid && (formControls?.paidAmount?.dirty || formControls?.paidAmount?.touched)"
+                  placeholder="{{'placeholder.paidAmount'|translate}}">
+                <div class="mt-2">
+                  <ng-container
+                    *ngIf="formControls?.paidAmount?.invalid && (formControls?.paidAmount?.dirty || formControls?.paidAmount?.touched)">
+                    <ng-container *ngIf="formControls?.paidAmount?.errors?.['required']">
+                      <span class="text-danger fs-8">
+                        {{'validations.required_field'|translate}}
+                      </span>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-container>
           <div class="col-md-6">
             <div class="mb-3">
               <label for="comment" class="mb-2">{{'labels.comment'|translate}}</label>

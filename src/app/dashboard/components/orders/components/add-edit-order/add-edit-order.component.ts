@@ -11,6 +11,8 @@ import { keys } from 'src/app/shared/configs/localstorage-key';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmCompleteOrderComponent } from '../confirm-complete-order/confirm-complete-order.component';
 
 @Component({
   selector: 'app-add-edit-order',
@@ -60,6 +62,7 @@ export class AddEditOrderComponent implements OnInit {
     private supervisorsService: SupervisorsService,
     private activatedRoute: ActivatedRoute,
     private driversService: DriversService,
+    private dialogService: DialogService,
     public alertsService: AlertsService,
     public publicService: PublicService,
     private orderService: OrdersService,
@@ -79,6 +82,13 @@ export class AddEditOrderComponent implements OnInit {
       this.publicService?.addValidators(this.orderForm, ['driver']);
     } else {
       this.publicService?.removeValidators(this.orderForm, ['driver']);
+    }
+    if (this.isEdit && this.userData?.userType == 7) {
+      this.publicService?.addValidators(this.orderForm, ['paidAmount']);
+      this.publicService?.addValidators(this.orderForm, ['paymentMethod']);
+    } else {
+      this.publicService?.removeValidators(this.orderForm, ['paidAmount']);
+      this.publicService?.removeValidators(this.orderForm, ['paymentMethod']);
     }
     this.orderId = this.activatedRoute.snapshot.params['id'];
     this.isEdit = this.orderId ? true : false;
@@ -190,10 +200,11 @@ export class AddEditOrderComponent implements OnInit {
     this.cdr?.detectChanges();
   }
   onChangeDistrict(item: any): void {
-    console.log(item);
-
     if (item?.value?.id) {
       this.getSupervisorsByDistrictId(item?.value?.id);
+      this.orderForm?.patchValue({
+        supervisor: null
+      });
       this.orderForm?.controls?.supervisor?.enable();
     }
   }
@@ -212,6 +223,9 @@ export class AddEditOrderComponent implements OnInit {
   onChangeSupervisor(item: any): void {
     if (item?.value?.id) {
       this.getDriversBysuperVisorId(item?.value?.id);
+      this.orderForm?.patchValue({
+        driver: null
+      });
       this.orderForm?.controls?.driver?.enable();
     }
     console.log(this.orderForm?.value);
@@ -314,7 +328,7 @@ export class AddEditOrderComponent implements OnInit {
         if (supervisor?.id == this.orderData?.supervisorId) {
           this.orderForm?.patchValue({
             supervisor: supervisor
-          })
+          });
         }
       });
     }
@@ -470,7 +484,6 @@ export class AddEditOrderComponent implements OnInit {
 
   submit(): void {
     const myObject: { [key: string]: any } = {};
-
     if (this.orderForm?.valid) {
       let date: Date = new Date();
       let formInfo: any = this.orderForm?.value;
@@ -489,38 +502,83 @@ export class AddEditOrderComponent implements OnInit {
 
       if (this.isEdit) {
         myObject['id'] = this.orderId;
-        // myObject['paidAmount'] = formInfo?.paidAmount;
-        myObject['orderNumber'] = formInfo?.orderNumber;
+        if (this.userData?.userType == 7) {
+          myObject['paidAmount'] = formInfo?.paidAmount;
+        }
+        // myObject['orderNumber'] = formInfo?.orderNumber;
         // myObject['lastModifiedBy'] = 0;
       } else {
         // myObject['createBy'] = 0;
       }
 
-      this.publicService?.show_loader?.next(true);
       console.log(myObject);
-
-      this.orderService?.addOrUpdateOrder(myObject, this.orderId ? this.orderId : null)?.subscribe(
-        (res: any) => {
-          if (res?.isSuccess == true && res?.statusCode == 200) {
+      if (this.isEdit && this.userData?.userType == 7) {
+        this.publicService?.show_loader?.next(true);
+        this.orderService?.addOrUpdateOrderDriverArrivedAtStation(myObject, this.orderId ? this.orderId : null)?.subscribe(
+          (res: any) => {
+            if (res?.isSuccess == true && res?.statusCode == 200) {
+              this.publicService?.show_loader?.next(false);
+              res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+              this.router.navigate(['/dashboard/orders'])
+            } else {
+              res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+              this.publicService?.show_loader?.next(false);
+            }
+          },
+          (err: any) => {
+            err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
             this.publicService?.show_loader?.next(false);
-            res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
-            this.router.navigate(['/dashboard/orders'])
-          } else {
-            res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
-            this.publicService?.show_loader?.next(false);
-          }
-        },
-        (err: any) => {
-          err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
-          this.publicService?.show_loader?.next(false);
+          });
+      } else if (this.isEdit && this.userData?.userType == 8) {
+        const ref = this.dialogService.open(ConfirmCompleteOrderComponent, {
+          header: this.publicService?.translateTextFromJson('general.confirm_order'),
+          dismissableMask: false,
+          width: '35%',
         });
+        ref.onClose.subscribe((res: any) => {
+          if (res?.confirmed) {
+            this.publicService?.show_loader?.next(true);
+            this.orderService?.addOrUpdateOrderComplete(myObject, this.orderId ? this.orderId : null)?.subscribe(
+              (res: any) => {
+                if (res?.isSuccess == true && res?.statusCode == 200) {
+                  this.publicService?.show_loader?.next(false);
+                  res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+                  this.router.navigate(['/dashboard/orders']);
+                } else {
+                  res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+                  this.publicService?.show_loader?.next(false);
+                }
+              },
+              (err: any) => {
+                err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+                this.publicService?.show_loader?.next(false);
+              });
+          }
+        });
+      } else {
+        this.orderService?.addOrUpdateOrder(myObject, this.orderId ? this.orderId : null)?.subscribe(
+          (res: any) => {
+            if (res?.isSuccess == true && res?.statusCode == 200) {
+              this.publicService?.show_loader?.next(false);
+              res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+              this.router.navigate(['/dashboard/orders']);
+            } else {
+              res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+              this.publicService?.show_loader?.next(false);
+            }
+          },
+          (err: any) => {
+            err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+            this.publicService?.show_loader?.next(false);
+          });
+      }
     } else {
       this.checkValidityService?.validateAllFormFields(this.orderForm);
     }
   }
 
   cancel(): void {
-
+    this.router.navigate(['/dashboard/orders']);
   }
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());

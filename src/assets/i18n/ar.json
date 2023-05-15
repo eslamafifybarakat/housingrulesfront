@@ -4,6 +4,8 @@
     "arabic": "Arabic"
   },
   "general": {
+    "confirm_order": "تأكيد الطلب",
+    "confirm_order_qu": "هل تريد حقا إتمام الطلب؟",
     "backToHome": "العودة للرئيسية",
     "pageNotFound": "الصفحة غير موجوده",
     "serverError": "حدث خطأ في السيرفر",
