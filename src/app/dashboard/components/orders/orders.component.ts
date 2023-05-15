@@ -1,10 +1,12 @@
+import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { OrdersService } from './../../services/orders.service';
+import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
-import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -23,7 +25,7 @@ export class OrdersComponent implements OnInit {
   tableHeaders: any = [];
 
   page: number = 1;
-  perPage: number = 5;
+  perPage: number = 100000;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
 
@@ -37,36 +39,54 @@ export class OrdersComponent implements OnInit {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
+  orderOriginList: any = [];
+  propertyTypeList: any = [];
+  paymentMethodList: any = [];
+
+  userLoginDataType: any;
+
   constructor(
     private alertsService: AlertsService,
     private publicService: PublicService,
     private dialogService: DialogService,
     private ordersService: OrdersService,
     private cdr: ChangeDetectorRef,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.userLoginDataType = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}')?.userType;
+    console.log(this.userLoginDataType);
+    if (this.userLoginDataType !== 9) {
+      this.showActionTableColumn = true;
+      this.showEditAction = true;
+    }
+
     this.tableHeaders = [
-      { field: 'date', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), sort: false, filter: true, type: 'date' },
-      { field: 'orderOrigin', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
-      { field: 'propertyType', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
-      { field: 'customerMobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerMobileNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerMobileNumber'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'numeric' },
-      { field: 'district', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
-      { field: 'locationLink', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', enableItemLink: true },
-      { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'orderNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+      { field: 'orderOrigin', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+      { field: 'customer', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerName'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.customers'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+      { field: 'customerMobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerMobileNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerMobileNumber'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'locationLink', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', enableItemLink: true, typeViewModal: 'location' },
+      { field: 'supervisor', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisor'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+      // { field: 'driver', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driver'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.drivers'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'status', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'filterArray', dataType: 'array', list: 'orderStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.status'), label: this.publicService?.translateTextFromJson('labels.status'), status: true },
-      { field: 'paymentMethod', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.paymentMethod'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.paymentMethod'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'paidAmount', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.paidAmount'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.paidAmount'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'numeric' },
-      { field: 'cancellationCauses', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.cancellationCauses'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.cancellationCauses'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'closedAt', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.closedAt'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.closedAt'), sort: false, filter: true, type: 'date' },
-      { field: 'drivers', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.drivers'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.drivers'), filter: true, type: 'filterArray', dataType: 'array', list: 'drivers', placeholder: this.publicService?.translateTextFromJson('placeholder.driver'), label: this.publicService?.translateTextFromJson('labels.driver') },
-      { field: 'supervisors', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), filter: true, type: 'filterArray', dataType: 'array', list: 'supervisors', placeholder: this.publicService?.translateTextFromJson('placeholder.supervisor'), label: this.publicService?.translateTextFromJson('labels.supervisor') },
-      { field: 'customer', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.customers'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.customers'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
-      { field: 'comments', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.comments'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.comments'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+      // { field: 'dateTime', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.date'), sort: false, filter: true, type: 'date' },
+      // { field: 'district', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+      // { field: 'tank', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+      // { field: 'propertyType', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.propertyType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'filterArray', dataType: 'array', list: 'propertyType', placeholder: this.publicService?.translateTextFromJson('placeholder.propertyType'), label: this.publicService?.translateTextFromJson('labels.propertyType') },
+      // { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      // { field: 'paymentMethod', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.paymentMethod'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.paymentMethod'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      // { field: 'paidAmount', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.paidAmount'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.paidAmount'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'numeric' },
+      // { field: 'cancellationCauses', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.cancellationCauses'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.cancellationCauses'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      // { field: 'closedAt', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.closedAt'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.closedAt'), sort: false, filter: true, type: 'date' },
 
     ];
 
     this.getAllOrders();
+    this.propertyTypeList = this.publicService?.getPropertyType();
+    this.orderOriginList = this.publicService?.getOrderOrigin();
+    this.paymentMethodList = this.publicService?.getPaymentMethods();
   }
 
   getAllOrders(): any {
@@ -74,43 +94,76 @@ export class OrdersComponent implements OnInit {
     this.ordersService?.getOrdersList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
       .pipe(
         map((res: any) => {
-          this.ordersCount = res?.data?.pagination?.total;
+          this.ordersCount = res?.total;
           this.pagesCount = Math.ceil(this.ordersCount / this.perPage);
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
-            let sizeTank: any;
-            if (item?.tankSize == 0) {
-              sizeTank = "Size13";
+            let status: any = '';
+            if (item?.status == 1) {
+              status = 'Pending'
             }
-            if (item?.tankSize == 1) {
-              sizeTank = "Size20";
+            if (item?.status == 2) {
+              status = 'AssignedToDriver'
             }
-            if (item?.tankSize == 2) {
-              sizeTank = "Size32";
+            if (item?.status == 3) {
+              status = 'DriverOnTheWayToCustomer'
             }
+            if (item?.status == 4) {
+              status = 'DriverArrivedToCustomer'
+            }
+            if (item?.status == 5) {
+              status = 'DriverOnTheWayStation'
+            }
+            if (item?.status == 6) {
+              status = 'DriverArrivedAtStation'
+            }
+            if (item?.status == 7) {
+              status = 'Completed'
+            }
+            if (item?.status == 8) {
+              status = 'Cancelled'
+            }
+            let orderOrigin: any;
+            this.orderOriginList?.forEach((element: any) => {
+              if (element?.value == item?.orderOrigin) {
+                orderOrigin = element?.name
+              }
+            });
+            let propertyType: any = [];
+            this.propertyTypeList?.forEach((element: any) => {
+              if (element?.value == item?.propertyType) {
+                propertyType?.push(element);
+              }
+            });
+            let paymentMethod: any = '';
+            this.paymentMethodList?.forEach((element: any) => {
+              if (element?.value == item?.paymentMethod) {
+                paymentMethod = element?.name;
+              }
+            });
             arr.push({
               id: item?.id ? item?.id : null,
-              date: item?.date ? new Date(item?.date) : null,
-              orderOrigin: item?.orderOrigin ? item?.orderOrigin : '',
-              propertyType: item?.propertyType ? item?.propertyType : '',
+              dateTime: item?.dateTime ? new Date(item?.dateTime) : null,
+              orderOrigin: orderOrigin,
+              orderNumber: item?.orderNumber ? item?.orderNumber : '',
+              propertyType: propertyType,
               customerMobileNumber: item?.customerMobileNumber ? item?.customerMobileNumber : '',
               district: item?.district ? item?.district : '',
-              locationLink: item?.locationLink ? item?.locationLink : '',
-              tankSize: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.' + sizeTank),
-              tankSizeVal: item?.tankSize ? item?.tankSize : '',
-              status: item?.status ? item?.status : '',
-              paymentMethod: item?.paymentMethod ? item?.paymentMethod : '',
+              locationLink: item?.locationLink ? this.publicService.translateTextFromJson('dashboard.tableHeader.locationLink') : '',
+              tank: item?.tank ? item?.tank : '',
+              status: status,
+              paymentMethod: paymentMethod,
               paidAmount: item?.paidAmount ? item?.paidAmount : '0',
               cancellationCauses: item?.cancellationCauses ? item?.cancellationCauses : '',
               closedAt: item?.closedAt ? item?.closedAt : '',
-              supervisors: item?.supervisors ? item?.supervisors : [],
-              drivers: item?.drivers ? item?.drivers : [],
+              supervisor: item?.supervisor ? item?.supervisor : [],
+              driver: item?.driver ? item?.driver : [],
               customer: item?.customer ? item?.customer : '',
               comments: item?.comments ? item?.comments : '',
 
             });
           }) : '';
-          // this.ordersList$ = arr;
+          this.ordersList$ = arr;
         }),
         finalize(() => {
           this.loadingIndicator = false;
@@ -123,14 +176,6 @@ export class OrdersComponent implements OnInit {
 
       ).subscribe((res: any) => {
       });
-
-    let data: any = [
-      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: 'Governmental', district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'cancelled' },
-      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: 'Governmental', district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'pending' },
-      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: 'Governmental', district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'completed' },
-      { date: new Date(), id: 1, order_number: '765-776-7', orderOrigin: 'By TMS	', propertyType: 'Governmental', district: 'district', tankSize: 77, customer: 'Marwan ali', customerMobileNumber: 87444447, locationLink: '	Location Link', paymentMethod: 'Cash', paidAmount: 300, cancellationCauses: 'cancellationCauses', closedAt: new Date(), supervisors: [{ name: 'Ahmed' }], drivers: [{ name: 'Mohamed' }], status: 'Assigned_To_Driver' }
-    ];
-    this.ordersList$ = data;
   }
   getOrders(): void {
     let arr: any = this.ordersList$
@@ -145,7 +190,7 @@ export class OrdersComponent implements OnInit {
     }
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getOrders();
+    this.getAllOrders();
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
@@ -156,7 +201,6 @@ export class OrdersComponent implements OnInit {
     this.pagesCount = Math?.ceil(this.ordersCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getOrders();
   }
   filter(): void {
     const ref = this.dialogService?.open(FilterOrdersComponent, {
@@ -169,30 +213,16 @@ export class OrdersComponent implements OnInit {
       if (res?.filter) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getOrders();
+        this.getAllOrders();
       }
     });
   }
-  viewLocation(item: any): void { }
+  viewLocation(item: any): void {
+    window?.open(item?.locationLink, "_blank");
+  }
 
   addOrEditItem(item?: any, type?: any): void {
-    // const ref = this.dialogService?.open(AddEditTankComponent, {
-    //   data: {
-    //     item,
-    //     type: type == 'edit' ? 'edit' : 'add'
-    //   },
-    //   header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.tanks.editTank') : this.publicService?.translateTextFromJson('dashboard.tanks.addTank'),
-    //   dismissableMask: false,
-    //   width: '50%',
-    //   styleClass: 'custom_modal'
-    // });
-    // ref.onClose.subscribe((res: any) => {
-    //   if (res?.listChanged) {
-    //     this.page = 1;
-    //     this.publicService?.changePageSub?.next({ page: this.page });
-    //     this.getTanks();
-    //   }
-    // });
+    type == 'edit' ? this.router.navigate(['/dashboard/addOrder', { id: item?.id }]) : this.router.navigate(['/dashboard/addOrder']);
   }
 
   clearTable(event: any): void {
@@ -201,7 +231,7 @@ export class OrdersComponent implements OnInit {
     this.filtersArray = [];
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getOrders();
+    this.getAllOrders();
   }
   sortItems(event: any): void {
     if (event?.order == 1) {
@@ -278,7 +308,7 @@ export class OrdersComponent implements OnInit {
     });
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getOrders();
+    this.getAllOrders();
   }
 
   ngOnDestroy(): void {

@@ -1,3 +1,5 @@
+import { keys } from 'src/app/shared/configs/localstorage-key';
+import { OrdersService } from './../../../../dashboard/services/orders.service';
 import { ConfirmDeleteComponent } from './../../../../shared/components/confirm-delete/confirm-delete.component';
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { DriversService } from './../../../../dashboard/services/drivers.service';
@@ -53,6 +55,7 @@ export class DynamicTableComponent implements OnInit {
   @Input() showDelete: boolean = false;
   @Input() showEdit: boolean = false;
   @Input() showCopyAction: boolean = false;
+  @Input() showResetPassword: boolean = false;
 
   @Input() showPaginationText: boolean = false;
   @Input() pageNumber: number = 1;
@@ -89,6 +92,9 @@ export class DynamicTableComponent implements OnInit {
   @Input() enableFilterDriverStatus: boolean = false;
   @Input() enableFilterOrderStatus: boolean = false;
   @Input() enableFilterIsWorking: boolean = false;
+  @Input() enablefilterDistricts: boolean = false;
+  @Input() enableFilterPropertyType: boolean = false;
+  @Input() enableFilterUserType: boolean = false;
 
   @Input() enableFilterSupervisors: boolean = false;
   @Input() enableFilterTanks: boolean = false;
@@ -125,6 +131,7 @@ export class DynamicTableComponent implements OnInit {
 
   @Output() editChildHandler: EventEmitter<any> = new EventEmitter();
   @Output() copyChildHandler: EventEmitter<any> = new EventEmitter();
+  @Output() resetPasswordHandler: EventEmitter<any> = new EventEmitter();
 
   @Output() itemActionHandler: EventEmitter<any> = new EventEmitter();
   @Output() itemAssignUserHandler: EventEmitter<any> = new EventEmitter();
@@ -146,6 +153,9 @@ export class DynamicTableComponent implements OnInit {
   tanksList: any = [];
   driversList: any = [];
   isWorkingList: any = [];
+  districtsList: any = [];
+  propertyTypeList: any = [];
+  userTypeList: any = [];
 
   assignedUsers: any = [];
   newAssignedUsers: any = [];
@@ -195,18 +205,22 @@ export class DynamicTableComponent implements OnInit {
   url: any;
   collapseAssignMenu: boolean = false;
 
+  currLang: any = '';
+
   constructor(
     private supervisorsService: SupervisorsService,
     private driversService: DriversService,
     private dialogService: DialogService,
     private publicService: PublicService,
     private alertsService: AlertsService,
+    private orderService: OrdersService,
     private tanksService: TanksService,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.currLang = window.localStorage.getItem(keys?.language);
     // this.publicService?.changePageSub?.subscribe((res: any) => {
     //   if (res?.page) {
     //     this.changePageActiveNumber(res?.page);
@@ -228,6 +242,9 @@ export class DynamicTableComponent implements OnInit {
     if (this.enableFilterIsWorking == true) {
       this.getIsWorking();
     }
+    if (this.enablefilterDistricts == true) {
+      this.getDistricts();
+    }
     if (this.enableFilterSupervisors == true) {
       this.getAllSupervisors();
     }
@@ -236,6 +253,12 @@ export class DynamicTableComponent implements OnInit {
     }
     if (this.enableFilterDrivers == true) {
       this.getAllDrivers();
+    }
+    if (this.enableFilterPropertyType == true) {
+      this.getPropertyType();
+    }
+    if (this.enableFilterUserType == true) {
+      this.getUserTypes();
     }
   }
 
@@ -296,8 +319,10 @@ export class DynamicTableComponent implements OnInit {
   copyHandlerEmit(item: any): void {
     this.copyHandler.emit({ item: item });
   }
-  colEventHandlerEmit(item: any, type: string): void {
+  colEventHandlerEmit(item: any, type?: string): void {
     this.colEventHandler.emit({ item: item, type: type });
+    console.log();
+
   }
   editHandlerEmit(item: any): void {
     this.editHandler.emit(item);
@@ -311,6 +336,9 @@ export class DynamicTableComponent implements OnInit {
   }
   copyChildHandlerEmit(item: any): void {
     this.copyChildHandler.emit(item);
+  }
+  resetPasswordHandlerEmit(item: any): void {
+    this.resetPasswordHandler.emit(item);
   }
   deleteHandlerEmit(item: any): void {
     if (this.enableConfirmDeleteDialog) {
@@ -529,7 +557,6 @@ export class DynamicTableComponent implements OnInit {
   }
   filterUsers(event: any): void {
     this.newAssignedUsers = this.assignedUsers?.filter((bank: any) => {
-      console.log(bank);
       return bank?.name?.toLocaleLowerCase()?.includes(event?.toLocaleLowerCase());
     });
 
@@ -552,10 +579,34 @@ export class DynamicTableComponent implements OnInit {
     this.isWorkingList = this.publicService.getIsWorking();
     this.cdr.detectChanges();
   }
+  getDistricts(): any {
+    this.orderService?.getDistrictsList()?.subscribe(
+      (res: any) => {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
+          res?.data[0]?.districts?.forEach((element: any) => {
+            let name: any = '';
+            name = this.currLang == 'ar' ? element?.arName : element?.enName;
+            console.log(name);
+            this.districtsList?.push({
+              id: element?.id,
+              value: element?.id,
+              name: name,
+            });
+          });
+          this.districtsList = res?.data[0]?.districts;
+        } else {
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+      });
+    this.cdr?.detectChanges();
+  }
   getAllSupervisors(): any {
     this.supervisorsService?.getSupervisorsList()?.subscribe(
       (res: any) => {
-        if (res?.statusCode == 200) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             arr.push({
@@ -587,7 +638,7 @@ export class DynamicTableComponent implements OnInit {
   getAllTanks(): any {
     this.tanksService?.getTanksList()?.subscribe(
       (res: any) => {
-        if (res?.isSuccess == true) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             arr.push({
@@ -610,7 +661,7 @@ export class DynamicTableComponent implements OnInit {
   getAllDrivers(): any {
     this.driversService?.getDriversList()?.subscribe(
       (res: any) => {
-        if (res?.isSuccess == true) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             arr.push({
@@ -628,6 +679,17 @@ export class DynamicTableComponent implements OnInit {
       });
     this.cdr.detectChanges();
 
+  }
+  getPropertyType(): any {
+    this.propertyTypeList = this.publicService?.getPropertyType();
+    console.log(this.propertyTypeList);
+
+    this.cdr.detectChanges();
+  }
+  getUserTypes(): any {
+    this.userTypeList = this.publicService?.getUserTypes();
+
+    this.cdr.detectChanges();
   }
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());

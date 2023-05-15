@@ -20,6 +20,11 @@ import { AddEditSupervisorComponent } from './components/supervisors/components/
 import { SupervisorDetailsComponent } from './components/supervisors/components/supervisor-details/supervisor-details.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { FilterOrdersComponent } from './components/orders/components/filter-orders/filter-orders.component';
+import { AddEditOrderComponent } from './components/orders/components/add-edit-order/add-edit-order.component';
+import { ResetPasswordComponent } from './components/users/reset-password/reset-password.component';
+import { ServiceAgentComponent } from './components/service-agent/service-agent.component';
+import { AddEditServiceAgentComponent } from './components/service-agent/components/add-edit-service-agent/add-edit-service-agent.component';
+import { ServiceAgentDetailsComponent } from './components/service-agent/components/service-agent-details/service-agent-details.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +44,11 @@ import { FilterOrdersComponent } from './components/orders/components/filter-ord
     SupervisorDetailsComponent,
     OrdersComponent,
     FilterOrdersComponent,
+    AddEditOrderComponent,
+    ResetPasswordComponent,
+    ServiceAgentComponent,
+    AddEditServiceAgentComponent,
+    ServiceAgentDetailsComponent,
   ],
   imports: [
     DashboardRoutingModule,

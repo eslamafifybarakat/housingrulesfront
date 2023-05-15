@@ -1,13 +1,15 @@
+import { AddEditOrderComponent } from './components/orders/components/add-edit-order/add-edit-order.component';
 import { WelcomeDashboardComponent } from './components/welcome-dashboard/welcome-dashboard.component';
+import { ServiceAgentComponent } from './components/service-agent/service-agent.component';
+import { SupervisorsComponent } from './components/supervisors/supervisors.component';
+import { DriversComponent } from './components/drivers/drivers.component';
+import { OrdersComponent } from './components/orders/orders.component';
 import { UsersComponent } from './components/users/users.component';
 import { TanksComponent } from './components/tanks/tanks.component';
 import { DashboardComponent } from './dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutes } from '../shared/configs/routes';
 import { NgModule } from '@angular/core';
-import { DriversComponent } from './components/drivers/drivers.component';
-import { SupervisorsComponent } from './components/supervisors/supervisors.component';
-import { OrdersComponent } from './components/orders/orders.component';
 
 const routes: Routes = [
   {
@@ -47,6 +49,14 @@ const routes: Routes = [
         }
       },
       {
+        path: AppRoutes?.dashboard?.serviceAgent,
+        component: ServiceAgentComponent,
+        data: {
+          title: 'titles.serviceAgent',
+          type: 'dashboard'
+        }
+      },
+      {
         path: AppRoutes?.dashboard?.orders,
         component: OrdersComponent,
         data: {
@@ -55,7 +65,15 @@ const routes: Routes = [
         }
       },
       {
-        path: 'users',
+        path: AppRoutes?.dashboard?.addOrder,
+        component: AddEditOrderComponent,
+        data: {
+          title: 'titles.addOrder',
+          type: 'dashboard'
+        }
+      },
+      {
+        path: AppRoutes?.dashboard?.users,
         component: UsersComponent,
         data: {
           title: 'titles.users',

@@ -1,6 +1,11 @@
 <div id="supervisors" class="bg-white-color global-card">
   <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
-    <h4 class="mb-0 text-capitalize">{{'dashboard.supervisors.supervisors'|translate}}</h4>
+    <div class="d-flex align-items-center gap-2">
+      <h4 class="mb-0 text-capitalize">{{'dashboard.supervisors.supervisors'|translate}}</h4>
+      <span class="badge badge-main d-flex justify-content-center align-items-center">
+        {{supervisorsCount}}
+      </span>
+    </div>
     <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto" (click)="addOrEditItem()">
       <i class="pi pi-plus-circle"></i>
       <span>{{'dashboard.createNew'|translate}}</span>
@@ -17,5 +22,6 @@
     (filterHandler)="enableSortFilter?filterItems($event):''" [results]="supervisorsCount" [paginatorRows]="perPage"
     [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
     [enableConfirmDeleteDialog]="true" [keyDelete]="'name'" (paginateOptionsHandler)="onPaginatorOptionsChange($event)"
-    [isSearch]="isSearch" [arrayChildKey]="'name'" [enableFilterIsWorking]="true"></app-dynamic-table>
+    [isSearch]="isSearch" [arrayChildKey]="'name'" [enableFilterIsWorking]="true"
+    [enablefilterDistricts]="true"></app-dynamic-table>
 </div>

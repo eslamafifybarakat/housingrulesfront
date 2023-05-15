@@ -54,7 +54,7 @@
           <span class="p-input-icon-right select-loading d-block">
             <p-dropdown [options]="supervisorsList" formControlName="supervisor" optionLabel="name" [filter]="true"
               [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-              [readonly]="isLoadingSupervisors" scrollHeight="200px"
+              [readonly]="isLoadingSupervisors" scrollHeight="150px"
               emptyMessage="{{'general.no_result_found'|translate}}"
               [class.ng-dirty]="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)"
               [showClear]="true" placeholder="{{'placeholder.supervisor'|translate}}">
@@ -83,7 +83,8 @@
           <span class="p-input-icon-right select-loading d-block">
             <p-dropdown [options]="driversList" formControlName="driver" optionLabel="name" [filter]="true"
               [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-              [readonly]="isLoadingDrivers" scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
+              [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDrivers" scrollHeight="150px"
+              emptyMessage="{{'general.no_result_found'|translate}}"
               [class.ng-dirty]="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)"
               [showClear]="true" placeholder="{{'placeholder.driver'|translate}}">
             </p-dropdown>
@@ -103,32 +104,36 @@
           </div>
         </div>
       </div>
-
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="phone" class="mb-2 required">{{'labels.mobilePhone'|translate}}</label>
-          <input type="number" class="form-control" formControlName="phone" autocomplete="cc-name"
-            (input)="publicService?.clearValidationErrors(formControls?.phone)"
-            [class.is-invalid]="formControls?.phone?.invalid && (formControls?.phone?.dirty || formControls?.phone?.touched)"
-            placeholder="{{'placeholder.mobilePhone'|translate}}">
-          <div class="mt-2">
+          <label class="form-label required">
+            {{"labels.orderStatus"|translate}}
+          </label>
+          <span class="p-input-icon-right select-loading d-block">
+            <p-dropdown [options]="orderStatusList" formControlName="orderStatus" optionLabel="name" [filter]="true"
+              [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+              [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDriverStatus"
+              scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+              [class.ng-dirty]="formControls?.orderStatus?.invalid && (formControls?.orderStatus?.dirty || formControls?.orderStatus?.touched)"
+              [showClear]="true" placeholder="{{'placeholder.orderStatus'|translate}}">
+            </p-dropdown>
+            <ng-container *ngIf="isLoadingDriverStatus">
+              <i class="pi pi-spin pi-spinner"></i>
+            </ng-container>
+          </span>
+          <div class="my-2">
             <ng-container
-              *ngIf="formControls?.phone?.invalid && (formControls?.phone?.dirty || formControls?.phone?.touched)">
-              <ng-container *ngIf="formControls?.phone?.errors?.['required']">
+              *ngIf="formControls?.orderStatus?.invalid && (formControls?.orderStatus?.dirty || formControls?.orderStatus?.touched)">
+              <ng-container *ngIf="formControls?.orderStatus?.errors?.['required']">
                 <span class="text-danger fs-8">
-                  {{'validations.required_field'|translate}}
-                </span>
-              </ng-container>
-
-              <ng-container *ngIf="formControls?.phone?.errors?.['minlength']">
-                <span class="text-danger fs-8 d-block">
-                  {{'validations.name_length'|translate}}
+                  {{"validations.required_field"|translate}}
                 </span>
               </ng-container>
             </ng-container>
           </div>
         </div>
       </div>
+
 
     </div>
 

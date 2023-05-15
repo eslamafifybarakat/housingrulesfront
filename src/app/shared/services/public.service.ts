@@ -121,7 +121,13 @@ export class PublicService {
   getIsWorking(): any {
     let arr = [
       { id: 1, value: 'available', name: this.translateTextFromJson('general.available') },
-      { id: 2, value: 'busy', name: this.translateTextFromJson('general.busy') }
+      { id: 2, value: 'busy', name: this.translateTextFromJson('general.notAvailable') }
+    ];
+    return arr;
+  }
+  getDistricts(): any {
+    let arr = [
+      { id: 1, value: 1, name: "جيزان" }
     ];
     return arr;
   }
@@ -136,6 +142,51 @@ export class PublicService {
       { id: 7, value: 'cancelled', name: this.translateTextFromJson('general.cancelled') },
 
     ];
+    return arr;
+  }
+
+  getPropertyType(): any {
+    let arr: any = [
+      { id: 1, value: 1, name: this.translateTextFromJson('general.Residential') },
+      { id: 2, value: 2, name: this.translateTextFromJson('general.Governmental') },
+      { id: 3, value: 3, name: this.translateTextFromJson('general.Commercial') },
+    ];
+    return arr;
+  }
+
+  getOrderOrigin(): any {
+    let orderOriginList: any = [
+      { id: 1, value: 1, name: this.translateTextFromJson('general.byWhatsApp') },
+      { id: 2, value: 2, name: this.translateTextFromJson('general.byTMS') },
+      { id: 3, value: 3, name: this.translateTextFromJson('general.byCall') },
+      { id: 4, value: 4, name: this.translateTextFromJson('general.bySite') },
+      { id: 5, value: 5, name: this.translateTextFromJson('general.others') },
+    ]
+    return orderOriginList;
+  }
+
+  getPaymentMethods(): any {
+    let paymentMethodsList: any = [
+      { id: 1, value: 1, name: "Cash" },
+      { id: 2, value: 2, name: "Mada" },
+      { id: 3, value: 3, name: "Transfer" },
+      { id: 4, value: 4, name: "Credit" }
+    ]
+    return paymentMethodsList;
+  }
+
+  getUserTypes(): any {
+    let arr: any = [
+      { id: 1, value: 1, name: this.translateTextFromJson('dashboard.users.userTypes.superAdmin') },
+      { id: 2, value: 2, name: this.translateTextFromJson('dashboard.users.userTypes.admin') },
+      { id: 3, value: 3, name: this.translateTextFromJson('dashboard.users.userTypes.customerServicesSupervisor') },
+      { id: 4, value: 4, name: this.translateTextFromJson('dashboard.users.userTypes.customerService') },
+      { id: 5, value: 5, name: this.translateTextFromJson('dashboard.users.userTypes.driversSupervisor') },
+      { id: 6, value: 6, name: this.translateTextFromJson('dashboard.users.userTypes.driver') },
+      { id: 7, value: 7, name: this.translateTextFromJson('dashboard.users.userTypes.gateIn') },
+      { id: 8, value: 8, name: this.translateTextFromJson('dashboard.users.userTypes.gateOut') },
+      { id: 9, value: 9, name: this.translateTextFromJson('dashboard.users.userTypes.accountant') }
+    ]
     return arr;
   }
 }

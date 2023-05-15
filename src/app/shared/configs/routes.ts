@@ -1,4 +1,5 @@
 export const AppRoutes = {
+  error: 'error',
   auth: {
     login: 'login',
     register: 'register',
@@ -10,6 +11,9 @@ export const AppRoutes = {
     tanks: 'tanks',
     drivers: 'drivers',
     supervisors: 'supervisors',
-    orders: 'orders'
+    orders: 'orders',
+    serviceAgent: 'service-agent',
+    addOrder: "addOrder",
+    users: 'users'
   }
 }

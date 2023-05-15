@@ -55,7 +55,6 @@ input:-webkit-autofill {
 .form-select,
 .form-select:focus,
 .form-select:focus-visible,
-.ng-select.ng-select-single .ng-select-container,
 .p-inputtext {
   box-shadow: none !important;
   outline: none !important;
@@ -67,7 +66,10 @@ input:-webkit-autofill {
   background-color: #fafafa;
   // border-color: #d7d7d799;
 }
-.p-dropdown {
+
+.p-dropdown,
+.p-multiselect,
+.ng-select.ng-select-single .ng-select-container {
   background-color: #fafafa;
   border-radius: var(--border-input-radius);
   height: 3.4rem;
@@ -124,7 +126,9 @@ input:-webkit-autofill {
     border: 0 !important;
   }
 }
-
+textarea.form-control {
+  min-height: 5rem !important;
+}
 .border-green {
   border: 1px solid #198754 !important;
   border-radius: 0.625rem !important;
@@ -134,9 +138,6 @@ input:-webkit-autofill {
   }
 }
 
-.textarea {
-  height: 120px;
-}
 .required {
   &:after {
     content: "*";

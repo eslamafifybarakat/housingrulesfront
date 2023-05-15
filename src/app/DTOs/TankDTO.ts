@@ -10,8 +10,8 @@
         public name: string = null;
         // TANKSIZE
         public tankSize: TankSize = TankSize.Size13;
-        // PALATENO
-        public palateNo: string = null;
+        // plateNumber
+        public plateNumber: string = null;
         // ISWORKING
         public isWorking: boolean = false;
         // ISAVAILABLE

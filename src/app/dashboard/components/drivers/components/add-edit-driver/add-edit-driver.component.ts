@@ -69,17 +69,23 @@ export class AddEditDriverComponent implements OnInit {
 
   modalForm = this.fb?.group(
     {
-      name: ['', {
+      arName: ['', {
         validators: [
           Validators.required,
-          Validators?.minLength(3)], updateOn: "blur"
+          Validators?.minLength(3), Validators.pattern(patterns?.arName)],
+        updateOn: "blur"
       }],
-      username: ['', {
+      enName: ['', {
         validators: [
-          Validators.required,
-          Validators?.pattern(patterns?.userName),
-          Validators?.minLength(3)], updateOn: "blur"
+          Validators?.minLength(3), Validators.pattern(patterns?.enName)],
+        updateOn: "blur"
       }],
+      // username: ['', {
+      //   validators: [
+      //     Validators.required,
+      //     Validators?.pattern(patterns?.userName),
+      //     Validators?.minLength(3)], updateOn: "blur"
+      // }],
       supervisor: ['', {
         validators: [
           Validators.required], updateOn: "blur"
@@ -94,7 +100,7 @@ export class AddEditDriverComponent implements OnInit {
       }],
       phone: ['', {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required, Validators.pattern(patterns?.phone)], updateOn: "blur"
       }],
       password: ['', {
         validators: [
@@ -103,13 +109,13 @@ export class AddEditDriverComponent implements OnInit {
           Validators?.maxLength(20),
         ], updateOn: "blur"
       }],
-      confirmPassword: ['', {
-        validators: [
-          Validators.required,
-          Validators?.minLength(8),
-          Validators?.maxLength(20),
-        ], updateOn: "blur"
-      }]
+      // confirmPassword: ['', {
+      //   validators: [
+      //     Validators.required,
+      //     Validators?.minLength(8),
+      //     Validators?.maxLength(20),
+      //   ], updateOn: "blur"
+      // }]
     },
     {
       validator: ConfirmPasswordValidator?.MatchPassword
@@ -123,16 +129,16 @@ export class AddEditDriverComponent implements OnInit {
     this.isLoadingSupervisors = true;
     this.supervisorsService?.getSupervisorsList()?.subscribe(
       (res: any) => {
-        if (res?.code == 200) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           res?.data ? res?.data?.forEach((supervisor: any) => {
             this.supervisorsList?.push({
-              name: supervisor?.name,
+              name: supervisor?.arName,
               id: supervisor?.id
             });
           }) : '';
           if (this.isEdit) {
             this.supervisorsList?.forEach((supervisor: any) => {
-              if (supervisor?.id == this.driverData?.supervisorId) {
+              if (supervisor?.id == this.modalData?.item?.supervisorId) {
                 this.modalForm?.patchValue({
                   supervisor: supervisor
                 })
@@ -150,18 +156,9 @@ export class AddEditDriverComponent implements OnInit {
         this.isLoadingSupervisors = false;
       });
     this.cdr?.detectChanges();
-
-    this.supervisorsList = [
-      { id: 1, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 33, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-    ]
     if (this.isEdit) {
       this.supervisorsList?.forEach((supervisor: any) => {
-        if (supervisor?.id == this.driverData?.supervisorId) {
+        if (supervisor?.id == this.modalData?.item?.supervisorId) {
           this.modalForm?.patchValue({
             supervisor: supervisor
           })
@@ -173,7 +170,7 @@ export class AddEditDriverComponent implements OnInit {
     this.isLoadingTanks = true;
     this.tanksService?.getTanksList()?.subscribe(
       (res: any) => {
-        if (res?.isSuccess == true) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
           res?.data ? res?.data?.forEach((tank: any) => {
             this.tanksList?.push({
               name: tank?.name,
@@ -182,7 +179,7 @@ export class AddEditDriverComponent implements OnInit {
           }) : '';
           if (this.isEdit) {
             this.tanksList?.forEach((tank: any) => {
-              if (tank?.id == this.driverData?.tankId) {
+              if (tank?.id == this.modalData?.item?.tankId) {
                 this.modalForm?.patchValue({
                   tank: tank
                 })
@@ -209,7 +206,7 @@ export class AddEditDriverComponent implements OnInit {
     ]
     if (this.isEdit) {
       this.driverStatusList?.forEach((status: any) => {
-        if (status?.value == this.driverData?.driver_status) {
+        if (status?.value == this.modalData?.item?.statusVal) {
           this.modalForm?.patchValue({
             driverStatus: status
           })
@@ -218,33 +215,41 @@ export class AddEditDriverComponent implements OnInit {
     }
   }
   patchValue(): void {
+    console.log(this.modalData);
     this.modalForm?.patchValue({
-      name: this.driverData?.name,
-      username: this.driverData?.username,
-      phone: this.driverData?.mobile_phone,
+      arName: this.modalData?.item?.arName,
+      enName: this.modalData?.item?.enName,
+      phone: this.modalData?.item?.mobileNumber,
     })
   }
   getDriverData(id: number): void {
-    this.isFullLoading = true;
-    this.driversService?.getDriverById(id)?.subscribe(
-      (res: any) => {
-        if (res?.code == 200) {
-          this.driverData = res?.data ? res?.data : null;
-          this.getAllTanks();
-          this.getAllSupervisors();
-          this.getDriverStatus();
-          this.patchValue();
-          this.isFullLoading = false;
-        } else {
-          res?.message ? this.alertsService.openSweetAlert('info', res?.message) : '';
-          this.isFullLoading = false;
-        }
-      },
-      (err: any) => {
-        err?.message ? this.alertsService.openSweetAlert('error', err?.message) : '';
-        this.isFullLoading = false;
-      });
-    this.cdr.detectChanges();
+    this.isEdit = this.modalData?.type == 'edit' ? true : false;
+    if (this.isEdit) {
+      this.patchValue();
+      this.getAllTanks();
+      this.getAllSupervisors();
+      this.getDriverStatus();
+    }
+    // this.isFullLoading = true;
+    // this.driversService?.getDriverById(id)?.subscribe(
+    //   (res: any) => {
+    //     if (res?.statusCode == 200 && res?.isSuccess == true) {
+    //       this.driverData = res?.data ? res?.data : null;
+    //       this.getAllTanks();
+    //       this.getAllSupervisors();
+    //       this.getDriverStatus();
+    //       this.patchValue();
+    //       this.isFullLoading = false;
+    //     } else {
+    //       res?.message ? this.alertsService.openSweetAlert('info', res?.message) : '';
+    //       this.isFullLoading = false;
+    //     }
+    //   },
+    //   (err: any) => {
+    //     err?.message ? this.alertsService.openSweetAlert('error', err?.message) : '';
+    //     this.isFullLoading = false;
+    //   });
+    // this.cdr.detectChanges();
 
     this.driverData = {
       id: 17, name: 'marwan ali', username: 'marwan12', supervisorId: 33, tankId: 21, driver_status: 'far', mobile_phone: '0289783938'
@@ -258,22 +263,23 @@ export class AddEditDriverComponent implements OnInit {
   submit(): void {
     const myObject: { [key: string]: any } = {};
     if (this.modalForm?.valid) {
-      myObject['name'] = this.modalForm?.value?.name;
-      myObject['userId'] = this.modalForm?.value?.username;
+      myObject['arName'] = this.modalForm?.value?.arName;
+      myObject['enName'] = this.modalForm?.value?.enName;
+      // myObject['username'] = this.modalForm?.value?.username;
       myObject['supervisorId'] = this.modalForm?.value?.supervisor?.id;
       myObject['tankId'] = this.modalForm?.value?.tank?.id;
       myObject['driverStatus'] = this.modalForm?.value?.driverStatus?.value;
-      myObject['mobilePhone'] = this.modalForm?.value?.phone;
+      myObject['mobileNumber'] = this.modalForm?.value?.phone;
       // myObject['driverStatus'] = this.modalForm?.value?.driverStatus?.value;
       if (!this.isEdit) {
         myObject['password'] = this.modalForm?.value?.password;
-        myObject['confirmPassword'] = this.modalForm?.value?.confirmPassword;
+        // myObject['confirmPassword'] = this.modalForm?.value?.confirmPassword;
       }
       if (this.isEdit) {
         myObject['id'] = this.driverId;
-        myObject['lastModifiedBy'] = 0;
+        // myObject['lastModifiedBy'] = 0;
       } else {
-        myObject['createBy'] = 0;
+        // myObject['createBy'] = 0;
       }
 
       this.publicService?.show_loader?.next(true);

@@ -1,7 +1,7 @@
-import { AddEditDriverComponent } from '../add-edit-driver/add-edit-driver.component';
 import { DynamicDialogConfig, DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
-import { PublicService } from './../../../../../shared/services/public.service';
+import { AddEditDriverComponent } from '../add-edit-driver/add-edit-driver.component';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
+import { PublicService } from './../../../../../shared/services/public.service';
 import { DriversService } from './../../../../services/drivers.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
@@ -17,7 +17,8 @@ export class DriverDetailsComponent implements OnInit {
 
   modalData: any;
   driverId: any;
-
+  tankName: any = '';
+  supervisorName: any = '';
   constructor(
     private driversService: DriversService,
     private dialogService: DialogService,
@@ -33,6 +34,8 @@ export class DriverDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.modalData = this.config?.data;
     this.driverId = this.modalData?.id;
+    this.tankName = this.modalData?.tanks[0]?.name;
+    this.supervisorName = this.modalData?.supervisors[0]?.name;
   }
 
   edit(): void {
@@ -53,6 +56,6 @@ export class DriverDetailsComponent implements OnInit {
     this.ref?.close({ listChanged: false });
   }
   ngOnDestroy(): void {
-    this.unsubscribe.forEach((sb) => sb.unsubscribe());
+    this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
   }
 }

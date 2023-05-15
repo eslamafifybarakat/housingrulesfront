@@ -39,6 +39,8 @@ export class DriversComponent implements OnInit {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
+  driverStatusList: any = [];
+
   constructor(
     private driversService: DriversService,
     private alertsService: AlertsService,
@@ -49,16 +51,19 @@ export class DriversComponent implements OnInit {
 
   ngOnInit(): void {
     this.tableHeaders = [
-      { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      { field: 'arName', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
 
-      { field: 'tanks', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), filter: true, type: 'filterArray', dataType: 'array', list: 'tanks', placeholder: this.publicService?.translateTextFromJson('placeholder.tank'), label: this.publicService?.translateTextFromJson('labels.tank') },
-      { field: 'supervisors', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), filter: true, type: 'filterArray', dataType: 'array', list: 'supervisors', placeholder: this.publicService?.translateTextFromJson('placeholder.supervisor'), label: this.publicService?.translateTextFromJson('labels.supervisor') },
+      { field: 'tank', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), filter: true, type: 'filterArray', dataType: 'array', list: 'tanks', placeholder: this.publicService?.translateTextFromJson('placeholder.tank'), label: this.publicService?.translateTextFromJson('labels.tank') },
+      { field: 'supervisor', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), filter: true, type: 'filterArray', dataType: 'array', list: 'supervisors', placeholder: this.publicService?.translateTextFromJson('placeholder.supervisor'), label: this.publicService?.translateTextFromJson('labels.supervisor') },
       { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
 
       { field: 'driverStatus', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), filter: true, type: 'filterArray', dataType: 'array', list: 'driverStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.driverStatus'), label: this.publicService?.translateTextFromJson('labels.driverStatus'), status: true },
     ];
 
     this.getAllDrivers();
+    this.driverStatusList = this.publicService?.getDriverStatus();
+    console.log(this.driverStatusList);
+
   }
 
   getAllDrivers(): any {
@@ -71,13 +76,27 @@ export class DriversComponent implements OnInit {
           let arr: any = [];
           res?.data ? res?.data?.forEach((driver: any) => {
             let tankArr: any = [];
-            driver?.tank ? tankArr?.push(driver?.tank) : '';
+            driver?.tank ? tankArr?.push({ name: driver?.tank }) : '';
             let supervisorArr: any = [];
-            driver?.supervisor ? supervisorArr?.push(driver?.supervisor) : '';
+            driver?.supervisor ? supervisorArr?.push({ name: driver?.supervisor }) : '';
+            let driverStatus: any = '';
+            if (driver?.driverStatus == 0) {
+              driverStatus = this.driverStatusList[0].name;
+            }
+            if (driver?.driverStatus == 1) {
+              driverStatus = this.driverStatusList[1].name;
+            }
+            if (driver?.driverStatus == 2) {
+              driverStatus = this.driverStatusList[2].name;
+            }
             arr.push({
               id: driver?.id ? driver?.id : null,
-              name: driver?.name ? driver?.name : '',
-              driverStatus: driver?.driverStatus ? driver?.driverStatus : null,
+              arName: driver?.arName ? driver?.arName : '',
+              enName: driver?.enName ? driver?.enName : '',
+              driverStatus: driverStatus,
+              statusVal: driver?.driverStatus,
+              tankId: driver?.tankId,
+              supervisorId: driver?.supervisorId,
               mobileNumber: driver?.mobileNumber ? driver?.mobileNumber : '',
               tank: tankArr,
               supervisor: supervisorArr
@@ -120,7 +139,7 @@ export class DriversComponent implements OnInit {
     }
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getDrivers();
+    this.getAllDrivers();
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
@@ -131,7 +150,7 @@ export class DriversComponent implements OnInit {
     this.pagesCount = Math?.ceil(this.driversCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getDrivers();
+    // this.getDrivers();
   }
 
   itemDetails(item?: any): void {
@@ -167,7 +186,7 @@ export class DriversComponent implements OnInit {
       this.publicService?.show_loader.next(true);
       this.driversService?.deleteDriverId(item?.item?.id)?.subscribe(
         (res: any) => {
-          if (res?.code === 200) {
+          if (res?.statusCode == 200 && res?.isSuccess == true) {
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
             this.getAllDrivers();
             this.publicService?.show_loader?.next(false);
@@ -190,7 +209,7 @@ export class DriversComponent implements OnInit {
     this.filtersArray = [];
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getDrivers();
+    this.getAllDrivers();
   }
   sortItems(event: any): void {
     if (event?.order == 1) {

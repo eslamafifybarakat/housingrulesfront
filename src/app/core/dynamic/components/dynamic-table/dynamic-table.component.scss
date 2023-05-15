@@ -149,7 +149,9 @@
   .not-found {
     min-height: 20rem;
   }
-
+  .reset-password:hover {
+    color: var(--text-main-color) !important;
+  }
   .pi-filter:before {
     content: "\f0b0" !important;
     font-family: "FontAwesome" !important;

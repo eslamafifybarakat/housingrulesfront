@@ -1,14 +1,12 @@
 import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
-import { patterns } from './../../../../../shared/configs/patternValidations';
-import { Router } from '@angular/router';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../../../shared/services/public.service';
 import { DriversService } from './../../../../services/drivers.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { TanksService } from './../../../../services/tanks.service';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Validators, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -37,7 +35,6 @@ export class FilterOrdersComponent implements OnInit {
     private driversService: DriversService,
     public alertsService: AlertsService,
     public publicService: PublicService,
-    private config: DynamicDialogConfig,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     protected router: Router,
@@ -46,6 +43,7 @@ export class FilterOrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllSupervisors();
+    this.getAllDrivers();
     this.orderStatusList = this.publicService?.getOrderStatus();
   }
 
@@ -62,15 +60,10 @@ export class FilterOrdersComponent implements OnInit {
         validators: [
           Validators.required], updateOn: "blur"
       }],
-      driverStatus: ['', {
+      orderStatus: ['', {
         validators: [
           Validators.required], updateOn: "blur"
       }],
-      phone: ['', {
-        validators: [
-          Validators.required], updateOn: "blur"
-      }],
-
     },
   );
 
@@ -94,45 +87,40 @@ export class FilterOrdersComponent implements OnInit {
     this.isLoadingSupervisors = true;
     this.supervisorsService?.getSupervisorsList()?.subscribe(
       (res: any) => {
-        if (res?.code == 200) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
+          let arr: any = [];
           res?.data ? res?.data?.forEach((supervisor: any) => {
-            this.supervisorsList?.push({
-              name: supervisor?.name,
+            arr?.push({
+              name: supervisor?.arName,
               id: supervisor?.id
             });
           }) : '';
+          this.supervisorsList = arr;
           this.isLoadingSupervisors = false;
         } else {
-          res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
           this.isLoadingSupervisors = false;
         }
       },
       (err: any) => {
-        err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
         this.isLoadingSupervisors = false;
       });
     this.cdr?.detectChanges();
-
-    this.supervisorsList = [
-      { id: 1, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 33, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-      { id: 1, name: "ali ahmed" },
-    ]
   }
   getAllDrivers(): any {
     this.isLoadingDrivers = true;
     this.driversService?.getDriversList()?.subscribe(
       (res: any) => {
-        if (res?.code == 200) {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
+          let arr: any = [];
           res?.data ? res?.data?.forEach((item: any) => {
-            this.driversList?.push({
-              name: item?.name,
+            arr?.push({
+              name: item?.arName,
               id: item?.id
             });
           }) : '';
+          this.driversList = arr;
           this.isLoadingDrivers = false;
         } else {
           res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
@@ -144,41 +132,19 @@ export class FilterOrdersComponent implements OnInit {
         this.isLoadingDrivers = false;
       });
     this.cdr?.detectChanges();
-
-    this.driversList = [
-      { id: 1, name: 'tank1' },
-      { id: 2, name: 'tank1' },
-      { id: 21, name: 'tank1' },
-      { id: 31, name: 'tank1' },
-    ]
   }
 
   submit(): void {
     const myObject: { [key: string]: any } = {};
-
     if (this.modalForm?.valid) {
-      // myObject['name'] = this.modalForm?.value?.name;
-      // myObject['username'] = this.modalForm?.value?.username;
-      // myObject['supervisor'] = this.modalForm?.value?.supervisor?.id;
-      // myObject['tank'] = this.modalForm?.value?.tank?.id;
-      // myObject['driver_status'] = this.modalForm?.value?.driverStatus?.value;
-      myObject['mobile_phone'] = this.modalForm?.value?.phone;
+      let formInfo: any = this.modalForm?.value;
+      myObject['startDate'] = formInfo?.startDate;
+      myObject['endDate'] = formInfo?.endDate;
+      myObject['supervisorId'] = formInfo?.supervisor?.id;
+      myObject['driverId'] = formInfo?.driver?.id;
+      myObject['orderStatus'] = formInfo?.orderStatus?.value;
 
-      this.publicService?.show_loader?.next(true);
-      this.driversService?.addOrUpdateDriver(myObject)?.subscribe(
-        (res: any) => {
-          if (res?.code == 200) {
-            this.ref?.close({ listChanged: true });
-            this.publicService?.show_loader?.next(false);
-          } else {
-            res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
-            this.publicService?.show_loader?.next(false);
-          }
-        },
-        (err: any) => {
-          err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
-          this.publicService?.show_loader?.next(false);
-        });
+      this.ref?.close(myObject)
     } else {
       this.checkValidityService?.validateAllFormFields(this.modalForm);
     }

@@ -25,7 +25,7 @@ export class SupervisorsComponent implements OnInit {
   tableHeaders: any = [];
 
   page: number = 1;
-  perPage: number = 5;
+  perPage: number = 100000;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
 
@@ -39,18 +39,20 @@ export class SupervisorsComponent implements OnInit {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
+
   constructor(
     private supervisorsService: SupervisorsService,
     private dialogService: DialogService,
     private alertsService: AlertsService,
     public publicService: PublicService,
-    private cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.tableHeaders = [
-      { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
+      { field: 'arName', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      // { field: 'district', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), filter: true, type: 'filterArray', dataType: 'array', list: 'districts', placeholder: this.publicService?.translateTextFromJson('placeholder.district'), label: this.publicService?.translateTextFromJson('labels.district') },
+      { field: 'status', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
       // { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
 
@@ -62,11 +64,12 @@ export class SupervisorsComponent implements OnInit {
     this.supervisorsService?.getSupervisorsList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
       .pipe(
         map((res: any) => {
-          this.supervisorsCount = res?.data?.pagination?.total;
+          this.supervisorsCount = res?.total;
           this.pagesCount = Math.ceil(this.supervisorsCount / this.perPage);
           let arr: any = [];
           let workingItems: any = [];
           workingItems = this.publicService?.getIsWorking();
+          let districtsItems: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             let isWorking: any = '';
             if (item?.isWorking == true) {
@@ -74,11 +77,19 @@ export class SupervisorsComponent implements OnInit {
             } else {
               isWorking = workingItems[0]?.name;
             }
+
+            // item?.districts?.forEach((item: any) => {
+            //   districtsItems?.push({ name: item?.name });
+            // });
+
             arr.push({
               id: item?.id ? item?.id : null,
-              name: item?.name ? item?.name : '',
-              isWorking: isWorking,
-              // is_active: item?.is_active ? item?.is_active : false
+              arName: item?.arName ? item?.arName : '',
+              enName: item?.enName ? item?.enName : '',
+              districtsVal: item?.districtIds ? item?.districtIds : [],
+              district: districtsItems,
+              isWorkingVal: item?.isWorking,
+              status: isWorking
             });
           }) : '';
           this.supervisorsList$ = arr;
@@ -94,17 +105,6 @@ export class SupervisorsComponent implements OnInit {
 
       ).subscribe((res: any) => {
       });
-
-    let data: any = [
-      { id: 1, name: 'Celine', isWorking: true },
-      { id: 2, name: 'nour', isWorking: true },
-      { id: 3, name: 'lorena', isWorking: true },
-      { id: 4, name: 'Ahmed', isWorking: false },
-      { id: 5, name: 'Ali', isWorking: false },
-      { id: 6, name: 'Kareem', isWorking: true },
-    ];
-
-    this.supervisorsList$ = data;
   }
   getSupervisors(): void {
     let arr: any = this.supervisorsList$
@@ -119,7 +119,7 @@ export class SupervisorsComponent implements OnInit {
     }
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getSupervisors();
+    this.getAllSupervisors();
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
@@ -130,11 +130,11 @@ export class SupervisorsComponent implements OnInit {
     this.pagesCount = Math?.ceil(this.supervisorsCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getSupervisors();
+    // this.getSupervisors();
   }
   toggleStatus(event: any): void {
     this.supervisorsService?.supervisorToggleStatus(event?.id)?.subscribe(res => {
-      if (res?.code == 200) {
+      if (res?.statusCode == 200 && res?.isSuccess == true) {
         this.getAllSupervisors();
         this.cdr.detectChanges();
       } else {
@@ -169,7 +169,7 @@ export class SupervisorsComponent implements OnInit {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getSupervisors();
+        this.getAllSupervisors();
       }
     });
   }
@@ -179,7 +179,7 @@ export class SupervisorsComponent implements OnInit {
       this.publicService?.show_loader.next(true);
       this.supervisorsService?.deleteSupervisorId(item?.item?.id)?.subscribe(
         (res: any) => {
-          if (res?.code === 200) {
+          if (res?.statusCode == 200 && res?.isSuccess == true) {
             res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
             this.getAllSupervisors();
             this.publicService?.show_loader?.next(false);
@@ -202,7 +202,7 @@ export class SupervisorsComponent implements OnInit {
     this.filtersArray = [];
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getSupervisors();
+    this.getAllSupervisors();
   }
   sortItems(event: any): void {
     if (event?.order == 1) {
@@ -279,7 +279,7 @@ export class SupervisorsComponent implements OnInit {
     });
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getSupervisors();
+    this.getAllSupervisors();
   }
 
   ngOnDestroy(): void {

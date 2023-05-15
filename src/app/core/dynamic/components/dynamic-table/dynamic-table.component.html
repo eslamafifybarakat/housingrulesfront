@@ -190,7 +190,7 @@
                           </ng-template>
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-multiSelect [ngModel]="value"
-                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?tanksList:col?.list=='drivers'?driversList:col?.list=='orderStatus'?orderStatusList:col?.list=='examStatus'?examStatusList:col?.list=='parentSkills'?parentSkillsList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:col?.list=='isWorking'?isWorkingList:''"
+                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?tanksList:col?.list=='drivers'?driversList:col?.list=='orderStatus'?orderStatusList:col?.list=='propertyType'?propertyTypeList:col?.list=='userType'?userTypeList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:col?.list=='isWorking'?isWorkingList:col?.list=='districts'?districtsList:''"
                               placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
                               <ng-template let-option pTemplate="item">
                                 <div class="p-multiselect-representative-option">
@@ -472,6 +472,14 @@
                 <span><i class="fas fa-trash-alt remove"></i></span>
               </a>
             </ng-container>
+            <ng-container *ngIf="showResetPassword">
+              <a class="d-flex align-items-center
+                      gap-2" (click)="resetPasswordHandlerEmit(item)" pTooltip="{{'form.resetPassword'|translate}}"
+                tooltipPosition="top">
+                <span><i class="pi pi-unlock
+                  reset-password fs-5-1"></i></span>
+              </a>
+            </ng-container>
           </div>
         </td>
       </ng-container>
@@ -551,18 +559,18 @@
                           </ng-template>
                           <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-multiSelect [ngModel]="value"
-                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?rolesList:col?.list=='drivers'?driversList:col?.list=='orderStatus'?orderStatusList:col?.list=='examStatus'?examStatusList:col?.list=='parentSkills'?parentSkillsList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:col?.list=='isWorking'?isWorkingList:''"
+                              [options]="col?.list=='driverStatus'?driverStatusList:col?.list=='supervisors'?supervisorsList:col?.list=='tanks'?rolesList:col?.list=='drivers'?driversList:col?.list=='orderStatus'?orderStatusList:col?.list=='propertyType'?propertyTypeList:col?.list=='userType'?userTypeList:col?.list=='questionTypes'?questionTypesList:col?.list=='contentArticlesNotesTypes'?contentArticlesNotesTypes:col?.list=='articlesNotesTypes'?articlesNotesTypes:col?.list=='assignUsers'?assignedUsers:col?.list=='articlesStatus'?articleStatusList:col?.list=='requestSource'?requestSourceList:col?.list=='isWorking'?isWorkingList:col?.list=='districts'?districtsList:''"
                               placeholder="{{col?.placeholder}}" (onChange)="filter($event.value)" optionLabel="name">
                               <ng-template let-option pTemplate="item">
                                 <ng-container *ngIf="col?.status; else noStatus">
-                                  <div [class]="'item-badge status-' + option.value"
+                                  <div [class]="'item-badge status-' + option?.value"
                                     class="p-multiselect-representative-option">
-                                    <span class="ml-1">{{option.name}}</span>
+                                    <span class="ml-1">{{option?.name}}</span>
                                   </div>
                                 </ng-container>
                                 <ng-template #noStatus>
                                   <div class="p-multiselect-representative-option">
-                                    <span class="ml-1">{{option.name}}</span>
+                                    <span class="ml-1">{{option?.name}}</span>
                                   </div>
                                 </ng-template>
 
