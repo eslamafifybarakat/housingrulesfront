@@ -326,6 +326,8 @@
       "customers": "العملاء"
     },
     "tableHeader": {
+      "location":"الموقع",
+      "address":"العنوان",
       "createdBy": "منشئ الطلب",
       "username": "اسم المستخدم",
       "id": "الرقم التعريفي",

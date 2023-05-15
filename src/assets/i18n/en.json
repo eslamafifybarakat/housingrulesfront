@@ -321,6 +321,8 @@
       "customers": "Customers"
     },
     "tableHeader": {
+      "location":"Location",
+      "address":"Address",
       "createdBy": "Created By",
       "price": "Price",
       "username": "Username",
