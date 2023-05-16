@@ -38,7 +38,6 @@ export class ConfirmOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.modalData = this.config?.data;
-    console.log(this.modalData);
   }
 
   confirmOrderForm = this.fb?.group(
@@ -49,7 +48,7 @@ export class ConfirmOrderComponent implements OnInit {
       paymentMethod: ['', {
         validators: [Validators.required], updateOn: "blur"
       }],
-    }
+    },{updateOn:"blur"}
   );
   get formControls(): any {
     return this.confirmOrderForm?.controls;
@@ -62,10 +61,11 @@ export class ConfirmOrderComponent implements OnInit {
       this.publicService?.show_loader?.next(true);
       let userLoginData: any = JSON.parse(window.localStorage.getItem(keys?.userLoginData) || '{}');
 
+
       myObject['amount'] = this.confirmOrderForm?.value?.paidAmount;
-      myObject['paymentMethod'] = this.confirmOrderForm?.value?.paymentMethod;
+      myObject['paymentMethod'] = ((this.confirmOrderForm?.value) as any).paymentMethod?.['value'];
       myObject['orderId'] = this.modalData?.item?.id;
-      myObject['recivedBy'] = userLoginData?.id;
+      myObject['recivedBy'] = userLoginData?.userId;
       this.orderService?.confirmSettlementeOrder(myObject)?.subscribe(
         (res: any) => {
           if (res?.isSuccess == true) {

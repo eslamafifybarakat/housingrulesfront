@@ -1,10 +1,10 @@
 <div id="modal">
   <form [formGroup]="confirmOrderForm" (ngSubmit)="submit()">
     <div class="row">
-      <div class="mb-3">
-        <label class="mb-2 required" ]>{{'labels.paymentMethod'|translate}}</label>
+       <div class="mb-3">
+        <label class="mb-2 required">{{'labels.paymentMethod'|translate}}</label>
         <span class="p-input-icon-right select-loading d-block">
-          <p-dropdown [options]="paymentMethodsList" formControlName="paidAmount" optionLabel="name" [filter]="true"
+          <p-dropdown [options]="paymentMethodsList" formControlName="paymentMethod" optionLabel="name" [filter]="true"
             [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
             [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingPaymentMethods"
             scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
