@@ -73,10 +73,13 @@ export class SupervisorsComponent implements OnInit {
           let districtsItems: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             let isWorking: any = '';
+            let statusClass: any = '';
             if (item?.isWorking == true) {
               isWorking = workingItems[1]?.name;
+              statusClass = workingItems[1]?.class;
             } else {
               isWorking = workingItems[0]?.name;
+              statusClass = workingItems[0]?.class;
             }
 
             // item?.districts?.forEach((item: any) => {
@@ -91,7 +94,8 @@ export class SupervisorsComponent implements OnInit {
               district: districtsItems,
               mobileNumber: item?.mobileNumber ? item?.mobileNumber : '',
               isWorkingVal: item?.isWorking,
-              status: isWorking
+              status: isWorking,
+              statusClass: statusClass,
             });
           }) : '';
           this.supervisorsList$ = arr;
