@@ -232,9 +232,9 @@ export class DynamicTableLocalActionsComponent implements OnInit {
 
     this._selectedColumns = this.tableHeaders;
     this.tableHeaders?.forEach((item: any) => {
-      if (item?.sort) {
-        this.searchItems?.push(item?.field);
-      }
+      // if (item?.sort) {
+      this.searchItems?.push(item?.field);
+      // }
       console.log(this.searchItems);
 
     });
