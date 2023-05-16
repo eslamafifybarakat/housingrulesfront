@@ -15,6 +15,26 @@ export class OrdersService {
     private http: HttpClient
   ) { }
 
+
+  getSettlementesList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
+    let params = new HttpParams();
+    if (page) {
+      params = params?.append("page", page);
+    }
+    if (per_page) {
+      params = params?.append("per_page", per_page);
+    }
+    if (search) {
+      params = params?.append("search", search);
+    }
+    if (sort && Object.keys(sort)?.length > 0) {
+      params = params?.append("sort", JSON?.stringify(sort));
+    }
+    if (conditions && conditions?.length > 0) {
+      params = params?.append("conditions", JSON?.stringify(conditions));
+    }
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.orders?.settlementesList}`, {}, { params: params })
+  }
   getOrdersList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
     let params = new HttpParams();
     if (page) {
@@ -105,6 +125,9 @@ export class OrdersService {
   }
   addOrUpdateOrderComplete(data: any, id?: number): Observable<any> {
     return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.updateOrderComplete}`, data);
+  }
+  confirmSettlementeOrder(data: any, id?: number): Observable<any> {
+    return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.confirmSettlementeOrder}`, data);
   }
 
   getOrderById(id: number): Observable<any> {

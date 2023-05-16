@@ -86,7 +86,14 @@ export class AsideMenuComponent implements OnInit {
       text: this.publicService?.translateTextFromJson('dashboard.sideMenu.customers'),
       icon: 'fa-people-group',
       routerLink: '/dashboard/customers',
-      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2 || this.userLoginData?.userType == 3),
+      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2 || this.userLoginData?.userType == 3 || this.userLoginData?.userType == 4),
+    },
+    {
+      id: 'settlementes',
+      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.settlementes'),
+      icon: 'fa-money',
+      routerLink: '/dashboard/settlementes',
+      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2 || this.userLoginData?.userType == 7 || this.userLoginData?.userType == 8 || this.userLoginData?.userType == 9),
     }
     ];
 

@@ -454,6 +454,12 @@
                 <i class="far fa-eye"></i>
               </a>
             </ng-container>
+            <ng-container *ngIf="showConfirm">
+              <a class="fw-500 confirm_order" (click)="confirmHandlerEmit(item)"
+                pTooltip="{{'general.confirm_order'|translate}}" tooltipPosition="top">
+                <i class="far pi-money-bill"></i>
+              </a>
+            </ng-container>
 
             <ng-container *ngIf="showEdit">
               <a class="d-flex align-items-center

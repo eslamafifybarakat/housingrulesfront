@@ -50,6 +50,7 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   @Input() showCopy: boolean = false;
 
   @Input() showActions: boolean = false;
+  @Input() showConfirm: boolean = false;
   @Input() showDetails: boolean = false;
   @Input() showDelete: boolean = false;
   @Input() showEdit: boolean = false;
@@ -115,6 +116,8 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   @Output() toggleStatusHandler: EventEmitter<any> = new EventEmitter();
 
   @Output() detailsHandler: EventEmitter<any> = new EventEmitter();
+  @Output() confirmHandler: EventEmitter<any> = new EventEmitter();
+
   @Output() editHandler: EventEmitter<any> = new EventEmitter();
   @Output() copyActionHandler: EventEmitter<any> = new EventEmitter();
   @Output() deleteHandler: EventEmitter<any> = new EventEmitter();
@@ -318,6 +321,9 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   }
   detailsHandlerEmit(item: any): void {
     this.detailsHandler.emit(item);
+  }
+  confirmHandlerEmit(item: any): void {
+    this.confirmHandler.emit(item);
   }
   reportHandlerEmit(item: any): void {
     this.reportHandler.emit({ item: item });

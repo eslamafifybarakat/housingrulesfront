@@ -11,6 +11,7 @@ import { DashboardComponent } from './dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutes } from '../shared/configs/routes';
 import { NgModule } from '@angular/core';
+import { SettlementesComponent } from './components/settlementes/settlementes.component';
 
 const routes: Routes = [
   {
@@ -87,6 +88,14 @@ const routes: Routes = [
         data: {
           title: 'titles.customers',
           type: 'dashboard'
+        }
+      },
+      {
+        path: AppRoutes?.dashboard?.settlementes,
+        component: SettlementesComponent,
+        data: {
+          title: 'titles.settlementes',
+          type: 'settlementes'
         }
       },
       {

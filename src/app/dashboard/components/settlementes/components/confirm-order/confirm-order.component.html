@@ -1,0 +1,63 @@
+<div id="modal">
+  <form [formGroup]="confirmOrderForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="mb-3">
+        <label class="mb-2 required" ]>{{'labels.paymentMethod'|translate}}</label>
+        <span class="p-input-icon-right select-loading d-block">
+          <p-dropdown [options]="paymentMethodsList" formControlName="paidAmount" optionLabel="name" [filter]="true"
+            [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+            [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingPaymentMethods"
+            scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
+            [class.ng-dirty]="formControls?.paymentMethod?.invalid && (formControls?.paymentMethod?.dirty || formControls?.paymentMethod?.touched)"
+            [showClear]="true" placeholder="{{'placeholder.paymentMethod'|translate}}">
+          </p-dropdown>
+          <ng-container *ngIf="isLoadingPaymentMethods">
+            <i class="pi pi-spin pi-spinner"></i>
+          </ng-container>
+        </span>
+        <div class="mt-2">
+          <ng-container
+            *ngIf="formControls?.paymentMethod?.invalid && (formControls?.paymentMethod?.dirty || formControls?.paymentMethod?.touched)">
+            <ng-container *ngIf="formControls?.paymentMethod?.errors?.['required']">
+              <span class="text-danger fs-8">
+                {{'validations.required_field'|translate}}
+              </span>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="paidAmount" class="mb-2 required">{{'labels.paidAmount'|translate}}</label>
+        <input type="number" class="form-control" formControlName="paidAmount" autocomplete="cc-name" [min]="0"
+          (input)="publicService?.clearValidationErrors(formControls?.paidAmount)"
+          [class.is-invalid]="formControls?.paidAmount?.invalid && (formControls?.paidAmount?.dirty || formControls?.paidAmount?.touched)"
+          placeholder="{{'placeholder.paidAmount'|translate}}">
+        <div class="mt-2">
+          <ng-container
+            *ngIf="formControls?.paidAmount?.invalid && (formControls?.paidAmount?.dirty || formControls?.paidAmount?.touched)">
+            <ng-container *ngIf="formControls?.paidAmount?.errors?.['required']">
+              <span class="text-danger fs-8">
+                {{'validations.required_field'|translate}}
+              </span>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
+      <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+        <span>
+          {{'general.save'|translate}}
+        </span>
+        <i class="pi pi-save"></i>
+      </button>
+      <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+        <span>
+          {{'general.cancel'|translate}}
+        </span>
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+  </form>
+</div>

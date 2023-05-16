@@ -29,6 +29,8 @@ import { ConfirmCompleteOrderComponent } from './components/orders/components/co
 import { CustomersComponent } from './components/customers/customers.component';
 import { AddEditCustomerComponent } from './components/customers/components/add-edit-customer/add-edit-customer.component';
 import { CustomerDetailsComponent } from './components/customers/components/customer-details/customer-details.component';
+import { SettlementesComponent } from './components/settlementes/settlementes.component';
+import { ConfirmOrderComponent } from './components/settlementes/components/confirm-order/confirm-order.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { CustomerDetailsComponent } from './components/customers/components/cust
     CustomersComponent,
     AddEditCustomerComponent,
     CustomerDetailsComponent,
+    SettlementesComponent,
+    ConfirmOrderComponent,
   ],
   imports: [
     DashboardRoutingModule,

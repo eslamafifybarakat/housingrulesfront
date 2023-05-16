@@ -313,6 +313,7 @@
     "total": "total",
     "createNew": "Create new",
     "sideMenu": {
+      "settlementes": "settlementes",
       "dashboard": "Dashboard",
       "tanks": "Tanks",
       "driver": "Drivers",
@@ -399,6 +400,9 @@
       "addOrder": "Add order",
       "editOrder": "Edit order",
       "orderDetails": "Order details"
+    },
+    "settlementes": {
+      "settlementes": "Settlementes"
     },
     "users": {
       "users": "Users",

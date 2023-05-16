@@ -1,4 +1,3 @@
-import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -7,21 +6,22 @@ import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
+import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  selector: 'app-settlementes',
+  templateUrl: './settlementes.component.html',
+  styleUrls: ['./settlementes.component.scss']
 })
-export class OrdersComponent implements OnInit {
+export class SettlementesComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;
   isLoadingFileDownload: boolean = false;
 
   loadingIndicator: boolean = false;
-  ordersList$!: Observable<any>;
-  ordersCount: number = 0;
+  settlementesList$!: Observable<any>;
+  settlementesCount: number = 0;
   tableHeaders: any = [];
 
   page: number = 1;
@@ -35,13 +35,11 @@ export class OrdersComponent implements OnInit {
   sortObj: any = {};
 
   showActionTableColumn: boolean = false;
-  showEditAction: boolean = false;
   showConfirmAction: boolean = false;
+  showEditAction: boolean = false;
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
-  orderOriginList: any = [];
-  propertyTypeList: any = [];
   paymentMethodList: any = [];
 
   userLoginDataType: any;
@@ -63,8 +61,8 @@ export class OrdersComponent implements OnInit {
     }
     if (this.userLoginDataType == 7) {
       this.showActionTableColumn = true;
-      this.showConfirmAction = true;
     }
+    this.showConfirmAction = true;
 
     this.tableHeaders = [
       { field: 'orderNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
@@ -88,19 +86,17 @@ export class OrdersComponent implements OnInit {
 
     ];
 
-    this.getAllOrders();
-    this.propertyTypeList = this.publicService?.getPropertyType();
-    this.orderOriginList = this.publicService?.getOrderOrigin();
+    this.getAllSettlementes();
     this.paymentMethodList = this.publicService?.getPaymentMethods();
   }
 
-  getAllOrders(): any {
+  getAllSettlementes(): any {
     this.loadingIndicator = true;
-    this.ordersService?.getOrdersEntityList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
+    this.ordersService?.getSettlementesList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
       .pipe(
         map((res: any) => {
-          this.ordersCount = res?.total;
-          this.pagesCount = Math.ceil(this.ordersCount / this.perPage);
+          this.settlementesCount = res?.total;
+          this.pagesCount = Math.ceil(this.settlementesCount / this.perPage);
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             let status: any = '';
@@ -137,18 +133,6 @@ export class OrdersComponent implements OnInit {
               status = this.publicService.translateTextFromJson('general.cancelled');
               statusClass = 'danger';
             }
-            let orderOrigin: any;
-            this.orderOriginList?.forEach((element: any) => {
-              if (element?.value == item?.orderOrigin) {
-                orderOrigin = element?.name
-              }
-            });
-            let propertyType: any = [];
-            this.propertyTypeList?.forEach((element: any) => {
-              if (element?.value == item?.propertyType) {
-                propertyType?.push(element);
-              }
-            });
             let paymentMethod: any = '';
             this.paymentMethodList?.forEach((element: any) => {
               if (element?.value == item?.paymentMethod) {
@@ -158,10 +142,8 @@ export class OrdersComponent implements OnInit {
             arr.push({
               id: item?.id ? item?.id : null,
               dateTime: item?.dateTime ? new Date(item?.dateTime) : null,
-              orderOrigin: orderOrigin,
               createdByName: item?.createdByName ? item?.createdByName : '',
               orderNumber: item?.orderNumber ? item?.orderNumber : '',
-              propertyType: propertyType,
               customerMobileNumber: item?.customerMobileNumber ? item?.customerMobileNumber : '',
               district: item?.district ? item?.district : '',
               locationLink: item?.locationLink ? item?.locationLink : null,
@@ -179,7 +161,7 @@ export class OrdersComponent implements OnInit {
 
             });
           }) : '';
-          this.ordersList$ = arr;
+          this.settlementesList$ = arr;
         }),
         finalize(() => {
           this.loadingIndicator = false;
@@ -194,8 +176,8 @@ export class OrdersComponent implements OnInit {
       });
   }
   getOrders(): void {
-    let arr: any = this.ordersList$
-    arr?.length == 0 ? this.getAllOrders() : '';
+    let arr: any = this.settlementesList$
+    arr?.length == 0 ? this.getAllSettlementes() : '';
   }
 
   search(event: any): void {
@@ -206,40 +188,42 @@ export class OrdersComponent implements OnInit {
     }
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllOrders();
+    this.getAllSettlementes();
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
-    this.getAllOrders();
+    this.getAllSettlementes();
   }
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
-    this.pagesCount = Math?.ceil(this.ordersCount / this.perPage);
+    this.pagesCount = Math?.ceil(this.settlementesCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-  }
-  filter(): void {
-    const ref = this.dialogService?.open(FilterOrdersComponent, {
-      header: this.publicService?.translateTextFromJson('general.filter'),
-      dismissableMask: false,
-      width: '50%',
-      styleClass: 'custom_modal'
-    });
-    ref.onClose.subscribe((res: any) => {
-      if (res?.filter) {
-        this.page = 1;
-        this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllOrders();
-      }
-    });
   }
   viewLocation(item: any): void {
     console.log(item?.locationLink);
     item?.locationLink ? window?.open(item?.locationLink, "_blank") : '';
   }
 
-  addOrEditItem(item?: any, type?: any): void {
-    type == 'edit' ? this.router.navigate(['/dashboard/addOrder', { id: item?.id }]) : this.router.navigate(['/dashboard/addOrder']);
+  confirmOrder(item?: any): void {
+    console.log(item);
+    const ref = this.dialogService?.open(ConfirmOrderComponent, {
+      data: {
+        item: item
+      },
+      header: this.publicService?.translateTextFromJson('general.confirm_order'),
+      dismissableMask: false,
+      width: '40%',
+      styleClass: 'custom_modal'
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+        this.page = 1;
+        this.publicService?.changePageSub?.next({ page: this.page });
+        this.getAllSettlementes();
+      }
+    });
+
   }
 
   clearTable(event: any): void {
@@ -248,7 +232,7 @@ export class OrdersComponent implements OnInit {
     this.filtersArray = [];
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllOrders();
+    this.getAllSettlementes();
   }
   sortItems(event: any): void {
     if (event?.order == 1) {
@@ -256,13 +240,13 @@ export class OrdersComponent implements OnInit {
         column: event?.field,
         order: 'asc'
       }
-      this.getAllOrders();
+      this.getAllSettlementes();
     } else if (event?.order == -1) {
       this.sortObj = {
         column: event?.field,
         order: 'desc'
       }
-      this.getAllOrders();
+      this.getAllSettlementes();
     }
   }
   filterItems(event: any): void {
@@ -325,7 +309,7 @@ export class OrdersComponent implements OnInit {
     });
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllOrders();
+    this.getAllSettlementes();
   }
 
   ngOnDestroy(): void {
