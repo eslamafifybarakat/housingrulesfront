@@ -80,14 +80,18 @@ export class DriversComponent implements OnInit {
             let supervisorArr: any = [];
             driver?.supervisor ? supervisorArr?.push({ name: driver?.supervisor }) : '';
             let driverStatus: any = '';
+            let statusClass: any = '';
             if (driver?.driverStatus == 0) {
               driverStatus = this.driverStatusList[0].name;
+              statusClass = this.driverStatusList[0].class;
             }
             if (driver?.driverStatus == 1) {
               driverStatus = this.driverStatusList[1].name;
+              statusClass = this.driverStatusList[1].class;
             }
             if (driver?.driverStatus == 2) {
               driverStatus = this.driverStatusList[2].name;
+              statusClass = this.driverStatusList[2].class;
             }
             arr.push({
               id: driver?.id ? driver?.id : null,
@@ -95,6 +99,7 @@ export class DriversComponent implements OnInit {
               enName: driver?.enName ? driver?.enName : '',
               driverStatus: driverStatus,
               statusVal: driver?.driverStatus,
+              statusClass: statusClass,
               tankId: driver?.tankId,
               supervisorId: driver?.supervisorId,
               mobileNumber: driver?.mobileNumber ? driver?.mobileNumber : '',
