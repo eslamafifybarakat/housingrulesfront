@@ -82,10 +82,10 @@ export class AddEditUserComponent implements OnInit {
       userType: [null, {
         validators: [Validators.required]
       }],
-      // mobilePhone: ['', {
-      //   validators: [
-      //     Validators.required, Validators.pattern(patterns?.phone)], updateOn: "blur"
-      // }],
+      userNameStr: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
       password: ['', {
         validators: [
           Validators.required,
@@ -237,7 +237,7 @@ export class AddEditUserComponent implements OnInit {
       myObject['username'] = this.userForm?.value?.username;
       myObject['userType'] = this.userForm?.value?.userType?.id;
       // myObject['email'] = this.userForm?.value?.email;
-      // myObject['mobilePhone'] = this.userForm?.value?.mobilePhone;
+       myObject['userNameStr'] = this.userForm?.value?.userNameStr;
       myObject['password'] = this.userForm?.value?.password;
       // myObject['confirmPassword'] = this.userForm?.value?.confirmPassword;
 
@@ -251,9 +251,9 @@ export class AddEditUserComponent implements OnInit {
       myObject['allowTerminal'] = true;
       if (this.isEdit) {
         myObject['id'] = this.userId;
-        myObject['lastModifiedBy'] = 0;
+        // myObject['lastModifiedBy'] = 0;
       } else {
-        myObject['createBy'] = 0;
+        // myObject['createBy'] = 0;
       }
       this.publicService?.show_loader?.next(true);
       this.usersService?.addOrUpdateUser(myObject, this.userId ? this.userId : null)?.subscribe(

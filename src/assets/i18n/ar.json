@@ -81,6 +81,8 @@
     "ok": "تم",
     "brands": "العلامات التجارية",
     "create_new": "إنشاء جديد",
+    "userNameStr":"اسم الموظف",
+
     "skills": "المهارات",
     "account": "الحساب",
     "unnammed": "بدون إسم",
@@ -193,6 +195,7 @@
     "tankSize": "سعة الصهريج",
     "price": "سعر",
     "username": "اسم المستخدم",
+    "userNameStr":"اسم الموظف",
     "supervisor": "المشرف",
     "mobilePhone": "رقم الهاتف",
     "tank": "الصهريج",
@@ -235,6 +238,8 @@
     "driverStatus": "اختر حالة السائق",
     "tankSize": "اختر سعة الصهريج",
     "orderStatus": "اختر حالة الطلب",
+    "userNameStr":"اسم الموظف",
+
     "plateNumber": "أدخل رقم اللوحة",
     "customerName": "اسم العميل",
     "comments": "أدخل التعليقات",
@@ -352,9 +357,12 @@
       "orderStatus": "حالة الطلب",
       "supervisors": "المشرفين",
       "tanks": "الصهاريج",
+
       "price": "سعر",
       "mobilePhone": "رقم الهاتف",
       "date": "التاريخ",
+      "userNameStr":"اسم الموظف",
+
       "propertyType": "القطاع",
       "customerMobileNumber": "رقم هاتف العميل",
       "district": "الحي",

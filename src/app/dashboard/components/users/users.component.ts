@@ -1,7 +1,6 @@
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AddEditUserComponent } from './add-edit-user/add-edit-user.component';
-import { DriversService } from 'src/app/dashboard/services/drivers.service';
 import { AlertsService } from 'src/app/core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -38,14 +37,7 @@ export class UsersComponent implements OnInit {
 
   userTypesList: any = [];
 
-  supervisorsList: any = [];
-  isLoadingSupervisors: boolean = false;
-
-  driversList: any = [];
-  isLoadingDrivers: boolean = false;
   constructor(
-    private supervisorsService: SupervisorsService,
-    private driversService: DriversService,
     private publicService: PublicService,
     private dialogService: DialogService,
     private alertsService: AlertsService,
@@ -64,12 +56,10 @@ export class UsersComponent implements OnInit {
       { field: 'username', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.username'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.username'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       // { field: 'email', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.email'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.email'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'userType', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.userType'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.userType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'filterArray', dataType: 'array', list: 'userType', placeholder: this.publicService?.translateTextFromJson('placeholder.userType'), label: this.publicService?.translateTextFromJson('labels.userType') },
-      { field: 'supervisor', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisor'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
-      { field: 'driver', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driver'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.drivers'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+       { field: 'userNameStr', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.userNameStr'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.userNameStrs'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       // { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
     ];
-    this.getAllSupervisors();
-    this.getAllDrivers();
+
     this.getAllUsers();
     this.userTypesList = this.publicService?.getUserTypes();
   }
@@ -89,31 +79,14 @@ export class UsersComponent implements OnInit {
                 userTypeArr?.push(element);
               }
             });
-            let supervisorName: any = '';
-            if (item?.userType == 3 || item?.userType == 5) {
-              this.supervisorsList?.forEach((supervisor: any) => {
-                if (supervisor?.id == item?.entityId) {
-                  supervisorName = supervisor?.name;
-                }
-              });
-            }
-            let driverName: any = '';
-            if (item?.userType == 6) {
-              this.driversList?.forEach((driver: any) => {
-                if (driver?.id == item?.entityId) {
-                  driverName = driver?.name;
-                }
-              });
-            }
+
             arr.push({
               id: item?.id ? item?.id : '',
               index: index + 1,
               name: item?.name ? item?.name : '',
               username: item?.username ? item?.username : '',
               itemStatus: item?.itemStatus ? item?.itemStatus : null,
-              mobileNumber: item?.mobileNumber ? item?.mobileNumber : '',
-              supervisor: supervisorName,
-              driver: driverName,
+              userNameStr:  item?.userNameStr ? item?.userNameStr : '',
               userType: userTypeArr
             });
           }) : '';
@@ -278,56 +251,6 @@ export class UsersComponent implements OnInit {
     this.getAllUsers();
   }
 
-  getAllSupervisors(): any {
-    this.isLoadingSupervisors = true;
-    this.supervisorsService?.getSupervisorsList()?.subscribe(
-      (res: any) => {
-        if (res?.statusCode == 200 && res?.isSuccess == true) {
-          let arr: any = [];
-          res?.data ? res?.data?.forEach((supervisor: any) => {
-            arr?.push({
-              name: supervisor?.arName,
-              id: supervisor?.id
-            });
-          }) : '';
-          this.supervisorsList = arr;
-          this.isLoadingSupervisors = false;
-        } else {
-          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
-          this.isLoadingSupervisors = false;
-        }
-      },
-      (err: any) => {
-        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
-        this.isLoadingSupervisors = false;
-      });
-    this.cdr?.detectChanges();
-  }
-  getAllDrivers(): any {
-    this.isLoadingDrivers = true;
-    this.driversService?.getDriversList()?.subscribe(
-      (res: any) => {
-        if (res?.statusCode == 200 && res?.isSuccess == true) {
-          let arr: any = [];
-          res?.data ? res?.data?.forEach((item: any) => {
-            arr?.push({
-              name: item?.arName,
-              id: item?.id
-            });
-          }) : '';
-          this.driversList = arr;
-          this.isLoadingDrivers = false;
-        } else {
-          res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
-          this.isLoadingDrivers = false;
-        }
-      },
-      (err: any) => {
-        err?.message ? this.alertsService?.openSnackBar(err?.message) : '';
-        this.isLoadingDrivers = false;
-      });
-    this.cdr?.detectChanges();
-  }
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
   }
