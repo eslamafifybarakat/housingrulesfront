@@ -56,8 +56,8 @@ export class SettlementesComponent implements OnInit {
   ngOnInit(): void {
     this.userLoginDataType = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}')?.userType;
     if (this.userLoginDataType == 7) {
-      this.showActionTableColumn = true;
     }
+    this.showActionTableColumn = true;
     this.showConfirmAction = true;
 
     this.tableHeaders = [
