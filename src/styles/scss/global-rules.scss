@@ -3,9 +3,11 @@
   outline: none !important;
   box-shadow: none !important;
 }
+
 p {
   margin: 0;
 }
+
 ol,
 ul {
   list-style: none !important;
@@ -69,6 +71,7 @@ img {
 .fw-500 {
   font-weight: 500 !important;
 }
+
 .py-7 {
   padding: 5rem 0 !important;
 }
@@ -84,6 +87,7 @@ hr {
   background-color: #8c95a32e !important;
   opacity: 0.1;
 }
+
 .lh-0 {
   line-height: 0 !important;
 }
@@ -91,12 +95,14 @@ hr {
 .pt-global-header {
   padding-top: 8rem;
 }
+
 .badge-main {
   width: 25px;
   height: 25px;
   color: var(--text-main-color) !important;
   background-color: #00664228;
 }
+
 .main-card {
   background-color: var(--bg-white-color);
   border-radius: 35px;
@@ -121,11 +127,13 @@ hr {
 .box-shadow-dropdown {
   box-shadow: var(--box-shadow);
 }
+
 /*START DIALOG */
 .p-dialog {
   border-radius: var(--main-border-radius-shape);
   border: 0;
   background-color: #fff;
+
   .p-dialog-content:last-of-type {
     margin: 10px;
   }
@@ -135,9 +143,11 @@ hr {
     background-color: var(--bg-white-color);
     border: none;
   }
+
   &.p-confirm-dialog .p-confirm-dialog-icon {
     color: rgb(255, 193, 7);
   }
+
   .p-confirm-dialog-reject,
   .p-confirm-dialog-accept {
     min-width: 6rem;
@@ -150,6 +160,7 @@ hr {
     background-color: var(--text-white-color);
     border-color: var(--text-main-color);
   }
+
   .p-confirm-dialog-accept {
     color: var(--text-white-color);
     background-color: var(--bg-main-color);
@@ -161,14 +172,17 @@ hr {
   border-top-right-radius: var(--main-border-radius-shape);
   border-top-left-radius: var(--main-border-radius-shape);
 }
+
 .p-dialog .p-dialog-footer {
   padding: 24px 15px;
   border-bottom-right-radius: var(--main-border-radius-shape);
   border-bottom-left-radius: var(--main-border-radius-shape);
 }
+
 .p-dialog .p-dialog-content {
   padding-top: 0 !important;
 }
+
 /*END DIALOG */
 
 /*START PAGINATOR */
@@ -185,6 +199,7 @@ hr {
   background-color: transparent;
   color: #848484;
 }
+
 /*END PAGINATOR */
 
 /*----------START DROPDOWN----------*/
@@ -220,3 +235,6 @@ hr {
 }
 
 /*----------END DROPDOWN----------*/
+.btn-add-new-form {
+  padding: 0.15rem 0.5rem !important;
+}

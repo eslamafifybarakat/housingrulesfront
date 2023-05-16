@@ -11,34 +11,47 @@
 .status-available,
 .status-Available,
 .status-Completed,
-.status-متاح {
+.status-success {
   color: #50cd89;
   background-color: #e8fff3;
 }
 .status-pending,
 .status-Pending,
-.status-far {
+.status-far,
+.status-warning {
   color: #fdc604;
   background-color: #fff8df;
 }
 .status-unqualified,
 .status-busy,
 .status-Busy,
-.status-Cancelled {
+.status-Cancelled,
+.status-danger {
   color: #f1416c;
   background-color: #fff5f8;
 }
 .status-new,
 .status-AssignedToDriver,
-.status-Assigned_To_Driver {
+.status-Assigned_To_Driver,
+.status-primary {
   color: #009ef7;
   background-color: #f1faff;
 }
 .status-renewal,
-.status-DriverArrivedAtStation {
+.status-DriverArrivedAtStation,
+.status-purple {
   color: #743aef;
   background-color: #f1eef9;
 }
+.status-cyan {
+  color: #35c4dc;
+  background-color: #f3fbfd;
+}
+.status-gray {
+  color: #818ea1;
+  background-color: #f7f8f9;
+}
+
 .status-DriverArrivedToCustomer {
   color: #3a70ef;
   background-color: #eef1f9;

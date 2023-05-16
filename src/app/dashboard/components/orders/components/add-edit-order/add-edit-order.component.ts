@@ -1,18 +1,19 @@
+import { AddEditCustomerComponent } from '../../../customers/components/add-edit-customer/add-edit-customer.component';
 import { CheckValidityService } from '../../../../../shared/services/check-validity/check-validity.service';
+import { ConfirmCompleteOrderComponent } from '../confirm-complete-order/confirm-complete-order.component';
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { AlertsService } from '../../../../../core/services/alerts/alerts.service';
 import { PublicService } from '../../../../../shared/services/public.service';
 import { patterns } from '../../../../../shared/configs/patternValidations';
 import { TanksService } from 'src/app/dashboard/services/tanks.service';
 import { DriversService } from '../../../../services/drivers.service';
-import { OrdersService } from '../../../../services/orders.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { OrdersService } from '../../../../services/orders.service';
 import { keys } from 'src/app/shared/configs/localstorage-key';
-import { Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Validators, FormBuilder } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmCompleteOrderComponent } from '../confirm-complete-order/confirm-complete-order.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-edit-order',
@@ -275,6 +276,28 @@ export class AddEditOrderComponent implements OnInit {
       });
     }
   }
+  addNewCustomer(item?: any, type?: any): void {
+    const ref = this.dialogService?.open(AddEditCustomerComponent, {
+      data: {
+        item,
+        type: type == 'edit' ? 'edit' : 'add'
+      },
+      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.customers.editCustomer') : this.publicService?.translateTextFromJson('dashboard.customers.addCustomer'),
+      dismissableMask: false,
+      width: '40%',
+      styleClass: 'custom_modal'
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+        // this.getAllCustomers();
+        this.customersList.push(res?.item);
+        this.orderForm.patchValue({
+          customerName: item
+        });
+      }
+    });
+  }
+
   onSelectCustomer(): void {
     let formInfo: any = this.orderForm?.value?.customerName;
     this.orderForm?.patchValue({

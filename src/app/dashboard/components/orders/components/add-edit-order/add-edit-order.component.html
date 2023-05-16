@@ -258,7 +258,16 @@
           </div>
           <div class="col-md-6">
             <div class="mb-3">
-              <label for="customerName" class="mb-2 required">{{'labels.customerName'|translate}}</label>
+              <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                <label for="customerName" class="mb-2 required">{{'labels.customerName'|translate}}</label>
+                <ng-container *ngIf="!isEdit">
+                  <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto mb-1 btn-add-new-form"
+                    (click)="addNewCustomer()">
+                    <i class="pi pi-plus-circle"></i>
+                    <span>{{'dashboard.createNew'|translate}}</span>
+                  </button>
+                </ng-container>
+              </div>
               <span class="p-input-icon-right select-loading d-block">
                 <p-dropdown [options]="customersList" formControlName="customerName" optionLabel="name" [filter]="true"
                   [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="value" appendTo="body"

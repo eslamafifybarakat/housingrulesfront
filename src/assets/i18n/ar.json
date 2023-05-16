@@ -170,12 +170,12 @@
     "others": "أخري"
   },
   "warning": {
-    "selectDistrictFirst": "يجب اختيار الحي اولا",
-    "selectSupervisorFirst": "يجب اختيار المشرف اولا"
+    "selectDistrictFirst": "يجب اختيار الحي أولا",
+    "selectSupervisorFirst": "يجب اختيار المشرف أولا"
   },
   "labels": {
-    "address":"العنوان",
-    "location":"الموقع",
+    "address": "العنوان",
+    "location": "الموقع",
     "tankprice": "سعر الصهريج",
     "isWorking": "متاح للتعين",
     "name": "الاسم",
@@ -213,7 +213,7 @@
     "customerMobileNumber": "رقم هاتف العميل",
     "district": "الحي",
     "locationLink": "رابط الموقع",
-    "orderOrigin": "اصل الطلب",
+    "orderOrigin": "أصل الطلب",
     "orderNumber": "رقم الطلب",
     "paymentMethod": "طريقة الدفع ",
     "paidAmount": "المبلغ المدفوع",
@@ -248,7 +248,7 @@
     "district": "اختر الحي",
     "locationLink": "أدخل رابط الموقع",
     "comment": "أكتب تعليق",
-    "orderOrigin": "أدخل اصل الطلب",
+    "orderOrigin": "أدخل أصل الطلب",
     "orderNumber": "أدخل رقم الطلب",
     "paymentMethod": "أدخل طريقة الدفع ",
     "paidAmount": "أدخل المبلغ المدفوع",
@@ -280,7 +280,7 @@
     "startDate": "تاريخ البدء مطلوب",
     "endDate": "تاريخ اإلانتهاء مطلوب",
     "orderStatus": "حالة الطلب مطلوبة",
-    "phone_length": "رقم الهاتف يجب ان يكون 11 رقم",
+    "phone_length": "رقم الهاتف يجب ان يكون 10 رقم",
     "name_en": "يجب أن يحتوي الإسم ع أحرف إنجليزية فقط",
     "name_ar": "يجب أن يحتوي الإسم ع أحرف عربية فقط"
   },
@@ -290,7 +290,7 @@
     "enterRegisterDetails": "مرحبًا! الرجاء إدخال التفاصيل الخاصة بك",
     "registration": "إنشاء حساب",
     "signIn": "تسجيل الدخول",
-    "signUp": "انشاء حساب",
+    "signUp": "إنشاء حساب",
     "logOut": "تسجيل الخروج",
     "send": "إرسال",
     "no_account": "ليس لديك حساب؟",
@@ -322,19 +322,20 @@
   "dashboard": {
     "dashboard": "لوحة التحكم",
     "total": "المجموع",
-    "createNew": "انشاء جديد",
+    "createNew": "إنشاء جديد",
     "sideMenu": {
       "dashboard": "لوحة التحكم",
       "tanks": "الصهاريج",
       "driver": "السائقين",
       "supervisors": "المشرفين",
       "orders": "الطلبات",
-      "serviceAgent":"خدمة العملاء",
-      "users": " المستخدمين"
+      "serviceAgent": "خدمة العملاء",
+      "users": " المستخدمين",
+      "customers": "العملاء"
     },
     "tableHeader": {
-      "location":"الموقع",
-      "address":"العنوان",
+      "location": "الموقع",
+      "address": "العنوان",
       "createdBy": "منشئ الطلب",
       "username": "اسم المستخدم",
       "id": "الرقم التعريفي",
@@ -347,7 +348,7 @@
       "driverStatus": "حالة السائق",
       "tankSize": "سعة الصهريج",
       "orderNumber": "رقم الطلب",
-      "orderOrigin": "اصل الطلب",
+      "orderOrigin": "أصل الطلب",
       "entityType": "نوع الجهة",
       "customerName": "اسم العميل",
       "customerNumber": "رقم العميل",

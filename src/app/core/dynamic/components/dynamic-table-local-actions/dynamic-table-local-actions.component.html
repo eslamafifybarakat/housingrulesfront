@@ -1,15 +1,15 @@
 <div id="dynamic-global-data-table">
   <div class="table-content">
     <p-table #dt1 dataKey="id" [value]="tableData" [(selection)]="selectedItems" [paginator]="true"
-      [rows]="paginatorRows" [columns]="selectedColumns" responsiveLayout="scroll" [rowHover]="false"
-      [resizableColumns]="true" styleClass="p-datatable-striped" (onSort)="customSort($event)"
-      [globalFilterFields]="searchItems">
+      [rowsPerPageOptions]="rowsPerPageOptions" [rows]="paginatorRows" [columns]="selectedColumns"
+      responsiveLayout="scroll" [rowHover]="false" [resizableColumns]="true" styleClass="p-datatable-striped"
+      (onSort)="customSort($event)" [globalFilterFields]="searchItems">
       <ng-template pTemplate="caption">
         <div class="caption d-flex justify-content-between align-items-center flex-wrap gap-3">
-          <div class="d-flex align-items-center gap-3 dropdown-arrow">
+          <!-- <div class="d-flex align-items-center gap-3 dropdown-arrow">
             <p-dropdown #dropdown [options]="rowsPerPageOptions" (onChange)="paginatorOption($event)"
               (onHide)="hide()"></p-dropdown>
-          </div>
+          </div> -->
           <ng-container *ngIf="showSearch">
             <span class="p-input-icon-right">
               <span class="p-input-icon-left ml-auto">
@@ -351,7 +351,7 @@
               <ng-container *ngIf="col?.dataType=='array'; else noChild">
                 <td>
                   <ng-container *ngIf="col?.status; else noStatus">
-                    <span [class]="'item-badge status-' +  item[col.field]">{{ item[col.field]}}</span>
+                    <span [class]="'item-badge status-' +  item.statusClass">{{ item[col.field]}}</span>
                   </ng-container>
                   <ng-template #noStatus>
                     <ng-container *ngIf="item && item[col.field]">

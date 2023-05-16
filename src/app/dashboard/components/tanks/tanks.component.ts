@@ -73,10 +73,13 @@ export class TanksComponent implements OnInit {
           workingItems = this.publicService?.getIsWorking();
           res?.data ? res?.data?.forEach((tank: any) => {
             let isWorking: any = '';
+            let statusClass: any = '';
             if (tank?.isWorking == true) {
               isWorking = workingItems[1]?.name;
+              statusClass = workingItems[1]?.class;
             } else {
               isWorking = workingItems[0]?.name;
+              statusClass = workingItems[0]?.class;
             }
             let sizeTank: any;
             if (tank?.tankSize == 0) {
@@ -97,6 +100,7 @@ export class TanksComponent implements OnInit {
               plateNumber: tank?.plateNumber ? tank?.plateNumber : '',
               price: tank?.price ? tank?.price : 0,
               isWorking: isWorking,
+              statusClass: statusClass,
               isAvailable: tank?.isAvailable ? true : false
             });
           }) : '';

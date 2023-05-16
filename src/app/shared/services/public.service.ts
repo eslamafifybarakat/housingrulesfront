@@ -112,16 +112,21 @@ export class PublicService {
 
   getDriverStatus(): any {
     let arr = [
-      { id: 1, value: 'available', name: this.translateTextFromJson('general.available') },
-      { id: 2, value: 'busy', name: this.translateTextFromJson('general.busy') },
-      { id: 3, value: 'far', name: this.translateTextFromJson('general.far') },
+      { id: 1, value: 'available', name: this.translateTextFromJson('general.available'), class: "success" },
+      {
+        id: 2, value: 'busy', name: this.translateTextFromJson('general.busy'), class:
+          "danger"
+      },
+      { id: 3, value: 'far', name: this.translateTextFromJson('general.far'), class: "warning" },
     ];
     return arr;
   }
   getIsWorking(): any {
     let arr = [
-      { id: 1, value: 'available', name: this.translateTextFromJson('general.available') },
-      { id: 2, value: 'busy', name: this.translateTextFromJson('general.notAvailable') }
+      { id: 1, value: 'available', name: this.translateTextFromJson('general.available'), class: "success" },
+      {
+        id: 2, value: 'busy', name: this.translateTextFromJson('general.notAvailable'), class: "danger"
+      }
     ];
     return arr;
   }
@@ -133,13 +138,13 @@ export class PublicService {
   }
   getOrderStatus(): any {
     let arr = [
-      { id: 1, value: 'pending', name: this.translateTextFromJson('general.pending') },
-      { id: 2, value: 'assignedToDriver', name: this.translateTextFromJson('general.assignedToDriver') },
-      { id: 3, value: 'driverOnWayToCustomer', name: this.translateTextFromJson('general.driverOnWayToCustomer') },
-      { id: 4, value: 'driverArrivedToCustomer', name: this.translateTextFromJson('general.driverArrivedToCustomer') },
-      { id: 5, value: 'driverArrivedToStation', name: this.translateTextFromJson('general.driverArrivedToStation') },
-      { id: 6, value: 'completed', name: this.translateTextFromJson('general.completed') },
-      { id: 7, value: 'cancelled', name: this.translateTextFromJson('general.cancelled') },
+      { id: 1, value: 'pending', name: this.translateTextFromJson('general.pending'), class: "warning" },
+      { id: 2, value: 'assignedToDriver', name: this.translateTextFromJson('general.assignedToDriver'), class: "primary" },
+      { id: 3, value: 'driverOnWayToCustomer', name: this.translateTextFromJson('general.driverOnWayToCustomer'), class: "gray" },
+      { id: 4, value: 'driverArrivedToCustomer', name: this.translateTextFromJson('general.driverArrivedToCustomer'), class: "cyan" },
+      { id: 5, value: 'driverArrivedToStation', name: this.translateTextFromJson('general.driverArrivedToStation'), class: "purple" },
+      { id: 6, value: 'completed', name: this.translateTextFromJson('general.completed'), class: "success" },
+      { id: 7, value: 'cancelled', name: this.translateTextFromJson('general.cancelled'), class: "danger" },
 
     ];
     return arr;
