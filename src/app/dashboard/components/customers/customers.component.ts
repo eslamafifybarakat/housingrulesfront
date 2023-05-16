@@ -56,7 +56,7 @@ export class CustomersComponent implements OnInit {
       { field: 'location', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.location'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.location'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', },
       { field: 'locationLink', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', enableItemLink: true, typeViewModal: 'location' },
 
-      { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
+      { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'text' },
     ];
 
     this.getAllCustomers();

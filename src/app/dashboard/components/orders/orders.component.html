@@ -20,7 +20,7 @@
     </div>
   </div>
   <hr>
-  <app-dynamic-table [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="false"
+  <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="false"
     (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
     (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="ordersList$"
     [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY | hh:mm a'" [showActions]="showActionTableColumn"
@@ -31,5 +31,5 @@
     [enableConfirmDeleteDialog]="true" [keyDelete]="'name'" (paginateOptionsHandler)="onPaginatorOptionsChange($event)"
     (itemActionHandler)="viewLocation($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
     [enableFilterSupervisors]="true" [enableFilterDrivers]="true" [enableFilterOrderStatus]="true"
-    [enableFilterPropertyType]="true" [enableFilterTanks]="true"></app-dynamic-table>
+    [enableFilterPropertyType]="true" [enableFilterTanks]="true"></app-dynamic-table-local-actions>
 </div>

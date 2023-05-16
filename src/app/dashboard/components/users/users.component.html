@@ -12,7 +12,7 @@
     </button>
   </div>
   <hr>
-  <app-dynamic-table [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
+  <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
     (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
     (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="usersList$"
     [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'" [showActions]="true" [showEdit]="false"
@@ -22,5 +22,5 @@
     [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
     [enableConfirmDeleteDialog]="true" [keyDelete]="'full_name'"
     (paginateOptionsHandler)="onPaginatorOptionsChange($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-    [enableFilterUserType]="true"></app-dynamic-table>
+    [enableFilterUserType]="true"></app-dynamic-table-local-actions>
 </div>

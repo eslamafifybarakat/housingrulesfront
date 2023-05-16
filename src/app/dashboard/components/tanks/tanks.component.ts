@@ -53,7 +53,7 @@ export class TanksComponent implements OnInit {
       { field: 'tankSize', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tankSize'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'plateNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.plateNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.plateNumber'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'price', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.price'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.price'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
+      { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: false, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
       { field: 'isAvailable', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
 
@@ -133,7 +133,7 @@ export class TanksComponent implements OnInit {
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
-  //  this.getAllTanks();
+    //  this.getAllTanks();
   }
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
