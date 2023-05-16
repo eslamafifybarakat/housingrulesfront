@@ -393,7 +393,8 @@
                       <ng-container *ngIf="col?.enableItemLink; else normalRecord">
                         <a (click)="itemActionEmitter(item)" class="text-decoration-underline link-color">
                           <span [class.truncate-text]="col?.type=='text'" *ngIf="item && item[col.field]">
-                            {{ item[col.field] }}
+                            <i class="pi pi-map-marker"></i> {{
+                            this.publicService.translateTextFromJson('dashboard.tableHeader.locationLink')}}
                           </span>
                         </a>
                       </ng-container>
