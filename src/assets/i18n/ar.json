@@ -168,8 +168,8 @@
     "others": "أخري"
   },
   "warning": {
-    "selectDistrictFirst": "يجب اختيار الحي اولا",
-    "selectSupervisorFirst": "يجب اختيار المشرف اولا"
+    "selectDistrictFirst": "يجب اختيار الحي أولا",
+    "selectSupervisorFirst": "يجب اختيار المشرف أولا"
   },
   "labels": {
     "address": "العنوان",
