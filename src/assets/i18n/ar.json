@@ -172,8 +172,8 @@
     "selectSupervisorFirst": "يجب اختيار المشرف اولا"
   },
   "labels": {
-    "address":"العنوان",
-    "location":"الموقع",
+    "address": "العنوان",
+    "location": "الموقع",
     "tankprice": "سعر الصهريج",
     "isWorking": "متاح للتعين",
     "name": "الاسم",
@@ -275,7 +275,7 @@
     "startDate": "تاريخ البدء مطلوب",
     "endDate": "تاريخ اإلانتهاء مطلوب",
     "orderStatus": "حالة الطلب مطلوبة",
-    "phone_length": "رقم الهاتف يجب ان يكون 11 رقم",
+    "phone_length": "رقم الهاتف يجب ان يكون 10 رقم",
     "name_en": "يجب أن يحتوي الإسم ع أحرف إنجليزية فقط",
     "name_ar": "يجب أن يحتوي الإسم ع أحرف عربية فقط"
   },
@@ -324,13 +324,13 @@
       "driver": "السائقين",
       "supervisors": "المشرفين",
       "orders": "الطلبات",
-      "serviceAgent":"خدمة العملاء",
+      "serviceAgent": "خدمة العملاء",
       "users": " المستخدمين",
-      "customers":"العملاء"
+      "customers": "العملاء"
     },
     "tableHeader": {
-      "location":"الموقع",
-      "address":"العنوان",
+      "location": "الموقع",
+      "address": "العنوان",
       "createdBy": "منشئ الطلب",
       "username": "اسم المستخدم",
       "id": "الرقم التعريفي",
