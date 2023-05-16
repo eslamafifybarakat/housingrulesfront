@@ -262,7 +262,7 @@
                 <label for="customerName" class="mb-2 required">{{'labels.customerName'|translate}}</label>
                 <ng-container *ngIf="!isEdit">
                   <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto mb-1 btn-add-new-form"
-                    (click)="addNewCustomer()">
+                    (click)="addNewCustomer()" [disabled]="isLoadingCustomers">
                     <i class="pi pi-plus-circle"></i>
                     <span>{{'dashboard.createNew'|translate}}</span>
                   </button>

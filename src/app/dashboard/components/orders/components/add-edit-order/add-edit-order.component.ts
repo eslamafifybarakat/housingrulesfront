@@ -289,12 +289,10 @@ export class AddEditOrderComponent implements OnInit {
     });
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        // this.getAllCustomers();
         this.customersList.push(res?.item);
-
         this.orderForm?.patchValue({
-          customerName: item,
-          customerMobileNumber: item?.mobileNumber
+          customerName: res?.item,
+          customerMobileNumber: res?.item?.mobileNumber
         });
         this.cdr?.detectChanges();
       }

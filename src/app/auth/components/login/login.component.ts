@@ -82,21 +82,6 @@ export class LoginComponent implements OnInit {
             window.localStorage.setItem(keys.token, res?.data?.token);
             window.localStorage.setItem(keys.userLoginData, JSON.stringify(res?.data?.user));
             this.publicService?.show_loader?.next(false);
-            // this.authUserService?.getUserData()?.subscribe(
-            //   (res: any) => {
-            //     if (res?.success == true) {
-            //       this.loginForm?.reset();
-            //       this.router?.navigateByUrl('/dashboard');
-            //       this.publicService?.show_loader?.next(false);
-            //     } else {
-            //       this.publicService?.show_loader?.next(false);
-            //       res?.error?.message ? this.alertsService?.openSweetAlert('error', res?.error?.message) : '';
-            //     }
-            //   },
-            //   (err: any) => {
-            //     err ? this.alertsService?.openSweetAlert('error', err) : '';
-            //     this.publicService?.show_loader?.next(false);
-            //   });
           } else {
             this.publicService?.show_loader?.next(false);
             res?.error?.message ? this.alertsService?.openSweetAlert('error', res?.error?.message) : '';
