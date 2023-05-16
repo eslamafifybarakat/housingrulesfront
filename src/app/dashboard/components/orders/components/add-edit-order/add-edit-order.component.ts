@@ -291,9 +291,12 @@ export class AddEditOrderComponent implements OnInit {
       if (res?.listChanged) {
         // this.getAllCustomers();
         this.customersList.push(res?.item);
-        this.orderForm.patchValue({
-          customerName: item
+
+        this.orderForm?.patchValue({
+          customerName: item,
+          customerMobileNumber: item?.mobileNumber
         });
+        this.cdr?.detectChanges();
       }
     });
   }
@@ -534,7 +537,6 @@ export class AddEditOrderComponent implements OnInit {
         // myObject['createBy'] = 0;
       }
 
-      console.log(myObject);
       if (this.isEdit && this.userData?.userType == 7) {
         this.publicService?.show_loader?.next(true);
         this.orderService?.addOrUpdateOrderDriverArrivedAtStation(myObject, this.orderId ? this.orderId : null)?.subscribe(
