@@ -1,6 +1,6 @@
 
-import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 import { AddEditCustomerComponent } from './components/add-edit-customer/add-edit-customer.component';
+import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -52,10 +52,9 @@ export class CustomersComponent implements OnInit {
   ngOnInit(): void {
     this.tableHeaders = [
       { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'address', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.address'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.address'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'location', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.location'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.location'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', },
-      { field: 'locationLink', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', enableItemLink: true, typeViewModal: 'location' },
-
+      // { field: 'address', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.address'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.address'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      // { field: 'location', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.location'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.location'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', },
+      // { field: 'locationLink', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', enableItemLink: true, typeViewModal: 'location' },
       { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'text' },
     ];
 

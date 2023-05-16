@@ -171,8 +171,8 @@
     "selectSupervisorFirst": "You must select supervisor first"
   },
   "labels": {
-    "address":"Address",
-    "location":"Location",
+    "address": "Address",
+    "location": "Location",
     "tankPrice": "Tank Price",
     "isWorking": "Is working",
     "email": "Email",
@@ -269,7 +269,7 @@
     "startDate": "Start date is required",
     "endDate": "End date is required",
     "orderStatus": "Order status is required",
-    "phone_length": "Phone number must be 11 digit",
+    "phone_length": "Phone number must be 10 digit",
     "name_en": "Name must be with english letters only",
     "name_ar": "Name must be with arabic letters only"
   },
@@ -323,8 +323,8 @@
       "customers": "Customers"
     },
     "tableHeader": {
-      "location":"Location",
-      "address":"Address",
+      "location": "Location",
+      "address": "Address",
       "createdBy": "Created By",
       "price": "Price",
       "username": "Username",
