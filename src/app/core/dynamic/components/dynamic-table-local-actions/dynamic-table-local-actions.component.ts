@@ -137,6 +137,7 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   @Output() itemChangeStatusHandler: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('dropdown') dropdown: any;
+  @ViewChild('dt1') dt: any;
   @ViewChild('search') search: any;
 
   tableDataCount: number = 0;
@@ -447,7 +448,23 @@ export class DynamicTableLocalActionsComponent implements OnInit {
       this.selectionHandler.emit(this.selectedElements);
     }
   }
+  onPaginatorPageChange(event: any) {
+    // console.log('lkkkk');
 
+    // const currentRowsPerPage = event.rows;
+    // const rowsPerPageOptionsDropdown: any = document.querySelector('.p-dropdown-items');
+    // console.log(rowsPerPageOptionsDropdown);
+    // console.log(rowsPerPageOptionsDropdown?.nativeElement);
+    // console.log(rowsPerPageOptionsDropdown?.nativeElement.children);
+    // console.log(rowsPerPageOptionsDropdown?.children.blur());
+    // console.log(rowsPerPageOptionsDropdown.nativeElement);
+
+    // rowsPerPageOptionsDropdown.value = currentRowsPerPage;
+  }
+  onPage(event: any) {
+    // const rowsPerPage = event.rows;
+    // this.dt.rows = rowsPerPage;
+  }
   hide(): void {
     this.dropdown?.accessibleViewChild?.nativeElement?.blur();
   }
