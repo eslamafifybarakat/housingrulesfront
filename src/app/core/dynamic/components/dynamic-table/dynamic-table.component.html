@@ -348,7 +348,7 @@
             <ng-container *ngFor="let col of columns">
               <ng-container *ngIf="col?.dataType=='array'; else noChild">
                 <td>
-                  <ng-container *ngIf="col?.status; else noStatus">
+                  <ng-container *ngIf="col?.statusClass; else noStatus">
                     <span [class]="'item-badge status-' +  item[col.field]">{{ item[col.field]}}</span>
                   </ng-container>
                   <ng-template #noStatus>
