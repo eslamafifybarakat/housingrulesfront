@@ -324,6 +324,7 @@
       "customers": "Customers"
     },
     "tableHeader": {
+      "time": "Time",
       "location": "Location",
       "address": "Address",
       "createdBy": "Created By",

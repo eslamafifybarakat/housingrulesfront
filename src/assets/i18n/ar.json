@@ -333,6 +333,7 @@
       "customers": "العملاء"
     },
     "tableHeader": {
+      "time": "الوقت",
       "location": "الموقع",
       "address": "العنوان",
       "createdBy": "منشئ الطلب",

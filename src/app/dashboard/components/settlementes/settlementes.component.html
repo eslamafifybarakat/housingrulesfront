@@ -20,7 +20,7 @@
   <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
     (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
     (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders"
-    [tableData]="settlementesList$" [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY | hh:mm a'"
+    [tableData]="settlementesList$" [enableDateFormate]="true" [dateFormateString]="'hh:mm a'"
     [showActions]="showActionTableColumn" [showConfirm]="showConfirmAction" (confirmHandler)="confirmOrder($event)"
     (customSortHandler)="enableSortFilter?sortItems($event):''"
     (filterHandler)="enableSortFilter?filterItems($event):''" [results]="settlementesCount" [paginatorRows]="perPage"
