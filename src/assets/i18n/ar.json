@@ -325,7 +325,8 @@
       "supervisors": "المشرفين",
       "orders": "الطلبات",
       "serviceAgent":"خدمة العملاء",
-      "users": " المستخدمين"
+      "users": " المستخدمين",
+      "customers":"العملاء"
     },
     "tableHeader": {
       "location":"الموقع",

@@ -99,29 +99,38 @@ export class OrdersComponent implements OnInit {
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             let status: any = '';
+            let statusClass: any = '';
             if (item?.status == 1) {
-              status = this.publicService.translateTextFromJson('general.pending')
+              status = this.publicService.translateTextFromJson('general.pending');
+              statusClass = 'warning';
             }
             if (item?.status == 2) {
-              status = this.publicService.translateTextFromJson('general.assignedToDriver')
+              status = this.publicService.translateTextFromJson('general.assignedToDriver');
+              statusClass = 'primary';
             }
             if (item?.status == 3) {
-              status = this.publicService.translateTextFromJson('general.driverOnWayToCustomer')
+              status = this.publicService.translateTextFromJson('general.driverOnWayToCustomer');
+              statusClass = 'gray';
             }
             if (item?.status == 4) {
-              status = this.publicService.translateTextFromJson('general.driverArrivedToCustomer')
+              status = this.publicService.translateTextFromJson('general.driverArrivedToCustomer');
+              statusClass = 'cyan';
             }
             if (item?.status == 5) {
-              status = this.publicService.translateTextFromJson('general.driverOnWayToStation')
+              status = this.publicService.translateTextFromJson('general.driverOnWayToStation');
+              statusClass = 'purple';
             }
             if (item?.status == 6) {
-              status = this.publicService.translateTextFromJson('general.driverArrivedToStation')
+              status = this.publicService.translateTextFromJson('general.driverArrivedToStation');
+              statusClass = 'cyan';
             }
             if (item?.status == 7) {
-              status = this.publicService.translateTextFromJson('general.completed')
+              status = this.publicService.translateTextFromJson('general.completed');
+              statusClass = 'success';
             }
             if (item?.status == 8) {
-              status = this.publicService.translateTextFromJson('general.cancelled')
+              status = this.publicService.translateTextFromJson('general.cancelled');
+              statusClass = 'danger';
             }
             let orderOrigin: any;
             this.orderOriginList?.forEach((element: any) => {
@@ -153,6 +162,7 @@ export class OrdersComponent implements OnInit {
               locationLink: item?.locationLink ? item?.locationLink : null,
               tank: item?.tank ? item?.tank : '',
               status: status,
+              statusClass: statusClass,
               paymentMethod: paymentMethod,
               paidAmount: item?.paidAmount ? item?.paidAmount : '0',
               cancellationCauses: item?.cancellationCauses ? item?.cancellationCauses : '',
