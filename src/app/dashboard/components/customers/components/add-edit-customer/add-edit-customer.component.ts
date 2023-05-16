@@ -87,7 +87,7 @@ export class AddEditCustomerComponent implements OnInit {
       this.customersService?.addOrUpdateCustomer(myObject, this.customerId ? this.customerId : null)?.subscribe(
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {
-            this.ref.close({ listChanged: true });
+            this.ref.close({ listChanged: true, item: res?.data });
             this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
           } else {
