@@ -448,7 +448,7 @@
       </ng-container>
       <ng-container *ngIf="showActions">
         <td>
-          <div class="d-flex gap-2">
+          <div class="d-flex align-items-center gap-2">
             <ng-container *ngIf="showDetails">
               <a class="fw-500 details" (click)="detailsHandlerEmit(item)" pTooltip="{{'general.details'|translate}}"
                 tooltipPosition="top">
@@ -456,10 +456,22 @@
               </a>
             </ng-container>
             <ng-container *ngIf="showConfirm">
-              <a class="fw-500 confirm_order" (click)="confirmHandlerEmit(item)"
-                pTooltip="{{'general.confirm_order'|translate}}" tooltipPosition="top">
-                <i class="far pi-money-bill"></i>
-              </a>
+              <ng-container *ngIf="userLoginData?.userType==7">
+                <button class="btn btn-outline-main fs-8 py-2 px-3 confirm_order" (click)="confirmHandlerEmit(item)">
+                  <span class="d-flex justify-content-center align-items-center gap-2">
+                    <span>{{'general.confirm_order'|translate}}</span>
+                    <i class="fa fa-money fs-6"></i>
+                  </span>
+                </button>
+              </ng-container>
+              <ng-container *ngIf="userLoginData?.userType==8">
+                <button class="btn btn-outline-danger fs-8 py-2 px-3 confirm_order" (click)="confirmHandlerEmit(item)">
+                  <span class="d-flex justify-content-center align-items-center gap-2">
+                    <span> {{'general.close'|translate}}</span>
+                    <i class="pi pi-lock fs-8"></i>
+                  </span>
+                </button>
+              </ng-container>
             </ng-container>
 
             <ng-container *ngIf="showEdit">

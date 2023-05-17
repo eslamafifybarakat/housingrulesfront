@@ -89,7 +89,7 @@ export class SettlementesComponent implements OnInit {
 
   getAllSettlementes(): any {
     this.loadingIndicator = true;
-    this.ordersService?.getSettlementesList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
+    this.ordersService?.getOrdersList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
       .pipe(
         map((res: any) => {
           this.settlementesCount = res?.total;

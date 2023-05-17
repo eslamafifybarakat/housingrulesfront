@@ -209,7 +209,7 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   collapseAssignMenu: boolean = false;
 
   currLang: any = '';
-
+  userLoginData: any = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}');
   constructor(
     private supervisorsService: SupervisorsService,
     private driversService: DriversService,
