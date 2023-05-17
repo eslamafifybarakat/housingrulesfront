@@ -93,8 +93,8 @@ export class AsideMenuComponent implements OnInit {
       text: this.publicService?.translateTextFromJson('dashboard.sideMenu.gates'),
       icon: 'fa-money',
       routerLink: '/dashboard/gates',
-      // state: (this.userLoginData?.userType == 7 || this.userLoginData?.userType == 8),
-      state: true,
+      state: (this.userLoginData?.userType == 7 || this.userLoginData?.userType == 8),
+      // state: true,
     }
     ];
 
