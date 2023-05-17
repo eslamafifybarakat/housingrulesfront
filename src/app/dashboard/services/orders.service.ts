@@ -16,7 +16,7 @@ export class OrdersService {
   ) { }
 
 
-  getSettlementesList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
+  getGatesList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
     let params = new HttpParams();
     if (page) {
       params = params?.append("page", page);
@@ -33,7 +33,7 @@ export class OrdersService {
     if (conditions && conditions?.length > 0) {
       params = params?.append("conditions", JSON?.stringify(conditions));
     }
-    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.orders?.settlementesList}`, {}, { params: params })
+    return this.http?.post(`${this.baseUrl}/${roots?.dashboard?.orders?.gatesList}`, {}, { params: params })
   }
   orderDriverArrivedToStationList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
     let params = new HttpParams();

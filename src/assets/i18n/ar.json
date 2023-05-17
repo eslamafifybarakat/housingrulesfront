@@ -323,6 +323,7 @@
     "createNew": "إنشاء جديد",
     "sideMenu": {
       "settlementes": "التسويات",
+      "gates": "البوابات",
       "dashboard": "لوحة التحكم",
       "tanks": "الصهاريج",
       "driver": "السائقين",
@@ -414,6 +415,10 @@
     "settlementes": {
       "settlementes": "التسويات",
       "settlementDetails": "تفاصيل التسوية"
+    },
+    "gates": {
+      "gates": "البوابات",
+      "gatesDetails": "تفاصيل البوابة"
     },
     "users": {
       "allUsers": "كل المستخدمين",

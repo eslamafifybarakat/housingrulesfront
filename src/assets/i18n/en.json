@@ -80,6 +80,7 @@
     "ok": "OK",
     "brands": "Brands",
     "create_new": "Create New",
+    "UserNameStr": "Employee Name",
     "skills": "Skills",
     "account": "Account",
     "unnammed": "unnammed",
@@ -191,6 +192,7 @@
     "tankSize": "Tank Size",
     "plateNumber": "Plate No",
     "username": "Username",
+    "UserNameStr": "Employee Name",
     "supervisor": "Supervisor",
     "mobilePhone": "Mobile Number",
     "tank": "Tank",
@@ -313,6 +315,7 @@
     "total": "total",
     "createNew": "Create new",
     "sideMenu": {
+      "gates": "Gates",
       "settlementes": "settlementes",
       "dashboard": "Dashboard",
       "tanks": "Tanks",
@@ -324,6 +327,7 @@
       "customers": "Customers"
     },
     "tableHeader": {
+      "userNameStr": "Employee Name",
       "time": "Time",
       "location": "Location",
       "address": "Address",
@@ -405,6 +409,10 @@
     "settlementes": {
       "settlementes": "Settlementes",
       "settlementDetails": "Settlement details"
+    },
+    "gates": {
+      "gates": "Gates",
+      "gatesDetails": "Gates details"
     },
     "users": {
       "users": "Users",

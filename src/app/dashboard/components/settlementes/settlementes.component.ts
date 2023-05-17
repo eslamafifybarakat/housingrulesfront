@@ -1,3 +1,4 @@
+import { ConfirmCompleteOrderComponent } from '../orders/components/confirm-complete-order/confirm-complete-order.component';
 import { SettlementDetailsComponent } from './components/settlement-details/settlement-details.component';
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
@@ -8,7 +9,6 @@ import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
-import { ConfirmCompleteOrderComponent } from '../orders/components/confirm-complete-order/confirm-complete-order.component';
 
 @Component({
   selector: 'app-settlementes',
@@ -22,8 +22,8 @@ export class SettlementesComponent implements OnInit {
   isLoadingFileDownload: boolean = false;
 
   loadingIndicator: boolean = false;
-  settlementesList$!: Observable<any>;
-  settlementesCount: number = 0;
+  gatesList$!: Observable<any>;
+  gatesCount: number = 0;
   tableHeaders: any = [];
 
   page: number = 1;
@@ -84,18 +84,18 @@ export class SettlementesComponent implements OnInit {
 
     ];
 
-    this.getAllSettlementes();
+    this.getAllGates();
     this.paymentMethodList = this.publicService?.getPaymentMethods();
   }
 
-  getAllSettlementes(): any {
+  getAllGates(): any {
     if (this.userLoginDataType == 7) {
       this.loadingIndicator = true;
-      this.ordersService?.getSettlementesList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
+      this.ordersService?.getGatesList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
         .pipe(
           map((res: any) => {
-            this.settlementesCount = res?.total;
-            this.pagesCount = Math.ceil(this.settlementesCount / this.perPage);
+            this.gatesCount = res?.total;
+            this.pagesCount = Math.ceil(this.gatesCount / this.perPage);
             let arr: any = [];
             res?.data ? res?.data.forEach((item: any) => {
               let status: any = '';
@@ -160,7 +160,7 @@ export class SettlementesComponent implements OnInit {
 
               });
             }) : '';
-            this.settlementesList$ = arr;
+            this.gatesList$ = arr;
           }),
           finalize(() => {
             this.loadingIndicator = false;
@@ -179,8 +179,8 @@ export class SettlementesComponent implements OnInit {
       this.ordersService?.orderDriverArrivedToStationList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
         .pipe(
           map((res: any) => {
-            this.settlementesCount = res?.total;
-            this.pagesCount = Math.ceil(this.settlementesCount / this.perPage);
+            this.gatesCount = res?.total;
+            this.pagesCount = Math.ceil(this.gatesCount / this.perPage);
             let arr: any = [];
             res?.data ? res?.data.forEach((item: any) => {
               let status: any = '';
@@ -245,7 +245,7 @@ export class SettlementesComponent implements OnInit {
 
               });
             }) : '';
-            this.settlementesList$ = arr;
+            this.gatesList$ = arr;
           }),
           finalize(() => {
             this.loadingIndicator = false;
@@ -259,11 +259,10 @@ export class SettlementesComponent implements OnInit {
         ).subscribe((res: any) => {
         });
     }
-
   }
   getOrders(): void {
-    let arr: any = this.settlementesList$
-    arr?.length == 0 ? this.getAllSettlementes() : '';
+    let arr: any = this.gatesList$
+    arr?.length == 0 ? this.getAllGates() : '';
   }
 
   search(event: any): void {
@@ -274,15 +273,15 @@ export class SettlementesComponent implements OnInit {
     }
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllSettlementes();
+    this.getAllGates();
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
-    this.getAllSettlementes();
+    this.getAllGates();
   }
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
-    this.pagesCount = Math?.ceil(this.settlementesCount / this.perPage);
+    this.pagesCount = Math?.ceil(this.gatesCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
   }
@@ -307,7 +306,7 @@ export class SettlementesComponent implements OnInit {
         if (res?.listChanged) {
           this.page = 1;
           this.publicService?.changePageSub?.next({ page: this.page });
-          this.getAllSettlementes();
+          this.getAllGates();
         }
       });
     }
@@ -344,7 +343,7 @@ export class SettlementesComponent implements OnInit {
         // if (res?.listChanged) {
         //   this.page = 1;
         //   this.publicService?.changePageSub?.next({ page: this.page });
-        //   this.getAllSettlementes();
+        //   this.getAllGates();
         // }
       });
     }
@@ -367,7 +366,7 @@ export class SettlementesComponent implements OnInit {
     this.filtersArray = [];
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllSettlementes();
+    this.getAllGates();
   }
   sortItems(event: any): void {
     if (event?.order == 1) {
@@ -375,13 +374,13 @@ export class SettlementesComponent implements OnInit {
         column: event?.field,
         order: 'asc'
       }
-      this.getAllSettlementes();
+      this.getAllGates();
     } else if (event?.order == -1) {
       this.sortObj = {
         column: event?.field,
         order: 'desc'
       }
-      this.getAllSettlementes();
+      this.getAllGates();
     }
   }
   filterItems(event: any): void {
@@ -444,7 +443,7 @@ export class SettlementesComponent implements OnInit {
     });
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllSettlementes();
+    this.getAllGates();
   }
 
   ngOnDestroy(): void {

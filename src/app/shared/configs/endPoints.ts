@@ -37,7 +37,7 @@ export const roots = {
       supervisorToggleStatus: 'switch_status_supervisors'
     },
     orders: {
-      settlementesList: 'Orders/GetAllOrderForSettlement',
+      gatesList: 'Orders/GetAllOrderForSettlement',
       updateOrderDriverArrivedAtStation: 'Orders/DriverArrivedAtStation',
       updateOrderComplete: 'Orders/CompleteOrder',
       confirmSettlementeOrderList: 'Settlement/CreateOrderRecivable',
