@@ -91,6 +91,9 @@ export class OrdersService {
     if (conditions && conditions?.length > 0) {
       params = params?.append("conditions", JSON?.stringify(conditions));
     }
+    if (userLoginData?.userType < 3)
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}` )
+   else
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersByTypeList}/${userLoginData?.userType}/${userLoginData?.entityId}`, { params: params })
   }
   getCustomersList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {

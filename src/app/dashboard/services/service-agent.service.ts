@@ -48,6 +48,6 @@ export class ServiceAgentService {
     if (id) {
       params = params.append("id", id);
     }
-    return this.http?.delete<any>(`${this.baseUrl}/${roots?.dashboard?.serviceAgents?.Delete}`, { params: params });
+    return this.http?.post<any>(`${this.baseUrl}/${roots?.dashboard?.serviceAgents?.Delete}`, { "id": id });
   }
 }
