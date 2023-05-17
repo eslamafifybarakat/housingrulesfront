@@ -1,4 +1,5 @@
 import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -241,7 +242,17 @@ export class OrdersComponent implements OnInit {
   addOrEditItem(item?: any, type?: any): void {
     type == 'edit' ? this.router.navigate(['/dashboard/addOrder', { id: item?.id }]) : this.router.navigate(['/dashboard/addOrder']);
   }
+  itemDetails(item?: any): void {
+    console.log(item);
 
+    const ref = this.dialogService?.open(OrderDetailsComponent, {
+      data: item,
+      header: this.publicService?.translateTextFromJson('dashboard.orders.orderDetails'),
+      dismissableMask: true,
+      width: '40%',
+      styleClass: 'custom_modal'
+    });
+  }
   clearTable(event: any): void {
     this.searchKeyword = '';
     this.sortObj = {};
