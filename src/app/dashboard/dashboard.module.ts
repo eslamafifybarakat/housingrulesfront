@@ -29,10 +29,10 @@ import { ConfirmCompleteOrderComponent } from './components/orders/components/co
 import { CustomersComponent } from './components/customers/customers.component';
 import { AddEditCustomerComponent } from './components/customers/components/add-edit-customer/add-edit-customer.component';
 import { CustomerDetailsComponent } from './components/customers/components/customer-details/customer-details.component';
-import { SettlementesComponent } from './components/settlementes/settlementes.component';
-import { ConfirmOrderComponent } from './components/settlementes/components/confirm-order/confirm-order.component';
+import { ConfirmOrderComponent } from './components/gates/components/confirm-order/confirm-order.component';
 import { OrderDetailsComponent } from './components/orders/components/order-details/order-details.component';
-import { SettlementDetailsComponent } from './components/settlementes/components/settlement-details/settlement-details.component';
+import { GatesComponent } from './components/gates/gates.component';
+import { GateDetailsComponent } from './components/gates/components/gate-details/gate-details.component';
 
 @NgModule({
   declarations: [
@@ -61,10 +61,10 @@ import { SettlementDetailsComponent } from './components/settlementes/components
     CustomersComponent,
     AddEditCustomerComponent,
     CustomerDetailsComponent,
-    SettlementesComponent,
+    GatesComponent,
     ConfirmOrderComponent,
     OrderDetailsComponent,
-    SettlementDetailsComponent,
+    GateDetailsComponent,
   ],
   imports: [
     DashboardRoutingModule,

@@ -1,5 +1,4 @@
 import { ConfirmCompleteOrderComponent } from '../orders/components/confirm-complete-order/confirm-complete-order.component';
-import { SettlementDetailsComponent } from './components/settlement-details/settlement-details.component';
 import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
@@ -9,13 +8,14 @@ import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
+import { GateDetailsComponent } from './components/gate-details/gate-details.component';
 
 @Component({
-  selector: 'app-settlementes',
-  templateUrl: './settlementes.component.html',
-  styleUrls: ['./settlementes.component.scss']
+  selector: 'app-gates',
+  templateUrl: './gates.component.html',
+  styleUrls: ['./gates.component.scss']
 })
-export class SettlementesComponent implements OnInit {
+export class GatesComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
   isLoadingSearch: boolean = false;
   isSearch: boolean = false;
@@ -352,7 +352,7 @@ export class SettlementesComponent implements OnInit {
   }
   itemDetails(item?: any): void {
     console.log(item);
-    const ref = this.dialogService?.open(SettlementDetailsComponent, {
+    const ref = this.dialogService?.open(GateDetailsComponent, {
       data: item,
       header: this.publicService?.translateTextFromJson('dashboard.settlementes.settlementDetails'),
       dismissableMask: true,

@@ -7,11 +7,11 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-settlement-details',
-  templateUrl: './settlement-details.component.html',
-  styleUrls: ['./settlement-details.component.scss']
+  selector: 'app-gate-details',
+  templateUrl: './gate-details.component.html',
+  styleUrls: ['./gate-details.component.scss']
 })
-export class SettlementDetailsComponent implements OnInit {
+export class GateDetailsComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
 
   modalData: any;

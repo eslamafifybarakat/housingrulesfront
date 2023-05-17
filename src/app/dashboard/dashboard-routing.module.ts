@@ -1,13 +1,13 @@
 import { AddEditOrderComponent } from './components/orders/components/add-edit-order/add-edit-order.component';
 import { WelcomeDashboardComponent } from './components/welcome-dashboard/welcome-dashboard.component';
 import { ServiceAgentComponent } from './components/service-agent/service-agent.component';
-import { SettlementesComponent } from './components/settlementes/settlementes.component';
 import { SupervisorsComponent } from './components/supervisors/supervisors.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { DriversComponent } from './components/drivers/drivers.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { UsersComponent } from './components/users/users.component';
 import { TanksComponent } from './components/tanks/tanks.component';
+import { GatesComponent } from './components/gates/gates.component';
 import { DashboardComponent } from './dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutes } from '../shared/configs/routes';
@@ -92,7 +92,7 @@ const routes: Routes = [
       },
       {
         path: AppRoutes?.dashboard?.gates,
-        component: SettlementesComponent,
+        component: GatesComponent,
         data: {
           title: 'titles.gates',
           type: 'gates'

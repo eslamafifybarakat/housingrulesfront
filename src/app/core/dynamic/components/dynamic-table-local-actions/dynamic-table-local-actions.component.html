@@ -437,8 +437,7 @@
       </ng-container>
       <ng-container *ngIf="col?.type=='boolean'">
         <td>
-          <p-inputSwitch [(ngModel)]="item[col.field]" [readonly]="true" (onChange)="statusHandlerEmit(item)"
-            pTooltip="{{'general.changeStatus'|translate}}" tooltipPosition="top">
+          <p-inputSwitch [(ngModel)]="item[col.field]" [readonly]="true" (onChange)="statusHandlerEmit(item)">
           </p-inputSwitch>
         </td>
       </ng-container>
@@ -745,8 +744,7 @@
                 </ng-container>
                 <ng-container *ngIf="col?.type=='boolean'">
                   <td>
-                    <p-inputSwitch [(ngModel)]="item.is_active" [readonly]="true" (onChange)="statusHandlerEmit(item)"
-                      pTooltip="{{'general.changeStatus'|translate}}" tooltipPosition="top">
+                    <p-inputSwitch [(ngModel)]="item.is_active" [readonly]="true" (onChange)="statusHandlerEmit(item)">
                     </p-inputSwitch>
                   </td>
                 </ng-container>
