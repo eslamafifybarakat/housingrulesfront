@@ -25,8 +25,9 @@
     (customSortHandler)="enableSortFilter?sortItems($event):''"
     (filterHandler)="enableSortFilter?filterItems($event):''" [results]="settlementesCount" [paginatorRows]="perPage"
     [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
-    [enableConfirmDeleteDialog]="true" [keyDelete]="'name'" (paginateOptionsHandler)="onPaginatorOptionsChange($event)"
-    (itemActionHandler)="viewLocation($event)" [isSearch]="isSearch" [arrayChildKey]="'name'"
-    [enableFilterSupervisors]="true" [enableFilterDrivers]="true" [enableFilterOrderStatus]="true"
-    [enableFilterPropertyType]="true" [enableFilterTanks]="true"></app-dynamic-table-local-actions>
+    [showDetails]="true" (detailsHandler)="itemDetails($event)" [enableConfirmDeleteDialog]="true" [keyDelete]="'name'"
+    (paginateOptionsHandler)="onPaginatorOptionsChange($event)" (itemActionHandler)="viewLocation($event)"
+    [isSearch]="isSearch" [arrayChildKey]="'name'" [enableFilterSupervisors]="true" [enableFilterDrivers]="true"
+    [enableFilterOrderStatus]="true" [enableFilterPropertyType]="true"
+    [enableFilterTanks]="true"></app-dynamic-table-local-actions>
 </div>

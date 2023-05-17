@@ -1,0 +1,87 @@
+<div id="modal">
+  <div class="mb-4">
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.orderNumber'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.orderNumber}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'dashboard.tableHeader.time'|translate}}</label>
+      <p class="fs-5-1">{{time}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.orderOrigin'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.orderOrigin}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'dashboard.tableHeader.createdBy'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.createdBy}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.customerName'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.customer}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.customerMobileNumber'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.customerMobileNumber}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.locationLink'|translate}}</label>
+      <u>
+        <a class="fs-5-1" [href]="modalData?.locationLink"
+          target="_blank">{{'dashboard.tableHeader.locationLink'|translate}}</a>
+      </u>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.supervisor'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.supervisor}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.driver'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.driver}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.tank'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.tank}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.district'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.district}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.propertyType'|translate}}</label>
+      <p class="fs-5-1">{{propertyType}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.paymentMethod'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.paymentMethod}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.paidAmount'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.paidAmount}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.status'|translate}}</label>
+      <p class=" item-badge" [class]="'status-'+modalData?.statusClass">{{modalData?.status}}</p>
+    </div>
+    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="active" class="fw-bold fs-5-1">{{'labels.comments'|translate}}</label>
+      <p class="fs-5-1">{{modalData?.comments}}</p>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
+    <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2"
+      (click)="edit()">
+      <span>
+        {{'general.edit'|translate}}
+      </span>
+      <i class="pi pi-pencil"></i>
+    </button>
+    <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+      <span>
+        {{'general.cancel'|translate}}
+      </span>
+      <i class="pi pi-times"></i>
+    </button>
+  </div>
+</div>

@@ -7,15 +7,15 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-order-details',
-  templateUrl: './order-details.component.html',
-  styleUrls: ['./order-details.component.scss']
+  selector: 'app-settlement-details',
+  templateUrl: './settlement-details.component.html',
+  styleUrls: ['./settlement-details.component.scss']
 })
-export class OrderDetailsComponent implements OnInit {
+export class SettlementDetailsComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
 
   modalData: any;
-  orderId: any;
+  settlementId: any;
   dateTime: any;
   time: any;
   propertyType: any;
@@ -32,7 +32,7 @@ export class OrderDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.modalData = this.config?.data;
-    this.orderId = this.modalData?.id;
+    this.settlementId = this.modalData?.id;
     this.dateTime = this.modalData?.dateTime;
     this.propertyType = this.modalData?.propertyType ? this.modalData?.propertyType[0]?.name : '';
     const date = new Date(this.dateTime);
@@ -42,7 +42,7 @@ export class OrderDetailsComponent implements OnInit {
 
   edit(): void {
     this.ref?.close();
-    this.router.navigate(['/dashboard/addOrder', { id: this.orderId }]);
+    // this.router.navigate(['/dashboard/addOrder', { id: this.settlementId }]);
   }
 
   cancel(): void {

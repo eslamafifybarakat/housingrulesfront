@@ -32,6 +32,7 @@ import { CustomerDetailsComponent } from './components/customers/components/cust
 import { SettlementesComponent } from './components/settlementes/settlementes.component';
 import { ConfirmOrderComponent } from './components/settlementes/components/confirm-order/confirm-order.component';
 import { OrderDetailsComponent } from './components/orders/components/order-details/order-details.component';
+import { SettlementDetailsComponent } from './components/settlementes/components/settlement-details/settlement-details.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { OrderDetailsComponent } from './components/orders/components/order-deta
     SettlementesComponent,
     ConfirmOrderComponent,
     OrderDetailsComponent,
+    SettlementDetailsComponent,
   ],
   imports: [
     DashboardRoutingModule,

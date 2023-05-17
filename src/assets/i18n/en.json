@@ -403,7 +403,8 @@
       "orderDetails": "Order details"
     },
     "settlementes": {
-      "settlementes": "Settlementes"
+      "settlementes": "Settlementes",
+      "settlementDetails": "Settlement details"
     },
     "users": {
       "users": "Users",

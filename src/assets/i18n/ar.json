@@ -412,7 +412,8 @@
       "orderDetails": "تفاصيل الطلب"
     },
     "settlementes": {
-      "settlementes": "التسويات"
+      "settlementes": "التسويات",
+      "settlementDetails": "تفاصيل التسوية"
     },
     "users": {
       "allUsers": "كل المستخدمين",

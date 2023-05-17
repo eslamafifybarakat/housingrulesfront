@@ -1,3 +1,5 @@
+import { SettlementDetailsComponent } from './components/settlement-details/settlement-details.component';
+import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -6,7 +8,6 @@ import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
-import { ConfirmOrderComponent } from './components/confirm-order/confirm-order.component';
 
 @Component({
   selector: 'app-settlementes',
@@ -221,7 +222,16 @@ export class SettlementesComponent implements OnInit {
     });
 
   }
-
+  itemDetails(item?: any): void {
+    console.log(item);
+    const ref = this.dialogService?.open(SettlementDetailsComponent, {
+      data: item,
+      header: this.publicService?.translateTextFromJson('dashboard.settlementes.settlementDetails'),
+      dismissableMask: true,
+      width: '40%',
+      styleClass: 'custom_modal'
+    });
+  }
   clearTable(event: any): void {
     this.searchKeyword = '';
     this.sortObj = {};
