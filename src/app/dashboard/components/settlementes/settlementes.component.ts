@@ -57,10 +57,10 @@ export class SettlementesComponent implements OnInit {
 
   ngOnInit(): void {
     this.userLoginDataType = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}')?.userType;
-    if (this.userLoginDataType == 7) {
+    if (this.userLoginDataType == 7 || this.userLoginDataType == 8) {
+      this.showActionTableColumn = true;
+      this.showConfirmAction = true;
     }
-    this.showActionTableColumn = true;
-    this.showConfirmAction = true;
 
     this.tableHeaders = [
       { field: 'orderNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
