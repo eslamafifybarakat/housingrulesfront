@@ -8,6 +8,7 @@ import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
+import { ConfirmCompleteOrderComponent } from '../orders/components/confirm-complete-order/confirm-complete-order.component';
 
 @Component({
   selector: 'app-settlementes',
@@ -88,89 +89,177 @@ export class SettlementesComponent implements OnInit {
   }
 
   getAllSettlementes(): any {
-    this.loadingIndicator = true;
-    this.ordersService?.getOrdersList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
-      .pipe(
-        map((res: any) => {
-          this.settlementesCount = res?.total;
-          this.pagesCount = Math.ceil(this.settlementesCount / this.perPage);
-          let arr: any = [];
-          res?.data ? res?.data.forEach((item: any) => {
-            let status: any = '';
-            let statusClass: any = '';
-            if (item?.status == 1) {
-              status = this.publicService.translateTextFromJson('general.pending');
-              statusClass = 'warning';
-            }
-            if (item?.status == 2) {
-              status = this.publicService.translateTextFromJson('general.assignedToDriver');
-              statusClass = 'primary';
-            }
-            if (item?.status == 3) {
-              status = this.publicService.translateTextFromJson('general.driverOnWayToCustomer');
-              statusClass = 'gray';
-            }
-            if (item?.status == 4) {
-              status = this.publicService.translateTextFromJson('general.driverArrivedToCustomer');
-              statusClass = 'cyan';
-            }
-            if (item?.status == 5) {
-              status = this.publicService.translateTextFromJson('general.driverOnWayToStation');
-              statusClass = 'purple';
-            }
-            if (item?.status == 6) {
-              status = this.publicService.translateTextFromJson('general.driverArrivedToStation');
-              statusClass = 'cyan';
-            }
-            if (item?.status == 7) {
-              status = this.publicService.translateTextFromJson('general.completed');
-              statusClass = 'success';
-            }
-            if (item?.status == 8) {
-              status = this.publicService.translateTextFromJson('general.cancelled');
-              statusClass = 'danger';
-            }
-            let paymentMethod: any = '';
-            this.paymentMethodList?.forEach((element: any) => {
-              if (element?.value == item?.paymentMethod) {
-                paymentMethod = element?.name;
+    if (this.userLoginDataType == 7) {
+      this.loadingIndicator = true;
+      this.ordersService?.getSettlementesList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
+        .pipe(
+          map((res: any) => {
+            this.settlementesCount = res?.total;
+            this.pagesCount = Math.ceil(this.settlementesCount / this.perPage);
+            let arr: any = [];
+            res?.data ? res?.data.forEach((item: any) => {
+              let status: any = '';
+              let statusClass: any = '';
+              if (item?.status == 1) {
+                status = this.publicService.translateTextFromJson('general.pending');
+                statusClass = 'warning';
               }
-            });
-            arr.push({
-              id: item?.id ? item?.id : null,
-              dateTime: item?.dateTime ? new Date(item?.dateTime) : null,
-              cost: item?.cost ? item?.cost : '',
-              createdByName: item?.createdByName ? item?.createdByName : '',
-              orderNumber: item?.orderNumber ? item?.orderNumber : '',
-              customerMobileNumber: item?.customerMobileNumber ? item?.customerMobileNumber : '',
-              locationLink: item?.locationLink ? item?.locationLink : null,
-              tank: item?.tank ? item?.tank : '',
-              status: status,
-              statusClass: statusClass,
-              paymentMethod: paymentMethod,
-              paidAmount: item?.paidAmount ? item?.paidAmount : '0',
-              cancellationCauses: item?.cancellationCauses ? item?.cancellationCauses : '',
-              closedAt: item?.closedAt ? item?.closedAt : '',
-              supervisor: item?.supervisor ? item?.supervisor : [],
-              driver: item?.driver ? item?.driver : [],
-              customer: item?.customer ? item?.customer : '',
-              comments: item?.comments ? item?.comments : '',
+              if (item?.status == 2) {
+                status = this.publicService.translateTextFromJson('general.assignedToDriver');
+                statusClass = 'primary';
+              }
+              if (item?.status == 3) {
+                status = this.publicService.translateTextFromJson('general.driverOnWayToCustomer');
+                statusClass = 'gray';
+              }
+              if (item?.status == 4) {
+                status = this.publicService.translateTextFromJson('general.driverArrivedToCustomer');
+                statusClass = 'cyan';
+              }
+              if (item?.status == 5) {
+                status = this.publicService.translateTextFromJson('general.driverOnWayToStation');
+                statusClass = 'purple';
+              }
+              if (item?.status == 6) {
+                status = this.publicService.translateTextFromJson('general.driverArrivedToStation');
+                statusClass = 'cyan';
+              }
+              if (item?.status == 7) {
+                status = this.publicService.translateTextFromJson('general.completed');
+                statusClass = 'success';
+              }
+              if (item?.status == 8) {
+                status = this.publicService.translateTextFromJson('general.cancelled');
+                statusClass = 'danger';
+              }
+              let paymentMethod: any = '';
+              this.paymentMethodList?.forEach((element: any) => {
+                if (element?.value == item?.paymentMethod) {
+                  paymentMethod = element?.name;
+                }
+              });
+              arr.push({
+                id: item?.id ? item?.id : null,
+                dateTime: item?.dateTime ? new Date(item?.dateTime) : null,
+                cost: item?.cost ? item?.cost : '',
+                createdByName: item?.createdByName ? item?.createdByName : '',
+                orderNumber: item?.orderNumber ? item?.orderNumber : '',
+                customerMobileNumber: item?.customerMobileNumber ? item?.customerMobileNumber : '',
+                locationLink: item?.locationLink ? item?.locationLink : null,
+                tank: item?.tank ? item?.tank : '',
+                status: status,
+                statusClass: statusClass,
+                paymentMethod: paymentMethod,
+                paidAmount: item?.paidAmount ? item?.paidAmount : '0',
+                cancellationCauses: item?.cancellationCauses ? item?.cancellationCauses : '',
+                closedAt: item?.closedAt ? item?.closedAt : '',
+                supervisor: item?.supervisor ? item?.supervisor : [],
+                driver: item?.driver ? item?.driver : [],
+                customer: item?.customer ? item?.customer : '',
+                comments: item?.comments ? item?.comments : '',
 
-            });
-          }) : '';
-          this.settlementesList$ = arr;
-        }),
-        finalize(() => {
-          this.loadingIndicator = false;
-          this.isLoadingSearch = false;
-          this.enableSortFilter = false;
-          setTimeout(() => {
-            this.enableSortFilter = true;
-          }, 200);
-        })
+              });
+            }) : '';
+            this.settlementesList$ = arr;
+          }),
+          finalize(() => {
+            this.loadingIndicator = false;
+            this.isLoadingSearch = false;
+            this.enableSortFilter = false;
+            setTimeout(() => {
+              this.enableSortFilter = true;
+            }, 200);
+          })
 
-      ).subscribe((res: any) => {
-      });
+        ).subscribe((res: any) => {
+        });
+    }
+    if (this.userLoginDataType == 8) {
+      this.loadingIndicator = true;
+      this.ordersService?.orderDriverArrivedToStationList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
+        .pipe(
+          map((res: any) => {
+            this.settlementesCount = res?.total;
+            this.pagesCount = Math.ceil(this.settlementesCount / this.perPage);
+            let arr: any = [];
+            res?.data ? res?.data.forEach((item: any) => {
+              let status: any = '';
+              let statusClass: any = '';
+              if (item?.status == 1) {
+                status = this.publicService.translateTextFromJson('general.pending');
+                statusClass = 'warning';
+              }
+              if (item?.status == 2) {
+                status = this.publicService.translateTextFromJson('general.assignedToDriver');
+                statusClass = 'primary';
+              }
+              if (item?.status == 3) {
+                status = this.publicService.translateTextFromJson('general.driverOnWayToCustomer');
+                statusClass = 'gray';
+              }
+              if (item?.status == 4) {
+                status = this.publicService.translateTextFromJson('general.driverArrivedToCustomer');
+                statusClass = 'cyan';
+              }
+              if (item?.status == 5) {
+                status = this.publicService.translateTextFromJson('general.driverOnWayToStation');
+                statusClass = 'purple';
+              }
+              if (item?.status == 6) {
+                status = this.publicService.translateTextFromJson('general.driverArrivedToStation');
+                statusClass = 'cyan';
+              }
+              if (item?.status == 7) {
+                status = this.publicService.translateTextFromJson('general.completed');
+                statusClass = 'success';
+              }
+              if (item?.status == 8) {
+                status = this.publicService.translateTextFromJson('general.cancelled');
+                statusClass = 'danger';
+              }
+              let paymentMethod: any = '';
+              this.paymentMethodList?.forEach((element: any) => {
+                if (element?.value == item?.paymentMethod) {
+                  paymentMethod = element?.name;
+                }
+              });
+              arr.push({
+                id: item?.id ? item?.id : null,
+                dateTime: item?.dateTime ? new Date(item?.dateTime) : null,
+                cost: item?.cost ? item?.cost : '',
+                createdByName: item?.createdByName ? item?.createdByName : '',
+                orderNumber: item?.orderNumber ? item?.orderNumber : '',
+                customerMobileNumber: item?.customerMobileNumber ? item?.customerMobileNumber : '',
+                locationLink: item?.locationLink ? item?.locationLink : null,
+                tank: item?.tank ? item?.tank : '',
+                status: status,
+                statusClass: statusClass,
+                paymentMethod: paymentMethod,
+                paidAmount: item?.paidAmount ? item?.paidAmount : '0',
+                cancellationCauses: item?.cancellationCauses ? item?.cancellationCauses : '',
+                closedAt: item?.closedAt ? item?.closedAt : '',
+                supervisor: item?.supervisor ? item?.supervisor : [],
+                driver: item?.driver ? item?.driver : [],
+                customer: item?.customer ? item?.customer : '',
+                comments: item?.comments ? item?.comments : '',
+
+              });
+            }) : '';
+            this.settlementesList$ = arr;
+          }),
+          finalize(() => {
+            this.loadingIndicator = false;
+            this.isLoadingSearch = false;
+            this.enableSortFilter = false;
+            setTimeout(() => {
+              this.enableSortFilter = true;
+            }, 200);
+          })
+
+        ).subscribe((res: any) => {
+        });
+    }
+
   }
   getOrders(): void {
     let arr: any = this.settlementesList$
@@ -204,22 +293,62 @@ export class SettlementesComponent implements OnInit {
 
   confirmOrder(item?: any): void {
     console.log(item);
-    const ref = this.dialogService?.open(ConfirmOrderComponent, {
-      data: {
-        item: item
-      },
-      header: this.publicService?.translateTextFromJson('general.confirm_order'),
-      dismissableMask: false,
-      width: '40%',
-      styleClass: 'custom_modal'
-    });
-    ref.onClose.subscribe((res: any) => {
-      if (res?.listChanged) {
-        this.page = 1;
-        this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllSettlementes();
-      }
-    });
+    if (this.userLoginDataType == 7) {
+      const ref = this.dialogService?.open(ConfirmOrderComponent, {
+        data: {
+          item: item
+        },
+        header: this.publicService?.translateTextFromJson('general.confirm_order'),
+        dismissableMask: false,
+        width: '40%',
+        styleClass: 'custom_modal'
+      });
+      ref.onClose.subscribe((res: any) => {
+        if (res?.listChanged) {
+          this.page = 1;
+          this.publicService?.changePageSub?.next({ page: this.page });
+          this.getAllSettlementes();
+        }
+      });
+    }
+    if (this.userLoginDataType == 8) {
+      const ref = this.dialogService?.open(ConfirmCompleteOrderComponent, {
+        data: {
+          item: item
+        },
+        header: this.publicService?.translateTextFromJson('general.confirm_order'),
+        dismissableMask: false,
+        width: '40%',
+        styleClass: 'custom_modal'
+      });
+      ref.onClose.subscribe((res: any) => {
+        console.log(res);
+        if (res?.confirmed) {
+          this.publicService.show_loader.next(true);
+          this.ordersService?.setOrderComplete(item?.id)?.subscribe(
+            (res: any) => {
+              if (res?.isSuccess == true) {
+                this.publicService?.show_loader?.next(false);
+                res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+              } else {
+                res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+                this.publicService?.show_loader?.next(false);
+              }
+            },
+            (err: any) => {
+              err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+              this.publicService?.show_loader?.next(false);
+            });
+        }
+
+        // if (res?.listChanged) {
+        //   this.page = 1;
+        //   this.publicService?.changePageSub?.next({ page: this.page });
+        //   this.getAllSettlementes();
+        // }
+      });
+    }
+
 
   }
   itemDetails(item?: any): void {

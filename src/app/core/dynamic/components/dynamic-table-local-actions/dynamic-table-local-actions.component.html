@@ -305,6 +305,9 @@
           <ng-container *ngIf="showReport">
             <th>{{"dashboard.tableHeader.report"|translate}}</th>
           </ng-container>
+          <ng-container *ngIf="showConfirm">
+            <th></th>
+          </ng-container>
           <ng-container *ngIf="showCopy">
             <th>ID</th>
           </ng-container>
@@ -455,25 +458,6 @@
                 <i class="far fa-eye"></i>
               </a>
             </ng-container>
-            <ng-container *ngIf="showConfirm">
-              <ng-container *ngIf="userLoginData?.userType==7">
-                <button class="btn btn-outline-main fs-8 py-2 px-3 confirm_order" (click)="confirmHandlerEmit(item)">
-                  <span class="d-flex justify-content-center align-items-center gap-2">
-                    <span>{{'general.confirm_order'|translate}}</span>
-                    <i class="fa fa-money fs-6"></i>
-                  </span>
-                </button>
-              </ng-container>
-              <ng-container *ngIf="userLoginData?.userType==8">
-                <button class="btn btn-outline-danger fs-8 py-2 px-3 confirm_order" (click)="confirmHandlerEmit(item)">
-                  <span class="d-flex justify-content-center align-items-center gap-2">
-                    <span> {{'general.close'|translate}}</span>
-                    <i class="pi pi-lock fs-8"></i>
-                  </span>
-                </button>
-              </ng-container>
-            </ng-container>
-
             <ng-container *ngIf="showEdit">
               <a class="d-flex align-items-center
                       gap-2" (click)="editHandlerEmit(item)" pTooltip="{{'general.edit'|translate}}"
@@ -514,6 +498,28 @@
               <i class="pi pi-download fs-5-1"></i>
             </a>
           </div>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="showConfirm">
+        <td>
+          <ng-container *ngIf="userLoginData?.userType==7">
+            <!-- <ng-container *ngIf="true"> -->
+            <button class="btn btn-outline-main fs-8 py-2 px-3 confirm_order" (click)="confirmHandlerEmit(item)">
+              <span class="d-flex justify-content-center align-items-center gap-2">
+                <span>{{'general.confirm_order'|translate}}</span>
+                <i class="fa fa-money fs-6"></i>
+              </span>
+            </button>
+          </ng-container>
+          <ng-container *ngIf="userLoginData?.userType==8">
+            <!-- <ng-container *ngIf="true"> -->
+            <button class="btn btn-outline-danger fs-8 py-2 px-3 confirm_order" (click)="confirmHandlerEmit(item)">
+              <span class="d-flex justify-content-center align-items-center gap-2">
+                <span> {{'general.close'|translate}}</span>
+                <i class="pi pi-lock fs-8"></i>
+              </span>
+            </button>
+          </ng-container>
         </td>
       </ng-container>
       <ng-container *ngIf="showCopy">
