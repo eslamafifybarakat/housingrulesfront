@@ -1,6 +1,6 @@
 <div id="dynamic-global-data-table">
   <div class="table-content">
-    <p-table #dt1 dataKey="id" [value]="tableData" [(selection)]="selectedItems" [paginator]="true"
+    <p-table #dt1 dataKey="id" [value]="tableData" [(selection)]="selectedItems" [paginator]="showPaginator"
       [rowsPerPageOptions]="rowsPerPageOptions" [rows]="paginatorRows" [columns]="selectedColumns"
       responsiveLayout="scroll" [rowHover]="false" [resizableColumns]="true" styleClass="p-datatable-striped"
       (onSort)="customSort($event)" [globalFilterFields]="searchItems" (rowsChange)="onPaginatorPageChange($event)"
@@ -116,10 +116,10 @@
                 <button pButton class="p-button-outlined p-button-secondary clear action-btn" icon="pi pi-refresh"
                   tooltipPosition="topfoo" pTooltip="{{'general.reset'|translate}}" (click)="clear(dt1)">
                 </button>
+                <p-multiSelect #colVisible [(ngModel)]="selectedColumns" [options]="tableHeaders" optionLabel="header"
+                  appendTo="body" selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
+                  placeholder="Choose Columns" pTooltip="Column Visibility" tooltipPosition="top"></p-multiSelect>
               </ng-container>
-              <p-multiSelect #colVisible [(ngModel)]="selectedColumns" [options]="tableHeaders" optionLabel="header"
-                appendTo="body" selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
-                placeholder="Choose Columns" pTooltip="Column Visibility" tooltipPosition="top"></p-multiSelect>
               <!-- <a pTooltip="print" tooltipPosition="top">
                 <img src="assets/images/icons/print.svg" class="action-btn" alt="">
               </a>

@@ -1,4 +1,5 @@
 import { AddEditOrderComponent } from './components/orders/components/add-edit-order/add-edit-order.component';
+import { FinancialSettlementsComponent } from './components/financial-settlements/financial-settlements.component';
 import { WelcomeDashboardComponent } from './components/welcome-dashboard/welcome-dashboard.component';
 import { ServiceAgentComponent } from './components/service-agent/service-agent.component';
 import { SupervisorsComponent } from './components/supervisors/supervisors.component';
@@ -95,6 +96,14 @@ const routes: Routes = [
         component: GatesComponent,
         data: {
           title: 'titles.gates',
+          type: 'gates'
+        }
+      },
+      {
+        path: AppRoutes?.dashboard?.financialSettlements,
+        component: FinancialSettlementsComponent,
+        data: {
+          title: 'titles.financialSettlements',
           type: 'gates'
         }
       },

@@ -16,6 +16,7 @@ export const AppRoutes = {
     addOrder: "addOrder",
     users: 'users',
     gates: 'gates',
-    customers: 'customers'
+    customers: 'customers',
+    financialSettlements: 'financial-settlements'
   }
 }

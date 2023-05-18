@@ -1,0 +1,76 @@
+:host::ng-deep {
+  .p-listbox .p-listbox-header {
+    background-color: #fff !important;
+    border-bottom: 0 !important;
+    padding: 10px 0 !important;
+  }
+  .p-listbox {
+    border: 0 !important;
+    .p-listbox-list .p-listbox-item {
+      // padding: 0.3rem 1.25rem !important;
+      padding: 0 !important;
+      // border: 1px solid #e6e6e6;
+      // border-radius: 10px;
+      margin-bottom: 15px;
+      .p-listbox-empty-message {
+        padding: 0 !important;
+      }
+    }
+    .user-content {
+      display: block;
+      border: 1px solid #e6e6e6;
+      border-radius: 10px;
+      padding: 13px;
+      &:hover {
+        color: var(--text-main-color) !important;
+      }
+    }
+    .p-listbox-header {
+      .p-listbox-filter {
+        border-radius: 9px !important;
+        padding-left: 2.5rem;
+        height: 3.2rem !important;
+      }
+
+      .p-listbox-filter-icon {
+        left: 0.75rem;
+      }
+    }
+    &:not(.p-disabled)
+      .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
+      background-color: transparent !important;
+    }
+  }
+  .p-listbox &::-webkit-scrollbar-thumb {
+    background: var(--bg-main-color);
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    max-height: 80% !important;
+  }
+}
+
+#footer {
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  padding: 13px;
+  background-color: #0066431c;
+  margin-top: 2rem;
+}
+.financialSettlementsTable {
+  height: calc(100vh - 350px) !important;
+  overflow: auto;
+  &::-webkit-scrollbar-thumb {
+    background: var(--bg-main-color);
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    max-height: 80% !important;
+  }
+}
+.active {
+  background-color: #0066431c;
+  color: var(--text-main-color) !important;
+}

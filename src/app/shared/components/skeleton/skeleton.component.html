@@ -9,3 +9,19 @@
     </ng-template>
   </p-table>
 </ng-container>
+
+
+<ng-container *ngIf="type=='users'">
+  <ng-container *ngFor="let item of [8,2,6]">
+    <div class="d-flex justify-content-between align-items-center flex-wrap w-100 user">
+      <div class="item d-flex gap-3 align-items-center justify-content-between w-100">
+        <p-skeleton width="6rem" height="1rem" borderRadius="6px"></p-skeleton>
+        <p-skeleton width="6rem" height="1rem" borderRadius="6px"></p-skeleton>
+      </div>
+      <div class="item d-flex gap-3 align-items-center justify-content-between w-100 mt-3">
+        <p-skeleton width="6rem" height="1rem" borderRadius="6px"></p-skeleton>
+        <p-skeleton width="6rem" height="1rem" borderRadius="6px"></p-skeleton>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

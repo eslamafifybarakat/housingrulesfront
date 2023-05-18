@@ -95,6 +95,14 @@ export class AsideMenuComponent implements OnInit {
       routerLink: '/dashboard/gates',
       state: (this.userLoginData?.userType == 7 || this.userLoginData?.userType == 8),
       // state: true,
+    },
+    {
+      id: 'financialSettlements',
+      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.financialSettlements'),
+      icon: 'fa-money',
+      routerLink: '/dashboard/financial-settlements',
+      // state: (this.userLoginData?.userType == 7 || this.userLoginData?.userType == 8),
+      state: true,
     }
     ];
 

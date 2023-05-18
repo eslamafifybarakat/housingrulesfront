@@ -81,6 +81,7 @@
     "brands": "Brands",
     "create_new": "Create New",
     "UserNameStr": "Employee Name",
+    "username": "Username",
     "skills": "Skills",
     "account": "Account",
     "unnammed": "unnammed",
@@ -215,6 +216,7 @@
     "userType": "User type"
   },
   "placeholder": {
+    "searchUser":"Search user",
     "tankPrice": "Tank Price",
     "newPassword": "Enter new password",
     "confirmNewPassword": "Confirm new password",
@@ -324,9 +326,15 @@
       "orders": "Orders",
       "users": "Users",
       "serviceAgent": "Service Agent",
-      "customers": "Customers"
+      "customers": "Customers",
+      "financialSettlements":"Financial settlements"
     },
     "tableHeader": {
+      "createdAt":"Created at",
+      "settlementedBy":"Settlemented by",
+      "recivedBy":"Recived by",
+      "orderCount":"Order count",
+      "amount":"Amount",
       "userNameStr": "Employee Name",
       "time": "Time",
       "location": "Location",
@@ -437,6 +445,9 @@
       "addCustomer": "Add Customer",
       "customerDetails": "Customer details",
       "editCustomer": "Edit Customer"
+    },
+    "financialSettlements":{
+      "financialSettlements":"Financial settlements"
     }
   },
   "welcome": {

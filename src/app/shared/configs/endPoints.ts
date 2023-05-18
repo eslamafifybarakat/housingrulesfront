@@ -62,5 +62,9 @@ export const roots = {
       getCustomerById: 'Customers/GetByIdAsync',
       deleteCustomer: 'Customers/SoftDelete',
     },
+    financialSettlements: {
+      getUsersByUserType: 'Auth/GetUsersByUserType?userType=7',
+      getAllByRecivedByAsync: 'FinancialSettlementes/GetAllByRecivedByAsync'
+    }
   }
 }

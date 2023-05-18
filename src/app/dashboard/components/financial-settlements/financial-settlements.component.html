@@ -1,0 +1,75 @@
+<div id="financial-settlements">
+  <div class="row gy-4">
+    <div class="col-lg-8 col-md-12  order-lg-1 order-2">
+      <div class="global-card ">
+        <h5 class="fw-bold mb-3">{{'dashboard.financialSettlements.financialSettlements'|translate}}</h5>
+        <div>
+          <div class="financialSettlementsTable">
+            <div class="table">
+              <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showSearch]="true"
+                [showPaginator]="false" [isLoadingSearch]="isLoadingSearch" [tableHeaders]="tableHeaders"
+                [tableData]="financialSettlementsList" [enableDateFormate]="true"
+                [dateFormateString]="'EE | dd/MM/YYYY'" [showDelete]="true" [paginatorRows]="perPage"
+                [isSearch]="isSearch" [arrayChildKey]="'name'"
+                [enableFilterIsWorking]="true"></app-dynamic-table-local-actions>
+            </div>
+          </div>
+          <ng-container *ngIf="financialSettlementsList?.length>0">
+            <div id="footer">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-500">{{'dashboard.total'|translate}}</span>
+                <span>{{total}}</span>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12 order-lg-2 order-1">
+      <div class="global-card">
+        <h5 class="fw-bold mb-3">{{'dashboard.users.users'|translate}}</h5>
+        <p-listbox [options]="usersList" [metaKeySelection]="false" [checkbox]="false" [filter]="true"
+          filterPlaceHolder="{{'placeholder.searchUser'|translate}}" [readonly]="true" [multiple]="false"
+          optionLabel="username" [listStyle]="{'max-height':'310px','min-height':'310px'}">
+          <ng-template let-user pTemplate="item">
+            <ng-container *ngIf="!isLoading">
+              <a div class="user-content d-flex justify-content-between align-items-center flex-wrap w-100"
+                [class.active]="user?.isActive" (click)="loadingIndicator?'':getAllByRecivedByAsync(user?.id,0)">
+                <div class="item d-flex gap-3 align-items-center justify-content-between w-100">
+                  <h6 class="fs-6 fw-500 mb-0 d-flex gap-2">
+                    <i class="pi pi-user text-main-color fw-500"></i>
+                    <span>{{'general.username'|translate}}</span>
+                  </h6>
+                  <p class="fs-6 mb-0">{{user?.username}}</p>
+                </div>
+                <ng-container *ngIf="user?.userNameStr">
+                  <div class="item d-flex gap-3 align-items-center justify-content-between w-100 mt-3">
+                    <h6 class="fs-6 fw-500 mb-0 d-flex gap-2">
+                      <i class="pi pi-user-edit text-main-color fs-5-1 fw-500"></i>
+                      <span>{{'general.UserNameStr'|translate}}</span>
+                    </h6>
+                    <p class="fs-6 mb-0">{{user?.userNameStr}}</p>
+                  </div>
+                </ng-container>
+              </a>
+            </ng-container>
+          </ng-template>
+
+          <ng-template pTemplate="empty">
+            <ng-container *ngIf="isLoading">
+              <app-skeleton [type]="'users'"></app-skeleton>
+            </ng-container>
+            <ng-container *ngIf="!isLoading">
+              <div class="text-center mt-4">
+                <img src="assets/images/not-found/no-user.svg" alt="no result">
+                <p class="fw-500 mt-3">No results found</p>
+              </div>
+            </ng-container>
+          </ng-template>
+
+        </p-listbox>
+      </div>
+    </div>
+  </div>
+</div>

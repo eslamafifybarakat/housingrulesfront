@@ -49,6 +49,7 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   @Input() showReport: boolean = false;
   @Input() showCopy: boolean = false;
 
+  @Input() showPaginator: boolean = true;
   @Input() showActions: boolean = false;
   @Input() showConfirm: boolean = false;
   @Input() showDetails: boolean = false;

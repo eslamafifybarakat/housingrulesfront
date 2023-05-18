@@ -82,6 +82,7 @@
     "brands": "العلامات التجارية",
     "create_new": "إنشاء جديد",
     "userNameStr": "اسم الموظف",
+    "username": "اسم المستخدم",
     "skills": "المهارات",
     "account": "الحساب",
     "unnammed": "بدون إسم",
@@ -219,6 +220,7 @@
     "userType": "نوع المستخدم"
   },
   "placeholder": {
+    "searchUser":"بحث عن مستخدم",
     "tankPrice": "سعر الصهريج",
     "newPassword": "أدخل كلمة المرور الجديدة",
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
@@ -331,9 +333,15 @@
       "orders": "الطلبات",
       "serviceAgent": "خدمة العملاء",
       "users": " المستخدمين",
-      "customers": "العملاء"
+      "customers": "العملاء",
+      "financialSettlements":"تسويات مالية"
     },
     "tableHeader": {
+      "createdAt": "تم إنشاؤه في",
+      "settlementedBy":"تسوية بواسطة",
+      "recivedBy":"استلمت من قبل",
+      "orderCount":"عدد الطلب",
+      "amount":"الكمية",
       "time": "الوقت",
       "location": "الموقع",
       "address": "العنوان",
@@ -363,6 +371,7 @@
       "mobilePhone": "رقم الهاتف",
       "date": "التاريخ",
       "userNameStr": "اسم الموظف",
+
       "propertyType": "القطاع",
       "customerMobileNumber": "رقم هاتف العميل",
       "district": "الحي",
@@ -442,6 +451,9 @@
       "addCustomer": "إضافة عميل",
       "customerDetails": "تفاصيل العميل",
       "editCustomer": "تعديل العميل"
+    },
+    "financialSettlements":{
+      "financialSettlements":"تسويات مالية"
     }
   },
   "welcome": {

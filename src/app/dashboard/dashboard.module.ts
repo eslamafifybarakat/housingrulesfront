@@ -33,6 +33,7 @@ import { ConfirmOrderComponent } from './components/gates/components/confirm-ord
 import { OrderDetailsComponent } from './components/orders/components/order-details/order-details.component';
 import { GatesComponent } from './components/gates/gates.component';
 import { GateDetailsComponent } from './components/gates/components/gate-details/gate-details.component';
+import { FinancialSettlementsComponent } from './components/financial-settlements/financial-settlements.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { GateDetailsComponent } from './components/gates/components/gate-details
     ConfirmOrderComponent,
     OrderDetailsComponent,
     GateDetailsComponent,
+    FinancialSettlementsComponent,
   ],
   imports: [
     DashboardRoutingModule,
