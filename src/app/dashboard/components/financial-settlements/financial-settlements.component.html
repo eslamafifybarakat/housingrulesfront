@@ -1,34 +1,8 @@
 <div id="financial-settlements">
   <div class="row gy-4">
-    <div class="col-lg-8 col-md-12  order-lg-1 order-2">
-      <div class="global-card ">
-        <h5 class="fw-bold mb-3">{{'dashboard.financialSettlements.financialSettlements'|translate}}</h5>
-        <div>
-          <div class="financialSettlementsTable">
-            <div class="table">
-              <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showSearch]="true"
-                [showPaginator]="false" [isLoadingSearch]="isLoadingSearch" [tableHeaders]="tableHeaders"
-                [tableData]="financialSettlementsList" [enableDateFormate]="true"
-                [dateFormateString]="'EE | dd/MM/YYYY'" [showDelete]="true" [paginatorRows]="perPage"
-                [isSearch]="isSearch" [arrayChildKey]="'name'"
-                [enableFilterIsWorking]="true"></app-dynamic-table-local-actions>
-            </div>
-          </div>
-          <ng-container *ngIf="financialSettlementsList?.length>0">
-            <div id="footer">
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-500">{{'dashboard.total'|translate}}</span>
-                <span>{{total}}</span>
-              </div>
-            </div>
-          </ng-container>
-
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-12 order-lg-2 order-1">
+    <div class="col-lg-3 col-md-12  ">
       <div class="global-card">
-        <h5 class="fw-bold mb-3">{{'dashboard.users.users'|translate}}</h5>
+        <h5 class="fw-bold mb-3">{{'dashboard.users.gates'|translate}}</h5>
         <p-listbox [options]="usersList" [metaKeySelection]="false" [checkbox]="false" [filter]="true"
           filterPlaceHolder="{{'placeholder.searchUser'|translate}}" [readonly]="true" [multiple]="false"
           optionLabel="username" [listStyle]="{'max-height':'310px','min-height':'310px'}">
@@ -71,5 +45,34 @@
         </p-listbox>
       </div>
     </div>
+    <div class="col-lg-9 col-md-12  ">
+      <div class="global-card ">
+        <h5 class="fw-bold mb-3">{{'dashboard.financialSettlements.financialSettlements'|translate}}</h5>
+        <div>
+          <div class="financialSettlementsTable">
+            <div class="table">
+              <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showSearch]="true"
+                [showPaginator]="false" [isLoadingSearch]="isLoadingSearch" [tableHeaders]="tableHeaders"
+                [tableData]="financialSettlementsList" [enableDateFormate]="true"
+                [dateFormateString]="'dd/MM/YYYY'" [showDelete]="true" [paginatorRows]="perPage"
+                [isSearch]="isSearch" [arrayChildKey]="'name'"
+                [enableFilterIsWorking]="true"></app-dynamic-table-local-actions>
+            </div>
+          </div>
+          <ng-container *ngIf="financialSettlementsList?.length>0">
+            <div id="footer">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-500">{{'dashboard.total'|translate}}</span>
+                <span>{{total}}</span>
+                <p-button (onClick)="confirmOrder()" label="{{'general.pay'|translate}}" icon="pi pi-wallet"></p-button>
+
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

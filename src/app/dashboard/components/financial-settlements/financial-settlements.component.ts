@@ -3,6 +3,9 @@ import { PublicService } from './../../../shared/services/public.service';
 import { FinancialSettlementsService } from './../../services/financial-settlements.service';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmCompleteOrderComponent } from '../orders/components/confirm-complete-order/confirm-complete-order.component';
+import { keys } from 'src/app/shared/configs/localstorage-key';
 
 @Component({
   selector: 'app-financial-settlements',
@@ -19,7 +22,7 @@ export class FinancialSettlementsComponent implements OnInit {
   tableHeaders: any = [];
 
   page: number = 1;
-  perPage: number = 5;
+  perPage: number = 30;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
 
@@ -40,23 +43,25 @@ export class FinancialSettlementsComponent implements OnInit {
   activeIndex: any;
   total: any;
 
+  userLoginDataType: any;
+
+  selectedrecivedby: any;
   constructor(
     private financialSettlementsService: FinancialSettlementsService,
     private alertsService: AlertsService,
     private publicService: PublicService,
+    private dialogService: DialogService,
     private cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
+    this.userLoginDataType = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}')?.userType;
     this.tableHeaders = [
       { field: 'orderId', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.id'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
-      // { field: 'orderNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'numeric' },
-      { field: 'amount', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.amount'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.amount'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'numeric' },
-      // { field: 'driver', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driver'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.driver'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
-      { field: 'settlementedBy', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.settlementedBy'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.settlementedBy'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
-      { field: 'recivedBy', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.recivedBy'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.recivedBy'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
-      { field: 'orderCount', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderCount'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderCount'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
-      { field: 'createdAt', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.createdAt'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.createdAt'), sort: false, filter: false, type: 'date' },
+      { field: 'orderNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'numeric' },
+      { field: 'amount', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.price'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.amount'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'numeric' },
+       { field: 'driver', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driver'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.driver'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+       { field: 'createdDate', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.createdAt'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.createdAt'), sort: false, filter: false, type: 'date' },
     ];
     this.getUsers();
   }
@@ -91,20 +96,18 @@ export class FinancialSettlementsComponent implements OnInit {
 
   getAllByRecivedByAsync(id: any, index: any): any {
     this.loadingIndicator = true;
+    this.selectedrecivedby = id;
     this.financialSettlementsService?.getAllByRecivedByAsync(id)
       .pipe(
         map((res: any) => {
           let arr: any = [];
           res?.data ? res?.data?.forEach((item: any) => {
             arr.push({
-              orderId: item?.id ? item?.id : null,
+              orderId: item?.orderId ? item?.orderId : 0,
               orderNumber: item?.orderNumber ? item?.orderNumber : '0',
               amount: item?.amount ? item?.amount : '0',
               driver: item?.driver ? item?.driver : '',
-              settlementedBy: item?.settlementedBy ? item?.settlementedBy : '',
-              recivedBy: item?.recivedBy ? item?.recivedBy : '',
-              orderCount: item?.orderCount ? item?.orderCount : '0',
-              createdAt: item?.createdAt ? new Date(item?.createdAt) : '',
+              createdDate: item?.createdDate ? new Date(item?.createdDate) : '',
             });
           }) : '';
           this.financialSettlementsList = arr;
@@ -146,5 +149,47 @@ export class FinancialSettlementsComponent implements OnInit {
   }
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
+  }
+  confirmOrder(item?: any): void {
+    const ref = this.dialogService?.open(ConfirmCompleteOrderComponent, {
+      data: {
+        item: item
+      },
+      header: this.publicService?.translateTextFromJson('general.confirm_order'),
+      dismissableMask: false,
+      width: '40%',
+      styleClass: 'custom_modal'
+    });
+    ref.onClose.subscribe((res: any) => {
+      console.log(res);
+      if (res?.confirmed) {
+        this.publicService.show_loader.next(true);
+    const myObject: { [key: string]: any } = {};
+    myObject['amount'] = this.total ;
+    myObject['recivedBy'] = this.selectedrecivedby;
+    myObject['settlementedBy'] = this.userLoginDataType?.userId;
+        this.financialSettlementsService.addFinancialSettlemente(myObject)?.subscribe(
+          (res: any) => {
+            if (res?.isSuccess == true) {
+              this.publicService?.show_loader?.next(false);
+              res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+              this.getAllByRecivedByAsync(this.selectedrecivedby,0);
+            } else {
+              res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+              this.publicService?.show_loader?.next(false);
+            }
+          },
+          (err: any) => {
+            err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+            this.publicService?.show_loader?.next(false);
+          });
+      }
+
+      // if (res?.listChanged) {
+      //   this.page = 1;
+      //   this.publicService?.changePageSub?.next({ page: this.page });
+      //   this.getAllGates();
+      // }
+    });
   }
 }

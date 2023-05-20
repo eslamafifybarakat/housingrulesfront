@@ -1,3 +1,4 @@
+import { TankSize } from './../../../../../enums';
 import { AddEditCustomerComponent } from '../../../customers/components/add-edit-customer/add-edit-customer.component';
 import { CheckValidityService } from '../../../../../shared/services/check-validity/check-validity.service';
 import { ConfirmCompleteOrderComponent } from '../confirm-complete-order/confirm-complete-order.component';
@@ -34,8 +35,8 @@ export class AddEditOrderComponent implements OnInit {
   driversList: any = [];
   isLoadingDrivers: boolean = false;
 
-  tanksList: any = [];
-  isLoadingTanks: boolean = false;
+  // tanksList: any = [];
+   isSaving: boolean = false;
 
   paymentMethodsList: any = [
     { id: 1, value: 1, name: "Cash" },
@@ -57,6 +58,10 @@ export class AddEditOrderComponent implements OnInit {
   isLoadingCustomers: boolean = false;
 
   currLang: any = '';
+  tanksSize: any = [{ value: 0, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size13') },
+  { value: 1, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
+  { value: 2, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
+  isLoadingTanksSize: boolean = false;
 
   constructor(
     public checkValidityService: CheckValidityService,
@@ -102,7 +107,7 @@ export class AddEditOrderComponent implements OnInit {
       this.getAllCustomers();
       // this.getAllDrivers();
       this.getAllDistricts();
-      this.getAllTanks();
+      //this.getAllTanks();
     };
     // if (!this.orderForm?.value?.district) {
     //   this.orderForm?.patchValue({
@@ -140,8 +145,8 @@ export class AddEditOrderComponent implements OnInit {
         validators: [
           Validators.required], updateOn: "blur"
       }],
-      tank: [null, Validators?.required],
-      tankPrice: [null, []],
+      tankSize: [null, Validators?.required],
+      tankPrice: [0, []],
       customerName: ['', {
         validators: [
           Validators.required,
@@ -402,45 +407,68 @@ export class AddEditOrderComponent implements OnInit {
       }
     }
   }
-  getAllTanks(): any {
-    this.isLoadingTanks = true;
-    this.tanksService?.getTanksList()?.subscribe(
-      (res: any) => {
-        if (res?.statusCode == 200 && res?.isSuccess == true) {
-          res?.data ? res?.data?.forEach((tank: any) => {
-            this.tanksList?.push({
-              price: tank?.price,
-              name: tank?.name,
-              id: tank?.id
-            });
-          }) : '';
-          if (this.isEdit) {
-            this.tanksList?.forEach((tank: any) => {
-              if (tank?.id == this.orderData?.tankId) {
-                this.onTankChange(tank);
-                this.orderForm?.patchValue({
-                  tank: tank
-                })
-              }
-            });
-          }
-          this.isLoadingTanks = false;
-        } else {
-          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
-          this.isLoadingTanks = false;
-        }
-      },
-      (err: any) => {
-        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
-        this.isLoadingTanks = false;
-      });
-    this.cdr?.detectChanges();
-  }
-  onTankChange(value: any): void {
-    console.log(value);
+  // getAllTanks(): any {
+  //   this.isLoadingTanks = true;
+  //   this.tanksService?.getTanksList()?.subscribe(
+  //     (res: any) => {
+  //       if (res?.statusCode == 200 && res?.isSuccess == true) {
+  //         res?.data ? res?.data?.forEach((tank: any) => {
+  //           let sizeTank: any;
+  //           if (tank?.tankSize == 0) {
+  //             sizeTank = "Size13";
+  //           }
+  //           if (tank?.tankSize == 1) {
+  //             sizeTank = "Size20";
+  //           }
+  //           if (tank?.tankSize == 2) {
+  //             sizeTank = "Size32";
+  //           }
+  //           let tankSize= this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.' + sizeTank)
+  //           this.tanksList?.push({
+  //             price: tank?.price,
+  //             name:  tankSize + " - " + tank?.name ,
+  //             id: tank?.id
+  //           });
+  //         }) : '';
+  //         if (this.isEdit) {
+  //           this.tanksList?.forEach((tank: any) => {
+  //             if (tank?.id == this.orderData?.tankId) {
+  //               this.onTankChange(tank);
+  //               this.orderForm?.patchValue({
+  //                 tank: tank
+  //               })
+  //             }
+  //           });
+  //         }
+  //         this.isLoadingTanks = false;
+  //       } else {
+  //         res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+  //         this.isLoadingTanks = false;
+  //       }
+  //     },
+  //     (err: any) => {
+  //       err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+  //       this.isLoadingTanks = false;
+  //     });
+  //   this.cdr?.detectChanges();
+  // }
+  onTankChange(item: any): void {
+    let price = 0;
+
+    switch (item.value) {
+      case 0:
+        price = 80;
+        break;
+        case 1:
+          price = 110;
+          break;
+          case 2:
+            price = 176;
+            break;
+    }
     this.orderForm?.patchValue({
-      tankPrice: value?.price
-    })
+      tankPrice: price
+    });
   }
 
   getOrderData(id: number): void {
@@ -453,7 +481,7 @@ export class AddEditOrderComponent implements OnInit {
           this.getAllCustomers();
           // this.getAllDrivers();
           this.getAllDistricts();
-          this.getAllTanks();
+         // this.getAllTanks();
           this.patchValue();
           this.isFullLoading = false;
         } else {
@@ -492,6 +520,16 @@ export class AddEditOrderComponent implements OnInit {
         paymentMethod = item
       }
     });
+    this.tanksSize?.forEach((element: any) => {
+      console.log(element?.value + " " + this.orderData?.tankSize);
+
+      if (element?.value == this.orderData?.tankSize) {
+
+        this.orderForm?.patchValue({
+          tankSize: element
+        })
+      }
+    });
     this.orderForm?.patchValue({
       orderOrigin: orderOrigin,
       propertyType: propertyType,
@@ -501,12 +539,12 @@ export class AddEditOrderComponent implements OnInit {
       comment: this.orderData?.comments,
       orderNumber: this.orderData?.orderNumber,
       paidAmount: this.orderData?.paidAmount,
-      paymentMethod: paymentMethod,
-      // customerName: this.orderData?.customerName
+      paymentMethod: paymentMethod
     })
   }
 
   submit(): void {
+    this.isSaving = true;
     const myObject: { [key: string]: any } = {};
     if (this.orderForm?.valid) {
       let date: Date = new Date();
@@ -521,7 +559,7 @@ export class AddEditOrderComponent implements OnInit {
       myObject['driverId'] = formInfo?.driver?.id;
       myObject['customerId'] = formInfo?.customerName?.id;
       myObject['comments'] = formInfo?.comment;
-      myObject['tankId'] = formInfo?.tank?.['id'];
+      myObject['tankSize'] = formInfo?.tankSize.value;
       myObject['paymentMethod'] = formInfo?.paymentMethod?.['value'];
 
       if (this.isEdit) {
@@ -589,10 +627,13 @@ export class AddEditOrderComponent implements OnInit {
               res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
               this.publicService?.show_loader?.next(false);
             }
+            this.isSaving = false;
           },
           (err: any) => {
             err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
             this.publicService?.show_loader?.next(false);
+            this.isSaving = false;
+
           });
       }
     } else {

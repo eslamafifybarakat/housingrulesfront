@@ -240,7 +240,6 @@ export class DynamicTableLocalActionsComponent implements OnInit {
       // if (item?.sort) {
       this.searchItems?.push(item?.field);
       // }
-      console.log(this.searchItems);
 
     });
     if (this.enableFilterDriverStatus == true) {
@@ -290,7 +289,6 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   selectionHandlerEmit(): void {
     this.tableData.filter((val: any) => !this.selectedItems.includes(val));
     this.selectionHandler.emit(this.selectedItems);
-    console.log(this.selectedItems);
   }
   deleteSelectedItems(): void {
     // const ref = this.dialogService.open(ConfirmDeleteComponent, {
@@ -334,7 +332,6 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   }
   colEventHandlerEmit(item: any, type?: string): void {
     this.colEventHandler.emit({ item: item, type: type });
-    console.log();
 
   }
   editHandlerEmit(item: any): void {
@@ -411,7 +408,6 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   }
   changeSelected(event: any, item: any): void {
     var index = this.selectedElements.findIndex((x: any) => x.id == item.id);
-    console.log(index);
     if (event?.checked) {
       this.countSelected++;
       this.selectedElements.push(item)
@@ -434,7 +430,6 @@ export class DynamicTableLocalActionsComponent implements OnInit {
         if (element.checked) {
           this.selectedElements?.forEach((selectedItem: any) => {
             if (element.id == selectedItem?.id) {
-              console.log('lll');
             }
           })
         } else {
@@ -510,11 +505,9 @@ export class DynamicTableLocalActionsComponent implements OnInit {
     this.collapseEnd = false;
   }
   customSort(event: any): void {
-    console.log(event);
     // this.customSortHandler?.emit(event);
   }
   customFilter(event: any, dt: any): void {
-    console.log(event);
     this.isFilter = true;
     dt.filteredValue = this.tableData;
     this.filtersTable = event?.filters;
@@ -555,7 +548,6 @@ export class DynamicTableLocalActionsComponent implements OnInit {
         }];
     }
     // this.filterHandler?.emit(this.filtersTable);
-    console.log(this.filtersTable);
   }
 
   applyTime(field: any, type?: any): void {
@@ -617,7 +609,6 @@ export class DynamicTableLocalActionsComponent implements OnInit {
           res?.data[0]?.districts?.forEach((element: any) => {
             let name: any = '';
             name = this.currLang == 'ar' ? element?.arName : element?.enName;
-            console.log(name);
             this.districtsList?.push({
               id: element?.id,
               value: element?.id,
@@ -713,7 +704,6 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   }
   getPropertyType(): any {
     this.propertyTypeList = this.publicService?.getPropertyType();
-    console.log(this.propertyTypeList);
 
     this.cdr.detectChanges();
   }

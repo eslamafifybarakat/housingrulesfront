@@ -65,7 +65,7 @@ export class AsideMenuComponent implements OnInit {
       text: this.publicService?.translateTextFromJson('dashboard.sideMenu.orders'),
       icon: 'fa-file-pen',
       routerLink: '/dashboard/orders',
-      state: (this.userLoginData?.userType !== 9),
+      state: (this.userLoginData?.userType < 9),
     },
     {
       id: 'users',
@@ -101,8 +101,8 @@ export class AsideMenuComponent implements OnInit {
       text: this.publicService?.translateTextFromJson('dashboard.sideMenu.financialSettlements'),
       icon: 'fa-money',
       routerLink: '/dashboard/financial-settlements',
-      // state: (this.userLoginData?.userType == 7 || this.userLoginData?.userType == 8),
-      state: true,
+      state: (this.userLoginData?.userType == 9 ),
+
     }
     ];
 

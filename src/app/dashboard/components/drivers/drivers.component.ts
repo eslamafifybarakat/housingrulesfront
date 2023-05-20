@@ -25,7 +25,7 @@ export class DriversComponent implements OnInit {
   tableHeaders: any = [];
 
   page: number = 1;
-  perPage: number = 5;
+  perPage: number = 30;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
 
@@ -62,7 +62,6 @@ export class DriversComponent implements OnInit {
 
     this.getAllDrivers();
     this.driverStatusList = this.publicService?.getDriverStatus();
-    console.log(this.driverStatusList);
 
   }
 

@@ -222,21 +222,21 @@
                 {{"labels.tankSize"|translate}}
               </label>
               <span class="p-input-icon-right select-loading d-block">
-                <p-dropdown [options]="tanksList" formControlName="tank" optionLabel="name" [filter]="true"
-                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-                  [readonly]="isLoadingTanks" scrollHeight="200px" (onChange)="onTankChange(formControls?.tank?.value)"
-                  emptyMessage="{{'general.no_result_found'|translate}}"
-                  [class.ng-dirty]="formControls?.tank?.invalid && (formControls?.tank?.dirty || formControls?.tank?.touched)"
+                <p-dropdown [options]="tanksSize" formControlName="tankSize" optionLabel="name" [filter]="true"
+                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="value" appendTo="body"
+                  (onChange)="onTankChange(formControls?.tankSize?.value)"
+                  [readonly]="isLoadingTanksSize" scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.tankSize?.invalid && (formControls?.tankSize?.dirty || formControls?.tankSize?.touched)"
                   [showClear]="true" placeholder="{{'placeholder.tankSize'|translate}}">
                 </p-dropdown>
-                <ng-container *ngIf="isLoadingTanks">
+                <ng-container *ngIf="isLoadingTanksSize">
                   <i class="pi pi-spin pi-spinner"></i>
                 </ng-container>
               </span>
               <div class="my-2">
                 <ng-container
-                  *ngIf="formControls?.tank?.invalid && (formControls?.tank?.dirty || formControls?.tank?.touched)">
-                  <ng-container *ngIf="formControls?.tank?.errors?.['required']">
+                  *ngIf="formControls?.tankSize?.invalid && (formControls?.tankSize?.dirty || formControls?.tankSize?.touched)">
+                  <ng-container *ngIf="formControls?.tankSize?.errors?.['required']">
                     <span class="text-danger fs-8">
                       {{"validations.required_field"|translate}}
                     </span>
@@ -270,7 +270,7 @@
               </div>
               <span class="p-input-icon-right select-loading d-block">
                 <p-dropdown [options]="customersList" formControlName="customerName" optionLabel="name" [filter]="true"
-                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="value" appendTo="body"
+                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name"  appendTo="body" dir="rtl"
                   [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingCustomers"
                   scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
                   (onChange)="onSelectCustomer()" (onClear)="onClearCustomer()"
@@ -428,7 +428,7 @@
         </div>
 
         <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
-          <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+          <button type="submit" [disabled]="isSaving" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
             <ng-container *ngIf="!isEdit;else edit">
               <span>
                 {{'general.save'|translate}}
@@ -442,7 +442,7 @@
               <i class="pi pi-pencil"></i>
             </ng-template>
           </button>
-          <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+          <button type="button" [disabled]="isSaving" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
             <span>
               {{'general.cancel'|translate}}
             </span>

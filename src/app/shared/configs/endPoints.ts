@@ -64,7 +64,8 @@ export const roots = {
     },
     financialSettlements: {
       getUsersByUserType: 'Auth/GetUsersByUserType?userType=7',
-      getAllByRecivedByAsync: 'FinancialSettlementes/GetAllByRecivedByAsync'
+      getAllByRecivedByAsync: 'Settlement/GetAllOrderRecivableAsync',
+      createAsync:'FinancialSettlementes/CreateAsync'
     }
   }
 }

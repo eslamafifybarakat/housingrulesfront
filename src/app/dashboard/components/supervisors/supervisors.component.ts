@@ -25,7 +25,7 @@ export class SupervisorsComponent implements OnInit {
   tableHeaders: any = [];
 
   page: number = 1;
-  perPage: number = 5;
+  perPage: number = 30;
   pagesCount: number = 0;
   rowsOptions: number[] = [5, 10, 15, 30];
 
@@ -74,17 +74,19 @@ export class SupervisorsComponent implements OnInit {
           res?.data ? res?.data.forEach((item: any) => {
             let isWorking: any = '';
             let statusClass: any = '';
+
             if (item?.isWorking == true) {
-              isWorking = workingItems[1]?.name;
-              statusClass = workingItems[1]?.class;
-            } else {
               isWorking = workingItems[0]?.name;
               statusClass = workingItems[0]?.class;
+            } else {
+              isWorking = workingItems[1]?.name;
+              statusClass = workingItems[1]?.class;
             }
 
             // item?.districts?.forEach((item: any) => {
             //   districtsItems?.push({ name: item?.name });
             // });
+console.log(isWorking);
 
             arr.push({
               id: item?.id ? item?.id : null,

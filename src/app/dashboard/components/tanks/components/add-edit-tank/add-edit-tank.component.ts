@@ -71,7 +71,6 @@ export class AddEditTankComponent implements OnInit {
     return this.modalForm?.controls;
   }
   patchValue(): void {
-    console.log(this.modalData);
     this.tanksSize?.forEach((element: any) => {
       if (element?.value == this.modalData?.item?.tankSizeVal) {
         this.modalForm?.patchValue({
