@@ -158,13 +158,13 @@ export class OrdersComponent implements OnInit {
               }
             });
             let sizeTank: any;
-            if (item?.tankSize == 0) {
+            if (item?.tankSize == 1) {
               sizeTank = "Size13";
             }
-            if (item?.tankSize == 1) {
+            if (item?.tankSize == 2) {
               sizeTank = "Size20";
             }
-            if (item?.tankSize == 2) {
+            if (item?.tankSize == 3) {
               sizeTank = "Size32";
             }
             arr.push({

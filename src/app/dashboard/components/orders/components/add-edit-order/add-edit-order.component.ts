@@ -58,9 +58,9 @@ export class AddEditOrderComponent implements OnInit {
   isLoadingCustomers: boolean = false;
 
   currLang: any = '';
-  tanksSize: any = [{ value: 0, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size13') },
-  { value: 1, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
-  { value: 2, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
+  tanksSize: any = [{ value: 1, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size13') },
+  { value: 2, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
+  { value: 3, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
   isLoadingTanksSize: boolean = false;
 
   constructor(
@@ -145,7 +145,10 @@ export class AddEditOrderComponent implements OnInit {
         validators: [
           Validators.required], updateOn: "blur"
       }],
-      tankSize: [null, Validators?.required],
+      tankSize: ['', {
+        validators: [
+          Validators.required]
+      }],
       tankPrice: [0, []],
       customerName: ['', {
         validators: [
@@ -454,15 +457,16 @@ export class AddEditOrderComponent implements OnInit {
   // }
   onTankChange(item: any): void {
     let price = 0;
+console.log(item.value);
 
     switch (item.value) {
-      case 0:
+      case 1:
         price = 80;
         break;
-        case 1:
+        case 2:
           price = 110;
           break;
-          case 2:
+          case 3:
             price = 176;
             break;
     }
