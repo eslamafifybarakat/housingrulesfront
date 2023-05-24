@@ -548,9 +548,9 @@ console.log(item.value);
   }
 
   submit(): void {
-    this.isSaving = true;
     const myObject: { [key: string]: any } = {};
     if (this.orderForm?.valid) {
+      this.isSaving = true;
       let date: Date = new Date();
       let formInfo: any = this.orderForm?.value;
       myObject['dateTime'] = date;
