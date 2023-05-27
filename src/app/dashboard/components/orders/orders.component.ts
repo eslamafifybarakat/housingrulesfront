@@ -9,6 +9,7 @@ import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
+import { CustomersService } from '../../services/customers.service';
 
 @Component({
   selector: 'app-orders',

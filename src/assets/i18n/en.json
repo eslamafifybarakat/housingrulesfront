@@ -275,7 +275,8 @@
     "orderStatus": "Order status is required",
     "phone_length": "Phone number must be 10 digit",
     "name_en": "Name must be with english letters only",
-    "name_ar": "Name must be with arabic letters only"
+    "name_ar": "Name must be with arabic letters only",
+    "customerCanSubmitOrder":"Can't assgin new order to customer"
   },
   "form": {
     "welcomeBack": "Welcome back",

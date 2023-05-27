@@ -113,7 +113,7 @@ export class OrdersService {
     // if (conditions && conditions?.length > 0) {
     //   params = params?.append("conditions", JSON?.stringify(conditions));
     // }
-    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.customersList}`, { params: params })
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.customers?.customersList}` )
   }
   getDistrictsList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {
     let params = new HttpParams();
@@ -167,4 +167,5 @@ export class OrdersService {
     }
     return this.http?.get<any>(`${this.baseUrl}/${roots?.dashboard?.orders?.getOrderById}`, { params: params });
   }
+
 }

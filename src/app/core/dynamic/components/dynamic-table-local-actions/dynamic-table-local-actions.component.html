@@ -3,10 +3,12 @@
     <p-table #dt1 dataKey="id" [value]="tableData" [(selection)]="selectedItems" [paginator]="showPaginator"
       [rowsPerPageOptions]="rowsPerPageOptions" [rows]="paginatorRows" [columns]="selectedColumns"
       responsiveLayout="scroll" [rowHover]="false" [resizableColumns]="true" styleClass="p-datatable-striped"
-      (onSort)="customSort($event)" [globalFilterFields]="searchItems" (rowsChange)="onPaginatorPageChange($event)"
+      (onSort)="customSort($event)"  [globalFilterFields]="searchItems" (rowsChange)="onPaginatorPageChange($event)"
       (onPage)="onPage($event)">
       <ng-template pTemplate="caption">
         <div class="caption d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+
           <!-- <div class="d-flex align-items-center gap-3 dropdown-arrow">
             <p-dropdown #dropdown [options]="rowsPerPageOptions" (onChange)="paginatorOption($event)"
               (onHide)="hide()"></p-dropdown>
@@ -19,16 +21,23 @@
                   (input)="dt1.filterGlobal(search?.value,'contains')"
                   placeholder="{{'placeholder.search'|translate}}" />
               </span>
-              <ng-container *ngIf="search.value && !isLoadingSearch">
+
+
+            <ng-container *ngIf="search.value && !isLoadingSearch" >
                 <i (click)="clearSearchValue(search);clear(dt1)" class="pi pi-times text-danger cursor-pointer"></i>
               </ng-container>
               <ng-container *ngIf="isLoadingSearch">
                 <i class="pi pi-spin pi-spinner"></i>
               </ng-container>
+
             </span>
+
+
+
           </ng-container>
 
           <div class="d-flex align-items-center gap-3">
+
 
             <ng-container *ngIf="enableArticleNoteStatusButton">
               <div class="dropdown">
@@ -113,13 +122,20 @@
             <div class="d-flex flex-wrap flex-row-reverse gap-3">
               <ng-container *ngIf="showClear">
                 <!-- label="{{'general.reset'|translate}}"  -->
+
+
                 <button pButton class="p-button-outlined p-button-secondary clear action-btn" icon="pi pi-refresh"
                   tooltipPosition="topfoo" pTooltip="{{'general.reset'|translate}}" (click)="clear(dt1)">
                 </button>
                 <p-multiSelect #colVisible [(ngModel)]="selectedColumns" [options]="tableHeaders" optionLabel="header"
                   appendTo="body" selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
                   placeholder="Choose Columns" pTooltip="Column Visibility" tooltipPosition="top"></p-multiSelect>
-              </ng-container>
+
+                  <p-button  styleClass="p-button-sm p-button-outlined p-button-secondary justify-content-center gap-3 clear action-btn"
+                 >
+               <span class="m-0 p-0">{{dt1.totalRecords}}</span>
+             </p-button>
+        </ng-container>
               <!-- <a pTooltip="print" tooltipPosition="top">
                 <img src="assets/images/icons/print.svg" class="action-btn" alt="">
               </a>

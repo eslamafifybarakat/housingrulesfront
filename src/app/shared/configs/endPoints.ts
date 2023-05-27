@@ -61,6 +61,7 @@ export const roots = {
       updateCustomer: 'Customers/UpdateAsync',
       getCustomerById: 'Customers/GetByIdAsync',
       deleteCustomer: 'Customers/SoftDelete',
+      CanSubmitOrder: 'Customers/CanSubmitOrder',
     },
     financialSettlements: {
       getUsersByUserType: 'Auth/GetUsersByUserType?userType=7',

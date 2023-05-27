@@ -139,6 +139,7 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   @Output() itemActionHandler: EventEmitter<any> = new EventEmitter();
   @Output() itemAssignUserHandler: EventEmitter<any> = new EventEmitter();
   @Output() itemChangeStatusHandler: EventEmitter<any> = new EventEmitter();
+  @Output() itemFilteredCount: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('dropdown') dropdown: any;
   @ViewChild('dt1') dt: any;

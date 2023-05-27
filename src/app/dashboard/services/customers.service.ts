@@ -48,4 +48,11 @@ export class CustomersService {
     }
     return this.http?.post<any>(`${this.baseUrl}/${roots?.dashboard?.customers?.deleteCustomer}`, { "id": id });
   }
+  canCustomerSubmitOrder(id: number): Observable<any> {
+    let params = new HttpParams();
+    if (id) {
+      params = params.append("id", id);
+    }
+    return this.http?.get<any>(`${this.baseUrl}/${roots?.dashboard?.customers?.CanSubmitOrder}`, { params: params });
+  }
 }

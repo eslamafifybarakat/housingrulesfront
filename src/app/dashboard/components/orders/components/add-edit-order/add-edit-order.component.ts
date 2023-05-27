@@ -15,6 +15,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Validators, FormBuilder } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
+import { CustomersService } from 'src/app/dashboard/services/customers.service';
 
 @Component({
   selector: 'app-add-edit-order',
@@ -62,6 +63,7 @@ export class AddEditOrderComponent implements OnInit {
   { value: 2, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
   { value: 3, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
   isLoadingTanksSize: boolean = false;
+  customerCanSubmitOrder: boolean = true;
 
   constructor(
     public checkValidityService: CheckValidityService,
@@ -73,6 +75,7 @@ export class AddEditOrderComponent implements OnInit {
     public publicService: PublicService,
     private orderService: OrdersService,
     private tanksService: TanksService,
+    private customersService: CustomersService,
     private cdr: ChangeDetectorRef,
     protected router: Router,
     public fb: FormBuilder,
@@ -309,14 +312,37 @@ export class AddEditOrderComponent implements OnInit {
 
   onSelectCustomer(): void {
     let formInfo: any = this.orderForm?.value?.customerName;
+    this.customerCanSubmitOrder = true;
+
     this.orderForm?.patchValue({
       customerMobileNumber: formInfo?.mobileNumber
     });
+    // this.customersService.canCustomerSubmitOrder(formInfo.id).subscribe(
+    //   (res: any) => {
+    //     if (res?.isSuccess == true && res?.statusCode == 200) {
+    //       this.publicService?.show_loader?.next(false);
+    //       if (res?.data == false){
+    //         this.customerCanSubmitOrder = false;
+    //       }
+    //     } else {
+    //       res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+    //       this.publicService?.show_loader?.next(false);
+    //     }
+    //     this.isSaving = false;
+    //   },
+    //   (err: any) => {
+    //     err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+    //     this.publicService?.show_loader?.next(false);
+    //     this.isSaving = false;
+
+    //   });
   }
   onClearCustomer(): void {
     this.orderForm?.patchValue({
       customerMobileNumber: null
     });
+    this.customerCanSubmitOrder = true;
+
   }
 
   getSupervisorsByDistrictId(districtId: any): any {

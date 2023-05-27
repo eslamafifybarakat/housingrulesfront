@@ -261,6 +261,9 @@
               <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
                 <label for="customerName" class="mb-2 required">{{'labels.customerName'|translate}}</label>
                 <ng-container *ngIf="!isEdit">
+                  <p *ngIf="!customerCanSubmitOrder" class="text-danger fst-italic" >
+                    {{'validations.customerCanSubmitOrder'|translate}}
+                  </p>
                   <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto mb-1 btn-add-new-form"
                     (click)="addNewCustomer()" [disabled]="isLoadingCustomers">
                     <i class="pi pi-plus-circle"></i>
@@ -428,7 +431,7 @@
         </div>
 
         <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
-          <button type="submit" [disabled]="isSaving" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+          <button type="submit" [disabled]="isSaving||!customerCanSubmitOrder" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
             <ng-container *ngIf="!isEdit;else edit">
               <span>
                 {{'general.save'|translate}}
@@ -442,7 +445,8 @@
               <i class="pi pi-pencil"></i>
             </ng-template>
           </button>
-          <button type="button" [disabled]="isSaving" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+          <button type="button" [disabled]="isSaving" class="btn btn-outline-main d-flex align-items-center gap-2"
+            (click)="cancel()">
             <span>
               {{'general.cancel'|translate}}
             </span>
