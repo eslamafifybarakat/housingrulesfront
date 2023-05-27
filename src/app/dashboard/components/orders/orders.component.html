@@ -7,9 +7,9 @@
       </span>
     </div>
     <div class="d-flex justify-content-end align-items-center me-auto gap-3">
-      <!-- <button class="btn btn-solid-main" (click)="filter()">
+      <button class="btn btn-solid-main" (click)="filter()">
         <span>{{'general.filter'|translate}}</span>
-      </button> -->
+      </button>
       <ng-container
         *ngIf="userLoginDataType==1 || userLoginDataType==2 || userLoginDataType==3 || userLoginDataType==4|| userLoginDataType==5">
         <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto" (click)="addOrEditItem()">

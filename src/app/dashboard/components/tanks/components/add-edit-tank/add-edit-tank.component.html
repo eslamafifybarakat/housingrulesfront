@@ -4,6 +4,34 @@
       <label for="active" class="fw-bold">{{'labels.tankActivation'|translate}}</label>
       <p-inputSwitch id="active" formControlName="active"></p-inputSwitch>
     </div>
+    <div class="mb-4 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+      <label for="isSubcontractor" class="fw-bold">{{'labels.isSubcontractor'|translate}}</label>
+      <span class="d-flex align-items-center justify-content-center gap-2">
+        <i class="pi pi-user-plus text-warning" style="font-size: 1.4rem"></i>
+        <p-checkbox [value]="true" [formControl]="formControls?.isSubcontractor"
+          (onChange)="isSubcontractorChange()"></p-checkbox>
+      </span>
+    </div>
+
+    <ng-container *ngIf="isSubcontractorStatus">
+      <div class="mb-3">
+        <label for="cost" class="mb-2 required">{{'labels.cost'|translate}}</label>
+        <input type="number" class="form-control" formControlName="cost" autocomplete="cc-name"
+          (input)="publicService?.clearValidationErrors(formControls?.cost)" [min]="0"
+          [class.is-invalid]="formControls?.cost?.invalid && (formControls?.cost?.dirty || formControls?.cost?.touched)"
+          placeholder="{{'placeholder.cost'|translate}}">
+        <div class="mt-2">
+          <ng-container
+            *ngIf="formControls?.cost?.invalid && (formControls?.cost?.dirty || formControls?.cost?.touched)">
+            <ng-container *ngIf="formControls?.cost?.errors?.['required']">
+              <span class="text-danger fs-8">
+                {{'validations.required_field'|translate}}
+              </span>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
 
     <div class="mb-3">
       <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
@@ -27,24 +55,7 @@
         </ng-container>
       </div>
     </div>
-    <div class="mb-3">
-      <label for="price" class="mb-2 required">{{'labels.price'|translate}}</label>
-      <input type="number" min="0" max="9999"  class="form-control" formControlName="price"
-        (input)="publicService?.clearValidationErrors(formControls?.price)"
-        [class.is-invalid]="formControls?.price?.invalid && (formControls?.price?.dirty || formControls?.price?.touched)"
-        placeholder="{{'placeholder.price'|translate}}">
-      <div class="mt-2">
-        <ng-container *ngIf="formControls?.price?.invalid && (formControls?.price?.dirty || formControls?.price?.touched)">
-          <ng-container *ngIf="formControls?.price?.errors?.['required']">
-            <span class="text-danger fs-8">
-              {{'validations.requiredName'|translate}}
-            </span>
-          </ng-container>
 
-
-        </ng-container>
-      </div>
-    </div>
     <div class="mb-3">
       <label class="form-label required">
         {{"labels.tankSize"|translate}}
@@ -52,7 +63,8 @@
       <span class="p-input-icon-right select-loading d-block">
         <p-dropdown [options]="tanksSize" formControlName="tankSize" optionLabel="name" [filter]="true"
           [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="value" appendTo="body"
-          [readonly]="isLoadingTanksSize" scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+          (onChange)="onTankChange(formControls?.tankSize?.value)" [readonly]="isLoadingTanksSize"
+          (onClear)="onTankClear()" scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
           [class.ng-dirty]="formControls?.tankSize?.invalid && (formControls?.tankSize?.dirty || formControls?.tankSize?.touched)"
           [showClear]="true" placeholder="{{'placeholder.tankSize'|translate}}">
         </p-dropdown>
@@ -71,6 +83,16 @@
         </ng-container>
       </div>
     </div>
+    <div class="mb-3">
+      <label class="form-label">
+        {{"labels.tankPrice"|translate}}
+      </label>
+      <input type="text" class="form-control" formControlName="price" autocomplete="cc-name" [readOnly]="true"
+        (input)="publicService?.clearValidationErrors(formControls?.price)"
+        [class.is-invalid]="formControls?.price?.invalid && (formControls?.price?.dirty || formControls?.price?.touched)"
+        placeholder="{{'placeholder.tankPrice'|translate}}">
+    </div>
+
     <div class="mb-3">
       <label for="plateNumber" class="mb-2 required">{{'labels.plateNumber'|translate}}</label>
       <input type="text" class="form-control" formControlName="plateNumber" autocomplete="cc-name"

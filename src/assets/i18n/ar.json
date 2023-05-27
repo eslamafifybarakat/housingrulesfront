@@ -175,6 +175,8 @@
     "selectSupervisorFirst": "يجب اختيار المشرف أولا"
   },
   "labels": {
+    "cost": "التكلفة",
+    "isSubcontractor": "لدي الغير",
     "serviceAgent": "مقدم خدمة العملاء",
     "serviceAgentSuperVisor": "مشرف خدمة العملاء",
     "address": "العنوان",
@@ -197,7 +199,7 @@
     "supervisorActivation": "تفعيل المشرف",
     "driverStatus": "حالة السائق",
     "tankSize": "سعة الصهريج",
-    "price": "سعر",
+    "price": "السعر",
     "username": "اسم المستخدم",
     "userNameStr": "اسم الموظف",
     "supervisor": "المشرف",
@@ -224,6 +226,7 @@
     "userType": "نوع المستخدم"
   },
   "placeholder": {
+    "cost": "أدخل التكلفة",
     "searchUser": "بحث عن مستخدم",
     "tankPrice": "سعر الصهريج",
     "newPassword": "أدخل كلمة المرور الجديدة",
@@ -396,7 +399,7 @@
       "tankDetails": "تفاصيل الصهريج",
       "price": "سعر",
       "TankSize": {
-        "Size13": "13 طن",
+        "Size15": "15 طن",
         "Size20": "20 طن",
         "Size32": "32 طن"
       }

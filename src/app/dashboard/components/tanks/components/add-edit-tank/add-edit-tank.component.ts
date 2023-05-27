@@ -20,10 +20,11 @@ export class AddEditTankComponent implements OnInit {
   modalData: any;
   isEdit: boolean = false;
   tankId: any;
+  isSubcontractorStatus: boolean = false;
 
-  tanksSize: any = [{ value: 0, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size13') },
-  { value: 1, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
-  { value: 2, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
+  tanksSize: any = [{ value: 1, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size15') },
+  { value: 2, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
+  { value: 3, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
   isLoadingTanksSize: boolean = false;
 
   constructor(
@@ -54,22 +55,24 @@ export class AddEditTankComponent implements OnInit {
       name: ['', {
         validators: [
           Validators.required,
-          Validators?.minLength(3)]
+          Validators?.minLength(3)], updateOn: "blur"
       }],
       tankSize: [null, Validators?.required],
       price: ['', Validators?.required],
       plateNumber: ['', {
         validators: [
           Validators.required,
-          Validators?.minLength(3)]
+          Validators?.minLength(3)], updateOn: "blur"
       }],
-      active: [false, []]
-    },{ updateOn: "blur" }
+      active: [false, []],
+      isSubcontractor: [false, []],
+      cost: [null, { Validators: [], updateOn: "blur" }]
+    }
   );
-
   get formControls(): any {
     return this.modalForm?.controls;
   }
+
   patchValue(): void {
     this.tanksSize?.forEach((element: any) => {
       if (element?.value == this.modalData?.item?.tankSizeVal) {
@@ -78,14 +81,50 @@ export class AddEditTankComponent implements OnInit {
         })
       }
     });
+    let isSubcontractor: any = this.modalData?.item?.isSubcontractor == true ? [true] : [false];
     this.modalForm?.patchValue({
       name: this.modalData?.item?.name,
       price: this.modalData?.item?.price,
       active: this.modalData?.item?.isAvailable,
-      plateNumber: this.modalData?.item?.plateNumber
-    })
+      plateNumber: this.modalData?.item?.plateNumber,
+      isSubcontractor: isSubcontractor,
+    });
+    this.isSubcontractorChange();
   }
 
+  onTankChange(item: any): void {
+    let price: any = 0;
+    console.log(item.value);
+    switch (item.value) {
+      case 1:
+        price = 80;
+        break;
+      case 2:
+        price = 110;
+        break;
+      case 3:
+        price = 176;
+        break;
+    }
+    this.modalForm?.patchValue({
+      price: price
+    });
+  }
+  onTankClear(): void {
+    this.modalForm?.patchValue({
+      price: null
+    });
+  }
+  isSubcontractorChange(): void {
+    let isSubcontractorStatusVal: any = this.modalForm?.value?.isSubcontractor
+    this.isSubcontractorStatus = isSubcontractorStatusVal[0];
+    console.log(this.isSubcontractorStatus);
+    if (isSubcontractorStatusVal) {
+      this.publicService?.addValidators(this.modalForm, ['cost']);
+    } else {
+      this.publicService?.removeValidators(this.modalForm, ['cost']);
+    }
+  }
   submit(): void {
     console.log(this.modalForm);
 
@@ -96,6 +135,8 @@ export class AddEditTankComponent implements OnInit {
       myObject['tankSize'] = this.modalForm?.value?.tankSize?.['value'];
       myObject['plateNumber'] = this.modalForm?.value?.plateNumber;
       myObject['price'] = this.modalForm?.value?.price;
+      let isSubcontractor: any = this.modalForm?.value?.isSubcontractor;
+      myObject['isSubcontractor'] = isSubcontractor[0] == true ? true : false;
       myObject['isWorking'] = false;
       if (this.isEdit) {
         myObject['id'] = this.tankId;

@@ -82,13 +82,13 @@ export class TanksComponent implements OnInit {
               statusClass = workingItems[0]?.class;
             }
             let sizeTank: any;
-            if (tank?.tankSize == 0) {
-              sizeTank = "Size13";
-            }
             if (tank?.tankSize == 1) {
-              sizeTank = "Size20";
+              sizeTank = "Size15";
             }
             if (tank?.tankSize == 2) {
+              sizeTank = "Size20";
+            }
+            if (tank?.tankSize == 3) {
               sizeTank = "Size32";
             }
 

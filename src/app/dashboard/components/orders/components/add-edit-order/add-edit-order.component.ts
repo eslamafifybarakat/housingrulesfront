@@ -37,7 +37,7 @@ export class AddEditOrderComponent implements OnInit {
   isLoadingDrivers: boolean = false;
 
   // tanksList: any = [];
-   isSaving: boolean = false;
+  isSaving: boolean = false;
 
   paymentMethodsList: any = [
     { id: 1, value: 1, name: "Cash" },
@@ -59,7 +59,7 @@ export class AddEditOrderComponent implements OnInit {
   isLoadingCustomers: boolean = false;
 
   currLang: any = '';
-  tanksSize: any = [{ value: 1, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size13') },
+  tanksSize: any = [{ value: 1, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size15') },
   { value: 2, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
   { value: 3, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
   isLoadingTanksSize: boolean = false;
@@ -482,22 +482,26 @@ export class AddEditOrderComponent implements OnInit {
   //   this.cdr?.detectChanges();
   // }
   onTankChange(item: any): void {
-    let price = 0;
-console.log(item.value);
-
+    let price: any = 0;
+    console.log(item.value);
     switch (item.value) {
       case 1:
         price = 80;
         break;
-        case 2:
-          price = 110;
-          break;
-          case 3:
-            price = 176;
-            break;
+      case 2:
+        price = 110;
+        break;
+      case 3:
+        price = 176;
+        break;
     }
     this.orderForm?.patchValue({
       tankPrice: price
+    });
+  }
+  onTankClear(): void {
+    this.orderForm?.patchValue({
+      tankPrice: null
     });
   }
 
@@ -511,7 +515,7 @@ console.log(item.value);
           this.getAllCustomers();
           // this.getAllDrivers();
           this.getAllDistricts();
-         // this.getAllTanks();
+          // this.getAllTanks();
           this.patchValue();
           this.isFullLoading = false;
         } else {

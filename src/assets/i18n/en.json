@@ -173,6 +173,8 @@
     "selectSupervisorFirst": "You must select supervisor first"
   },
   "labels": {
+    "cost": "Cost",
+    "isSubcontractor": "Is Subcontractor",
     "serviceAgent": "Service Agent",
     "serviceAgentSuperVisor": "Service Agent SuperVisor",
     "address": "Address",
@@ -219,6 +221,7 @@
     "userType": "User type"
   },
   "placeholder": {
+    "cost": "Enter cost",
     "searchUser": "Search user",
     "tankPrice": "Tank Price",
     "newPassword": "Enter new password",
@@ -389,7 +392,7 @@
       "tankDetails": "Tank details",
       "Price": "Price",
       "TankSize": {
-        "Size13": "13 Ton",
+        "Size15": "15 Ton",
         "Size20": "20 Ton",
         "Size32": "32 Ton"
       }
