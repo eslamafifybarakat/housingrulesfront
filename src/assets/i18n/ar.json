@@ -79,7 +79,7 @@
     "light": "فاتح",
     "dark": "غامق",
     "ok": "تم",
-    "pay":"سداد",
+    "pay": "سداد",
     "brands": "العلامات التجارية",
     "create_new": "إنشاء جديد",
     "userNameStr": "اسم الموظف",
@@ -175,6 +175,8 @@
     "selectSupervisorFirst": "يجب اختيار المشرف أولا"
   },
   "labels": {
+    "serviceAgent": "مقدم خدمة العملاء",
+    "serviceAgentSuperVisor": "مشرف خدمة العملاء",
     "address": "العنوان",
     "location": "الموقع",
     "tankprice": "سعر الصهريج",
@@ -187,6 +189,7 @@
     "phoneNumber": "رقم الهاتف",
     "newPassword": " كلمة المرور الجديدة",
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+    "allowTerminal": "دخول من التطبيق",
     "userActivation": "تفعيل المستخدم",
     "tankActivation": "تفعيل الصهريج",
     "userAgentActivation": "تفعيل خدمة العميل",
@@ -221,7 +224,7 @@
     "userType": "نوع المستخدم"
   },
   "placeholder": {
-    "searchUser":"بحث عن مستخدم",
+    "searchUser": "بحث عن مستخدم",
     "tankPrice": "سعر الصهريج",
     "newPassword": "أدخل كلمة المرور الجديدة",
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
@@ -284,7 +287,7 @@
     "phone_length": "رقم الهاتف يجب ان يكون 10 رقم",
     "name_en": "يجب أن يحتوي الإسم ع أحرف إنجليزية فقط",
     "name_ar": "يجب أن يحتوي الإسم ع أحرف عربية فقط",
-    "customerCanSubmitOrder":"لا يمكن قبول طلب جديد للعميل "
+    "customerCanSubmitOrder": "لا يمكن قبول طلب جديد للعميل "
   },
   "form": {
     "welcomeBack": "مرحبًا بعودتك",
@@ -336,14 +339,14 @@
       "serviceAgent": "خدمة العملاء",
       "users": " المستخدمين",
       "customers": "العملاء",
-      "financialSettlements":"تسويات مالية"
+      "financialSettlements": "تسويات مالية"
     },
     "tableHeader": {
       "createdAt": "تم إنشاؤه في",
-      "settlementedBy":"تسوية بواسطة",
-      "recivedBy":"استلمت من قبل",
-      "orderCount":"عدد الطلب",
-      "amount":"الكمية",
+      "settlementedBy": "تسوية بواسطة",
+      "recivedBy": "استلمت من قبل",
+      "orderCount": "عدد الطلب",
+      "amount": "الكمية",
       "time": "الوقت",
       "location": "الموقع",
       "address": "العنوان",
@@ -373,7 +376,6 @@
       "mobilePhone": "رقم الهاتف",
       "date": "التاريخ",
       "userNameStr": "اسم الموظف",
-
       "propertyType": "القطاع",
       "customerMobileNumber": "رقم هاتف العميل",
       "district": "الحي",
@@ -433,15 +435,15 @@
     },
     "users": {
       "allUsers": "كل المستخدمين",
-      "gates":"مسؤلي البوابات",
+      "gates": "مسؤلي البوابات",
       "addUser": "إضافة مستخدم",
       "user": "مستخدم",
       "editUser": "تعديل مستخدم",
       "userTypes": {
-        "superAdmin": "مشرف فائق",
+        "superAdmin": "مدير عام",
         "admin": "مسؤل ",
         "customerServicesSupervisor": "مشرف خدمات العملاء",
-        "customerService": "خدمة الزبائن",
+        "customerService": "خدمة العملاء",
         "driversSupervisor": "مشرف السائقين",
         "driver": "سائق",
         "gateIn": "موظف بوابة دخول",
@@ -455,8 +457,8 @@
       "customerDetails": "تفاصيل العميل",
       "editCustomer": "تعديل العميل"
     },
-    "financialSettlements":{
-      "financialSettlements":"تسويات مالية"
+    "financialSettlements": {
+      "financialSettlements": "تسويات مالية"
     }
   },
   "welcome": {

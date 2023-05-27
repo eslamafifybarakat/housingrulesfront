@@ -55,8 +55,9 @@ export class UsersComponent implements OnInit {
       // { field: 'name', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'username', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.username'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.username'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       // { field: 'email', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.email'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.email'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
-      { field: 'userType', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.userType'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.userType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'filterArray', dataType: 'array', list: 'userType', placeholder: this.publicService?.translateTextFromJson('placeholder.userType'), label: this.publicService?.translateTextFromJson('labels.userType') },
-       { field: 'userNameStr', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.userNameStr'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.userNameStrs'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
+      { field: 'userType', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.userType'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.userType'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
+      // { field: 'userType', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.userType'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.userType'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'filterArray', dataType: 'array', list: 'userType', placeholder: this.publicService?.translateTextFromJson('placeholder.userType'), label: this.publicService?.translateTextFromJson('labels.userType') },
+      { field: 'userNameStr', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.userNameStr'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.userNameStrs'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       // { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
     ];
 
@@ -73,10 +74,12 @@ export class UsersComponent implements OnInit {
           let arr: any = [];
           res?.data ? res?.data?.forEach((item: any, index: any) => {
 
+            let userTypeName: any = '';
             let userTypeArr: any = [];
             this.userTypesList?.forEach((element: any) => {
               if (element?.value == item?.userType) {
                 userTypeArr?.push(element);
+                userTypeName = element?.name;
               }
             });
 
@@ -86,8 +89,13 @@ export class UsersComponent implements OnInit {
               name: item?.name ? item?.name : '',
               username: item?.username ? item?.username : '',
               itemStatus: item?.itemStatus ? item?.itemStatus : null,
-              userNameStr:  item?.userNameStr ? item?.userNameStr : '',
-              userType: userTypeArr
+              userNameStr: item?.userNameStr ? item?.userNameStr : '',
+              userType: userTypeName,
+              userTypeId: item?.userType,
+              isSuspended: item?.isSuspended,
+              allowTerminal: item?.allowTerminal,
+              entityId: item?.entityId,
+              // userType: userTypeArr
             });
           }) : '';
           this.usersList$ = arr;
@@ -126,7 +134,6 @@ export class UsersComponent implements OnInit {
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
     this.pagesCount = Math?.ceil(this.usersCount / this.perPage);
-    console.log(this.pagesCount);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
 
@@ -147,7 +154,6 @@ export class UsersComponent implements OnInit {
     });
   }
   addOrEditItem(item?: any, type?: any): void {
-    console.log(item);
     const ref = this.dialogService?.open(AddEditUserComponent, {
       data: {
         item,

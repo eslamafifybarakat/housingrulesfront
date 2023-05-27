@@ -173,6 +173,8 @@
     "selectSupervisorFirst": "You must select supervisor first"
   },
   "labels": {
+    "serviceAgent": "Service Agent",
+    "serviceAgentSuperVisor": "Service Agent SuperVisor",
     "address": "Address",
     "location": "Location",
     "tankPrice": "Tank Price",
@@ -184,6 +186,7 @@
     "confirmPassword": "Confirm Password",
     "newPassword": "New password",
     "confirmNewPassword": "Confirm new password",
+    "allowTerminal": "Allow Terminal",
     "userActivation": "User activation",
     "tankActivation": "Tank activation",
     "userAgentActivation": "User agent activation",
@@ -216,7 +219,7 @@
     "userType": "User type"
   },
   "placeholder": {
-    "searchUser":"Search user",
+    "searchUser": "Search user",
     "tankPrice": "Tank Price",
     "newPassword": "Enter new password",
     "confirmNewPassword": "Confirm new password",
@@ -276,7 +279,7 @@
     "phone_length": "Phone number must be 10 digit",
     "name_en": "Name must be with english letters only",
     "name_ar": "Name must be with arabic letters only",
-    "customerCanSubmitOrder":"Can't assgin new order to customer"
+    "customerCanSubmitOrder": "Can't assgin new order to customer"
   },
   "form": {
     "welcomeBack": "Welcome back",
@@ -328,14 +331,14 @@
       "users": "Users",
       "serviceAgent": "Service Agent",
       "customers": "Customers",
-      "financialSettlements":"Financial settlements"
+      "financialSettlements": "Financial settlements"
     },
     "tableHeader": {
-      "createdAt":"Created at",
-      "settlementedBy":"Settlemented by",
-      "recivedBy":"Recived by",
-      "orderCount":"Order count",
-      "amount":"Amount",
+      "createdAt": "Created at",
+      "settlementedBy": "Settlemented by",
+      "recivedBy": "Recived by",
+      "orderCount": "Order count",
+      "amount": "Amount",
       "userNameStr": "Employee Name",
       "time": "Time",
       "location": "Location",
@@ -447,8 +450,8 @@
       "customerDetails": "Customer details",
       "editCustomer": "Edit Customer"
     },
-    "financialSettlements":{
-      "financialSettlements":"Financial settlements"
+    "financialSettlements": {
+      "financialSettlements": "Financial settlements"
     }
   },
   "welcome": {

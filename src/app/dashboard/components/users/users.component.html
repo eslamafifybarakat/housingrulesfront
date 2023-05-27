@@ -15,7 +15,7 @@
   <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
     (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
     (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="usersList$"
-    [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'" [showActions]="true" [showEdit]="false"
+    [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'" [showActions]="true" [showEdit]="true"
     [showDelete]="false" [showDetails]="false" [showResetPassword]="true" (resetPasswordHandler)="resetPassword($event)"
     (editHandler)="addOrEditItem($event,'edit')" (customSortHandler)="enableSortFilter?sortItems($event):''"
     (filterHandler)="enableSortFilter?filterItems($event):''" [results]="usersCount" [paginatorRows]="perPage"

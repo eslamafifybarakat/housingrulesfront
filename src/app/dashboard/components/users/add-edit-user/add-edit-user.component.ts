@@ -2,10 +2,11 @@ import { CheckValidityService } from './../../../../shared/services/check-validi
 import { ConfirmPasswordValidator } from './../../../../shared/configs/confirm-password-validator';
 import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 import { AlertsService } from './../../../../core/services/alerts/alerts.service';
-import { PublicService } from './../../../../shared/services/public.service';
+import { ServiceAgentService } from './../../../services/service-agent.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { patterns } from './../../../../shared/configs/patternValidations';
+import { PublicService } from './../../../../shared/services/public.service';
 import { DriversService } from 'src/app/dashboard/services/drivers.service';
+import { patterns } from './../../../../shared/configs/patternValidations';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UsersService } from './../../../services/users.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -23,7 +24,6 @@ export class AddEditUserComponent implements OnInit {
   modalData: any;
   isEdit: boolean = false;
   userId: any;
-  userData: any;
 
   userTypesList: any = [];
   isLoadingUserTypes: boolean = false;
@@ -31,11 +31,15 @@ export class AddEditUserComponent implements OnInit {
   supervisorsList: any = [];
   isLoadingSupervisors: boolean = false;
 
+  serviceAgentsList: any = [];
+  isLoadingServiceAgents: boolean = false;
+
   driversList: any = [];
   isLoadingDrivers: boolean = false;
 
   constructor(
     public checkValidityService: CheckValidityService,
+    private serviceAgentService: ServiceAgentService,
     private supervisorsService: SupervisorsService,
     private driversService: DriversService,
     public alertsService: AlertsService,
@@ -55,10 +59,9 @@ export class AddEditUserComponent implements OnInit {
     }
     this.isEdit = this.modalData?.type == 'edit' ? true : false;
     if (this.isEdit) {
-      // this.patchValue();
-    } else {
-      this.getUserTypes();
+      this.patchValue();
     }
+    this.getUserTypes();
   }
 
   userForm = this.fb?.group(
@@ -106,6 +109,11 @@ export class AddEditUserComponent implements OnInit {
       driver: [null, {
         validators: []
       }],
+      serviceAgent: [null, {
+        validators: []
+      }],
+      active: [false, []],
+      allowTerminal: [false, []],
     },
     {
       validator: ConfirmPasswordValidator.MatchPassword
@@ -117,6 +125,16 @@ export class AddEditUserComponent implements OnInit {
 
   getUserTypes(): void {
     this.userTypesList = this.publicService?.getUserTypes();
+    if (this.isEdit) {
+      this.userTypesList?.forEach((element: any) => {
+        if (element?.value == this.modalData?.item?.userTypeId) {
+          this.userForm.patchValue({
+            userType: element
+          });
+        }
+        this.changeUserType({ value: this.modalData?.item?.userTypeId });
+      });
+    }
   }
   getAllSupervisors(): any {
     this.isLoadingSupervisors = true;
@@ -133,7 +151,7 @@ export class AddEditUserComponent implements OnInit {
           this.supervisorsList = arr;
           if (this.isEdit) {
             this.supervisorsList?.forEach((supervisor: any) => {
-              if (supervisor?.id == this.userData?.supervisorId) {
+              if (supervisor?.id == this.modalData?.item?.entityId) {
                 this.userForm?.patchValue({
                   supervisor: supervisor
                 })
@@ -151,15 +169,6 @@ export class AddEditUserComponent implements OnInit {
         this.isLoadingSupervisors = false;
       });
     this.cdr?.detectChanges();
-    if (this.isEdit) {
-      this.supervisorsList?.forEach((supervisor: any) => {
-        if (supervisor?.id == this.userData?.supervisorId) {
-          this.userForm?.patchValue({
-            supervisor: supervisor
-          })
-        }
-      });
-    }
   }
   getAllDrivers(): any {
     this.isLoadingDrivers = true;
@@ -176,7 +185,7 @@ export class AddEditUserComponent implements OnInit {
           this.driversList = arr;
           if (this.isEdit) {
             this.driversList?.forEach((driver: any) => {
-              if (driver?.id == this.userData?.driverId) {
+              if (driver?.id == this.modalData?.item?.entityId) {
                 this.userForm?.patchValue({
                   driver: driver
                 })
@@ -194,67 +203,101 @@ export class AddEditUserComponent implements OnInit {
         this.isLoadingDrivers = false;
       });
     this.cdr?.detectChanges();
-    if (this.isEdit) {
-      this.driversList?.forEach((driver: any) => {
-        if (driver?.id == this.userData?.driverId) {
-          this.userForm?.patchValue({
-            driver: driver
-          })
+  }
+  getAllServiceAgents(): any {
+    this.isLoadingServiceAgents = true;
+    this.serviceAgentService?.getServiceAgentsList()?.subscribe(
+      (res: any) => {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
+          let arr: any = [];
+          res?.data ? res?.data?.forEach((serviceAgent: any) => {
+            arr?.push({
+              name: serviceAgent?.arName,
+              id: serviceAgent?.id
+            });
+          }) : '';
+          this.serviceAgentsList = arr;
+          if (this.isEdit) {
+            this.serviceAgentsList?.forEach((serviceAgent: any) => {
+              if (serviceAgent?.id == this.modalData?.item?.entityId) {
+                this.userForm?.patchValue({
+                  serviceAgent: serviceAgent
+                })
+              }
+            });
+          }
+          this.isLoadingServiceAgents = false;
+        } else {
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+          this.isLoadingServiceAgents = false;
         }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+        this.isLoadingServiceAgents = false;
       });
-    }
+    this.cdr?.detectChanges();
   }
 
   changeUserType(item: any): void {
-    console.log(item);
-    if (item?.value == 3 || item?.value == 5) {
+    if (item?.value == 3 || item?.value == 4) {
+      this.publicService?.addValidators(this.userForm, ['serviceAgent']);
+      this.getAllServiceAgents();
+    } else {
+      this.publicService?.removeValidators(this.userForm, ['supervisor']);
+      this.publicService?.removeValidators(this.userForm, ['driver']);
+    }
+    if (item?.value == 5) {
       this.publicService?.addValidators(this.userForm, ['supervisor']);
       this.getAllSupervisors();
     } else {
-      this.publicService?.removeValidators(this.userForm, ['supervisor']);
+      this.publicService?.removeValidators(this.userForm, ['driver']);
+      this.publicService?.removeValidators(this.userForm, ['serviceAgent']);
+
     }
     if (item?.value == 6) {
       this.publicService?.addValidators(this.userForm, ['driver']);
       this.getAllDrivers();
     } else {
-      this.publicService?.removeValidators(this.userForm, ['driver']);
+      this.publicService?.removeValidators(this.userForm, ['supervisor']);
+      this.publicService?.removeValidators(this.userForm, ['serviceAgent']);
     }
   }
-  // patchValue(): void {
-  //   this.userForm?.patchValue({
-  //     email: 'Ahmed44@gmail.com',
-  //     newpassword: '67gg88',
-  //     confirmpassword: '67gg88',
-  //     active: true
-  //   })
-  // }
+  patchValue(): void {
+    this.userForm?.patchValue({
+      active: this.modalData?.item?.isSuspended == true ? false : true,
+      allowTerminal: this.modalData?.item?.allowTerminal == false ? [false] : [true],
+      username: this.modalData?.item?.username ? this.modalData?.item?.username : '',
+      userNameStr: this.modalData?.item?.userNameStr ? this.modalData?.item?.userNameStr : '',
+    })
+  }
 
   submit(): void {
     const myObject: { [key: string]: any } = {};
     if (this.userForm?.valid) {
-      this.publicService?.show_loader?.next(true);
       // myObject['name'] = this.userForm?.value?.name;
       myObject['username'] = this.userForm?.value?.username;
       myObject['userType'] = this.userForm?.value?.userType?.id;
       // myObject['email'] = this.userForm?.value?.email;
-       myObject['userNameStr'] = this.userForm?.value?.userNameStr;
+      myObject['userNameStr'] = this.userForm?.value?.userNameStr;
       myObject['password'] = this.userForm?.value?.password;
       // myObject['confirmPassword'] = this.userForm?.value?.confirmPassword;
+      myObject['isSuspended'] = !this.userForm?.value?.active;
+      myObject['allowTerminal'] = this.userForm?.value?.allowTerminal[0] == true ? true : false;
 
-      if (this.userForm?.value?.userType?.value == 3 || this.userForm?.value?.userType?.value == 5) {
+      if (this.userForm?.value?.userType?.value == 3 || this.userForm?.value?.userType?.value == 4) {
+        myObject['entityId'] = this.userForm?.value?.serviceAgent?.id;
+      }
+      if (this.userForm?.value?.userType?.value == 5) {
         myObject['entityId'] = this.userForm?.value?.supervisor?.id;
       }
       if (this.userForm?.value?.userType?.value == 6) {
         myObject['entityId'] = this.userForm?.value?.driver?.id;
       }
-      myObject['isSuspended'] = false;
-      myObject['allowTerminal'] = true;
       if (this.isEdit) {
         myObject['id'] = this.userId;
-        // myObject['lastModifiedBy'] = 0;
-      } else {
-        // myObject['createBy'] = 0;
       }
+
       this.publicService?.show_loader?.next(true);
       this.usersService?.addOrUpdateUser(myObject, this.userId ? this.userId : null)?.subscribe(
         (res: any) => {

@@ -1,6 +1,17 @@
 <div id="modal">
   <form [formGroup]="userForm" (ngSubmit)="submit()">
     <div class="row">
+      <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+        <label for="active" class="fw-bold">{{'labels.userActivation'|translate}}</label>
+        <p-inputSwitch id="active" formControlName="active"></p-inputSwitch>
+      </div>
+      <div class="mb-4 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+        <label for="allowTerminal" class="fw-bold">{{'labels.allowTerminal'|translate}}</label>
+        <span class="d-flex align-items-center justify-content-center gap-2">
+          <i class="pi pi-mobile text-warning" style="font-size: 1.4rem"></i>
+          <p-checkbox [value]="true" [formControl]="formControls?.allowTerminal"></p-checkbox>
+        </span>
+      </div>
       <!-- <div class="col-md-6">
         <div class="mb-3">
           <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
@@ -28,9 +39,9 @@
       </div> -->
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="username" class="mb-2 required">{{'labels.username'|translate}}</label>
+          <label for="username" class="mb-2" [class.required]="!isEdit">{{'labels.username'|translate}}</label>
           <input type="text" class="form-control" formControlName="username" autocomplete="cc-name"
-            (input)="publicService?.clearValidationErrors(formControls?.username)"
+            (input)="publicService?.clearValidationErrors(formControls?.username)" [readOnly]="isEdit"
             [class.is-invalid]="formControls?.username?.invalid && (formControls?.username?.dirty || formControls?.username?.touched)"
             placeholder="{{'placeholder.username'|translate}}">
           <div class="mt-2">
@@ -81,12 +92,12 @@
       </div> -->
       <div class="col-md-6">
         <div class="mb-3">
-          <label class="form-label required">
+          <label class="form-label" class="mb-2" [class.required]="!isEdit">
             {{"labels.userType"|translate}}
           </label>
           <span class="p-input-icon-right select-loading d-block">
             <p-dropdown [options]="userTypesList" formControlName="userType" optionLabel="name" [filter]="true"
-              [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+              [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body" [disabled]="isEdit"
               [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingUserTypes" scrollHeight="150px"
               emptyMessage="{{'general.no_result_found'|translate}}"
               [class.ng-dirty]="formControls?.userType?.invalid && (formControls?.userType?.dirty || formControls?.userType?.touched)"
@@ -109,7 +120,7 @@
           </div>
         </div>
       </div>
-       <div class="col-md-6">
+      <div class="col-md-6">
         <div class="mb-3">
           <label for="userNameStr" class="mb-2 required">{{'labels.userNameStr'|translate}}</label>
           <input type="text" class="form-control" formControlName="userNameStr" autocomplete="cc-name" [min]="0"
@@ -134,16 +145,16 @@
           </div>
         </div>
       </div>
-      <ng-container *ngIf="userForm?.value?.userType?.value == 3 || userForm?.value?.userType?.value == 5">
+      <ng-container *ngIf="userForm?.value?.userType?.value == 5">
         <div class="col-md-6">
           <div class="mb-3">
-            <label class="form-label required">
+            <label class="form-label" class="mb-2" [class.required]="!isEdit">
               {{"labels.supervisor"|translate}}
             </label>
             <span class="p-input-icon-right select-loading d-block">
               <p-dropdown [options]="supervisorsList" formControlName="supervisor" optionLabel="name" [filter]="true"
                 [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-                [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingSupervisors"
+                [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingSupervisors || isEdit"
                 scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
                 [class.ng-dirty]="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)"
                 [showClear]="true" placeholder="{{'placeholder.supervisor'|translate}}">
@@ -165,17 +176,53 @@
           </div>
         </div>
       </ng-container>
+      <ng-container *ngIf="userForm?.value?.userType?.value == 3 || userForm?.value?.userType?.value == 4">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label" class="mb-2" [class.required]="!isEdit">
+              <ng-container *ngIf="userForm?.value?.userType?.value == 3">
+                {{"labels.serviceAgentSuperVisor"|translate}}
+              </ng-container>
+              <ng-container *ngIf="userForm?.value?.userType?.value == 4">
+                {{"labels.serviceAgent"|translate}}
+              </ng-container>
+            </label>
+            <span class="p-input-icon-right select-loading d-block">
+              <p-dropdown [options]="serviceAgentsList" formControlName="serviceAgent" optionLabel="name"
+                [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingServiceAgents || isEdit"
+                scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                [class.ng-dirty]="formControls?.serviceAgent?.invalid && (formControls?.serviceAgent?.dirty || formControls?.serviceAgent?.touched)"
+                [showClear]="true" placeholder="{{'general.select'|translate}}">
+              </p-dropdown>
+              <ng-container *ngIf="isLoadingServiceAgents">
+                <i class="pi pi-spin pi-spinner"></i>
+              </ng-container>
+            </span>
+            <div class="my-2">
+              <ng-container
+                *ngIf="formControls?.serviceAgent?.invalid && (formControls?.serviceAgent?.dirty || formControls?.serviceAgent?.touched)">
+                <ng-container *ngIf="formControls?.serviceAgent?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{"validations.required_field"|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-container>
       <ng-container *ngIf="userForm?.value?.userType?.value == 6">
         <div class="col-md-6">
           <div class="mb-3">
-            <label class="form-label required">
+            <label class="form-label" class="mb-2" [class.required]="!isEdit">
               {{"labels.driver"|translate}}
             </label>
             <span class="p-input-icon-right select-loading d-block">
               <p-dropdown [options]="driversList" formControlName="driver" optionLabel="name" [filter]="true"
                 [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-                [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDrivers" scrollHeight="150px"
-                emptyMessage="{{'general.no_result_found'|translate}}"
+                [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDrivers || isEdit"
+                scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
                 [class.ng-dirty]="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)"
                 [showClear]="true" placeholder="{{'placeholder.driver'|translate}}">
               </p-dropdown>
