@@ -85,6 +85,7 @@ export class AddEditTankComponent implements OnInit {
     this.modalForm?.patchValue({
       name: this.modalData?.item?.name,
       price: this.modalData?.item?.price,
+      cost: this.modalData?.item?.cost,
       active: this.modalData?.item?.isAvailable,
       plateNumber: this.modalData?.item?.plateNumber,
       isSubcontractor: isSubcontractor,
@@ -94,7 +95,6 @@ export class AddEditTankComponent implements OnInit {
 
   onTankChange(item: any): void {
     let price: any = 0;
-    console.log(item.value);
     switch (item.value) {
       case 1:
         price = 80;
@@ -118,7 +118,6 @@ export class AddEditTankComponent implements OnInit {
   isSubcontractorChange(): void {
     let isSubcontractorStatusVal: any = this.modalForm?.value?.isSubcontractor
     this.isSubcontractorStatus = isSubcontractorStatusVal[0];
-    console.log(this.isSubcontractorStatus);
     if (isSubcontractorStatusVal) {
       this.publicService?.addValidators(this.modalForm, ['cost']);
     } else {
@@ -126,17 +125,18 @@ export class AddEditTankComponent implements OnInit {
     }
   }
   submit(): void {
-    console.log(this.modalForm);
-
     const myObject: { [key: string]: any } = {};
     if (this.modalForm?.valid) {
       myObject['name'] = this.modalForm?.value?.name;
       myObject['isAvailable'] = this.modalForm?.value?.active;
       myObject['tankSize'] = this.modalForm?.value?.tankSize?.['value'];
       myObject['plateNumber'] = this.modalForm?.value?.plateNumber;
-      myObject['price'] = this.modalForm?.value?.price;
       let isSubcontractor: any = this.modalForm?.value?.isSubcontractor;
       myObject['isSubcontractor'] = isSubcontractor[0] == true ? true : false;
+      myObject['price'] = this.modalForm?.value?.price;
+      if (this.isSubcontractorStatus) {
+        myObject['cost'] = this.modalForm?.value?.cost;
+      }
       myObject['isWorking'] = false;
       if (this.isEdit) {
         myObject['id'] = this.tankId;

@@ -56,6 +56,8 @@ export class AddEditUserComponent implements OnInit {
     this.modalData = this.config?.data;
     if (this.modalData?.item?.id) {
       this.userId = this.modalData?.item?.id;
+      this.publicService?.removeValidators(this.userForm, ['password']);
+      this.publicService?.removeValidators(this.userForm, ['confirmPassword']);
     }
     this.isEdit = this.modalData?.type == 'edit' ? true : false;
     if (this.isEdit) {
@@ -280,8 +282,6 @@ export class AddEditUserComponent implements OnInit {
       myObject['userType'] = this.userForm?.value?.userType?.id;
       // myObject['email'] = this.userForm?.value?.email;
       myObject['userNameStr'] = this.userForm?.value?.userNameStr;
-      myObject['password'] = this.userForm?.value?.password;
-      // myObject['confirmPassword'] = this.userForm?.value?.confirmPassword;
       myObject['isSuspended'] = !this.userForm?.value?.active;
       myObject['allowTerminal'] = this.userForm?.value?.allowTerminal[0] == true ? true : false;
 
@@ -296,6 +296,9 @@ export class AddEditUserComponent implements OnInit {
       }
       if (this.isEdit) {
         myObject['id'] = this.userId;
+      } else {
+        myObject['password'] = this.userForm?.value?.password;
+        // myObject['confirmPassword'] = this.userForm?.value?.confirmPassword;
       }
 
       this.publicService?.show_loader?.next(true);

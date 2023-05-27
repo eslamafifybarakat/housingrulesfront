@@ -155,7 +155,7 @@
               <p-dropdown [options]="supervisorsList" formControlName="supervisor" optionLabel="name" [filter]="true"
                 [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
                 [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingSupervisors || isEdit"
-                scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                [disabled]="isEdit" scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
                 [class.ng-dirty]="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)"
                 [showClear]="true" placeholder="{{'placeholder.supervisor'|translate}}">
               </p-dropdown>
@@ -191,7 +191,7 @@
               <p-dropdown [options]="serviceAgentsList" formControlName="serviceAgent" optionLabel="name"
                 [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
                 [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingServiceAgents || isEdit"
-                scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                [disabled]="isEdit" scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
                 [class.ng-dirty]="formControls?.serviceAgent?.invalid && (formControls?.serviceAgent?.dirty || formControls?.serviceAgent?.touched)"
                 [showClear]="true" placeholder="{{'general.select'|translate}}">
               </p-dropdown>
@@ -221,7 +221,7 @@
             <span class="p-input-icon-right select-loading d-block">
               <p-dropdown [options]="driversList" formControlName="driver" optionLabel="name" [filter]="true"
                 [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-                [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDrivers || isEdit"
+                [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDrivers" [disabled]="isEdit"
                 scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
                 [class.ng-dirty]="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)"
                 [showClear]="true" placeholder="{{'placeholder.driver'|translate}}">

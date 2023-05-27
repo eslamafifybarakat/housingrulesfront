@@ -240,8 +240,6 @@ export class AddEditOrderComponent implements OnInit {
       });
       this.orderForm?.controls?.driver?.enable();
     }
-    console.log(this.orderForm?.value);
-
   }
   onClearSupervisor(): void {
     this.orderForm?.patchValue({
@@ -483,7 +481,6 @@ export class AddEditOrderComponent implements OnInit {
   // }
   onTankChange(item: any): void {
     let price: any = 0;
-    console.log(item.value);
     switch (item.value) {
       case 1:
         price = 80;
@@ -555,10 +552,7 @@ export class AddEditOrderComponent implements OnInit {
       }
     });
     this.tanksSize?.forEach((element: any) => {
-      console.log(element?.value + " " + this.orderData?.tankSize);
-
       if (element?.value == this.orderData?.tankSize) {
-
         this.orderForm?.patchValue({
           tankSize: element
         })

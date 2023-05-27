@@ -99,12 +99,13 @@ export class TanksComponent implements OnInit {
               tankSizeVal: tank?.tankSize ? tank?.tankSize : '',
               plateNumber: tank?.plateNumber ? tank?.plateNumber : '',
               price: tank?.price ? tank?.price : 0,
+              cost: tank?.cost ? tank?.cost : 0,
+              isSubcontractor: tank?.isSubcontractor ? tank?.isSubcontractor : false,
               isWorking: isWorking,
               statusClass: statusClass,
               isAvailable: tank?.isAvailable ? true : false
             });
           }) : '';
-          console.log(arr);
           this.tanksList$ = arr;
 
         }),
@@ -182,7 +183,6 @@ export class TanksComponent implements OnInit {
     });
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        console.log('sss');
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
         this.getAllTanks();

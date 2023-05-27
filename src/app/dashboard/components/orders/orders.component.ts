@@ -1,4 +1,3 @@
-import { TankSize } from './../../../enums';
 import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
@@ -9,7 +8,6 @@ import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
-import { CustomersService } from '../../services/customers.service';
 
 @Component({
   selector: 'app-orders',
@@ -48,6 +46,8 @@ export class OrdersComponent implements OnInit {
   paymentMethodList: any = [];
 
   userLoginDataType: any;
+
+  currentActiveIndex: any = 1;
 
   constructor(
     private alertsService: AlertsService,
@@ -99,7 +99,7 @@ export class OrdersComponent implements OnInit {
 
   getAllOrders(): any {
     this.loadingIndicator = true;
-    this.ordersService?.getOrdersEntityList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
+    this.ordersService?.getOrdersEntityList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null, this.currentActiveIndex)
       .pipe(
         map((res: any) => {
           this.ordersCount = res?.total;
@@ -205,6 +205,12 @@ export class OrdersComponent implements OnInit {
 
       ).subscribe((res: any) => {
       });
+  }
+  handleChange(e: any): void {
+    var index = e.index;
+    console.log(index);
+    this.currentActiveIndex = index + 1;
+    this.getAllOrders();
   }
   getOrders(): void {
     let arr: any = this.ordersList$

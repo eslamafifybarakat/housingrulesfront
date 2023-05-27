@@ -27,6 +27,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { SliderModule } from 'primeng/slider';
 import { TooltipModule } from 'primeng/tooltip';
 import { ListboxModule } from 'primeng/listbox';
+import { TabViewModule } from 'primeng/tabview';
 
 const primeNgModules = [
   DynamicDialogModule,
@@ -47,6 +48,7 @@ const primeNgModules = [
   ListboxModule,
   DividerModule,
   MenubarModule,
+  TabViewModule,
   TooltipModule,
   SliderModule,
   ButtonModule,
