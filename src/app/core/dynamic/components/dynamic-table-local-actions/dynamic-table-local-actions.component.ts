@@ -236,11 +236,17 @@ export class DynamicTableLocalActionsComponent implements OnInit {
     this.skeletonItems = [0, 1, 2, 3, 4, 5];
     this.showReport == true ? this.skeletonItems?.push({ action: true }, { report: true }) : this.skeletonItems?.push({ action: true })
 
-    this._selectedColumns = this.tableHeaders;
     this.tableHeaders?.forEach((item: any) => {
-      // if (item?.sort) {
+      if (item?.isSelected == false) { }
+      else {
+        this._selectedColumns?.push(item);
+      }
+    });
+
+    this.tableHeaders?.forEach((item: any) => {
+
       this.searchItems?.push(item?.field);
-      // }
+
 
     });
     if (this.enableFilterDriverStatus == true) {
