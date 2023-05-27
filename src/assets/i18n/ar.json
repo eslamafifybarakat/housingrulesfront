@@ -426,7 +426,11 @@
       "orders": "الطلبات",
       "addOrder": "إضافة طلب",
       "editOrder": "تعديل الطلب",
-      "orderDetails": "تفاصيل الطلب"
+      "orderDetails": "تفاصيل الطلب",
+      "all":"الكل",
+      "closed":"الطلبات المغلقة",
+      "opened":"الطلبات المفتوحة",
+      "today":"طلبات اليوم"
     },
     "settlementes": {
       "settlementes": "التسويات",

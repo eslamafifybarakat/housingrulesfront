@@ -7,8 +7,15 @@
       </span>
     </div>
     <div class="d-flex justify-content-end align-items-center me-auto gap-3">
-      <button class="btn btn-solid-main" (click)="filter()">
+      <ng-container *ngIf="startTime||endTime||supervisorId||driverId||orderStatus">
+        <button class="btn btn-solid-main close" (click)="removeFilteredData()">
+          <i class="pi pi-times"></i>
+        </button>
+      </ng-container>
+
+      <button class="btn btn-solid-main d-flex justify-content-center align-items-center gap-2" (click)="filter()">
         <span>{{'general.filter'|translate}}</span>
+        <i class="pi pi-filter"></i>
       </button>
       <ng-container
         *ngIf="userLoginDataType==1 || userLoginDataType==2 || userLoginDataType==3 || userLoginDataType==4|| userLoginDataType==5">
@@ -21,7 +28,7 @@
   </div>
   <hr>
   <p-tabView (onChange)="handleChange($event)">
-    <p-tabPanel header="Today">
+    <p-tabPanel [header]="'dashboard.orders.today'|translate">
       <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
         (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
         (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="ordersList$"
@@ -36,7 +43,7 @@
         [enableFilterOrderStatus]="false" [enableFilterPropertyType]="false"
         [enableFilterTanks]="false"></app-dynamic-table-local-actions>
     </p-tabPanel>
-    <p-tabPanel header="Opened">
+    <p-tabPanel [header]="'dashboard.orders.opened'|translate">
       <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
         (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
         (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="ordersList$"
@@ -51,7 +58,7 @@
         [enableFilterOrderStatus]="false" [enableFilterPropertyType]="false"
         [enableFilterTanks]="false"></app-dynamic-table-local-actions>
     </p-tabPanel>
-    <p-tabPanel header="Closed">
+    <p-tabPanel [header]="'dashboard.orders.closed'|translate">
       <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
         (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
         (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="ordersList$"
@@ -66,7 +73,7 @@
         [enableFilterOrderStatus]="false" [enableFilterPropertyType]="false"
         [enableFilterTanks]="false"></app-dynamic-table-local-actions>
     </p-tabPanel>
-    <p-tabPanel header="All">
+    <p-tabPanel [header]="'dashboard.orders.all'|translate">
       <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
         (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
         (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="ordersList$"

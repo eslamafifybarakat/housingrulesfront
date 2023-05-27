@@ -73,7 +73,7 @@ export class OrdersService {
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}`, { params: params })
   }
-  getOrdersEntityList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any, currentActiveIndex?: any): Observable<any> {
+  getOrdersEntityList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any, currentActiveIndex?: any, startTime?: any, endTime?: any, supervisorId?: any, driverId?: any, orderStatus?: any): Observable<any> {
     let userLoginData: any = JSON.parse(window.localStorage.getItem(keys?.userLoginData) || '{}');
     let params = new HttpParams();
     if (page) {
@@ -94,7 +94,21 @@ export class OrdersService {
     if (currentActiveIndex) {
       params = params?.append("currentActiveIndex", currentActiveIndex);
     }
-
+    if (startTime) {
+      params = params?.append("startTime", startTime);
+    }
+    if (endTime) {
+      params = params?.append("endTime", endTime);
+    }
+    if (supervisorId) {
+      params = params?.append("supervisorId", supervisorId);
+    }
+    if (driverId) {
+      params = params?.append("driverId", driverId);
+    }
+    if (orderStatus) {
+      params = params?.append("orderStatus", orderStatus);
+    }
     if (userLoginData?.userType < 3)
       return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}`, { params: params })
     else

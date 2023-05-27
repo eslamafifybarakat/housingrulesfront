@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="startDate" class="mb-2 required">{{'labels.startDate'|translate}}</label>
+          <label for="startDate" class="mb-2">{{'labels.startDate'|translate}}</label>
           <div
             [class.border-red]="formControls?.startDate?.invalid && (formControls?.startDate?.dirty || formControls?.startDate?.touched)">
             <p-calendar formControlName="startDate" appendTo="body" [showIcon]="true" inputId="icon"
@@ -26,7 +26,7 @@
       </div>
       <div class="col-md-6">
         <div class="mb-3">
-          <label for="endDate" class="mb-2 required">{{'labels.endDate'|translate}}</label>
+          <label for="endDate" class="mb-2">{{'labels.endDate'|translate}}</label>
           <div
             [class.border-red]="formControls?.endDate?.invalid && (formControls?.endDate?.dirty || formControls?.endDate?.touched)">
             <p-calendar formControlName="endDate" appendTo="body" [minDate]="minEndDate" [showIcon]="true"
@@ -48,7 +48,7 @@
 
       <div class="col-md-6">
         <div class="mb-3">
-          <label class="form-label required">
+          <label class="form-label">
             {{"labels.supervisor"|translate}}
           </label>
           <span class="p-input-icon-right select-loading d-block">
@@ -77,7 +77,7 @@
       </div>
       <div class="col-md-6">
         <div class="mb-3">
-          <label class="form-label required">
+          <label class="form-label">
             {{"labels.driver"|translate}}
           </label>
           <span class="p-input-icon-right select-loading d-block">
@@ -106,7 +106,7 @@
       </div>
       <div class="col-md-6">
         <div class="mb-3">
-          <label class="form-label required">
+          <label class="form-label">
             {{"labels.orderStatus"|translate}}
           </label>
           <span class="p-input-icon-right select-loading d-block">

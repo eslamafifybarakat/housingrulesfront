@@ -419,7 +419,11 @@
       "orders": "Orders",
       "addOrder": "Add order",
       "editOrder": "Edit order",
-      "orderDetails": "Order details"
+      "orderDetails": "Order details",
+      "all":"All",
+      "closed":"Closed",
+      "opened":"Opened",
+      "today":"Today"
     },
     "settlementes": {
       "settlementes": "Settlementes",

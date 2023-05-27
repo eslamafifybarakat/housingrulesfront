@@ -48,6 +48,11 @@ export class OrdersComponent implements OnInit {
   userLoginDataType: any;
 
   currentActiveIndex: any = 1;
+  startTime: any = null;
+  endTime: any = null;
+  supervisorId: any = null;
+  driverId: any = null;
+  orderStatus: any = null;
 
   constructor(
     private alertsService: AlertsService,
@@ -99,7 +104,7 @@ export class OrdersComponent implements OnInit {
 
   getAllOrders(): any {
     this.loadingIndicator = true;
-    this.ordersService?.getOrdersEntityList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null, this.currentActiveIndex)
+    this.ordersService?.getOrdersEntityList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null, this.currentActiveIndex, this.startTime, this.endTime, this.supervisorId, this.driverId, this.orderStatus)
       .pipe(
         map((res: any) => {
           this.ordersCount = res?.total;
@@ -240,12 +245,24 @@ export class OrdersComponent implements OnInit {
   filter(): void {
     const ref = this.dialogService?.open(FilterOrdersComponent, {
       header: this.publicService?.translateTextFromJson('general.filter'),
+      data: {
+        startTime: this.startTime,
+        endTime: this.endTime,
+        supervisorId: this.supervisorId,
+        driverId: this.driverId,
+        orderStatus: this.orderStatus,
+      },
       dismissableMask: false,
       width: '50%',
       styleClass: 'custom_modal'
     });
     ref.onClose.subscribe((res: any) => {
-      if (res?.filter) {
+      if (res) {
+        this.startTime = res?.startDate;
+        this.endTime = res?.endDate;
+        this.supervisorId = res?.supervisorId;
+        this.driverId = res?.driverId;
+        this.orderStatus = res?.orderStatus;
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
         this.getAllOrders();
@@ -356,7 +373,14 @@ export class OrdersComponent implements OnInit {
     this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllOrders();
   }
-
+  removeFilteredData(): void {
+    this.startTime = null;
+    this.endTime = null;
+    this.supervisorId = null,
+      this.driverId = null;
+    this.orderStatus = null;
+    this.getAllOrders();
+  }
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
   }
