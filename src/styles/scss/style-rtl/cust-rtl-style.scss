@@ -107,3 +107,10 @@
     margin-left: inherit !important;
   }
 }
+
+.p-tabview .p-tabview-nav li:first-child .p-tabview-nav-link {
+  border-radius: 0.35rem 0 0 0.35rem !important;
+}
+.p-tabview .p-tabview-nav li:nth-of-type(4) .p-tabview-nav-link {
+  border-radius: 0 0.35rem 0.35rem 0 !important;
+}
