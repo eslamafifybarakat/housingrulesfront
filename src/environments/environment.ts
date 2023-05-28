@@ -6,7 +6,9 @@ export const environment = {
   production: false,
 
   apiUrl: " http://qa-tms.qatarcentral.cloudapp.azure.com/api",
-  publicUrl: " http://qa-tms.qatarcentral.cloudapp.azure.com/api"
+  publicUrl: " http://qa-tms.qatarcentral.cloudapp.azure.com/api",
+  // PUSHER_API_KEY: 'e88237276efd33cea7a6',
+  // PUSHER_API_CLUSTER: 'ap2'
 };
 
 /*

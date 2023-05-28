@@ -1,3 +1,4 @@
+import { PusherService } from './../../../core/pusher/pusher.service';
 import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
@@ -59,11 +60,19 @@ export class OrdersComponent implements OnInit {
     private publicService: PublicService,
     private dialogService: DialogService,
     private ordersService: OrdersService,
+    private pusherService: PusherService,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    // this.pusherService?.newNotification?.subscribe((res: any) => {
+    //   console.log(res);
+    //   if (Object.keys(res).length !== 0) {
+    //     this.cdr.detectChanges();
+    //   }
+    // });
+
     this.userLoginDataType = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}')?.userType;
     if (this.userLoginDataType !== 9) {
       this.showActionTableColumn = true;
