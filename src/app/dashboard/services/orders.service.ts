@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { roots } from './../../shared/configs/endPoints';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -95,10 +96,10 @@ export class OrdersService {
       params = params?.append("currentActiveIndex", currentActiveIndex);
     }
     if (startTime) {
-      params = params?.append("startTime", startTime);
+      params = params?.append("startTime", formatDate( startTime,'yyyyMMdd', 'en-US'));
     }
     if (endTime) {
-      params = params?.append("endTime", endTime);
+      params = params?.append("endTime", formatDate( endTime,'yyyyMMdd', 'en-US'));
     }
     if (supervisorId) {
       params = params?.append("supervisorId", supervisorId);

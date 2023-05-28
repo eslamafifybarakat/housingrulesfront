@@ -47,6 +47,7 @@ export const roots = {
       crateOrder: 'Orders/CreateAsync',
       updateOrder: 'Orders/UpdateAsync',
       getOrderById: 'Orders/GetByIdAsync',
+      GetOrdersQL: 'Orders/GetOrdersQL',
     },
     users: {
       usersList: 'Auth/GetUsers',
