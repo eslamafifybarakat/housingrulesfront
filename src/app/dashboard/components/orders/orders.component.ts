@@ -113,7 +113,10 @@ export class OrdersComponent implements OnInit {
 
   getAllOrders(): any {
     this.loadingIndicator = true;
-    this.ordersService?.getOrdersEntityList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null, this.currentActiveIndex, this.startTime, this.endTime, this.supervisorId, this.driverId, this.orderStatus)
+    this.ordersService?.getOrdersEntityList(this.page, this.perPage,
+       this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null,
+        this.filtersArray ? this.filtersArray : null, this.currentActiveIndex,
+         this.startTime, this.endTime, this.supervisorId, this.driverId, this.orderStatus)
       .pipe(
         map((res: any) => {
           this.ordersCount = res?.total;

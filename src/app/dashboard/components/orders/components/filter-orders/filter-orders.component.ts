@@ -166,7 +166,7 @@ export class FilterOrdersComponent implements OnInit {
       myObject['endDate'] = formInfo?.endDate;
       myObject['supervisorId'] = formInfo?.supervisor?.id;
       myObject['driverId'] = formInfo?.driver?.id;
-      myObject['orderStatus'] = formInfo?.orderStatus?.value;
+      myObject['orderStatus'] = formInfo?.orderStatus?.id;
 
       this.ref?.close(myObject)
     } else {

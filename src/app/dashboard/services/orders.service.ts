@@ -74,7 +74,8 @@ export class OrdersService {
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}`, { params: params })
   }
-  getOrdersEntityList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any, currentActiveIndex?: any, startTime?: any, endTime?: any, supervisorId?: any, driverId?: any, orderStatus?: any): Observable<any> {
+  getOrdersEntityList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any,
+    currentActiveIndex?: any, startTime=0, endTime: any=0, supervisorId: any=0, driverId: any=0, orderStatus: any=0): Observable<any> {
     let userLoginData: any = JSON.parse(window.localStorage.getItem(keys?.userLoginData) || '{}');
     let params = new HttpParams();
     if (page) {
@@ -95,23 +96,33 @@ export class OrdersService {
     if (currentActiveIndex) {
       params = params?.append("currentActiveIndex", currentActiveIndex);
     }
+    else
+    currentActiveIndex = 0;
     if (startTime) {
       params = params?.append("startTime", formatDate( startTime,'yyyyMMdd', 'en-US'));
     }
+    else
+    startTime = 0;
     if (endTime) {
       params = params?.append("endTime", formatDate( endTime,'yyyyMMdd', 'en-US'));
     }
+    else
+    endTime = 0;
     if (supervisorId) {
       params = params?.append("supervisorId", supervisorId);
-    }
+    } else
+    supervisorId = 0;
     if (driverId) {
       params = params?.append("driverId", driverId);
-    }
+    } else
+    driverId = 0;
     if (orderStatus) {
       params = params?.append("orderStatus", orderStatus);
-    }
+    } else
+    orderStatus = 0;
     if (userLoginData?.userType < 3)
-      return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}`, { params: params })
+    return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.GetOrdersQL}/${startTime}/${endTime}/${supervisorId}/${driverId}/${0}/${orderStatus}/${currentActiveIndex}`)
+    // return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}`, { params: params })
     else
       return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersByTypeList}/${userLoginData?.userType}/${userLoginData?.entityId}`, { params: params })
   }
