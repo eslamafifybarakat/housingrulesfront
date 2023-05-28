@@ -104,36 +104,37 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="mb-3">
-          <label class="form-label">
-            {{"labels.orderStatus"|translate}}
-          </label>
-          <span class="p-input-icon-right select-loading d-block">
-            <p-dropdown [options]="orderStatusList" formControlName="orderStatus" optionLabel="name" [filter]="true"
-              [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-              [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDriverStatus"
-              scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
-              [class.ng-dirty]="formControls?.orderStatus?.invalid && (formControls?.orderStatus?.dirty || formControls?.orderStatus?.touched)"
-              [showClear]="true" placeholder="{{'placeholder.orderStatus'|translate}}">
-            </p-dropdown>
-            <ng-container *ngIf="isLoadingDriverStatus">
-              <i class="pi pi-spin pi-spinner"></i>
-            </ng-container>
-          </span>
-          <div class="my-2">
-            <ng-container
-              *ngIf="formControls?.orderStatus?.invalid && (formControls?.orderStatus?.dirty || formControls?.orderStatus?.touched)">
-              <ng-container *ngIf="formControls?.orderStatus?.errors?.['required']">
-                <span class="text-danger fs-8">
-                  {{"validations.required_field"|translate}}
-                </span>
+      <ng-container *ngIf="modalData?.currentActiveIndex == 1 || modalData?.currentActiveIndex == 4">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label">
+              {{"labels.orderStatus"|translate}}
+            </label>
+            <span class="p-input-icon-right select-loading d-block">
+              <p-dropdown [options]="orderStatusList" formControlName="orderStatus" optionLabel="name" [filter]="true"
+                [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDriverStatus"
+                scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                [class.ng-dirty]="formControls?.orderStatus?.invalid && (formControls?.orderStatus?.dirty || formControls?.orderStatus?.touched)"
+                [showClear]="true" placeholder="{{'placeholder.orderStatus'|translate}}">
+              </p-dropdown>
+              <ng-container *ngIf="isLoadingDriverStatus">
+                <i class="pi pi-spin pi-spinner"></i>
               </ng-container>
-            </ng-container>
+            </span>
+            <div class="my-2">
+              <ng-container
+                *ngIf="formControls?.orderStatus?.invalid && (formControls?.orderStatus?.dirty || formControls?.orderStatus?.touched)">
+                <ng-container *ngIf="formControls?.orderStatus?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{"validations.required_field"|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
           </div>
         </div>
-      </div>
-
+      </ng-container>
 
     </div>
 

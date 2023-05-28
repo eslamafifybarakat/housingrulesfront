@@ -14,6 +14,7 @@
   border-radius: 0rem;
   border-bottom: 0 !important;
 }
+
 // .p-tabview .p-tabview-nav li {
 //   &:first-child {
 //     .p-tabview-nav-link {
@@ -29,13 +30,15 @@
 .p-tabview .p-tabview-nav {
   border-width: 0 0 0 0;
   display: flex;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
   flex-direction: row-reverse !important;
 }
+
 .p-tabview .p-tabview-nav li:first-child .p-tabview-nav-link {
   border-radius: 0 0.35rem 0.35rem 0 !important;
 }
+
 .p-tabview .p-tabview-nav li:nth-of-type(4) .p-tabview-nav-link {
   border-radius: 0.35rem 0 0 0.35rem !important;
 }

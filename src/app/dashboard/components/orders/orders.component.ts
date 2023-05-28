@@ -246,6 +246,7 @@ export class OrdersComponent implements OnInit {
     const ref = this.dialogService?.open(FilterOrdersComponent, {
       header: this.publicService?.translateTextFromJson('general.filter'),
       data: {
+        currentActiveIndex: this.currentActiveIndex,
         startTime: this.startTime,
         endTime: this.endTime,
         supervisorId: this.supervisorId,
