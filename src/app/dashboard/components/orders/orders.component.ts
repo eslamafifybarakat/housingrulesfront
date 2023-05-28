@@ -165,7 +165,7 @@ export class OrdersComponent implements OnInit {
             });
             let sizeTank: any;
             if (item?.tankSize == 1) {
-              sizeTank = "Size13";
+              sizeTank = "Size15";
             }
             if (item?.tankSize == 2) {
               sizeTank = "Size20";
