@@ -9,6 +9,8 @@ import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import * as signalR from '@microsoft/signalr';
 
 @Component({
   selector: 'app-orders',
@@ -54,6 +56,7 @@ export class OrdersComponent implements OnInit {
   supervisorId: any = null;
   driverId: any = null;
   orderStatus: any = null;
+  private hubConnection: signalR.HubConnection | undefined;
 
   constructor(
     private alertsService: AlertsService,
@@ -62,7 +65,7 @@ export class OrdersComponent implements OnInit {
     private ordersService: OrdersService,
     private pusherService: PusherService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+       private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -72,7 +75,7 @@ export class OrdersComponent implements OnInit {
     //     this.cdr.detectChanges();
     //   }
     // });
-
+    this.startConnection();
     this.userLoginDataType = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}')?.userType;
     if (this.userLoginDataType !== 9) {
       this.showActionTableColumn = true;
@@ -396,5 +399,23 @@ export class OrdersComponent implements OnInit {
   }
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
+  }
+
+  public startConnection = () => {
+    let url = environment.apiUrl.substring(0,environment.apiUrl.length-4) +'/OrderStatusHub';
+    this.hubConnection = new signalR.HubConnectionBuilder().withAutomaticReconnect()
+                            .withUrl(url)
+                            .build();
+    this.hubConnection.serverTimeoutInMilliseconds = 100000; // 100 second
+    this.hubConnection
+    .start()
+    .then(() => console.log('Connection started'))
+    .catch(err => console.log('Error while starting connection: ' + err));
+
+    this.hubConnection.on('NotifyNewOrderCreated', (data,user) => {
+      console.log(data);
+      console.log(user);
+      this.getAllOrders();
+    });
   }
 }
