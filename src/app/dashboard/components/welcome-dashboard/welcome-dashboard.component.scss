@@ -92,3 +92,27 @@
   clip: rect(0px, 75px, 150px, 0px);
   background-color: #227ded;
 }
+.doughnutChart {
+  width: 300px;
+  margin: auto;
+}
+.polarChart {
+  width: 350px;
+  margin: auto;
+}
+:host::ng-deep {
+  .welcome {
+    .p-dropdown {
+      border-color: var(--bg-main-color) !important;
+      background-color: transparent !important;
+      height: 2.7rem !important;
+    }
+    .p-dropdown .p-dropdown-label,
+    .p-dropdown .pi {
+      color: var(--text-main-color) !important;
+    }
+    .p-dropdown .p-dropdown-label {
+      line-height: 0.7 !important;
+    }
+  }
+}

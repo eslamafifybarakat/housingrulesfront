@@ -28,6 +28,7 @@ import { SliderModule } from 'primeng/slider';
 import { TooltipModule } from 'primeng/tooltip';
 import { ListboxModule } from 'primeng/listbox';
 import { TabViewModule } from 'primeng/tabview';
+import { ChartModule } from 'primeng/chart';
 
 const primeNgModules = [
   DynamicDialogModule,
@@ -58,6 +59,7 @@ const primeNgModules = [
   StepsModule,
   ToastModule,
   TableModule,
+  ChartModule
 ];
 @NgModule({
   declarations: [],

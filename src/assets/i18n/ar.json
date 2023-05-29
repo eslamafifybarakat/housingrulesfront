@@ -4,6 +4,16 @@
     "arabic": "Arabic"
   },
   "general": {
+    "horizontal":"أفقي",
+    "vertical":"رأسي",
+    "serviceDone":"تم الخدمة",
+    "workUnderway":"جاري العمل",
+    "underConstruction":"قيد الانشاء ",
+    "InCustomerService":"في خدمة العميل",
+    "call":"الاتصال",
+    "whatsapp":"واتساب",
+    "field":"ميدان",
+    "tms":"تطبيق شركة المياة",
     "confirm_order": "تأكيد الطلب",
     "confirm_order_qu": "هل تريد حقا إتمام الطلب؟",
     "backToHome": "العودة للرئيسية",
@@ -469,6 +479,10 @@
     }
   },
   "welcome": {
+    "statementOfDailyOrder":"بيان عدد الطلبات لكل صهريج",
+    "numberOfRequests":"بيان عدد الطلبات لكل مشرف",
+    "statusOfRequests":"بيان حالة الطلب لكل مراقب",
+    "requestResources":"مصادر الطلب",
     "hi": "أهلاً",
     "welcomeBack": "مرحبًا بعودتك!",
     "pageIsDesigned": "تم تصميم هذه الصفحة لإعطاء بعض المعلومات الهامة حول الموقع. دعونا نجعل بعض الوقت معا!",

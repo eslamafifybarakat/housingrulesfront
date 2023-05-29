@@ -194,4 +194,12 @@ export class PublicService {
     ]
     return arr;
   }
+  getTanksSizes(): any {
+    let arr: any = [
+      { value: 1, name: this.translateTextFromJson('dashboard.tanks.TankSize.Size15') },
+      { value: 2, name: this.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
+      { value: 3, name: this.translateTextFromJson('dashboard.tanks.TankSize.Size32') }]
+
+    return arr;
+  }
 }
