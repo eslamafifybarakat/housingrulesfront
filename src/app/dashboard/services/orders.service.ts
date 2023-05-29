@@ -100,11 +100,13 @@ export class OrdersService {
     currentActiveIndex = 0;
     if (startTime) {
       params = params?.append("startTime", formatDate( startTime,'yyyyMMdd', 'en-US'));
+      startTime =Number.parseInt( formatDate( startTime,'yyyyMMdd', 'en-US'));
     }
     else
     startTime = 0;
     if (endTime) {
       params = params?.append("endTime", formatDate( endTime,'yyyyMMdd', 'en-US'));
+      endTime =Number.parseInt( formatDate( endTime,'yyyyMMdd', 'en-US'));
     }
     else
     endTime = 0;
