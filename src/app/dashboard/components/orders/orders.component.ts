@@ -11,6 +11,7 @@ import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 import * as signalR from '@microsoft/signalr';
+import { CancelOrderComponent } from './components/cancel-order/cancel-order.component';
 
 @Component({
   selector: 'app-orders',
@@ -293,9 +294,21 @@ export class OrdersComponent implements OnInit {
   addOrEditItem(item?: any, type?: any): void {
     type == 'edit' ? this.router.navigate(['/dashboard/addOrder', { id: item?.id }]) : this.router.navigate(['/dashboard/addOrder']);
   }
+  cancelOrder(item: any): void {
+    const ref = this.dialogService?.open(CancelOrderComponent, {
+      data: item,
+      header: this.publicService?.translateTextFromJson('dashboard.orders.cancelOrder'),
+      dismissableMask: true,
+      width: '40%',
+      styleClass: 'custom_modal'
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+        this.getAllOrders();
+      }
+    });
+  }
   itemDetails(item?: any): void {
-    console.log(item);
-
     const ref = this.dialogService?.open(OrderDetailsComponent, {
       data: item,
       header: this.publicService?.translateTextFromJson('dashboard.orders.orderDetails'),

@@ -34,6 +34,7 @@ import { OrderDetailsComponent } from './components/orders/components/order-deta
 import { GatesComponent } from './components/gates/gates.component';
 import { GateDetailsComponent } from './components/gates/components/gate-details/gate-details.component';
 import { FinancialSettlementsComponent } from './components/financial-settlements/financial-settlements.component';
+import { CancelOrderComponent } from './components/orders/components/cancel-order/cancel-order.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { FinancialSettlementsComponent } from './components/financial-settlement
     OrderDetailsComponent,
     GateDetailsComponent,
     FinancialSettlementsComponent,
+    CancelOrderComponent,
   ],
   imports: [
     DashboardRoutingModule,

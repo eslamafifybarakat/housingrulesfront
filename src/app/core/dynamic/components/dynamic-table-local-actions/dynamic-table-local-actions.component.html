@@ -3,7 +3,7 @@
     <p-table #dt1 dataKey="id" [value]="tableData" [(selection)]="selectedItems" [paginator]="showPaginator"
       [rowsPerPageOptions]="rowsPerPageOptions" [rows]="paginatorRows" [columns]="selectedColumns"
       responsiveLayout="scroll" [rowHover]="false" [resizableColumns]="true" styleClass="p-datatable-striped"
-      (onSort)="customSort($event)"  [globalFilterFields]="searchItems" (rowsChange)="onPaginatorPageChange($event)"
+      (onSort)="customSort($event)" [globalFilterFields]="searchItems" (rowsChange)="onPaginatorPageChange($event)"
       (onPage)="onPage($event)">
       <ng-template pTemplate="caption">
         <div class="caption d-flex justify-content-between align-items-center flex-wrap gap-3">
@@ -23,7 +23,7 @@
               </span>
 
 
-            <ng-container *ngIf="search.value && !isLoadingSearch" >
+              <ng-container *ngIf="search.value && !isLoadingSearch">
                 <i (click)="clearSearchValue(search);clear(dt1)" class="pi pi-times text-danger cursor-pointer"></i>
               </ng-container>
               <ng-container *ngIf="isLoadingSearch">
@@ -131,11 +131,11 @@
                   appendTo="body" selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}"
                   placeholder="Choose Columns" pTooltip="Column Visibility" tooltipPosition="top"></p-multiSelect>
 
-                  <p-button  styleClass="p-button-sm p-button-outlined p-button-secondary justify-content-center gap-3 clear action-btn"
-                 >
-               <span class="m-0 p-0">{{dt1.totalRecords}}</span>
-             </p-button>
-        </ng-container>
+                <p-button
+                  styleClass="p-button-sm p-button-outlined p-button-secondary justify-content-center gap-3 clear action-btn">
+                  <span class="m-0 p-0">{{dt1.totalRecords}}</span>
+                </p-button>
+              </ng-container>
               <!-- <a pTooltip="print" tooltipPosition="top">
                 <img src="assets/images/icons/print.svg" class="action-btn" alt="">
               </a>
@@ -501,6 +501,15 @@
                 <span><i class="pi pi-unlock
                   reset-password fs-5-1"></i></span>
               </a>
+            </ng-container>
+            <ng-container *ngIf="userLoginData?.userType==1">
+              <ng-container *ngIf="showCancelOrder">
+                <a class="d-flex align-items-center
+                        gap-2" (click)="cancelOrderEmit(item)" pTooltip="{{'general.cancelOrder'|translate}}"
+                  tooltipPosition="top">
+                  <span><i class="pi pi-times-circle remove"></i></span>
+                </a>
+              </ng-container>
             </ng-container>
           </div>
         </td>

@@ -54,6 +54,7 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   @Input() showConfirm: boolean = false;
   @Input() showDetails: boolean = false;
   @Input() showDelete: boolean = false;
+  @Input() showCancelOrder: boolean = true;
   @Input() showEdit: boolean = false;
   @Input() showCopyAction: boolean = false;
   @Input() showResetPassword: boolean = false;
@@ -135,6 +136,7 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   @Output() editChildHandler: EventEmitter<any> = new EventEmitter();
   @Output() copyChildHandler: EventEmitter<any> = new EventEmitter();
   @Output() resetPasswordHandler: EventEmitter<any> = new EventEmitter();
+  @Output() cancelOrderHandler: EventEmitter<any> = new EventEmitter();
 
   @Output() itemActionHandler: EventEmitter<any> = new EventEmitter();
   @Output() itemAssignUserHandler: EventEmitter<any> = new EventEmitter();
@@ -377,6 +379,9 @@ export class DynamicTableLocalActionsComponent implements OnInit {
     } else {
       this.deleteHandler?.emit({ item: item, confirmed: true });
     }
+  }
+  cancelOrderEmit(item: any): void {
+    this.cancelOrderHandler?.emit(item);
   }
   paginate(event?: any): void {
     this.countSelected = 0;

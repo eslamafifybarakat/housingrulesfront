@@ -4,6 +4,7 @@
     "arabic": "Arabic"
   },
   "general": {
+    "cancelOrder":"إلغاء الطلب",
     "horizontal": "أفقي",
     "vertical": "رأسي",
     "serviceDone": "تم الخدمة",
@@ -233,9 +234,13 @@
     "orderNumber": "رقم الطلب",
     "paymentMethod": "طريقة الدفع ",
     "paidAmount": "المبلغ المدفوع",
-    "userType": "نوع المستخدم"
+    "userType": "نوع المستخدم",
+    "cancellationCauses": "أسباب الإلغاء",
+    "cancellationDesc":"وصف الإلغاء"
   },
   "placeholder": {
+    "cancellationDesc":"أدخل وصف الإلغاء",
+    "cancellationCauses": "اختر سبب الإلغاء",
     "cost": "أدخل التكلفة",
     "searchUser": "بحث عن مستخدم",
     "tankPrice": "سعر الصهريج",
@@ -437,6 +442,7 @@
       "addOrder": "إضافة طلب",
       "editOrder": "تعديل الطلب",
       "orderDetails": "تفاصيل الطلب",
+    "cancelOrder":"إلغاء الطلب",
       "all": "الكل",
       "closed": "الطلبات المغلقة",
       "opened": "الطلبات المفتوحة",
@@ -466,6 +472,15 @@
         "gateIn": "موظف بوابة دخول",
         "gateOut": "موظف بوابة الخروج",
         "accountant": "محاسب"
+      },
+      "reasons":{
+        "reason1":"السبب الاول",
+        "reason2":"السبب الثاني",
+        "reason3":"السبب الثالث",
+        "reason4":"السبب الرابع",
+        "reason5":"السبب الخامس",
+        "reason6":"السبب السادس",
+        "other":"أخرون"
       }
     },
     "customers": {

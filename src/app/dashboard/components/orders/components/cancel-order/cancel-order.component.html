@@ -1,0 +1,70 @@
+<form [formGroup]="modalForm" (ngSubmit)="submit()">
+  <div class="mb-3">
+    <label class="form-label required">
+      {{"labels.cancellationCauses"|translate}}
+    </label>
+    <span class="p-input-icon-right select-loading d-block">
+      <p-dropdown [options]="cancellationCauses" formControlName="cancellationCauses" optionLabel="name" [filter]="true"
+        [filterPlaceholder]="'placeholder.search'|translate" [virtualScroll]="true" [virtualScrollItemSize]="38"
+        (onChange)="onChangeCancellationCause($event)" filterBy="name" appendTo="body"
+        [readonly]="isLoadingCancellationCauses" scrollHeight="200px"
+        emptyMessage="{{'general.no_result_found'|translate}}"
+        [class.ng-dirty]="formControls?.cancellationCauses?.invalid && (formControls?.cancellationCauses?.dirty || formControls?.cancellationCauses?.touched)"
+        [showClear]="true" placeholder="{{'placeholder.cancellationCauses'|translate}}">
+      </p-dropdown>
+      <ng-container *ngIf="isLoadingCancellationCauses">
+        <i class="pi pi-spin pi-spinner"></i>
+      </ng-container>
+    </span>
+    <div class="my-2">
+      <ng-container
+        *ngIf="formControls?.cancellationCauses?.invalid && (formControls?.cancellationCauses?.dirty || formControls?.cancellationCauses?.touched)">
+        <ng-container *ngIf="formControls?.cancellationCauses?.errors?.['required']">
+          <span class="text-danger fs-8">
+            {{"validations.required_field"|translate}}
+          </span>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <ng-container *ngIf="modalForm?.value?.cancellationCauses?.['value']==100">
+    <div class="mb-3">
+      <label for="cancellationDesc" class="mb-2">{{'labels.cancellationDesc'|translate}}</label>
+      <textarea type="text" class="form-control" formControlName="cancellationDesc" autocomplete="cc-name"
+        (input)="publicService?.clearValidationErrors(formControls?.cancellationDesc)"
+        [class.is-invalid]="formControls?.cancellationDesc?.invalid && (formControls?.cancellationDesc?.dirty || formControls?.cancellationDesc?.touched)"
+        placeholder="{{'placeholder.cancellationDesc'|translate}}"></textarea>
+      <div class="mt-2">
+        <ng-container
+          *ngIf="formControls?.cancellationDesc?.invalid && (formControls?.cancellationDesc?.dirty || formControls?.cancellationDesc?.touched)">
+          <ng-container *ngIf="formControls?.cancellationDesc?.errors?.['required']">
+            <span class="text-danger fs-8">
+              {{'validations.required_field'|translate}}
+            </span>
+          </ng-container>
+
+          <ng-container *ngIf="formControls?.cancellationDesc?.errors?.['minlength']">
+            <span class="text-danger fs-8 d-block">
+              {{'validations.length'|translate}}
+            </span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
+    <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+      <span>
+        {{'general.confirm'|translate}}
+      </span>
+      <i class="pi pi-save"></i>
+    </button>
+    <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+      <span>
+        {{'general.cancel'|translate}}
+      </span>
+      <i class="pi pi-times"></i>
+    </button>
+  </div>
+</form>

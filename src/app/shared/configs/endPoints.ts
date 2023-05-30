@@ -48,6 +48,7 @@ export const roots = {
       updateOrder: 'Orders/UpdateAsync',
       getOrderById: 'Orders/GetByIdAsync',
       GetOrdersQL: 'Orders/GetOrdersQL',
+      cancelOrder: "Orders/CancelOrder"
     },
     users: {
       usersList: 'Auth/GetUsers',
@@ -67,7 +68,7 @@ export const roots = {
     financialSettlements: {
       getUsersByUserType: 'Auth/GetUsersByUserType?userType=7',
       getAllByRecivedByAsync: 'Settlement/GetAllOrderRecivableAsync',
-      createAsync:'FinancialSettlementes/CreateAsync'
+      createAsync: 'FinancialSettlementes/CreateAsync'
     }
   }
 }
