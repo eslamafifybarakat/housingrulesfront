@@ -6,7 +6,8 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { keys } from './../../../shared/configs/localstorage-key';
 import { OrdersService } from '../../services/orders.service';
 import { Subscription } from 'rxjs';
-
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { plugins } from 'chart.js';
 @Component({
   selector: 'app-welcome-dashboard',
   templateUrl: './welcome-dashboard.component.html',
@@ -52,7 +53,7 @@ export class WelcomeDashboardComponent implements OnInit {
     name: this.publicService?.translateTextFromJson('general.vertical')
   }];
   currentLanguage: any;
-
+  plugins: any;
   constructor(
     private supervisorsService: SupervisorsService,
     private publicService: PublicService,
@@ -177,6 +178,43 @@ export class WelcomeDashboardComponent implements OnInit {
         this.publicService?.translateTextFromJson('general.others')
       ]
     };
+    // this.polarAreaChartOptions = {
+    //   plugins: {
+    //     datalabels: {
+    //       anchor: 'end',
+    //       align: 'end',
+    //       color: '#111',
+    //       font: {
+    //         weight: 'bold'
+    //       },
+    //       formatter: function (value: any, ctx: any) {
+    //         return value;
+    //       }
+    //     }
+    //   },
+    //   scales: {
+    //     x: {
+    //       ticks: {
+    //         color: '#111'
+    //       },
+    //       grid: {
+    //         color: '#eee'
+    //       }
+    //     },
+    //     y: {
+    //       ticks: {
+    //         color: '#111',
+    //         stepSize: 5
+    //       },
+    //       grid: {
+    //         color: '#eee'
+    //       }
+    //     }
+    //   }
+    // };
+
+    this.plugins = [ChartDataLabels];
+
   }
   calcSupervisorOrderStatusNumbers(data: any): void {
     let completed: any = 0;
@@ -354,7 +392,6 @@ export class WelcomeDashboardComponent implements OnInit {
         },
       ]
     };
-
   }
   getAllSupervisors(): any {
     this.supervisorsService?.getSupervisorsList()?.subscribe(
