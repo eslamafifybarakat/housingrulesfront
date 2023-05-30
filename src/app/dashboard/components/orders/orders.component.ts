@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { PusherService } from './../../../core/pusher/pusher.service';
 import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
@@ -9,7 +10,6 @@ import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import * as signalR from '@microsoft/signalr';
 
 @Component({
@@ -65,7 +65,7 @@ export class OrdersComponent implements OnInit {
     private ordersService: OrdersService,
     private pusherService: PusherService,
     private cdr: ChangeDetectorRef,
-       private router: Router
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -117,9 +117,9 @@ export class OrdersComponent implements OnInit {
   getAllOrders(): any {
     this.loadingIndicator = true;
     this.ordersService?.getOrdersEntityList(this.page, this.perPage,
-       this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null,
-        this.filtersArray ? this.filtersArray : null, this.currentActiveIndex,
-         this.startTime, this.endTime, this.supervisorId, this.driverId, this.orderStatus)
+      this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null,
+      this.filtersArray ? this.filtersArray : null, this.currentActiveIndex,
+      this.startTime, this.endTime, this.supervisorId, this.driverId, this.orderStatus)
       .pipe(
         map((res: any) => {
           this.ordersCount = res?.total;
@@ -402,17 +402,17 @@ export class OrdersComponent implements OnInit {
   }
 
   public startConnection = () => {
-    let url = environment.apiUrl.substring(0,environment.apiUrl.length-4) +'/OrderStatusHub';
+    let url = environment.apiUrl.substring(0, environment.apiUrl.length - 4) + '/OrderStatusHub';
     this.hubConnection = new signalR.HubConnectionBuilder().withAutomaticReconnect()
-                            .withUrl(url)
-                            .build();
+      .withUrl(url)
+      .build();
     this.hubConnection.serverTimeoutInMilliseconds = 100000; // 100 second
     this.hubConnection
-    .start()
-    .then(() => console.log('Connection started'))
-    .catch(err => console.log('Error while starting connection: ' + err));
+      .start()
+      .then(() => console.log('Connection started'))
+      .catch(err => console.log('Error while starting connection: ' + err));
 
-    this.hubConnection.on('NotifyNewOrderCreated', (data,user) => {
+    this.hubConnection.on('NotifyNewOrderCreated', (data, user) => {
       console.log(data);
       console.log(user);
       this.getAllOrders();

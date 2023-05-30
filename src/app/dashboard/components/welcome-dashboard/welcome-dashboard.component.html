@@ -5,7 +5,30 @@
     </ng-container>
     <ng-template #elseTemplate>
       <div class="row gy-4">
-        <div class="col-12">
+        <div class="col-lg-6">
+          <div class="global-card h-100">
+            <h5 class="mb-4 fw-bold">{{'welcome.requestResources'|translate}}</h5>
+            <hr>
+            <div class="polarChart">
+              <p-chart type="polarArea" [data]="polarAreaData" [options]="polarAreaChartOptions"
+                [style]="{'width': '40%'}"></p-chart>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-6">
+          <div class="global-card h-100 d-flex flex-column">
+            <h5 class="fw-bold">{{'welcome.statementOfDailyOrder'|translate}}</h5>
+            <hr>
+            <div class="doughnutChart">
+              <p-chart type="doughnut" [data]="doughnutData" [options]="doughnutChartOptions"
+                [style]="{'width': '40%'}"></p-chart>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-lg-6">
           <div class="global-card">
             <div class="d-flex justify-content-between align-items-center gap-2 flex-wrap">
               <h5 class=" fw-bold">{{'welcome.statusOfRequests'|translate}}</h5>
@@ -18,36 +41,9 @@
             </div>
             <hr>
             <p-chart type="bar" [data]="stackedData" [options]="stackedOptions"></p-chart>
-
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="global-card h-100 d-flex flex-column">
-            <h5 class="fw-bold">{{'welcome.statementOfDailyOrder'|translate}}</h5>
-            <hr>
-
-
-            <div class="doughnutChart">
-              <p-chart type="doughnut" [data]="doughnutData" [options]="doughnutChartOptions"
-                [style]="{'width': '40%'}"></p-chart>
-            </div>
-
-          </div>
-
-        </div>
-        <div class="col-lg-6">
-          <div class="global-card h-100">
-            <h5 class="mb-4 fw-bold">{{'welcome.requestResources'|translate}}</h5>
-            <hr>
-
-            <div class="polarChart">
-              <p-chart type="polarArea" [data]="polarAreaData" [options]="polarAreaChartOptions"
-                [style]="{'width': '40%'}"></p-chart>
-            </div>
-          </div>
-
-        </div>
-        <div class="col-12">
           <div class="global-card">
             <div class="d-flex justify-content-between align-items-center gap-2 flex-wrap">
               <h5 class="fw-bold">{{'welcome.numberOfRequests'|translate}}</h5>
