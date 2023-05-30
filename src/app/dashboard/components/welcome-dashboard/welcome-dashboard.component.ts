@@ -1,6 +1,6 @@
+import { basicOptions, basicOptionsHorizontal, doughnutChartOptions, polarAreaChartOptions, stackedOptions, stackedOptionsHorizontal } from './welcome';
 import { AlertsService } from 'src/app/core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
-import { basicOptions, basicOptionsHorizontal, doughnutChartOptions, polarAreaChartOptions, stackedOptions, stackedOptionsHorizontal } from './welcome';
 import { SupervisorsService } from '../../services/supervisors.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { keys } from './../../../shared/configs/localstorage-key';

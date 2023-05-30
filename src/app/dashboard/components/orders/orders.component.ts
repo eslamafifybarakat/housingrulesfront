@@ -127,6 +127,8 @@ export class OrdersComponent implements OnInit {
           this.pagesCount = Math.ceil(this.ordersCount / this.perPage);
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
+            console.log(item);
+
             let status: any = '';
             let statusClass: any = '';
             if (item?.status == 1) {
@@ -408,9 +410,6 @@ export class OrdersComponent implements OnInit {
     this.orderStatus = null;
     this.getAllOrders();
   }
-  ngOnDestroy(): void {
-    this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
-  }
 
   public startConnection = () => {
     let url = environment.apiUrl.substring(0, environment.apiUrl.length - 4) + '/OrderStatusHub';
@@ -426,11 +425,20 @@ export class OrdersComponent implements OnInit {
     this.hubConnection.on('NotifyNewOrderCreated', (data, user) => {
       this.getAllOrders();
     });
-    this.hubConnection.on('NotifyOrderStatus', (orderid, orderStatus) => {
-      this.updateOrderStatus(orderid,orderStatus);
+    this.hubConnection.on('NotifyOrderStatus', (orderId, orderStatus) => {
+      this.updateOrderStatus(orderId, orderStatus);
     });
   }
-  updateOrderStatus(orderid:any, orderStatus:any){
+  updateOrderStatus(orderId: any, orderStatus: any) {
+    this.ordersList$?.forEach((element: any) => {
+      if (orderId == element?.id) {
+        element[status] = orderStatus;
+      }
+    });
+    this.cdr.detectChanges();
+  }
 
+  ngOnDestroy(): void {
+    this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
   }
 }
