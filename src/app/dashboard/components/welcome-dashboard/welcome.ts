@@ -8,6 +8,9 @@ export const stackedOptions = {
         color: '#111',
       }
     },
+    datalabels: {
+      color: '#fff',
+    },
     tooltips: {
       mode: 'index',
       intersect: false
@@ -17,7 +20,10 @@ export const stackedOptions = {
     x: {
       stacked: true,
       ticks: {
-        color: '#111'
+        color: '#111',
+        font: {
+          size: 10
+        }
       },
       grid: {
         color: '#eee',
@@ -49,6 +55,9 @@ export const stackedOptionsHorizontal = {
         color: '#111',
       }
     },
+    datalabels: {
+      color: '#fff',
+    },
     tooltips: {
       mode: 'index',
       intersect: false
@@ -58,7 +67,10 @@ export const stackedOptionsHorizontal = {
     x: {
       stacked: true,
       ticks: {
-        color: '#111'
+        color: '#111',
+        font: {
+          size: 10
+        }
       },
       grid: {
         color: '#eee',
@@ -86,7 +98,10 @@ export const doughnutChartOptions = {
       labels: {
         color: '#495057'
       }
-    }
+    },
+    datalabels: {
+      color: '#111',
+    },
   }
 }
 
@@ -96,6 +111,9 @@ export const polarAreaChartOptions = {
       labels: {
         color: '#495057'
       }
+    },
+    datalabels: {
+      color: '#111',
     }
   },
   scales: {
@@ -105,7 +123,6 @@ export const polarAreaChartOptions = {
       }
     }
   }
-
 }
 
 export const basicOptions = {
@@ -116,12 +133,18 @@ export const basicOptions = {
       labels: {
         color: '#111'
       }
-    }
+    },
+    datalabels: {
+      color: '#111',
+    },
   },
   scales: {
     x: {
       ticks: {
         color: '#111',
+        font: {
+          size: 10
+        }
       },
       grid: {
         color: '#eee'
@@ -147,12 +170,18 @@ export const basicOptionsHorizontal = {
       labels: {
         color: '#111'
       }
-    }
+    },
+    datalabels: {
+      color: '#111',
+    },
   },
   scales: {
     x: {
       ticks: {
         color: '#111',
+        font: {
+          size: 10
+        }
       },
       grid: {
         color: '#eee'

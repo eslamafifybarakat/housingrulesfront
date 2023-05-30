@@ -1,4 +1,4 @@
-<div class="welcome py-4">
+<div class="welcome">
   <div class="container-fluid">
     <ng-container *ngIf="isLoadingOrder; else elseTemplate">
       <app-skeleton [type]="'chart'"></app-skeleton>
@@ -7,22 +7,22 @@
       <div class="row gy-4">
         <div class="col-lg-6">
           <div class="global-card h-100">
-            <h5 class="mb-4 fw-bold">{{'welcome.requestResources'|translate}}</h5>
+            <h5 class="mb-4 fw-bold text-truncate">{{'welcome.requestResources'|translate}}</h5>
             <hr>
             <div class="polarChart">
               <p-chart type="polarArea" [data]="polarAreaData" [options]="polarAreaChartOptions"
-                [style]="{'width': '40%'}"></p-chart>
+                [style]="{'width': '40%'}" [plugins]="plugins"></p-chart>
             </div>
           </div>
 
         </div>
         <div class="col-lg-6">
           <div class="global-card h-100 d-flex flex-column">
-            <h5 class="fw-bold">{{'welcome.statementOfDailyOrder'|translate}}</h5>
+            <h5 class="fw-bold text-truncate">{{'welcome.statementOfDailyOrder'|translate}}</h5>
             <hr>
             <div class="doughnutChart">
-              <p-chart type="doughnut" [data]="doughnutData" [options]="doughnutChartOptions"
-                [style]="{'width': '40%'}"></p-chart>
+              <p-chart type="doughnut" [data]="doughnutData" [options]="doughnutChartOptions" [style]="{'width': '40%'}"
+                [plugins]="plugins"></p-chart>
             </div>
 
           </div>
@@ -30,8 +30,8 @@
         </div>
         <div class="col-lg-6">
           <div class="global-card">
-            <div class="d-flex justify-content-between align-items-center gap-2 flex-wrap">
-              <h5 class=" fw-bold">{{'welcome.statusOfRequests'|translate}}</h5>
+            <div class="d-flex justify-content-between align-items-center gap-2">
+              <h5 class=" fw-bold text-truncate">{{'welcome.statusOfRequests'|translate}}</h5>
               <p-dropdown [options]="type" optionLabel="name" [filter]="false" [virtualScroll]="true"
                 (onChange)="ChangeTypeOfStatus($event)" [(ngModel)]="typeValueOfStatus" [virtualScrollItemSize]="38"
                 filterBy="name" appendTo="body" scrollHeight="140px"
@@ -40,13 +40,13 @@
               </p-dropdown>
             </div>
             <hr>
-            <p-chart type="bar" [data]="stackedData" [options]="stackedOptions"></p-chart>
+            <p-chart type="bar" [data]="stackedData" [options]="stackedOptions" [plugins]="plugins"></p-chart>
           </div>
         </div>
         <div class="col-lg-6">
           <div class="global-card">
-            <div class="d-flex justify-content-between align-items-center gap-2 flex-wrap">
-              <h5 class="fw-bold">{{'welcome.numberOfRequests'|translate}}</h5>
+            <div class="d-flex justify-content-between align-items-center gap-2">
+              <h5 class="fw-bold text-truncate ">{{'welcome.numberOfRequests'|translate}}</h5>
               <p-dropdown [options]="type" optionLabel="name" [filter]="false" [virtualScroll]="true"
                 (onChange)="ChangeType($event)" [(ngModel)]="typeValue" [virtualScrollItemSize]="38" filterBy="name"
                 appendTo="body" scrollHeight="140px" emptyMessage="{{'general.no_result_found'|translate}}"
@@ -54,7 +54,7 @@
               </p-dropdown>
             </div>
             <hr>
-            <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+            <p-chart type="bar" [data]="basicData" [options]="basicOptions" [plugins]="plugins"></p-chart>
           </div>
         </div>
       </div>
