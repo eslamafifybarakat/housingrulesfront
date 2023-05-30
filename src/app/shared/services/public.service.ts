@@ -205,12 +205,11 @@ export class PublicService {
 
   getOrdersCancellationReasons(): any {
     let arr: any = [
-      { id: 1, value: 1, name: this.translateTextFromJson('dashboard.orders.reasons.reason1') },
-      { id: 2, value: 2, name: this.translateTextFromJson('dashboard.orders.reasons.reason2') },
-      { id: 3, value: 3, name: this.translateTextFromJson('dashboard.orders.reasons.reason3') },
-      { id: 4, value: 4, name: this.translateTextFromJson('dashboard.orders.reasons.reason4') },
-      { id: 5, value: 5, name: this.translateTextFromJson('dashboard.orders.reasons.reason5') },
-      { id: 6, value: 6, name: this.translateTextFromJson('dashboard.orders.reasons.reason6') },
+      { id: 1, value: 1, name: this.translateTextFromJson('dashboard.orders.reasons.Inquiry') },
+      { id: 2, value: 2, name: this.translateTextFromJson('dashboard.orders.reasons.Inquiry') },
+      { id: 3, value: 3, name: this.translateTextFromJson('dashboard.orders.reasons.UncoveredLocation') },
+      { id: 4, value: 4, name: this.translateTextFromJson('dashboard.orders.reasons.CustomerCancelation') },
+      { id: 5, value: 5, name: this.translateTextFromJson('dashboard.orders.reasons.OrderDuplicate') },
       { id: 100, value: 100, name: this.translateTextFromJson('dashboard.orders.reasons.other') },
     ];
     return arr;

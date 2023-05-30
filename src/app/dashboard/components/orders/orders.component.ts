@@ -229,7 +229,6 @@ export class OrdersComponent implements OnInit {
   }
   handleChange(e: any): void {
     var index = e.index;
-    console.log(index);
     this.currentActiveIndex = index + 1;
     this.getAllOrders();
   }
@@ -287,7 +286,6 @@ export class OrdersComponent implements OnInit {
     });
   }
   viewLocation(item: any): void {
-    console.log(item?.locationLink);
     item?.locationLink ? window?.open(item?.locationLink, "_blank") : '';
   }
 
@@ -426,9 +424,13 @@ export class OrdersComponent implements OnInit {
       .catch(err => console.log('Error while starting connection: ' + err));
 
     this.hubConnection.on('NotifyNewOrderCreated', (data, user) => {
-      console.log(data);
-      console.log(user);
       this.getAllOrders();
     });
+    this.hubConnection.on('NotifyOrderStatus', (orderid, orderStatus) => {
+      this.updateOrderStatus(orderid,orderStatus);
+    });
+  }
+  updateOrderStatus(orderid:any, orderStatus:any){
+
   }
 }

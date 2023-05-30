@@ -441,12 +441,11 @@
       "opened":"Opened",
       "today":"Today",
       "reasons":{
-        "reason1":"reason 1",
-        "reason2":"reason 2",
-        "reason3":"reason 3",
-        "reason4":"reason 4",
-        "reason5":"reason 5",
-        "reason6":"reason 6",
+        "Inquiry":"reason 1",
+        "PriceIssue":"Price Issue",
+        "UncoveredLocation":"Uncovered Location",
+        "CustomerCancelation":"Customer Cancelation",
+        "OrderDuplicate":"Order Duplicate",
         "other":"Other"
       }
     },

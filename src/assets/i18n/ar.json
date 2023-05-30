@@ -474,13 +474,12 @@
         "accountant": "محاسب"
       },
       "reasons":{
-        "reason1":"السبب الاول",
-        "reason2":"السبب الثاني",
-        "reason3":"السبب الثالث",
-        "reason4":"السبب الرابع",
-        "reason5":"السبب الخامس",
-        "reason6":"السبب السادس",
-        "other":"أخرون"
+        "Inquiry":"الإلغاء مباشر",
+        "PriceIssue":"تسعير غير مناسب",
+        "UncoveredLocation":"منطقة غير مغطاه",
+        "CustomerCancelation":"الغاء من العميل",
+        "OrderDuplicate":"طلب مكرر",
+        "other":"اخري"
       }
     },
     "customers": {
