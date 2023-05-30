@@ -127,8 +127,6 @@ export class OrdersComponent implements OnInit {
           this.pagesCount = Math.ceil(this.ordersCount / this.perPage);
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
-            console.log(item);
-
             let status: any = '';
             let statusClass: any = '';
             if (item?.status == 1) {
