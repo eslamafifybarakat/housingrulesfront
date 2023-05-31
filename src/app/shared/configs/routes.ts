@@ -17,6 +17,8 @@ export const AppRoutes = {
     users: 'users',
     gates: 'gates',
     customers: 'customers',
-    financialSettlements: 'financial-settlements'
+    financialSettlements: 'financial-settlements',
+    reports: 'reports',
+    dailyOrderDetails: 'daily-order-details',
   }
 }

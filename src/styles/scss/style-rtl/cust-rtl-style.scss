@@ -114,3 +114,9 @@
 .p-tabview .p-tabview-nav li:nth-of-type(4) .p-tabview-nav-link {
   border-radius: 0 0.35rem 0.35rem 0 !important;
 }
+#customize-according .accordion-item .accordion-button::after {
+  transform: rotate(90deg) !important;
+}
+#customize-according .accordion-item .accordion-button:not(.collapsed)::after {
+  transform: rotate(0deg) !important;
+}

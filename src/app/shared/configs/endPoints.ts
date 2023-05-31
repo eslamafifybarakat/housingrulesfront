@@ -69,6 +69,12 @@ export const roots = {
       getUsersByUserType: 'Auth/GetUsersByUserType?userType=7',
       getAllByRecivedByAsync: 'Settlement/GetAllOrderRecivableAsync',
       createAsync: 'FinancialSettlementes/CreateAsync'
+    },
+    reports: {
+      getReportsCategory: "getReportsCategory",
+      downloadOrdersExample: 'orders_sample',
+      orderDetailsList: 'Orders/GetAllAsync',
+      orderSearch: 'order-search',
     }
   }
 }

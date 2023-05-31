@@ -260,6 +260,7 @@
     "propertyType": "Select Sector",
     "district": "Select district",
     "customerName": "Enter customer name",
+    "customer": "customer",
     "customerMobileNumber": "Enter customer mobile number",
     "locationLink": "Enter location link",
     "comment": "Write comment",
@@ -339,6 +340,7 @@
     "total": "total",
     "createNew": "Create new",
     "sideMenu": {
+      "reports":"Reports",
       "gates": "Gates",
       "settlementes": "settlementes",
       "dashboard": "Dashboard",
@@ -483,6 +485,10 @@
     },
     "financialSettlements": {
       "financialSettlements": "Financial settlements"
+    },
+    "reports":{
+      "reports":"Reports",
+      "dailyOrderDetails":"Daily Order Details"
     }
 
   },

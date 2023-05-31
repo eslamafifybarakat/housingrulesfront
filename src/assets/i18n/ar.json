@@ -264,6 +264,7 @@
     "userNameStr": "اسم الموظف",
     "plateNumber": "أدخل رقم اللوحة",
     "customerName": "اسم العميل",
+    "customer": " العميل",
     "comments": "أدخل التعليقات",
     "propertyType": "اختر القطاع",
     "customerMobileNumber": "أدخل رقم هاتف العميل",
@@ -347,6 +348,7 @@
     "total": "المجموع",
     "createNew": "إنشاء جديد",
     "sideMenu": {
+      "reports":"التقارير",
       "settlementes": "التسويات",
       "gates": "البوابات",
       "dashboard": "لوحة التحكم",
@@ -490,6 +492,10 @@
     },
     "financialSettlements": {
       "financialSettlements": "تسويات مالية"
+    },
+    "reports":{
+      "reports":"التقارير",
+      "dailyOrderDetails":"تفاصيل الطلبات اليومية"
     }
   },
   "welcome": {

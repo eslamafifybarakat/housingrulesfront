@@ -1,3 +1,4 @@
+import { DailyOrderDetailsComponent } from './components/reports/components/daily-order-details/daily-order-details.component';
 import { AddEditOrderComponent } from './components/orders/components/add-edit-order/add-edit-order.component';
 import { FinancialSettlementsComponent } from './components/financial-settlements/financial-settlements.component';
 import { WelcomeDashboardComponent } from './components/welcome-dashboard/welcome-dashboard.component';
@@ -5,6 +6,7 @@ import { ServiceAgentComponent } from './components/service-agent/service-agent.
 import { SupervisorsComponent } from './components/supervisors/supervisors.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { DriversComponent } from './components/drivers/drivers.component';
+import { ReportsComponent } from './components/reports/reports.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { UsersComponent } from './components/users/users.component';
 import { TanksComponent } from './components/tanks/tanks.component';
@@ -105,6 +107,22 @@ const routes: Routes = [
         data: {
           title: 'titles.financialSettlements',
           type: 'gates'
+        }
+      },
+      {
+        path: AppRoutes?.dashboard?.reports,
+        component: ReportsComponent,
+        data: {
+          title: 'titles.reports',
+          type: 'reports'
+        }
+      },
+      {
+        path: AppRoutes?.dashboard?.dailyOrderDetails,
+        component: DailyOrderDetailsComponent,
+        data: {
+          title: 'titles.dailyOrderDetails',
+          type: 'reports'
         }
       },
       {
