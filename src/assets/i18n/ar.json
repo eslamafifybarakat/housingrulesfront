@@ -446,7 +446,16 @@
       "all": "الكل",
       "closed": "الطلبات المغلقة",
       "opened": "الطلبات المفتوحة",
-      "today": "طلبات اليوم"
+      "today": "طلبات اليوم",
+      "reasons":{
+        "Inquiry":"الإلغاء مباشر",
+        "PriceIssue":"تسعير غير مناسب",
+        "UncoveredLocation":"منطقة غير مغطاه",
+        "CustomerCancelation":"الغاء من العميل",
+        "OrderDuplicate":"طلب مكرر",
+        "other":"اخري"
+      }
+
     },
     "settlementes": {
       "settlementes": "التسويات",
@@ -472,14 +481,6 @@
         "gateIn": "موظف بوابة دخول",
         "gateOut": "موظف بوابة الخروج",
         "accountant": "محاسب"
-      },
-      "reasons":{
-        "Inquiry":"الإلغاء مباشر",
-        "PriceIssue":"تسعير غير مناسب",
-        "UncoveredLocation":"منطقة غير مغطاه",
-        "CustomerCancelation":"الغاء من العميل",
-        "OrderDuplicate":"طلب مكرر",
-        "other":"اخري"
       }
     },
     "customers": {
