@@ -443,7 +443,7 @@
       "opened":"Opened",
       "today":"Today",
       "reasons":{
-        "Inquiry":"reason 1",
+        "Inquiry":"Inquery",
         "PriceIssue":"Price Issue",
         "UncoveredLocation":"Uncovered Location",
         "CustomerCancelation":"Customer Cancelation",
