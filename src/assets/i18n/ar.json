@@ -4,16 +4,17 @@
     "arabic": "Arabic"
   },
   "general": {
-    "horizontal":"أفقي",
-    "vertical":"رأسي",
-    "serviceDone":"تم الخدمة",
-    "workUnderway":"جاري العمل",
-    "underConstruction":"قيد الانشاء ",
-    "InCustomerService":"في خدمة العميل",
-    "call":"الاتصال",
-    "whatsapp":"واتساب",
-    "field":"ميدان",
-    "tms":"تطبيق شركة المياة",
+    "cancelOrder":"إلغاء الطلب",
+    "horizontal": "أفقي",
+    "vertical": "رأسي",
+    "serviceDone": "تم الخدمة",
+    "workUnderway": "جاري العمل",
+    "underConstruction": "قيد الانشاء ",
+    "InCustomerService": "في خدمة العميل",
+    "call": "الاتصال",
+    "whatsapp": "واتساب",
+    "field": "ميدان",
+    "tms": "تطبيق شركة المياة",
     "confirm_order": "تأكيد الطلب",
     "confirm_order_qu": "هل تريد حقا إتمام الطلب؟",
     "backToHome": "العودة للرئيسية",
@@ -233,9 +234,13 @@
     "orderNumber": "رقم الطلب",
     "paymentMethod": "طريقة الدفع ",
     "paidAmount": "المبلغ المدفوع",
-    "userType": "نوع المستخدم"
+    "userType": "نوع المستخدم",
+    "cancellationCauses": "أسباب الإلغاء",
+    "cancellationDesc":"وصف الإلغاء"
   },
   "placeholder": {
+    "cancellationDesc":"أدخل وصف الإلغاء",
+    "cancellationCauses": "اختر سبب الإلغاء",
     "cost": "أدخل التكلفة",
     "searchUser": "بحث عن مستخدم",
     "tankPrice": "سعر الصهريج",
@@ -437,10 +442,11 @@
       "addOrder": "إضافة طلب",
       "editOrder": "تعديل الطلب",
       "orderDetails": "تفاصيل الطلب",
-      "all":"الكل",
-      "closed":"الطلبات المغلقة",
-      "opened":"الطلبات المفتوحة",
-      "today":"طلبات اليوم"
+    "cancelOrder":"إلغاء الطلب",
+      "all": "الكل",
+      "closed": "الطلبات المغلقة",
+      "opened": "الطلبات المفتوحة",
+      "today": "طلبات اليوم"
     },
     "settlementes": {
       "settlementes": "التسويات",
@@ -466,6 +472,14 @@
         "gateIn": "موظف بوابة دخول",
         "gateOut": "موظف بوابة الخروج",
         "accountant": "محاسب"
+      },
+      "reasons":{
+        "Inquiry":"الإلغاء مباشر",
+        "PriceIssue":"تسعير غير مناسب",
+        "UncoveredLocation":"منطقة غير مغطاه",
+        "CustomerCancelation":"الغاء من العميل",
+        "OrderDuplicate":"طلب مكرر",
+        "other":"اخري"
       }
     },
     "customers": {
@@ -479,10 +493,10 @@
     }
   },
   "welcome": {
-    "statementOfDailyOrder":"بيان عدد الطلبات لكل صهريج",
-    "numberOfRequests":"بيان عدد الطلبات لكل مشرف",
-    "statusOfRequests":"بيان حالة الطلب لكل مراقب",
-    "requestResources":"مصادر الطلب",
+    "statementOfDailyOrder": "بيان عدد الطلبات لكل صهريج",
+    "numberOfRequests": "بيان عدد الطلبات لكل مراقب",
+    "statusOfRequests": "بيان حالة الطلب لكل مراقب",
+    "requestResources": "مصادر الطلب",
     "hi": "أهلاً",
     "welcomeBack": "مرحبًا بعودتك!",
     "pageIsDesigned": "تم تصميم هذه الصفحة لإعطاء بعض المعلومات الهامة حول الموقع. دعونا نجعل بعض الوقت معا!",

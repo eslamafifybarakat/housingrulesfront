@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { PusherService } from './../../../core/pusher/pusher.service';
 import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
@@ -6,11 +7,11 @@ import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { OrdersService } from './../../services/orders.service';
 import { keys } from '../../../shared/configs/localstorage-key';
-import { Observable, Subscription, finalize, map } from 'rxjs';
+import { Observable, Subscription, finalize, map, timeout } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import * as signalR from '@microsoft/signalr';
+import { CancelOrderComponent } from './components/cancel-order/cancel-order.component';
 
 @Component({
   selector: 'app-orders',
@@ -65,7 +66,7 @@ export class OrdersComponent implements OnInit {
     private ordersService: OrdersService,
     private pusherService: PusherService,
     private cdr: ChangeDetectorRef,
-       private router: Router
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -117,9 +118,9 @@ export class OrdersComponent implements OnInit {
   getAllOrders(): any {
     this.loadingIndicator = true;
     this.ordersService?.getOrdersEntityList(this.page, this.perPage,
-       this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null,
-        this.filtersArray ? this.filtersArray : null, this.currentActiveIndex,
-         this.startTime, this.endTime, this.supervisorId, this.driverId, this.orderStatus)
+      this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null,
+      this.filtersArray ? this.filtersArray : null, this.currentActiveIndex,
+      this.startTime, this.endTime, this.supervisorId, this.driverId, this.orderStatus)
       .pipe(
         map((res: any) => {
           this.ordersCount = res?.total;
@@ -228,7 +229,6 @@ export class OrdersComponent implements OnInit {
   }
   handleChange(e: any): void {
     var index = e.index;
-    console.log(index);
     this.currentActiveIndex = index + 1;
     this.getAllOrders();
   }
@@ -286,16 +286,27 @@ export class OrdersComponent implements OnInit {
     });
   }
   viewLocation(item: any): void {
-    console.log(item?.locationLink);
     item?.locationLink ? window?.open(item?.locationLink, "_blank") : '';
   }
 
   addOrEditItem(item?: any, type?: any): void {
     type == 'edit' ? this.router.navigate(['/dashboard/addOrder', { id: item?.id }]) : this.router.navigate(['/dashboard/addOrder']);
   }
+  cancelOrder(item: any): void {
+    const ref = this.dialogService?.open(CancelOrderComponent, {
+      data: item,
+      header: this.publicService?.translateTextFromJson('dashboard.orders.cancelOrder'),
+      dismissableMask: true,
+      width: '40%',
+      styleClass: 'custom_modal'
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+        this.getAllOrders();
+      }
+    });
+  }
   itemDetails(item?: any): void {
-    console.log(item);
-
     const ref = this.dialogService?.open(OrderDetailsComponent, {
       data: item,
       header: this.publicService?.translateTextFromJson('dashboard.orders.orderDetails'),
@@ -397,25 +408,72 @@ export class OrdersComponent implements OnInit {
     this.orderStatus = null;
     this.getAllOrders();
   }
-  ngOnDestroy(): void {
-    this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
-  }
 
   public startConnection = () => {
-    let url = environment.apiUrl.substring(0,environment.apiUrl.length-4) +'/OrderStatusHub';
+    let url = environment.apiUrl.substring(0, environment.apiUrl.length - 4) + '/OrderStatusHub';
     this.hubConnection = new signalR.HubConnectionBuilder().withAutomaticReconnect()
-                            .withUrl(url)
-                            .build();
+      .withUrl(url)
+      .build();
     this.hubConnection.serverTimeoutInMilliseconds = 100000; // 100 second
     this.hubConnection
-    .start()
-    .then(() => console.log('Connection started'))
-    .catch(err => console.log('Error while starting connection: ' + err));
+      .start()
+      .then(() => console.log('Connection started'))
+      .catch(err => console.log('Error while starting connection: ' + err));
 
-    this.hubConnection.on('NotifyNewOrderCreated', (data,user) => {
-      console.log(data);
-      console.log(user);
+    this.hubConnection.on('NotifyNewOrderCreated', (data, user) => {
       this.getAllOrders();
     });
+    this.hubConnection.on('NotifyOrderStatus', (orderId, orderStatus) => {
+      this.updateOrderStatus(orderId, orderStatus);
+    });
+  }
+  updateOrderStatus(orderId: any, orderStatus: any) {
+   let  statustobind: any ;
+   let  statusClass: any ;
+    this.ordersList$?.forEach((element: any) => {
+      if (orderId == element?.id) {
+
+        if (orderStatus == 1) {
+          statustobind = this.publicService.translateTextFromJson('general.pending');
+          statusClass = 'warning';
+        }
+        if (orderStatus == 2) {
+          statustobind = this.publicService.translateTextFromJson('general.assignedToDriver');
+          statusClass = 'primary';
+        }
+        if (orderStatus == 3) {
+          statustobind = this.publicService.translateTextFromJson('general.driverOnWayToCustomer');
+          statusClass = 'gray';
+        }
+        if (orderStatus== 4) {
+          statustobind = this.publicService.translateTextFromJson('general.driverArrivedToCustomer');
+          statusClass = 'cyan';
+        }
+        if (orderStatus == 5) {
+          statustobind = this.publicService.translateTextFromJson('general.driverOnWayToStation');
+          statusClass = 'purple';
+        }
+        if (orderStatus == 6) {
+          statustobind = this.publicService.translateTextFromJson('general.driverArrivedToStation');
+          statusClass = 'cyan';
+        }
+        if (orderStatus == 7) {
+          statustobind = this.publicService.translateTextFromJson('general.completed');
+          statusClass = 'success';
+        }
+        if (orderStatus == 8) {
+          statustobind = this.publicService.translateTextFromJson('general.cancelled');
+          statusClass = 'danger';
+        }
+        element["status"] =  statustobind;
+        element["statusClass"] = statusClass;
+      }
+    });
+
+    this.cdr.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
   }
 }

@@ -4,6 +4,7 @@
     "arabic": "Arabic"
   },
   "general": {
+    "cancelOrder":"Cancel Order",
     "horizontal":"Horizontal",
     "vertical":"Vertical",
     "serviceDone":"Service done",
@@ -228,9 +229,13 @@
     "paidAmount": "Paid amount",
     "paymentMethod": "Payment method",
     "orderNumber": "Order number",
-    "userType": "User type"
+    "userType": "User type",
+    "cancellationCauses": "Cancellation causes",
+    "cancellationDesc":"Cancellation Description"
   },
   "placeholder": {
+    "cancellationDesc":"Enter cancellation description",
+    "cancellationCauses": "Select cancellation cause",
     "cost": "Enter cost",
     "searchUser": "Search user",
     "tankPrice": "Tank Price",
@@ -430,10 +435,19 @@
       "addOrder": "Add order",
       "editOrder": "Edit order",
       "orderDetails": "Order details",
+    "cancelOrder":"Cancel Order",
       "all":"All",
       "closed":"Closed",
       "opened":"Opened",
-      "today":"Today"
+      "today":"Today",
+      "reasons":{
+        "Inquiry":"reason 1",
+        "PriceIssue":"Price Issue",
+        "UncoveredLocation":"Uncovered Location",
+        "CustomerCancelation":"Customer Cancelation",
+        "OrderDuplicate":"Order Duplicate",
+        "other":"Other"
+      }
     },
     "settlementes": {
       "settlementes": "Settlementes",
@@ -470,6 +484,7 @@
     "financialSettlements": {
       "financialSettlements": "Financial settlements"
     }
+
   },
   "welcome": {
     "statementOfDailyOrder":"Statement of number of requests for each tank",

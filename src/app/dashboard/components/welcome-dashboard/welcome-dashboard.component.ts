@@ -1,12 +1,13 @@
+import { basicOptions, basicOptionsHorizontal, doughnutChartOptions, polarAreaChartOptions, stackedOptions, stackedOptionsHorizontal } from './welcome';
 import { AlertsService } from 'src/app/core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
-import { basicOptions, basicOptionsHorizontal, doughnutChartOptions, polarAreaChartOptions, stackedOptions, stackedOptionsHorizontal } from './welcome';
 import { SupervisorsService } from '../../services/supervisors.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { keys } from './../../../shared/configs/localstorage-key';
 import { OrdersService } from '../../services/orders.service';
 import { Subscription } from 'rxjs';
-
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { plugins } from 'chart.js';
 @Component({
   selector: 'app-welcome-dashboard',
   templateUrl: './welcome-dashboard.component.html',
@@ -52,7 +53,7 @@ export class WelcomeDashboardComponent implements OnInit {
     name: this.publicService?.translateTextFromJson('general.vertical')
   }];
   currentLanguage: any;
-
+  plugins: any;
   constructor(
     private supervisorsService: SupervisorsService,
     private publicService: PublicService,
@@ -79,7 +80,7 @@ export class WelcomeDashboardComponent implements OnInit {
 
   getAllOrders(): any {
     this.isLoadingOrder = true;
-    this.ordersService?.getOrdersEntityList()?.subscribe(
+    this.ordersService?.getOrdersEntityList(0,0,'',0,0,1,0,0,0,0,0)?.subscribe(
       (res: any) => {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
           this.orderList = res?.data ? res?.data : [];
@@ -177,6 +178,43 @@ export class WelcomeDashboardComponent implements OnInit {
         this.publicService?.translateTextFromJson('general.others')
       ]
     };
+    // this.polarAreaChartOptions = {
+    //   plugins: {
+    //     datalabels: {
+    //       anchor: 'end',
+    //       align: 'end',
+    //       color: '#111',
+    //       font: {
+    //         weight: 'bold'
+    //       },
+    //       formatter: function (value: any, ctx: any) {
+    //         return value;
+    //       }
+    //     }
+    //   },
+    //   scales: {
+    //     x: {
+    //       ticks: {
+    //         color: '#111'
+    //       },
+    //       grid: {
+    //         color: '#eee'
+    //       }
+    //     },
+    //     y: {
+    //       ticks: {
+    //         color: '#111',
+    //         stepSize: 5
+    //       },
+    //       grid: {
+    //         color: '#eee'
+    //       }
+    //     }
+    //   }
+    // };
+
+    this.plugins = [ChartDataLabels];
+
   }
   calcSupervisorOrderStatusNumbers(data: any): void {
     let completed: any = 0;
@@ -187,6 +225,10 @@ export class WelcomeDashboardComponent implements OnInit {
     let supervisorName: any = '';
     this.supervisorsList?.forEach((element: any) => {
       supervisorName = this.currentLanguage == 'ar' ? element?.arName : element?.enName;
+      pending = 0;
+      driverOnWayToCustomer = 0;
+      driverOnWayToStation = 0;
+      completed = 0;
       data?.forEach((item: any) => {
         if (element?.id == item?.supervisorId) {
           if (item?.status == 7) {
@@ -268,6 +310,11 @@ export class WelcomeDashboardComponent implements OnInit {
     let supervisorName: any = '';
     this.supervisorsList?.forEach((element: any) => {
       supervisorName = this.currentLanguage == 'ar' ? element?.arName : element?.enName;
+      pending = 0;
+      assignedToDriver = 0;
+      driverArrivedToCustomer = 0;
+      completed = 0;
+      cancelled = 0;
       data?.forEach((item: any) => {
         if (element?.id == item?.supervisorId) {
           if (item?.status == 1) {
@@ -297,7 +344,6 @@ export class WelcomeDashboardComponent implements OnInit {
         cancelled: cancelled,
       });
     });
-    console.log(supervisorData);
 
     supervisorData?.forEach((item: any) => {
       if (item) {
@@ -354,7 +400,6 @@ export class WelcomeDashboardComponent implements OnInit {
         },
       ]
     };
-
   }
   getAllSupervisors(): any {
     this.supervisorsService?.getSupervisorsList()?.subscribe(
