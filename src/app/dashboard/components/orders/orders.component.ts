@@ -1,3 +1,4 @@
+import { CancelOrderComponent } from './components/cancel-order/cancel-order.component';
 import { environment } from './../../../../environments/environment';
 import { PusherService } from './../../../core/pusher/pusher.service';
 import { FilterOrdersComponent } from './components/filter-orders/filter-orders.component';
@@ -11,7 +12,6 @@ import { Observable, Subscription, finalize, map, timeout } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 import * as signalR from '@microsoft/signalr';
-import { CancelOrderComponent } from './components/cancel-order/cancel-order.component';
 
 @Component({
   selector: 'app-orders',
@@ -90,6 +90,7 @@ export class OrdersComponent implements OnInit {
     this.tableHeaders = [
       { field: 'orderNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderNumber'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       { field: 'dateTime', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.time'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.time'), sort: false, filter: false, type: 'date' },
+      { field: 'lastModifiedDate', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.lastModifiedDate'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.lastModifiedDate'), sort: false, filter: false, type: 'date' },
       { field: 'orderOrigin', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.orderOrigin'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', isSelected: false },
       { field: 'createdByStr', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.createdBy'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.createdBy'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text', isSelected: false },
       { field: 'customer', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.customerName'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.customers'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
@@ -192,6 +193,7 @@ export class OrdersComponent implements OnInit {
             arr.push({
               id: item?.id ? item?.id : null,
               dateTime: item?.dateTime ? new Date(item?.dateTime) : null,
+              lastModifiedDate: item?.lastModifiedDate ? new Date(item?.lastModifiedDate) : null,
               orderOrigin: orderOrigin,
               createdByStr: item?.createdByStr ? item?.createdByStr : '',
               orderNumber: item?.orderNumber ? item?.orderNumber : '',
@@ -428,8 +430,8 @@ export class OrdersComponent implements OnInit {
     });
   }
   updateOrderStatus(orderId: any, orderStatus: any) {
-   let  statustobind: any ;
-   let  statusClass: any ;
+    let statustobind: any;
+    let statusClass: any;
     this.ordersList$?.forEach((element: any) => {
       if (orderId == element?.id) {
 
@@ -445,7 +447,7 @@ export class OrdersComponent implements OnInit {
           statustobind = this.publicService.translateTextFromJson('general.driverOnWayToCustomer');
           statusClass = 'gray';
         }
-        if (orderStatus== 4) {
+        if (orderStatus == 4) {
           statustobind = this.publicService.translateTextFromJson('general.driverArrivedToCustomer');
           statusClass = 'cyan';
         }
@@ -465,7 +467,7 @@ export class OrdersComponent implements OnInit {
           statustobind = this.publicService.translateTextFromJson('general.cancelled');
           statusClass = 'danger';
         }
-        element["status"] =  statustobind;
+        element["status"] = statustobind;
         element["statusClass"] = statusClass;
       }
     });

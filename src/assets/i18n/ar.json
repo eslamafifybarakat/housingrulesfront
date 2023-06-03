@@ -362,6 +362,7 @@
       "financialSettlements": "تسويات مالية"
     },
     "tableHeader": {
+      "lastModifiedDate":"تاريخ اخر تعديل",
       "createdAt": "تم إنشاؤه في",
       "settlementedBy": "تسوية بواسطة",
       "recivedBy": "استلمت من قبل",

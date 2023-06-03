@@ -354,6 +354,7 @@
       "financialSettlements": "Financial settlements"
     },
     "tableHeader": {
+      "lastModifiedDate":"Last modified date",
       "createdAt": "Created at",
       "settlementedBy": "Settlemented by",
       "recivedBy": "Recived by",

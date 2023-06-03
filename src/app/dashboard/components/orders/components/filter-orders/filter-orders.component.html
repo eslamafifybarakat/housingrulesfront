@@ -115,6 +115,7 @@
                 [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
                 [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDriverStatus"
                 scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                (onChange)="onChangeStatus($event)"
                 [class.ng-dirty]="formControls?.orderStatus?.invalid && (formControls?.orderStatus?.dirty || formControls?.orderStatus?.touched)"
                 [showClear]="true" placeholder="{{'placeholder.orderStatus'|translate}}">
               </p-dropdown>

@@ -505,9 +505,10 @@
             <ng-container *ngIf="userLoginData?.userType==1">
               <ng-container *ngIf="showCancelOrder">
                 <a class="d-flex align-items-center
-                        gap-2" (click)="cancelOrderEmit(item)" pTooltip="{{'general.cancelOrder'|translate}}"
-                  tooltipPosition="top">
-                  <span><i class="pi pi-times-circle remove"></i></span>
+                        gap-2" [class.disabled]="item?.status=='Cancelled'"
+                  (click)="item?.status=='Cancelled'?'':cancelOrderEmit(item)"
+                  pTooltip="{{'general.cancelOrder'|translate}}" tooltipPosition="top">
+                  <span><i class="pi pi-times-circle " [class.remove]="item?.status!='Cancelled'"></i></span>
                 </a>
               </ng-container>
             </ng-container>

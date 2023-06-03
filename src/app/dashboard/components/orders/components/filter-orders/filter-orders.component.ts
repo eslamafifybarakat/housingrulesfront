@@ -157,7 +157,9 @@ export class FilterOrdersComponent implements OnInit {
       });
     this.cdr?.detectChanges();
   }
-
+  onChangeStatus(event: any): void {
+    console.log(this.modalForm?.value);
+  }
   submit(): void {
     const myObject: { [key: string]: any } = {};
     if (this.modalForm?.valid) {
@@ -167,7 +169,6 @@ export class FilterOrdersComponent implements OnInit {
       myObject['supervisorId'] = formInfo?.supervisor?.id;
       myObject['driverId'] = formInfo?.driver?.id;
       myObject['orderStatus'] = formInfo?.orderStatus?.id;
-
       this.ref?.close(myObject)
     } else {
       this.checkValidityService?.validateAllFormFields(this.modalForm);
