@@ -130,37 +130,46 @@ export class OrdersComponent implements OnInit {
           res?.data ? res?.data.forEach((item: any) => {
             let status: any = '';
             let statusClass: any = '';
+            let statusValue: any;
             if (item?.status == 1) {
               status = this.publicService.translateTextFromJson('general.pending');
               statusClass = 'warning';
+              statusValue = 1;
             }
             if (item?.status == 2) {
               status = this.publicService.translateTextFromJson('general.assignedToDriver');
               statusClass = 'primary';
+              statusValue = 2;
             }
             if (item?.status == 3) {
               status = this.publicService.translateTextFromJson('general.driverOnWayToCustomer');
               statusClass = 'gray';
+              statusValue = 3;
             }
             if (item?.status == 4) {
               status = this.publicService.translateTextFromJson('general.driverArrivedToCustomer');
               statusClass = 'cyan';
+              statusValue = 4;
             }
             if (item?.status == 5) {
               status = this.publicService.translateTextFromJson('general.driverOnWayToStation');
               statusClass = 'purple';
+              statusValue = 5;
             }
             if (item?.status == 6) {
               status = this.publicService.translateTextFromJson('general.driverArrivedToStation');
               statusClass = 'cyan';
+              statusValue = 6;
             }
             if (item?.status == 7) {
               status = this.publicService.translateTextFromJson('general.completed');
               statusClass = 'success';
+              statusValue = 7;
             }
             if (item?.status == 8) {
               status = this.publicService.translateTextFromJson('general.cancelled');
               statusClass = 'danger';
+              statusValue = 8;
             }
             let orderOrigin: any;
             this.orderOriginList?.forEach((element: any) => {
@@ -203,6 +212,7 @@ export class OrdersComponent implements OnInit {
               locationLink: item?.locationLink ? item?.locationLink : null,
               tankSize: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.' + sizeTank),
               status: status,
+              statusValue: statusValue,
               statusClass: statusClass,
               paymentMethod: paymentMethod,
               paidAmount: item?.paidAmount ? item?.paidAmount : '0',
