@@ -76,7 +76,8 @@
               <span class="p-input-icon-right select-loading d-block">
                 <p-dropdown [options]="districtsList" formControlName="district"
                   [optionLabel]="currLang=='ar'?'arName':'enName'" [filter]="true" (onChange)="onChangeDistrict($event)"
-                  (onClear)="onClearDistrict()" [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name"
+                  (onClear)="onClearDistrict()" [virtualScroll]="true" [virtualScrollItemSize]="38"
+                   [filterBy]="currLang=='ar'?'arName':'enName'"
                   appendTo="body" [filterPlaceholder]="'placeholder.district'|translate" [readonly]="isLoadingDistricts"
                   scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
                   [class.ng-dirty]="formControls?.propertyType?.invalid && (formControls?.propertyType?.dirty || formControls?.propertyType?.touched)"

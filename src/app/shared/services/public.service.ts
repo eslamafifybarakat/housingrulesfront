@@ -142,9 +142,10 @@ export class PublicService {
       { id: 2, value: 'assignedToDriver', name: this.translateTextFromJson('general.assignedToDriver'), class: "primary" },
       { id: 3, value: 'driverOnWayToCustomer', name: this.translateTextFromJson('general.driverOnWayToCustomer'), class: "gray" },
       { id: 4, value: 'driverArrivedToCustomer', name: this.translateTextFromJson('general.driverArrivedToCustomer'), class: "cyan" },
-      { id: 5, value: 'driverArrivedToStation', name: this.translateTextFromJson('general.driverArrivedToStation'), class: "purple" },
-      { id: 6, value: 'completed', name: this.translateTextFromJson('general.completed'), class: "success" },
-      { id: 7, value: 'cancelled', name: this.translateTextFromJson('general.cancelled'), class: "danger" },
+      { id: 5, value: 'driverOnWayToStation', name: this.translateTextFromJson('general.driverOnWayToStation'), class: "purple" },
+      { id: 6, value: 'driverArrivedToStation', name: this.translateTextFromJson('general.driverArrivedToStation'), class: "purple" },
+      { id: 7, value: 'completed', name: this.translateTextFromJson('general.completed'), class: "success" },
+      { id: 8, value: 'cancelled', name: this.translateTextFromJson('general.cancelled'), class: "danger" },
 
     ];
     return arr;

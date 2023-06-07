@@ -103,14 +103,15 @@ export class AsideMenuComponent implements OnInit {
       routerLink: '/dashboard/financial-settlements',
       state: (this.userLoginData?.userType == 9),
 
-    },
-    {
-      id: 'reports',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.reports'),
-      icon: 'fa-file',
-      routerLink: '/dashboard/reports',
-      state: (this.userLoginData?.userType !== 6 && this.userLoginData?.userType !== 9)
     }
+    // ,
+    // {
+    //   id: 'reports',
+    //   text: this.publicService?.translateTextFromJson('dashboard.sideMenu.reports'),
+    //   icon: 'fa-file',
+    //   routerLink: '/dashboard/reports',
+    //   state: (this.userLoginData?.userType !== 6 && this.userLoginData?.userType !== 9)
+    // }
     ];
 
     this.screenWidth = window?.innerWidth;
