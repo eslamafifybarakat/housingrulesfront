@@ -13,7 +13,232 @@
 
   <ng-container *ngIf="!isFullLoading">
     <div class="container-fluid px-0 py-2">
-      <div id="customize-according">
+      <div class="w-100 p-3 text-center">
+        <p-selectButton [options]="repSections" [(ngModel)]="selectedReport" styleClass="mb-2"
+        [multiple]="false" optionLabel="name" optionValue="value"></p-selectButton>
+
+        <p-selectButton [options]="ordersrepSections" [(ngModel)]="selectedReport"
+        [multiple]="false" optionLabel="name" optionValue="value"></p-selectButton>
+      </div>
+
+      <form [formGroup]="modalForm" (ngSubmit)="submit()">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="startDate" class="mb-2">{{'labels.startDate'|translate}}</label>
+              <div
+                [class.border-red]="formControls?.startDate?.invalid && (formControls?.startDate?.dirty || formControls?.startDate?.touched)">
+                <p-calendar formControlName="startDate" appendTo="body" [showIcon]="true" inputId="icon"
+                  placeholder="{{'labels.startDate'| translate}}" (onSelect)="selectStartDate($event)" [showTime]="true"
+                  [showButtonBar]="true" (onClearClick)="clearStartDate()" dateFormat="dd/mm/yy"
+                  hourFormat="12"></p-calendar>
+              </div>
+              <div class="my-2">
+                <ng-container
+                  *ngIf="formControls?.startDate?.invalid && (formControls?.startDate?.dirty || formControls?.startDate?.touched)">
+                  <ng-container *ngIf="formControls?.startDate?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{'validations.startDate'|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="endDate" class="mb-2">{{'labels.endDate'|translate}}</label>
+              <div
+                [class.border-red]="formControls?.endDate?.invalid && (formControls?.endDate?.dirty || formControls?.endDate?.touched)">
+                <p-calendar formControlName="endDate" appendTo="body" [minDate]="minEndDate" [showIcon]="true"
+                  [disabled]="!isSelectStartDate" inputId="icon" placeholder="{{'labels.endDate'| translate}}"
+                  [showTime]="true" [showButtonBar]="true" dateFormat="dd/mm/yy" hourFormat="12"></p-calendar>
+              </div>
+              <div class="my-2">
+                <ng-container
+                  *ngIf="formControls?.endDate?.invalid && (formControls?.endDate?.dirty || formControls?.endDate?.touched)">
+                  <ng-container *ngIf="formControls?.endDate?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{'validations.endDate'|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">
+                {{"labels.supervisor"|translate}}
+              </label>
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="supervisorsList" formControlName="supervisor" optionLabel="name" [filter]="true"
+                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                  [readonly]="isLoadingSupervisors" scrollHeight="150px"
+                  emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)"
+                  [showClear]="true" placeholder="{{'placeholder.supervisor'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingSupervisors">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
+              <div class="my-2">
+                <ng-container
+                  *ngIf="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)">
+                  <ng-container *ngIf="formControls?.supervisor?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{"validations.required_field"|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">
+                {{"labels.driver"|translate}}
+              </label>
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="driversList" formControlName="driver" optionLabel="name" [filter]="true"
+                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                  [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDrivers" scrollHeight="150px"
+                  emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)"
+                  [showClear]="true" placeholder="{{'placeholder.driver'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingDrivers">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
+              <div class="my-2">
+                <ng-container
+                  *ngIf="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)">
+                  <ng-container *ngIf="formControls?.driver?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{"validations.required_field"|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="name" class="mb-2 required">{{'labels.district'|translate}}</label>
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="districtsList" formControlName="district"
+                  [optionLabel]="currLang=='ar'?'arName':'enName'" [filter]="true"   [virtualScroll]="true" [virtualScrollItemSize]="38"
+                   [filterBy]="currLang=='ar'?'arName':'enName'"
+                  appendTo="body" [filterPlaceholder]="'placeholder.district'|translate" [readonly]="isLoadingDistricts"
+                  scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.propertyType?.invalid && (formControls?.propertyType?.dirty || formControls?.propertyType?.touched)"
+                  [showClear]="true" placeholder="{{'placeholder.district'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingDistricts">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
+              <div class="mt-2">
+                <ng-container
+                  *ngIf="formControls?.district?.invalid && (formControls?.district?.dirty || formControls?.district?.touched)">
+                  <ng-container *ngIf="formControls?.district?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{'validations.required_field'|translate}}
+                    </span>
+                  </ng-container>
+
+                  <ng-container *ngIf="formControls?.district?.errors?.['minlength']">
+                    <span class="text-danger fs-8 d-block">
+                      {{'validations.length'|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                <label for="customerName" class="mb-2 required">{{'labels.customerName'|translate}}</label>
+
+              </div>
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="customersList" formControlName="customerName" optionLabel="ddlValue" [filter]="true"
+                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="ddlValue" appendTo="body" dir="rtl"
+                  [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingCustomers"
+                  scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.customerName?.invalid && (formControls?.customerName?.dirty || formControls?.customerName?.touched)"
+                  [showClear]="true" placeholder="{{'general.select'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingCustomers">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
+
+              <div class="mt-2">
+                <ng-container
+                  *ngIf="formControls?.customerName?.invalid && (formControls?.customerName?.dirty || formControls?.customerName?.touched)">
+                  <ng-container *ngIf="formControls?.customerName?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{'validations.required_field'|translate}}
+                    </span>
+                  </ng-container>
+
+                  <ng-container *ngIf="formControls?.customerName?.errors?.['minlength']">
+                    <span class="text-danger fs-8 d-block">
+                      {{'validations.name_length'|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label" class="mb-2"  >{{"labels.serviceAgent"|translate}}
+              </label>
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="serviceAgentsList" formControlName="serviceAgent" optionLabel="name"
+                  [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                  [filterPlaceholder]="'placeholder.search'|translate"
+                  scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.serviceAgent?.invalid && (formControls?.serviceAgent?.dirty || formControls?.serviceAgent?.touched)"
+                  [showClear]="true" placeholder="{{'general.select'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingServiceAgents">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
+              <div class="my-2">
+                <ng-container
+                  *ngIf="formControls?.serviceAgent?.invalid && (formControls?.serviceAgent?.dirty || formControls?.serviceAgent?.touched)">
+                  <ng-container *ngIf="formControls?.serviceAgent?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{"validations.required_field"|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3 flex-wrap mt-5">
+          <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+            <span>
+              {{'general.upload'|translate}}
+            </span>
+            <i class="pi pi-chart-bar"></i>
+          </button>
+
+        </div>
+      </form>
+
+    <!--   <div id="customize-according">
         <ng-container *ngIf="reportsCount !==0; else noData">
           <div class="accordion" id="accordionExample">
             <ng-container *ngFor="let item of reportsList; let i = index">
@@ -76,7 +301,7 @@
             </ng-container>
           </div>
         </ng-template>
-      </div>
+      </div> -->
     </div>
   </ng-container>
 

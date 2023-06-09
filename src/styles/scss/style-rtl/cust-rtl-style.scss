@@ -120,3 +120,11 @@
 #customize-according .accordion-item .accordion-button:not(.collapsed)::after {
   transform: rotate(0deg) !important;
 }
+
+.p-buttonset .p-button:first-of-type   {
+  border-radius: 0 0.35rem 0.35rem 0 !important;
+  border-right: 1px solid #ced4dc;
+}
+.p-buttonset .p-button:last-of-type  {
+  border-radius: 0.35rem  0  0 0.35rem  !important
+}
