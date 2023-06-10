@@ -37,6 +37,7 @@ import { FinancialSettlementsComponent } from './components/financial-settlement
 import { CancelOrderComponent } from './components/orders/components/cancel-order/cancel-order.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { DailyOrderDetailsComponent } from './components/reports/components/daily-order-details/daily-order-details.component';
+import { SafePipe } from '../safe.pipe';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { DailyOrderDetailsComponent } from './components/reports/components/dail
     CancelOrderComponent,
     ReportsComponent,
     DailyOrderDetailsComponent,
+    SafePipe
   ],
   imports: [
     DashboardRoutingModule,

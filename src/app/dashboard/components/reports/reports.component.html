@@ -17,11 +17,11 @@
         <p-selectButton [options]="repSections" [(ngModel)]="selectedReport" styleClass="mb-2"
         [multiple]="false" optionLabel="name" optionValue="value"></p-selectButton>
 
-        <p-selectButton [options]="ordersrepSections" [(ngModel)]="selectedReport"
+        <p-selectButton [options]="ordersrepSections" *ngIf="selectedReport==1" (onChange)="loadRelatedData($event)"  [(ngModel)]="repcode"
         [multiple]="false" optionLabel="name" optionValue="value"></p-selectButton>
       </div>
 
-      <form [formGroup]="modalForm" (ngSubmit)="submit()">
+      <form [formGroup]="modalForm" (ngSubmit)="submit()" *ngIf="selectedReport==1" >
         <div class="row">
           <div class="col-md-6">
             <div class="mb-3">
@@ -68,7 +68,7 @@
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-6" *ngIf="repcode==2" >
             <div class="mb-3">
               <label class="form-label">
                 {{"labels.supervisor"|translate}}
@@ -76,7 +76,7 @@
               <span class="p-input-icon-right select-loading d-block">
                 <p-dropdown [options]="supervisorsList" formControlName="supervisor" optionLabel="name" [filter]="true"
                   [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-                  [readonly]="isLoadingSupervisors" scrollHeight="150px"
+                  [readonly]="isLoadingSupervisors" scrollHeight="150px" [required]="repcode==2"
                   emptyMessage="{{'general.no_result_found'|translate}}"
                   [class.ng-dirty]="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)"
                   [showClear]="true" placeholder="{{'placeholder.supervisor'|translate}}">
@@ -97,7 +97,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6" *ngIf="repcode==3">
             <div class="mb-3">
               <label class="form-label">
                 {{"labels.driver"|translate}}
@@ -106,7 +106,7 @@
                 <p-dropdown [options]="driversList" formControlName="driver" optionLabel="name" [filter]="true"
                   [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
                   [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDrivers" scrollHeight="150px"
-                  emptyMessage="{{'general.no_result_found'|translate}}"
+                  emptyMessage="{{'general.no_result_found'|translate}}" [required]="repcode==3"
                   [class.ng-dirty]="formControls?.driver?.invalid && (formControls?.driver?.dirty || formControls?.driver?.touched)"
                   [showClear]="true" placeholder="{{'placeholder.driver'|translate}}">
                 </p-dropdown>
@@ -126,41 +126,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-              <label for="name" class="mb-2 required">{{'labels.district'|translate}}</label>
-              <span class="p-input-icon-right select-loading d-block">
-                <p-dropdown [options]="districtsList" formControlName="district"
-                  [optionLabel]="currLang=='ar'?'arName':'enName'" [filter]="true"   [virtualScroll]="true" [virtualScrollItemSize]="38"
-                   [filterBy]="currLang=='ar'?'arName':'enName'"
-                  appendTo="body" [filterPlaceholder]="'placeholder.district'|translate" [readonly]="isLoadingDistricts"
-                  scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
-                  [class.ng-dirty]="formControls?.propertyType?.invalid && (formControls?.propertyType?.dirty || formControls?.propertyType?.touched)"
-                  [showClear]="true" placeholder="{{'placeholder.district'|translate}}">
-                </p-dropdown>
-                <ng-container *ngIf="isLoadingDistricts">
-                  <i class="pi pi-spin pi-spinner"></i>
-                </ng-container>
-              </span>
-              <div class="mt-2">
-                <ng-container
-                  *ngIf="formControls?.district?.invalid && (formControls?.district?.dirty || formControls?.district?.touched)">
-                  <ng-container *ngIf="formControls?.district?.errors?.['required']">
-                    <span class="text-danger fs-8">
-                      {{'validations.required_field'|translate}}
-                    </span>
-                  </ng-container>
-
-                  <ng-container *ngIf="formControls?.district?.errors?.['minlength']">
-                    <span class="text-danger fs-8 d-block">
-                      {{'validations.length'|translate}}
-                    </span>
-                  </ng-container>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
+           <div class="col-md-6" *ngIf="repcode==4">
             <div class="mb-3">
               <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
                 <label for="customerName" class="mb-2 required">{{'labels.customerName'|translate}}</label>
@@ -170,7 +136,7 @@
                 <p-dropdown [options]="customersList" formControlName="customerName" optionLabel="ddlValue" [filter]="true"
                   [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="ddlValue" appendTo="body" dir="rtl"
                   [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingCustomers"
-                  scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                  scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}" [required]="repcode==4"
                   [class.ng-dirty]="formControls?.customerName?.invalid && (formControls?.customerName?.dirty || formControls?.customerName?.touched)"
                   [showClear]="true" placeholder="{{'general.select'|translate}}">
                 </p-dropdown>
@@ -197,14 +163,49 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+           <div class="col-md-6" *ngIf="repcode==5">
+            <div class="mb-3">
+              <label for="name" class="mb-2 required">{{'labels.district'|translate}}</label>
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="districtsList" formControlName="district"
+                  [optionLabel]="currLang=='ar'?'arName':'enName'" [filter]="true"   [virtualScroll]="true" [virtualScrollItemSize]="38"
+                   [filterBy]="currLang=='ar'?'arName':'enName'"
+                  appendTo="body" [filterPlaceholder]="'placeholder.district'|translate" [readonly]="isLoadingDistricts"
+                  scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}" [required]="repcode==5"
+                  [class.ng-dirty]="formControls?.propertyType?.invalid && (formControls?.propertyType?.dirty || formControls?.propertyType?.touched)"
+                  [showClear]="true" placeholder="{{'placeholder.district'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingDistricts">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
+              <div class="mt-2">
+                <ng-container
+                  *ngIf="formControls?.district?.invalid && (formControls?.district?.dirty || formControls?.district?.touched)">
+                  <ng-container *ngIf="formControls?.district?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{'validations.required_field'|translate}}
+                    </span>
+                  </ng-container>
+
+                  <ng-container *ngIf="formControls?.district?.errors?.['minlength']">
+                    <span class="text-danger fs-8 d-block">
+                      {{'validations.length'|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6" *ngIf="repcode==6">
             <div class="mb-3">
               <label class="form-label" class="mb-2"  >{{"labels.serviceAgent"|translate}}
               </label>
               <span class="p-input-icon-right select-loading d-block">
                 <p-dropdown [options]="serviceAgentsList" formControlName="serviceAgent" optionLabel="name"
                   [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
-                  [filterPlaceholder]="'placeholder.search'|translate"
+                  [filterPlaceholder]="'placeholder.search'|translate" [required]="repcode==6"
                   scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
                   [class.ng-dirty]="formControls?.serviceAgent?.invalid && (formControls?.serviceAgent?.dirty || formControls?.serviceAgent?.touched)"
                   [showClear]="true" placeholder="{{'general.select'|translate}}">
@@ -237,6 +238,7 @@
 
         </div>
       </form>
+      <iframe [src]="srcUrl|safe: 'resourceUrl'"  height="800px" width="100%"></iframe>
 
     <!--   <div id="customize-according">
         <ng-container *ngIf="reportsCount !==0; else noData">

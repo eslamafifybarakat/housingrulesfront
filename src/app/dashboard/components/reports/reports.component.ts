@@ -1,16 +1,18 @@
+
+import { OrdersService } from './../../services/orders.service';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ReportsService } from '../../services/reports.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, finalize, map } from 'rxjs';
 import { PublicService } from 'src/app/shared/services/public.service';
 import { FormBuilder } from '@angular/forms';
 import { CheckValidityService } from 'src/app/shared/services/check-validity/check-validity.service';
 import { DriversService } from '../../services/drivers.service';
 import { SupervisorsService } from '../../services/supervisors.service';
-import { OrdersService } from '../../services/orders.service';
 import { keys } from 'src/app/shared/configs/localstorage-key';
 import { ServiceAgentService } from '../../services/service-agent.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-reports',
@@ -19,14 +21,15 @@ import { ServiceAgentService } from '../../services/service-agent.service';
 })
 export class ReportsComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
-
+  srcUrl = '';
   currLang: any = '';
+  isLoadingSearch: boolean = false;
 
   isFullLoading: boolean = false;
   reportsCount: any = 7;
   reportsList: any = [];
   selectedReport!: number;
-
+  repcode!: number;
   supervisorsList: any = [];
   isLoadingSupervisors: boolean = false;
 
@@ -45,6 +48,27 @@ export class ReportsComponent implements OnInit {
 
   minEndDate: any;
   isSelectStartDate: boolean = false;
+  repentityname:any;
+
+  page: number = 1;
+  perPage: number = 30;
+  pagesCount: number = 0;
+  rowsOptions: number[] = [5, 10, 15, 30];
+
+  enableSortFilter: boolean = true;
+  searchKeyword: any = null;
+  filtersArray: any = [];
+  sortObj: any = {};
+
+  currentActiveIndex: any = 1;
+  startTime: any = null;
+  endTime: any = null;
+  supervisorId: any = null;
+  driverId: any = null;
+  districtId: any = null;
+  orderStatus: any = null;
+  ordersList$!: Observable<any>;
+
   modalForm = this.fb?.group(
     {
       startDate: [null, []],
@@ -141,17 +165,29 @@ export class ReportsComponent implements OnInit {
     this.modalForm?.get('endDate')?.reset();
   }
   submit(): void {
-    const myObject: { [key: string]: any } = {};
-    if (this.modalForm?.valid) {
-      let formInfo: any = this.modalForm?.value;
-      myObject['startDate'] = formInfo?.startDate;
-      myObject['endDate'] = formInfo?.endDate;
-      myObject['supervisorId'] = formInfo?.supervisor?.id;
-      myObject['driverId'] = formInfo?.driver?.id;
-      myObject['orderStatus'] = formInfo?.orderStatus?.id;
-    } else {
-      this.checkValidityService?.validateAllFormFields(this.modalForm);
-    }
+
+    let formInfo: any = this.modalForm?.value;
+    switch ( this.repcode) {
+      case 2:
+        this.repentityname = formInfo?.supervisor?.name;
+        break;
+        case 3:
+          this.repentityname = formInfo?.driver?.name;
+        break;
+        case 4:
+          this.repentityname = formInfo?.serviceAgent?.name;
+        break;
+        case 5:
+          this.repentityname = formInfo?.district?.name;
+        break;
+        case 6:
+          this.repentityname = formInfo?.serviceAgent?.name;
+        break;
+      default:
+        break;
+     }
+     this.getAllOrders();
+
   }
   getAllSupervisors(): any {
     this.isLoadingSupervisors = true;
@@ -217,6 +253,7 @@ export class ReportsComponent implements OnInit {
     this.orderService?.getDistrictsList()?.subscribe(
       (res: any) => {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
+          this.districtsList = res?.data[0].districts;
 
           this.isLoadingDistricts = false;
         } else {
@@ -277,4 +314,55 @@ export class ReportsComponent implements OnInit {
     this.cdr?.detectChanges();
   }
 
+  loadRelatedData(event: any): void {
+    this.modalForm?.patchValue({
+      supervisor: null,
+      district: null,
+      driver: null,
+    })
+      switch (Number.parseInt(event.value)) {
+      case 2:
+        this.getAllSupervisors();
+        break;
+        case 3:
+        this.getAllDrivers();
+        break;
+        case 4:
+        this.getAllCustomers();
+        break;
+        case 5:
+        this.getAllDistricts();
+        break;
+        case 6:
+        this.getAllServiceAgents();
+        break;
+      default:
+        break;
+     }
+  }
+  getAllOrders(): any {
+    let formInfo: any = this.modalForm?.value;
+
+    this.startTime = formInfo?.startDate;
+    this.endTime = formInfo?.endDate;
+    this.supervisorId = formInfo?.supervisor?.id;
+    this.districtId = formInfo?.district?.id;
+    this.driverId = formInfo?.driver?.id;
+    this.orderStatus = 0;
+   let localurl=   this.orderService?.getOrdersforreports( this.currentActiveIndex,
+      this.startTime, this.endTime, this.supervisorId, this.driverId,this.districtId, this.orderStatus);
+
+
+            const apiURL = 'https://localhost:5001/viewer?reportname=orders'+
+            '&rowfrom=' + moment(this.startTime).format('YYYYMMDD') +
+            '&rowto=' + moment(this.endTime).format('YYYYMMDD')+
+            '&repentityname='+this.repentityname+
+            '&repcode='+this.repcode+
+            '&data='+ JSON.stringify(localurl);
+
+             this.srcUrl = apiURL
+
+
+  }
 }
+
