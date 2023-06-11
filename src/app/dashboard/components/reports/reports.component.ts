@@ -353,7 +353,7 @@ export class ReportsComponent implements OnInit {
       this.startTime, this.endTime, this.supervisorId, this.driverId,this.districtId, this.orderStatus);
 
 
-            const apiURL = 'https://localhost:5001/viewer?reportname=orders'+
+            const apiURL = 'http://qa-tms.qatarcentral.cloudapp.azure.com:4488/viewer?reportname=orders'+
             '&rowfrom=' + moment(this.startTime).format('YYYYMMDD') +
             '&rowto=' + moment(this.endTime).format('YYYYMMDD')+
             '&repentityname='+this.repentityname+
