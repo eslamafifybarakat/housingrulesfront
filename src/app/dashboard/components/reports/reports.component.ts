@@ -13,7 +13,6 @@ import { SupervisorsService } from '../../services/supervisors.service';
 import { keys } from 'src/app/shared/configs/localstorage-key';
 import { ServiceAgentService } from '../../services/service-agent.service';
 import * as moment from 'moment';
-
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
@@ -48,7 +47,7 @@ export class ReportsComponent implements OnInit {
 
   minEndDate: any;
   isSelectStartDate: boolean = false;
-  repentityname:any;
+  repentityname: any;
 
   page: number = 1;
   perPage: number = 30;
@@ -82,10 +81,10 @@ export class ReportsComponent implements OnInit {
     },
   );
   repSections: any[] = [
-      { name: this.publicService?.translateTextFromJson('dashboard.orders.orders'), value: 1 },
-      { name: this.publicService?.translateTextFromJson('dashboard.supervisors.supervisors'), value: 2 },
-      { name: this.publicService?.translateTextFromJson('dashboard.drivers.drivers'), value: 3 },
-      { name: this.publicService?.translateTextFromJson('dashboard.customers.customers'), value: 4 }
+    { name: this.publicService?.translateTextFromJson('dashboard.orders.orders'), value: 1 },
+    { name: this.publicService?.translateTextFromJson('dashboard.supervisors.supervisors'), value: 2 },
+    { name: this.publicService?.translateTextFromJson('dashboard.drivers.drivers'), value: 3 },
+    { name: this.publicService?.translateTextFromJson('dashboard.customers.customers'), value: 4 }
   ];
   ordersrepSections: any[] = [
     { name: this.publicService?.translateTextFromJson('dashboard.orders.all'), value: 1 },
@@ -94,7 +93,7 @@ export class ReportsComponent implements OnInit {
     { name: this.publicService?.translateTextFromJson('dashboard.serviceAgent.serviceAgent'), value: 4 },
     { name: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), value: 5 },
     { name: this.publicService?.translateTextFromJson('placeholder.customer'), value: 6 }
-];
+  ];
   constructor(
     private reportsService: ReportsService,
     private supervisorsService: SupervisorsService,
@@ -110,7 +109,7 @@ export class ReportsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-   // this.getReportsCategory();
+    // this.getReportsCategory();
     this.currLang = window.localStorage.getItem(keys?.language);
   }
 
@@ -167,26 +166,26 @@ export class ReportsComponent implements OnInit {
   submit(): void {
 
     let formInfo: any = this.modalForm?.value;
-    switch ( this.repcode) {
+    switch (this.repcode) {
       case 2:
         this.repentityname = formInfo?.supervisor?.name;
         break;
-        case 3:
-          this.repentityname = formInfo?.driver?.name;
+      case 3:
+        this.repentityname = formInfo?.driver?.name;
         break;
-        case 4:
-          this.repentityname = formInfo?.serviceAgent?.name;
+      case 4:
+        this.repentityname = formInfo?.serviceAgent?.name;
         break;
-        case 5:
-          this.repentityname = formInfo?.district?.name;
+      case 5:
+        this.repentityname = formInfo?.district?.name;
         break;
-        case 6:
-          this.repentityname = formInfo?.serviceAgent?.name;
+      case 6:
+        this.repentityname = formInfo?.serviceAgent?.name;
         break;
       default:
         break;
-     }
-     this.getAllOrders();
+    }
+    this.getAllOrders();
 
   }
   getAllSupervisors(): any {
@@ -320,25 +319,25 @@ export class ReportsComponent implements OnInit {
       district: null,
       driver: null,
     })
-      switch (Number.parseInt(event.value)) {
+    switch (Number.parseInt(event.value)) {
       case 2:
         this.getAllSupervisors();
         break;
-        case 3:
+      case 3:
         this.getAllDrivers();
         break;
-        case 4:
+      case 4:
         this.getAllCustomers();
         break;
-        case 5:
+      case 5:
         this.getAllDistricts();
         break;
-        case 6:
+      case 6:
         this.getAllServiceAgents();
         break;
       default:
         break;
-     }
+    }
   }
   getAllOrders(): any {
     let formInfo: any = this.modalForm?.value;
@@ -349,18 +348,18 @@ export class ReportsComponent implements OnInit {
     this.districtId = formInfo?.district?.id;
     this.driverId = formInfo?.driver?.id;
     this.orderStatus = 0;
-   let localurl=   this.orderService?.getOrdersforreports( this.currentActiveIndex,
-      this.startTime, this.endTime, this.supervisorId, this.driverId,this.districtId, this.orderStatus);
+    let localurl = this.orderService?.getOrdersforreports(this.currentActiveIndex,
+      this.startTime, this.endTime, this.supervisorId, this.driverId, this.districtId, this.orderStatus);
 
 
-            const apiURL = 'http://qa-tms.qatarcentral.cloudapp.azure.com:4488/viewer?reportname=orders'+
-            '&rowfrom=' + moment(this.startTime).format('YYYYMMDD') +
-            '&rowto=' + moment(this.endTime).format('YYYYMMDD')+
-            '&repentityname='+this.repentityname+
-            '&repcode='+this.repcode+
-            '&data='+ JSON.stringify(localurl);
+    const apiURL = 'http://qa-tms.qatarcentral.cloudapp.azure.com:4488/viewer?reportname=orders' +
+      '&rowfrom=' + moment(this.startTime).format('YYYYMMDD') +
+      '&rowto=' + moment(this.endTime).format('YYYYMMDD') +
+      '&repentityname=' + this.repentityname +
+      '&repcode=' + this.repcode +
+      '&data=' + JSON.stringify(localurl);
 
-             this.srcUrl = apiURL
+    this.srcUrl = apiURL
 
 
   }
