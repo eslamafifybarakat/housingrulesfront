@@ -110,7 +110,7 @@ export class OrdersComponent implements OnInit {
 
     ];
 
-    this.getAllOrders();
+    // this.getAllOrders();
     this.propertyTypeList = this.publicService?.getPropertyType();
     this.orderOriginList = this.publicService?.getOrderOrigin();
     this.paymentMethodList = this.publicService?.getPaymentMethods();
@@ -259,11 +259,17 @@ export class OrdersComponent implements OnInit {
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllOrders();
+
   }
-  onPageChange(e: any): void {
+  onPageChange(e: any, tabNumber?: any): void {
     this.page = e?.page + 1;
-    this.getAllOrders();
+    console.log(this.currentActiveIndex);
+
+    if (tabNumber == this.currentActiveIndex) {
+      this.getAllOrders();
+    }
   }
+
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
     this.pagesCount = Math?.ceil(this.ordersCount / this.perPage);
@@ -334,7 +340,7 @@ export class OrdersComponent implements OnInit {
     this.filtersArray = [];
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllOrders();
+    this.getOrders();
   }
   sortItems(event: any): void {
     if (event?.order == 1) {

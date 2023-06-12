@@ -153,7 +153,7 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   isClear: boolean = false;
   isFilter: boolean = false;
   paginateOption: any = null;
-
+  perPge: any = 30;
   driverStatusList: any = [];
   orderStatusList: any = [];
   supervisorsList: any = [];
@@ -214,6 +214,7 @@ export class DynamicTableLocalActionsComponent implements OnInit {
 
   currLang: any = '';
   userLoginData: any = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}');
+
   constructor(
     private supervisorsService: SupervisorsService,
     private driversService: DriversService,
@@ -228,15 +229,14 @@ export class DynamicTableLocalActionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.currLang = window.localStorage.getItem(keys?.language);
-    // this.publicService?.changePageSub?.subscribe((res: any) => {
-    //   if (res?.page) {
-    //     this.changePageActiveNumber(res?.page);
-    //   }
-    // });
+    this.publicService?.changePageSub?.subscribe((res: any) => {
+      if (res?.page) {
+        this.changePageActiveNumber(res?.page);
+      }
+    });
     this.url = this.router?.url;
-
     this.skeletonItems = [0, 1, 2, 3, 4, 5];
-    this.showReport == true ? this.skeletonItems?.push({ action: true }, { report: true }) : this.skeletonItems?.push({ action: true })
+    this.showReport == true ? this.skeletonItems?.push({ action: true }, { report: true }) : this.skeletonItems?.push({ action: true });
 
     this.tableHeaders?.forEach((item: any) => {
       if (item?.isSelected == false) { }
@@ -394,11 +394,12 @@ export class DynamicTableLocalActionsComponent implements OnInit {
     // this.dropdown.value = this.paginateOption;
   }
   paginatorOption(e: any): void {
-    // e.value == 1 ? this.isClear = false : '';
-    // (!e.value) ? '' : this.paginateOptionsHandler?.emit(e);
-    this.paginateOptionsHandler?.emit(e);
+    this.showPaginator ? '' : this.paginateOptionsHandler?.emit(e);
+    // this.isClear = false : '';
+    // this.paginateOptionsHandler?.emit(e);
     // this.paginateOption = e.value;
-    // this.dropdown.value = e.value;
+    this.dropdown.value = e.value;
+    this.perPge = e.value;
   }
   changePageActiveNumber(number: number): void {
     this.paginator?.changePage(number - 1);
@@ -483,31 +484,31 @@ export class DynamicTableLocalActionsComponent implements OnInit {
     this.dropdown?.accessibleViewChild?.nativeElement?.blur();
   }
 
-  toggleSort(type: any, col: any): void {
-    this.tableHeaders?.forEach((element: any) => {
-      element.showAscSort = false;
-      element.showDesSort = false;
-      element.showDefaultSort = true;
-    });
-    if (type == 'asc') {
-      col.showDefaultSort = false;
-      col.showAscSort = true;
-      col.showDesSort = false;
-      this.customSortHandler?.emit({ field: col?.field, order: 1 });
-    }
-    if (type == 'des') {
-      col.showDefaultSort = false;
-      col.showAscSort = false;
-      col.showDesSort = true;
-      this.customSortHandler?.emit({ field: col?.field, order: -1 });
-    }
-  }
+  // toggleSort(type: any, col: any): void {
+  //   this.tableHeaders?.forEach((element: any) => {
+  //     element.showAscSort = false;
+  //     element.showDesSort = false;
+  //     element.showDefaultSort = true;
+  //   });
+  //   if (type == 'asc') {
+  //     col.showDefaultSort = false;
+  //     col.showAscSort = true;
+  //     col.showDesSort = false;
+  //     this.customSortHandler?.emit({ field: col?.field, order: 1 });
+  //   }
+  //   if (type == 'des') {
+  //     col.showDefaultSort = false;
+  //     col.showAscSort = false;
+  //     col.showDesSort = true;
+  //     this.customSortHandler?.emit({ field: col?.field, order: -1 });
+  //   }
+  // }
   clear(table: any): void {
     this.search.nativeElement.value = null;
     // this.dropdown.value = this.paginateOption;
     this.isClear = true;
     table?.clear();
-    // this.clearHandler?.emit({ isClear: true });
+    this.showPaginator ? '' : this.clearHandler?.emit({ isClear: true });
     this.tableHeaders?.forEach((element: any) => {
       element.showAscSort = false;
       element.showDesSort = false;
@@ -523,42 +524,42 @@ export class DynamicTableLocalActionsComponent implements OnInit {
     this.isFilter = true;
     dt.filteredValue = this.tableData;
     this.filtersTable = event?.filters;
-    if (this.url?.includes('events-log')) {
-      this.filtersTable['time'] = [
-        {
-          value: this.timeValue ? this.timeValue : null,
-          matchMode: this.operator?.operator ? this.operator?.operator : 'timeIs',
-          operator: 'and', type: 'time'
-        }];
-    }
-    if (this.url?.includes('articles-quality')) {
-      this.filtersTable['evaluation_request_time'] = [
-        {
-          value: this.timeValue ? this.timeValue : null,
-          matchMode: this.operator?.operator ? this.operator?.operator : 'timeIs',
-          operator: 'and', type: 'time'
-        }];
-      this.filtersTable['evaluation_time'] = [
-        {
-          value: this.timeValueEnd ? this.timeValueEnd : null,
-          matchMode: this.operatorEnd?.operator ? this.operatorEnd?.operator : 'timeIs',
-          operator: 'and', type: 'time'
-        }];
-    }
-    if (this.url?.includes('bank-update')) {
-      this.filtersTable['update_time'] = [
-        {
-          value: this.timeValue ? this.timeValue : null,
-          matchMode: this.operator?.operator ? this.operator?.operator : 'timeIs',
-          operator: 'and', type: 'time'
-        }];
-      this.filtersTable['request_time_evaluation'] = [
-        {
-          value: this.timeValueEnd ? this.timeValueEnd : null,
-          matchMode: this.operatorEnd?.operator ? this.operatorEnd?.operator : 'timeIs',
-          operator: 'and', type: 'time'
-        }];
-    }
+    // if (this.url?.includes('events-log')) {
+    //   this.filtersTable['time'] = [
+    //     {
+    //       value: this.timeValue ? this.timeValue : null,
+    //       matchMode: this.operator?.operator ? this.operator?.operator : 'timeIs',
+    //       operator: 'and', type: 'time'
+    //     }];
+    // }
+    // if (this.url?.includes('articles-quality')) {
+    //   this.filtersTable['evaluation_request_time'] = [
+    //     {
+    //       value: this.timeValue ? this.timeValue : null,
+    //       matchMode: this.operator?.operator ? this.operator?.operator : 'timeIs',
+    //       operator: 'and', type: 'time'
+    //     }];
+    //   this.filtersTable['evaluation_time'] = [
+    //     {
+    //       value: this.timeValueEnd ? this.timeValueEnd : null,
+    //       matchMode: this.operatorEnd?.operator ? this.operatorEnd?.operator : 'timeIs',
+    //       operator: 'and', type: 'time'
+    //     }];
+    // }
+    // if (this.url?.includes('bank-update')) {
+    //   this.filtersTable['update_time'] = [
+    //     {
+    //       value: this.timeValue ? this.timeValue : null,
+    //       matchMode: this.operator?.operator ? this.operator?.operator : 'timeIs',
+    //       operator: 'and', type: 'time'
+    //     }];
+    //   this.filtersTable['request_time_evaluation'] = [
+    //     {
+    //       value: this.timeValueEnd ? this.timeValueEnd : null,
+    //       matchMode: this.operatorEnd?.operator ? this.operatorEnd?.operator : 'timeIs',
+    //       operator: 'and', type: 'time'
+    //     }];
+    // }
     // this.filterHandler?.emit(this.filtersTable);
   }
 
