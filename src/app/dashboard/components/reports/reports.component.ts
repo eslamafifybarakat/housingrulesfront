@@ -110,7 +110,7 @@ export class ReportsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getReportsCategory();
+   // this.getReportsCategory();
     this.currLang = window.localStorage.getItem(keys?.language);
   }
 

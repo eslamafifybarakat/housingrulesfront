@@ -126,6 +126,7 @@ export class OrdersComponent implements OnInit {
         map((res: any) => {
           this.ordersCount = res?.total;
           this.pagesCount = Math.ceil(this.ordersCount / this.perPage);
+
           let arr: any = [];
           res?.data ? res?.data.forEach((item: any) => {
             let status: any = '';

@@ -79,10 +79,10 @@ export class OrdersService {
     let userLoginData: any = JSON.parse(window.localStorage.getItem(keys?.userLoginData) || '{}');
     let params = new HttpParams();
     if (page) {
-      params = params?.append("page", page);
+      params = params?.append("pagenumber", page);
     }
     if (per_page) {
-      params = params?.append("per_page", per_page);
+      params = params?.append("pageszie", per_page);
     }
     if (search) {
       params = params?.append("search", search);
@@ -123,7 +123,8 @@ export class OrdersService {
     } else
       orderStatus = 0;
     if (userLoginData?.userType < 3)
-      return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.GetOrdersQL}/${startTime}/${endTime}/${supervisorId}/${driverId}/${0}/${orderStatus}/${currentActiveIndex}`)
+      return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.GetOrdersQL}/${startTime}
+      /${endTime}/${supervisorId}/${driverId}/${0}/${orderStatus}/${currentActiveIndex}`, { params: params })
     // return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}`, { params: params })
     else
       return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersByTypeList}/${userLoginData?.userType}/${userLoginData?.entityId}`, { params: params })
