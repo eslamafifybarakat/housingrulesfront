@@ -243,6 +243,7 @@ export class OrdersComponent implements OnInit {
   handleChange(e: any): void {
     var index = e.index;
     this.currentActiveIndex = index + 1;
+    this.page = 1;
     this.getAllOrders();
   }
   getOrders(): void {
