@@ -220,6 +220,7 @@
     "status": "Status",
     "comments": "Comments",
     "comment": "Comment",
+    "isVip": "VIP Customer",
     "customerMobileNumber": "Customer mobile number",
     "customerName": "Customer name",
     "district": "District",

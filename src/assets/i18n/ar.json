@@ -226,6 +226,7 @@
     "customerName": "اسم العميل",
     "comments": "تعليقات",
     "comment": "تعليق",
+    "isVip": "عميل مميز",
     "propertyType": "القطاع",
     "customerMobileNumber": "رقم هاتف العميل",
     "district": "الحي",

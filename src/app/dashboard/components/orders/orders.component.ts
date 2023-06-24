@@ -110,7 +110,7 @@ export class OrdersComponent implements OnInit {
 
     ];
 
-    // this.getAllOrders();
+     this.getAllOrders();
     this.propertyTypeList = this.publicService?.getPropertyType();
     this.orderOriginList = this.publicService?.getOrderOrigin();
     this.paymentMethodList = this.publicService?.getPaymentMethods();
@@ -223,7 +223,8 @@ export class OrdersComponent implements OnInit {
               driver: item?.driver ? item?.driver : [],
               customer: item?.customer ? item?.customer : '',
               comments: item?.comments ? item?.comments : '',
-
+              cancellationDesc: item?.cancellationDesc ? item?.cancellationDesc : '',
+              isVip: item?.isVip ? item?.isVip :false
             });
           }) : '';
           this.ordersList$ = arr;

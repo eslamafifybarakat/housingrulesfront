@@ -175,7 +175,8 @@ export class AddEditOrderComponent implements OnInit {
         validators: [
           Validators.minLength(3)], updateOn: "blur"
       }],
-      active: [false, []]
+      active: [false, []],
+      isVip: [false, []]
     },
   );
   get formControls(): any {
@@ -567,7 +568,8 @@ export class AddEditOrderComponent implements OnInit {
       comment: this.orderData?.comments,
       orderNumber: this.orderData?.orderNumber,
       paidAmount: this.orderData?.paidAmount,
-      paymentMethod: paymentMethod
+      paymentMethod: paymentMethod,
+      isVip: this.orderData?.isVip
     })
   }
 
@@ -589,6 +591,7 @@ export class AddEditOrderComponent implements OnInit {
       myObject['comments'] = formInfo?.comment;
       myObject['tankSize'] = formInfo?.tankSize.value;
       myObject['paymentMethod'] = formInfo?.paymentMethod?.['value'];
+      myObject['isVip'] = formInfo?.isVip;
 
       if (this.isEdit) {
         myObject['id'] = this.orderId;
