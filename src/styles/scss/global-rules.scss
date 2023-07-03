@@ -97,7 +97,7 @@ hr {
 }
 
 .badge-main {
-  width: 25px;
+  min-width: 25px;
   height: 25px;
   color: var(--text-main-color) !important;
   background-color: #00664228;

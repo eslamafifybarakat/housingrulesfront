@@ -17,6 +17,7 @@ import { SearchComponent } from './components/search/search.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrimeNgModule } from './modules/prime-ng/prime-ng.module';
+import { FullCalendarModule } from '@fullcalendar/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -42,6 +43,7 @@ const allSharedComponents = [
 ]
 const allSharedModule = [
   ReactiveFormsModule,
+  FullCalendarModule,
   ClickOutsideModule,
   AngMaterialModule,
   TranslateModule,

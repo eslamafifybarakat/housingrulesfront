@@ -1,0 +1,17 @@
+.fc.fc-theme-standard
+  .fc-toolbar
+  .fc-button.fc-dayGridMonth-button.fc-button-active,
+.fc.fc-theme-standard
+  .fc-toolbar
+  .fc-button.fc-timeGridWeek-button.fc-button-active,
+.fc.fc-theme-standard
+  .fc-toolbar
+  .fc-button.fc-timeGridDay-button.fc-button-active,
+.fc-prev-button,
+.fc-next-button,
+.fc-today-button,
+.fc-daygrid-event-dot,
+.fc-timegrid-event-harness-inset .fc-timegrid-event {
+  background-color: var(--bg-main-color) !important;
+  border-color: var(--bg-main-color) !important;
+}

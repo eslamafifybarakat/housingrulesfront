@@ -42,6 +42,7 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
     this.periodicCatList = this.publicService.getPeriodicCat();
     this.dayOfWeekList = this.publicService.getDayOfWeek();
     this.modalData = this.config?.data;
+    this.openSuccessfulModal();
   }
 
   modalForm = this.fb?.group(
@@ -121,6 +122,7 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
     const ref = this.dialogService?.open(SheduleCreatedSuccessfullyComponent, {
       dismissableMask: false,
       width: '40%',
+      data: { id: this.modalData?.item?.item?.id }
     });
   }
   cancel(): void {

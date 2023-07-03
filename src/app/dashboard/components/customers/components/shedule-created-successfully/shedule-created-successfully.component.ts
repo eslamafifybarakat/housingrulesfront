@@ -1,6 +1,6 @@
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Component, OnInit } from '@angular/core';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { OrderSheduleComponent } from '../order-shedule/order-shedule.component';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-shedule-created-successfully',
@@ -8,13 +8,16 @@ import { OrderSheduleComponent } from '../order-shedule/order-shedule.component'
   styleUrls: ['./shedule-created-successfully.component.scss']
 })
 export class SheduleCreatedSuccessfullyComponent implements OnInit {
+  modalData: any;
 
   constructor(
     private dialogService: DialogService,
+    private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
   ) { }
 
   ngOnInit(): void {
+    this.modalData = this.config?.data;
   }
 
   browse(): void {
@@ -22,7 +25,8 @@ export class SheduleCreatedSuccessfullyComponent implements OnInit {
       dismissableMask: true,
       width: '100%',
       height: '100%',
-      styleClass: 'shedule-dialog'
+      styleClass: 'shedule-dialog',
+      data: this.modalData
     });
   }
   cancel(): void {
