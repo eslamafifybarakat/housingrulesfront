@@ -32,6 +32,8 @@ export class OrderDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.modalData = this.config?.data;
+    console.log(this.modalData);
+
     this.orderId = this.modalData?.id;
     this.dateTime = this.modalData?.dateTime;
     this.propertyType = this.modalData?.propertyType ? this.modalData?.propertyType[0]?.name : '';

@@ -42,7 +42,6 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
     this.periodicCatList = this.publicService.getPeriodicCat();
     this.dayOfWeekList = this.publicService.getDayOfWeek();
     this.modalData = this.config?.data;
-    this.openSuccessfulModal();
   }
 
   modalForm = this.fb?.group(
