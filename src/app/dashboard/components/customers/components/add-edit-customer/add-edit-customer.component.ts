@@ -46,6 +46,7 @@ export class AddEditCustomerComponent implements OnInit {
 
   modalForm = this.fb?.group(
     {
+      isVip: [false, []],
       name: ['', {
         validators: [
           Validators.required,
@@ -66,16 +67,16 @@ export class AddEditCustomerComponent implements OnInit {
     this.modalForm?.patchValue({
       name: this.modalData?.item?.name,
       mobileNumber: this.modalData?.item?.mobileNumber,
+      isVip: this.modalData?.isVip
     })
   }
 
   submit(): void {
-    console.log(this.modalForm);
-
     const myObject: { [key: string]: any } = {};
     if (this.modalForm?.valid) {
       myObject['name'] = this.modalForm?.value?.name;
       myObject['mobileNumber'] = this.modalForm?.value?.mobileNumber;
+      myObject['isVip'] = this.modalForm?.value?.isVip;
 
       if (this.isEdit) {
         myObject['id'] = this.customerId;

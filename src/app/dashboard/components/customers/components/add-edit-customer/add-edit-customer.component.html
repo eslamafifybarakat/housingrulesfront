@@ -1,6 +1,12 @@
 <div id="modal">
   <form [formGroup]="modalForm" (ngSubmit)="submit()">
     <div class="mb-3">
+      <div class="d-flex align-self-center justify-content-between gap-2 flex-wrap">
+        <label for="isVip" class="fw-bold">{{'labels.isVip'|translate}}</label>
+        <p-inputSwitch id="isVip" formControlName="isVip"></p-inputSwitch>
+      </div>
+    </div>
+    <div class="mb-3">
       <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
       <input type="text" class="form-control" formControlName="name"
         (input)="publicService?.clearValidationErrors(formControls?.name)"

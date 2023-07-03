@@ -77,6 +77,7 @@ export class CustomersComponent implements OnInit {
               location: item?.location ? item?.location : '',
               locationLink: item?.locationLink ? item?.locationLink : null,
               mobileNumber: item?.mobileNumber ? item?.mobileNumber : '',
+              isVip: item?.isVip ? item?.isVip : false
             });
           }) : '';
           console.log(arr);
@@ -143,7 +144,6 @@ export class CustomersComponent implements OnInit {
     });
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        console.log('sss');
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
         this.getAllCustomers();
