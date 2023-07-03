@@ -4,7 +4,8 @@
     "arabic": "Arabic"
   },
   "general": {
-    "cancelOrder":"إلغاء الطلب",
+    "hasOpendedOrders": "العميل لديه طلبات مفتوحة",
+    "cancelOrder": "إلغاء الطلب",
     "horizontal": "أفقي",
     "vertical": "رأسي",
     "serviceDone": "تم الخدمة",
@@ -237,10 +238,10 @@
     "paidAmount": "المبلغ المدفوع",
     "userType": "نوع المستخدم",
     "cancellationCauses": "أسباب الإلغاء",
-    "cancellationDesc":"وصف الإلغاء"
+    "cancellationDesc": "وصف الإلغاء"
   },
   "placeholder": {
-    "cancellationDesc":"أدخل وصف الإلغاء",
+    "cancellationDesc": "أدخل وصف الإلغاء",
     "cancellationCauses": "اختر سبب الإلغاء",
     "cost": "أدخل التكلفة",
     "searchUser": "بحث عن مستخدم",
@@ -349,7 +350,7 @@
     "total": "المجموع",
     "createNew": "إنشاء جديد",
     "sideMenu": {
-      "reports":"التقارير",
+      "reports": "التقارير",
       "settlementes": "التسويات",
       "gates": "البوابات",
       "dashboard": "لوحة التحكم",
@@ -363,7 +364,7 @@
       "financialSettlements": "تسويات مالية"
     },
     "tableHeader": {
-      "lastModifiedDate":"تاريخ اخر تعديل",
+      "lastModifiedDate": "تاريخ اخر تعديل",
       "createdAt": "تم إنشاؤه في",
       "settlementedBy": "تسوية بواسطة",
       "recivedBy": "استلمت من قبل",
@@ -446,20 +447,19 @@
       "addOrder": "إضافة طلب",
       "editOrder": "تعديل الطلب",
       "orderDetails": "تفاصيل الطلب",
-    "cancelOrder":"إلغاء الطلب",
+      "cancelOrder": "إلغاء الطلب",
       "all": "الكل",
       "closed": "الطلبات المغلقة",
       "opened": "الطلبات المفتوحة",
       "today": "طلبات اليوم",
-      "reasons":{
-        "Inquiry":"الإلغاء مباشر",
-        "PriceIssue":"تسعير غير مناسب",
-        "UncoveredLocation":"منطقة غير مغطاه",
-        "CustomerCancelation":"الغاء من العميل",
-        "OrderDuplicate":"طلب مكرر",
-        "other":"اخري"
+      "reasons": {
+        "Inquiry": "الإلغاء مباشر",
+        "PriceIssue": "تسعير غير مناسب",
+        "UncoveredLocation": "منطقة غير مغطاه",
+        "CustomerCancelation": "الغاء من العميل",
+        "OrderDuplicate": "طلب مكرر",
+        "other": "اخري"
       }
-
     },
     "settlementes": {
       "settlementes": "التسويات",
@@ -496,9 +496,9 @@
     "financialSettlements": {
       "financialSettlements": "تسويات مالية"
     },
-    "reports":{
-      "reports":"التقارير",
-      "dailyOrderDetails":"تفاصيل الطلبات اليومية"
+    "reports": {
+      "reports": "التقارير",
+      "dailyOrderDetails": "تفاصيل الطلبات اليومية"
     }
   },
   "welcome": {

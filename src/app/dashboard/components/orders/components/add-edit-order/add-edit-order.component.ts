@@ -312,29 +312,10 @@ export class AddEditOrderComponent implements OnInit {
   onSelectCustomer(): void {
     let formInfo: any = this.orderForm?.value?.customerName;
     this.customerCanSubmitOrder = true;
-
     this.orderForm?.patchValue({
       customerMobileNumber: formInfo?.mobileNumber
     });
-    // this.customersService.canCustomerSubmitOrder(formInfo.id).subscribe(
-    //   (res: any) => {
-    //     if (res?.isSuccess == true && res?.statusCode == 200) {
-    //       this.publicService?.show_loader?.next(false);
-    //       if (res?.data == false){
-    //         this.customerCanSubmitOrder = false;
-    //       }
-    //     } else {
-    //       res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
-    //       this.publicService?.show_loader?.next(false);
-    //     }
-    //     this.isSaving = false;
-    //   },
-    //   (err: any) => {
-    //     err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
-    //     this.publicService?.show_loader?.next(false);
-    //     this.isSaving = false;
-
-    //   });
+    formInfo?.id ? this.checkCustomerHasOpendedOrders(formInfo?.id) : '';
   }
   onClearCustomer(): void {
     this.orderForm?.patchValue({
@@ -342,6 +323,25 @@ export class AddEditOrderComponent implements OnInit {
     });
     this.customerCanSubmitOrder = true;
 
+  }
+  checkCustomerHasOpendedOrders(id: any): void {
+    this.isLoadingCustomers = true;
+    this.orderService.checkCustomerHasOpendedOrders(id).subscribe(
+      (res: any) => {
+        if (res?.isSuccess == true && res?.statusCode == 200) {
+          if (res?.data?.length > 0) {
+            this.alertsService?.openSweetAlert('info', this.publicService.translateTextFromJson('general.hasOpendedOrders'));
+          }
+          this.isLoadingCustomers = false;
+        } else {
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+          this.isLoadingCustomers = false;
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+        this.isLoadingCustomers = false;
+      });
   }
 
   getSupervisorsByDistrictId(districtId: any): any {

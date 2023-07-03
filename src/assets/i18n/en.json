@@ -4,17 +4,18 @@
     "arabic": "Arabic"
   },
   "general": {
-    "cancelOrder":"Cancel Order",
-    "horizontal":"Horizontal",
-    "vertical":"Vertical",
-    "serviceDone":"Service done",
-    "workUnderway":"Work is underway",
-    "underConstruction":"Under construction",
-    "InCustomerService":"In customer service",
-    "call":"Call",
-    "whatsapp":"Whatsapp",
-    "field":"Field",
-    "tms":"TMS",
+    "hasOpendedOrders": "This customer has opened orders",
+    "cancelOrder": "Cancel Order",
+    "horizontal": "Horizontal",
+    "vertical": "Vertical",
+    "serviceDone": "Service done",
+    "workUnderway": "Work is underway",
+    "underConstruction": "Under construction",
+    "InCustomerService": "In customer service",
+    "call": "Call",
+    "whatsapp": "Whatsapp",
+    "field": "Field",
+    "tms": "TMS",
     "confirm_order": "Confirm Order",
     "confirm_order_qu": "Do you want to complete order?",
     "backToHome": "Back to home",
@@ -232,10 +233,10 @@
     "orderNumber": "Order number",
     "userType": "User type",
     "cancellationCauses": "Cancellation causes",
-    "cancellationDesc":"Cancellation Description"
+    "cancellationDesc": "Cancellation Description"
   },
   "placeholder": {
-    "cancellationDesc":"Enter cancellation description",
+    "cancellationDesc": "Enter cancellation description",
     "cancellationCauses": "Select cancellation cause",
     "cost": "Enter cost",
     "searchUser": "Search user",
@@ -341,7 +342,7 @@
     "total": "total",
     "createNew": "Create new",
     "sideMenu": {
-      "reports":"Reports",
+      "reports": "Reports",
       "gates": "Gates",
       "settlementes": "settlementes",
       "dashboard": "Dashboard",
@@ -355,7 +356,7 @@
       "financialSettlements": "Financial settlements"
     },
     "tableHeader": {
-      "lastModifiedDate":"Last modified date",
+      "lastModifiedDate": "Last modified date",
       "createdAt": "Created at",
       "settlementedBy": "Settlemented by",
       "recivedBy": "Recived by",
@@ -439,18 +440,18 @@
       "addOrder": "Add order",
       "editOrder": "Edit order",
       "orderDetails": "Order details",
-    "cancelOrder":"Cancel Order",
-      "all":"All",
-      "closed":"Closed",
-      "opened":"Opened",
-      "today":"Today",
-      "reasons":{
-        "Inquiry":"Inquery",
-        "PriceIssue":"Price Issue",
-        "UncoveredLocation":"Uncovered Location",
-        "CustomerCancelation":"Customer Cancelation",
-        "OrderDuplicate":"Order Duplicate",
-        "other":"Other"
+      "cancelOrder": "Cancel Order",
+      "all": "All",
+      "closed": "Closed",
+      "opened": "Opened",
+      "today": "Today",
+      "reasons": {
+        "Inquiry": "Inquery",
+        "PriceIssue": "Price Issue",
+        "UncoveredLocation": "Uncovered Location",
+        "CustomerCancelation": "Customer Cancelation",
+        "OrderDuplicate": "Order Duplicate",
+        "other": "Other"
       }
     },
     "settlementes": {
@@ -488,18 +489,17 @@
     "financialSettlements": {
       "financialSettlements": "Financial settlements"
     },
-    "reports":{
-      "reports":"Reports",
-      "dailyOrderDetails":"Daily Order Details"
+    "reports": {
+      "reports": "Reports",
+      "dailyOrderDetails": "Daily Order Details"
     }
-
   },
   "welcome": {
-    "statementOfDailyOrder":"Statement of number of requests for each tank",
-    "numberOfRequests":"Statement of number of requests for each supervisor",
-    "statusOfRequests":"Indication of the status of the request for each observer",
-    "requestResources":"Request Resources",
-    "ton":"Ton",
+    "statementOfDailyOrder": "Statement of number of requests for each tank",
+    "numberOfRequests": "Statement of number of requests for each supervisor",
+    "statusOfRequests": "Indication of the status of the request for each observer",
+    "requestResources": "Request Resources",
+    "ton": "Ton",
     "hi": "Hi",
     "welcomeBack": "Welcome Back!",
     "pageIsDesigned": "This page is designed to give some important information about the website. Let's make someting together!",
