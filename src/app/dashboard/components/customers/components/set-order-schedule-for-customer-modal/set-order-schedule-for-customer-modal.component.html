@@ -5,10 +5,11 @@
         <div class="mb-3">
           <label for="time" class="mb-2 required">{{'labels.time'|translate}}</label>
           <div
-            [class.border-red]="formControls?.time?.invalid && (formControls?.time?.dirty || formControls?.time?.touched)">
+            [class.border-red]="formControls?.time?.invalid && (formControls?.time?.dirty || formControls?.time?.touched)"
+            class="time">
             <p-calendar formControlName="time" appendTo="body" [minDate]="todayVal" [showIcon]="true" inputId="icon"
               placeholder="{{'labels.time'| translate}}" [showTime]="true" [showButtonBar]="true" dateFormat="dd/mm/yy"
-              hourFormat="12"></p-calendar>
+              hourFormat="12" [timeOnly]="true"></p-calendar>
           </div>
           <div class="my-2">
             <ng-container
@@ -87,8 +88,8 @@
           <div
             [class.border-red]="formControls?.startDate?.invalid && (formControls?.startDate?.dirty || formControls?.startDate?.touched)">
             <p-calendar formControlName="startDate" appendTo="body" [showIcon]="true" inputId="icon"
-              placeholder="{{'labels.startDate'| translate}}" (onSelect)="selectStartDate($event)" [showTime]="true"
-              [showButtonBar]="true" (onClearClick)="clearStartDate()" dateFormat="dd/mm/yy"
+              [minDate]="todayVal" placeholder="{{'labels.startDate'| translate}}" (onSelect)="selectStartDate($event)"
+              [showTime]="true" [showButtonBar]="true" (onClearClick)="clearStartDate()" dateFormat="dd/mm/yy"
               hourFormat="12"></p-calendar>
           </div>
           <div class="my-2">

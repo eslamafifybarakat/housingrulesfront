@@ -515,7 +515,9 @@
             <ng-container *ngIf="item?.isVip == true">
               <a class="d-flex align-items-center
                 gap-2" (click)="vipHandlerEmit(item)" pTooltip="VIP" tooltipPosition="top">
-                <span><i class="fas fa-copy"></i></span>
+                <span>
+                  <img src="assets/images/icons/vip.png" class="vip" alt="vip">
+                </span>
               </a>
             </ng-container>
           </div>

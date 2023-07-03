@@ -39,6 +39,8 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { DailyOrderDetailsComponent } from './components/reports/components/daily-order-details/daily-order-details.component';
 import { SafePipe } from '../safe.pipe';
 import { SetOrderScheduleForCustomerModalComponent } from './components/customers/components/set-order-schedule-for-customer-modal/set-order-schedule-for-customer-modal.component';
+import { SheduleCreatedSuccessfullyComponent } from './components/customers/components/shedule-created-successfully/shedule-created-successfully.component';
+import { OrderSheduleComponent } from './components/customers/components/order-shedule/order-shedule.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import { SetOrderScheduleForCustomerModalComponent } from './components/customer
     ReportsComponent,
     DailyOrderDetailsComponent,
     SafePipe,
-    SetOrderScheduleForCustomerModalComponent
+    SetOrderScheduleForCustomerModalComponent,
+    SheduleCreatedSuccessfullyComponent,
+    OrderSheduleComponent
   ],
   imports: [
     DashboardRoutingModule,

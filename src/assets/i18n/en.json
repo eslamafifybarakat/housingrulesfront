@@ -4,6 +4,18 @@
     "arabic": "Arabic"
   },
   "general": {
+    "scheduleCreatedSuccessfully":"Schedule created successfully",
+    "annually":"Annually",
+    "monthly":"Monthly",
+    "weekly":"Weekly",
+    "daily":"Daily",
+    "Saturday":"Saturday",
+    "Friday":"Friday",
+    "Thursday":"Thursday",
+    "Wednesday":"Wednesday",
+    "Tuesday":"Tuesday",
+    "Monday":"Monday",
+    "Sunday":"Sunday",
     "hasOpendedOrders": "This customer has opened orders",
     "cancelOrder": "Cancel Order",
     "horizontal": "Horizontal",
@@ -185,6 +197,9 @@
     "selectSupervisorFirst": "You must select supervisor first"
   },
   "labels": {
+    "dayOfWeek":"Day Of Week",
+    "periodicCat":"Periodic Category",
+    "time":"Time",
     "cost": "Cost",
     "isSubcontractor": "Is Subcontractor",
     "serviceAgent": "Service Agent",

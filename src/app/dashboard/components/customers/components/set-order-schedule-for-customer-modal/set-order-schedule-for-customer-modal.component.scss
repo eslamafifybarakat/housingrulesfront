@@ -1,0 +1,5 @@
+:host::ng-deep {
+  .time .pi-calendar:before {
+    content: "\e940" !important;
+  }
+}

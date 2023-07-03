@@ -1,11 +1,12 @@
-import { Subscription } from 'rxjs';
-import { PublicService } from './../../../../../shared/services/public.service';
-import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
-import { SupervisorsService } from './../../../../services/supervisors.service';
+import { SheduleCreatedSuccessfullyComponent } from './../shedule-created-successfully/shedule-created-successfully.component';
 import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
+import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
+import { CustomersService } from 'src/app/dashboard/services/customers.service';
+import { PublicService } from './../../../../../shared/services/public.service';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-set-order-schedule-for-customer-modal',
@@ -23,13 +24,15 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
   periodicCatList: any = [];
   isLoadingDayOfWeekList: boolean = false;
   dayOfWeekList: any = [];
-  todayVal: any;
+  todayVal: any = new Date();
 
   constructor(
     public checkValidityService: CheckValidityService,
+    private customersService: CustomersService,
     public alertsService: AlertsService,
     public publicService: PublicService,
     private config: DynamicDialogConfig,
+    private dialogService: DialogService,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     public fb: FormBuilder,
@@ -38,9 +41,7 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
   ngOnInit(): void {
     this.periodicCatList = this.publicService.getPeriodicCat();
     this.dayOfWeekList = this.publicService.getDayOfWeek();
-
     this.modalData = this.config?.data;
-    console.log(this.modalData);
   }
 
   modalForm = this.fb?.group(
@@ -78,22 +79,50 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
     this.modalForm?.get('endDate')?.reset();
   }
 
-
   submit(): void {
     const myObject: { [key: string]: any } = {};
     if (this.modalForm?.valid) {
       let formInfo: any = this.modalForm?.value;
-      myObject['startDate'] = formInfo?.startDate;
-      myObject['endDate'] = formInfo?.endDate;
-      myObject['supervisorId'] = formInfo?.supervisor?.id;
-      myObject['driverId'] = formInfo?.driver?.id;
-      myObject['orderStatus'] = formInfo?.orderStatus?.id;
-      this.ref?.close(myObject)
+      const startDateObj = new Date(formInfo?.startDate);
+      const convertedStartDate = startDateObj?.toISOString();
+      const endDateObj = new Date(formInfo?.endDate);
+      const convertedEndDate = endDateObj?.toISOString();
+      const TimeObj = new Date(formInfo?.endDate);
+      const convertedTime = TimeObj?.toISOString();
+      myObject['customerId'] = this.modalData?.item?.item?.id;
+      myObject['startDue'] = convertedStartDate;
+      myObject['endDue'] = convertedEndDate;
+      myObject['timeVale'] = convertedTime?.split("T")[1]?.split(".")[0];
+      myObject['period'] = formInfo?.periodicCat?.id;
+      myObject['dayOrder'] = formInfo?.dayOfWeek?.id;
+      this.publicService?.show_loader?.next(true);
+      this.customersService?.createAsyncSchudle(myObject)?.subscribe(
+        (res: any) => {
+          if (res?.isSuccess == true && res?.statusCode == 200) {
+            this.ref.close({ listChanged: true });
+            this.publicService?.show_loader?.next(false);
+            this.openSuccessfulModal();
+          } else {
+            res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+            this.publicService?.show_loader?.next(false);
+          }
+        },
+        (err: any) => {
+          err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+          this.publicService?.show_loader?.next(false);
+        });
+
     } else {
       this.checkValidityService?.validateAllFormFields(this.modalForm);
     }
   }
 
+  openSuccessfulModal() {
+    const ref = this.dialogService?.open(SheduleCreatedSuccessfullyComponent, {
+      dismissableMask: false,
+      width: '40%',
+    });
+  }
   cancel(): void {
     this.ref?.close({ listChanged: false });
   }
