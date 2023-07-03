@@ -38,6 +38,7 @@ import { CancelOrderComponent } from './components/orders/components/cancel-orde
 import { ReportsComponent } from './components/reports/reports.component';
 import { DailyOrderDetailsComponent } from './components/reports/components/daily-order-details/daily-order-details.component';
 import { SafePipe } from '../safe.pipe';
+import { SetOrderScheduleForCustomerModalComponent } from './components/customers/components/set-order-schedule-for-customer-modal/set-order-schedule-for-customer-modal.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { SafePipe } from '../safe.pipe';
     CancelOrderComponent,
     ReportsComponent,
     DailyOrderDetailsComponent,
-    SafePipe
+    SafePipe,
+    SetOrderScheduleForCustomerModalComponent
   ],
   imports: [
     DashboardRoutingModule,

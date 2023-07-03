@@ -22,5 +22,6 @@
     (filterHandler)="enableSortFilter?filterItems($event):''" [results]="customersCount" [paginatorRows]="perPage"
     [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"
     [enableConfirmDeleteDialog]="true" [keyDelete]="'name'" (paginateOptionsHandler)="onPaginatorOptionsChange($event)"
-    [isSearch]="isSearch" [arrayChildKey]="'name'" [enableFilterIsWorking]="true"></app-dynamic-table-local-actions>
+    [isSearch]="isSearch" [arrayChildKey]="'name'" [enableFilterIsWorking]="true"
+    (vipHandler)="VIPCustomerAction($event)"></app-dynamic-table-local-actions>
 </div>

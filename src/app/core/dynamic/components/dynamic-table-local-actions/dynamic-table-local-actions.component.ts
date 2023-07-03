@@ -131,6 +131,7 @@ export class DynamicTableLocalActionsComponent implements OnInit {
 
   @Output() reportHandler: EventEmitter<any> = new EventEmitter();
   @Output() copyHandler: EventEmitter<any> = new EventEmitter();
+  @Output() vipHandler: EventEmitter<any> = new EventEmitter();
   @Output() colEventHandler: EventEmitter<any> = new EventEmitter();
 
   @Output() editChildHandler: EventEmitter<any> = new EventEmitter();
@@ -338,6 +339,9 @@ export class DynamicTableLocalActionsComponent implements OnInit {
   }
   copyHandlerEmit(item: any): void {
     this.copyHandler.emit({ item: item });
+  }
+  vipHandlerEmit(item: any): void {
+    this.vipHandler.emit({ item: item });
   }
   colEventHandlerEmit(item: any, type?: string): void {
     this.colEventHandler.emit({ item: item, type: type });

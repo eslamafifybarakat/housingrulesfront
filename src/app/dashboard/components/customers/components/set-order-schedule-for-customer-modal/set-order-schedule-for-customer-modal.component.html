@@ -1,0 +1,145 @@
+<div id="modal">
+  <form [formGroup]="modalForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mb-3">
+          <label for="time" class="mb-2 required">{{'labels.time'|translate}}</label>
+          <div
+            [class.border-red]="formControls?.time?.invalid && (formControls?.time?.dirty || formControls?.time?.touched)">
+            <p-calendar formControlName="time" appendTo="body" [minDate]="todayVal" [showIcon]="true" inputId="icon"
+              placeholder="{{'labels.time'| translate}}" [showTime]="true" [showButtonBar]="true" dateFormat="dd/mm/yy"
+              hourFormat="12"></p-calendar>
+          </div>
+          <div class="my-2">
+            <ng-container
+              *ngIf="formControls?.time?.invalid && (formControls?.time?.dirty || formControls?.time?.touched)">
+              <ng-container *ngIf="formControls?.time?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.required_field'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label required">
+            {{"labels.periodicCat"|translate}}
+          </label>
+          <span class="p-input-icon-right select-loading d-block">
+            <p-dropdown [options]="periodicCatList" formControlName="periodicCat" optionLabel="name" [filter]="true"
+              [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+              [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingPeriodicCatList"
+              scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
+              [class.ng-dirty]="formControls?.periodicCat?.invalid && (formControls?.periodicCat?.dirty || formControls?.periodicCat?.touched)"
+              [showClear]="true" placeholder="{{'general.select'|translate}}">
+            </p-dropdown>
+            <ng-container *ngIf="isLoadingPeriodicCatList">
+              <i class="pi pi-spin pi-spinner"></i>
+            </ng-container>
+          </span>
+          <div class="my-2">
+            <ng-container
+              *ngIf="formControls?.periodicCat?.invalid && (formControls?.periodicCat?.dirty || formControls?.periodicCat?.touched)">
+              <ng-container *ngIf="formControls?.periodicCat?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{"validations.required_field"|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label class="form-label required">
+            {{"labels.dayOfWeek"|translate}}
+          </label>
+          <span class="p-input-icon-right select-loading d-block">
+            <p-dropdown [options]="dayOfWeekList" formControlName="dayOfWeek" optionLabel="name" [filter]="true"
+              [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+              [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingDayOfWeekList"
+              scrollHeight="200px" emptyMessage="{{'general.no_result_found'|translate}}"
+              [class.ng-dirty]="formControls?.dayOfWeek?.invalid && (formControls?.dayOfWeek?.dirty || formControls?.dayOfWeek?.touched)"
+              [showClear]="true" placeholder="{{'general.select'|translate}}">
+            </p-dropdown>
+            <ng-container *ngIf="isLoadingDayOfWeekList">
+              <i class="pi pi-spin pi-spinner"></i>
+            </ng-container>
+          </span>
+          <div class="my-2">
+            <ng-container
+              *ngIf="formControls?.dayOfWeek?.invalid && (formControls?.dayOfWeek?.dirty || formControls?.dayOfWeek?.touched)">
+              <ng-container *ngIf="formControls?.dayOfWeek?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{"validations.required_field"|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="startDate" class="mb-2 required">{{'labels.startDate'|translate}}</label>
+          <div
+            [class.border-red]="formControls?.startDate?.invalid && (formControls?.startDate?.dirty || formControls?.startDate?.touched)">
+            <p-calendar formControlName="startDate" appendTo="body" [showIcon]="true" inputId="icon"
+              placeholder="{{'labels.startDate'| translate}}" (onSelect)="selectStartDate($event)" [showTime]="true"
+              [showButtonBar]="true" (onClearClick)="clearStartDate()" dateFormat="dd/mm/yy"
+              hourFormat="12"></p-calendar>
+          </div>
+          <div class="my-2">
+            <ng-container
+              *ngIf="formControls?.startDate?.invalid && (formControls?.startDate?.dirty || formControls?.startDate?.touched)">
+              <ng-container *ngIf="formControls?.startDate?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.startDate'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="endDate" class="mb-2 required">{{'labels.endDate'|translate}}</label>
+          <div
+            [class.border-red]="formControls?.endDate?.invalid && (formControls?.endDate?.dirty || formControls?.endDate?.touched)">
+            <p-calendar formControlName="endDate" appendTo="body" [minDate]="minEndDate" [showIcon]="true"
+              [disabled]="!isSelectStartDate" inputId="icon" placeholder="{{'labels.endDate'| translate}}"
+              [showTime]="true" [showButtonBar]="true" dateFormat="dd/mm/yy" hourFormat="12"></p-calendar>
+          </div>
+          <div class="my-2">
+            <ng-container
+              *ngIf="formControls?.endDate?.invalid && (formControls?.endDate?.dirty || formControls?.endDate?.touched)">
+              <ng-container *ngIf="formControls?.endDate?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.endDate'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
+      <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+        <span>
+          {{'general.save'|translate}}
+        </span>
+        <i class="pi pi-save"></i>
+      </button>
+      <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+        <span>
+          {{'general.cancel'|translate}}
+        </span>
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+  </form>
+</div>

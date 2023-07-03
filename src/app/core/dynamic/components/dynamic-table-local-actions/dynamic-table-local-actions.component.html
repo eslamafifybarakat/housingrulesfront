@@ -512,6 +512,12 @@
                 </a>
               </ng-container>
             </ng-container>
+            <ng-container *ngIf="item?.isVip == true">
+              <a class="d-flex align-items-center
+                gap-2" (click)="vipHandlerEmit(item)" pTooltip="VIP" tooltipPosition="top">
+                <span><i class="fas fa-copy"></i></span>
+              </a>
+            </ng-container>
           </div>
         </td>
       </ng-container>

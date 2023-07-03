@@ -170,6 +170,27 @@ export class PublicService {
     ]
     return orderOriginList;
   }
+  getPeriodicCat(): any {
+    let periodicCatList: any = [
+      { id: 1, value: 1, name: this.translateTextFromJson('general.daily ') },
+      { id: 2, value: 2, name: this.translateTextFromJson('general.weekly') },
+      { id: 3, value: 3, name: this.translateTextFromJson('general.monthly') },
+      { id: 4, value: 4, name: this.translateTextFromJson('general.annually') },
+    ]
+    return periodicCatList;
+  }
+  getDayOfWeek(): any {
+    let dayOfWeekList: any = [
+      { id: 1, value: 1, name: this.translateTextFromJson('general.Sunday') },
+      { id: 2, value: 2, name: this.translateTextFromJson('general.Monday') },
+      { id: 3, value: 3, name: this.translateTextFromJson('general.Tuesday') },
+      { id: 4, value: 4, name: this.translateTextFromJson('general.Wednesday') },
+      { id: 5, value: 5, name: this.translateTextFromJson('general.Thursday') },
+      { id: 6, value: 6, name: this.translateTextFromJson('general.Friday') },
+      { id: 7, value: 7, name: this.translateTextFromJson('general. Saturday') },
+    ]
+    return dayOfWeekList;
+  }
 
   getPaymentMethods(): any {
     let paymentMethodsList: any = [

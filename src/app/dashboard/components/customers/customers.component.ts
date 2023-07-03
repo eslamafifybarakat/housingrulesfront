@@ -8,6 +8,7 @@ import { CustomersService } from '../../services/customers.service';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { TanksService } from '../../services/tanks.service';
 import { DialogService } from 'primeng/dynamicdialog';
+import { SetOrderScheduleForCustomerModalComponent } from './components/set-order-schedule-for-customer-modal/set-order-schedule-for-customer-modal.component';
 
 @Component({
   selector: 'app-customers',
@@ -170,6 +171,24 @@ export class CustomersComponent implements OnInit {
         });
     }
     this.cdr?.detectChanges();
+  }
+  VIPCustomerAction(item: any): void {
+    const ref = this.dialogService?.open(SetOrderScheduleForCustomerModalComponent, {
+      data: {
+        item
+      },
+      header: this.publicService?.translateTextFromJson('labels.isVip'),
+      dismissableMask: false,
+      width: '40%',
+      styleClass: 'custom_modal'
+    });
+    ref.onClose.subscribe((res: any) => {
+      if (res?.listChanged) {
+        // this.page = 1;
+        // this.publicService?.changePageSub?.next({ page: this.page });
+        // this.getAllCustomers();
+      }
+    });
   }
 
   clearTable(event: any): void {

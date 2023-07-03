@@ -72,7 +72,6 @@ export class FilterOrdersComponent implements OnInit {
       orderStatus: ['', []],
     },
   );
-
   get formControls(): any {
     return this.modalForm?.controls;
   }
