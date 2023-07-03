@@ -4,7 +4,6 @@ import { PublicService } from './../../../../../shared/services/public.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { patterns } from './../../../../../shared/configs/patternValidations';
 import { CustomersService } from './../../../../services/customers.service';
-import { TanksService } from './../../../../services/tanks.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -67,7 +66,7 @@ export class AddEditCustomerComponent implements OnInit {
     this.modalForm?.patchValue({
       name: this.modalData?.item?.name,
       mobileNumber: this.modalData?.item?.mobileNumber,
-      isVip: this.modalData?.isVip
+      isVip: this.modalData?.item?.isVip
     })
   }
 

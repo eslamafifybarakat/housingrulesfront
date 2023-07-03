@@ -69,7 +69,6 @@ export class AddEditServiceAgentComponent implements OnInit {
     return this.modalForm?.controls;
   }
   patchValue(): void {
-    console.log(this.modalData);
     this.modalForm?.patchValue({
       arName: this.modalData?.item?.arName,
       enName: this.modalData?.item?.enName,
