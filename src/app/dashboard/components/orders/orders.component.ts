@@ -59,6 +59,8 @@ export class OrdersComponent implements OnInit {
   orderStatus: any = null;
   private hubConnection: signalR.HubConnection | undefined;
 
+  cancellationCauses: any = [];
+
   constructor(
     private alertsService: AlertsService,
     private publicService: PublicService,
@@ -76,6 +78,7 @@ export class OrdersComponent implements OnInit {
     //     this.cdr.detectChanges();
     //   }
     // });
+    this.cancellationCauses = this.publicService?.getOrdersCancellationReasons();
     this.startConnection();
     this.userLoginDataType = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}')?.userType;
     if (this.userLoginDataType !== 9) {
@@ -110,7 +113,7 @@ export class OrdersComponent implements OnInit {
 
     ];
 
-     this.getAllOrders();
+    this.getAllOrders();
     this.propertyTypeList = this.publicService?.getPropertyType();
     this.orderOriginList = this.publicService?.getOrderOrigin();
     this.paymentMethodList = this.publicService?.getPaymentMethods();
@@ -200,6 +203,12 @@ export class OrdersComponent implements OnInit {
             if (item?.tankSize == 3) {
               sizeTank = "Size32";
             }
+            let cancellationCausesText: any = '';
+            this.cancellationCauses?.forEach((element: any) => {
+              if (element?.id == item?.cancellatinCauses) {
+                cancellationCausesText = element?.name;
+              }
+            });
             arr.push({
               id: item?.id ? item?.id : null,
               dateTime: item?.dateTime ? new Date(item?.dateTime) : null,
@@ -217,14 +226,14 @@ export class OrdersComponent implements OnInit {
               statusClass: statusClass,
               paymentMethod: paymentMethod,
               paidAmount: item?.paidAmount ? item?.paidAmount : '0',
-              cancellationCauses: item?.cancellationCauses ? item?.cancellationCauses : '',
+              cancellationCauses: item?.cancellatinCauses ? cancellationCausesText : '',
               closedAt: item?.closedAt ? item?.closedAt : '',
               supervisor: item?.supervisor ? item?.supervisor : [],
               driver: item?.driver ? item?.driver : [],
               customer: item?.customer ? item?.customer : '',
               comments: item?.comments ? item?.comments : '',
               cancellationDesc: item?.cancellationDesc ? item?.cancellationDesc : '',
-              isVip: item?.isVip ? item?.isVip :false
+              isVip: item?.isVip ? item?.isVip : false
             });
           }) : '';
           this.ordersList$ = arr;
