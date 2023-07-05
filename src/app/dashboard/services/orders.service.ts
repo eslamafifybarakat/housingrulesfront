@@ -261,4 +261,11 @@ export class OrdersService {
   cancelOrder(data: any): Observable<any> {
     return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.orders?.cancelOrder}`, data);
   }
+  getByIdAsync(id: number): Observable<any> {
+    let params = new HttpParams();
+    if (id) {
+      params = params.append("id", id);
+    }
+    return this.http?.get<any>(`${this.baseUrl}/${roots?.dashboard?.orders?.getByIdAsync}`, { params: params });
+  }
 }

@@ -21,6 +21,7 @@ export class SheduleCreatedSuccessfullyComponent implements OnInit {
   }
 
   browse(): void {
+    this.ref?.close();
     const ref = this.dialogService?.open(OrderSheduleComponent, {
       dismissableMask: true,
       width: '100%',

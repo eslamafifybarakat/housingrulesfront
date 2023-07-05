@@ -1,6 +1,7 @@
 import { SheduleCreatedSuccessfullyComponent } from './../shedule-created-successfully/shedule-created-successfully.component';
 import { CheckValidityService } from './../../../../../shared/services/check-validity/check-validity.service';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';
+import { OrderSheduleComponent } from '../order-shedule/order-shedule.component';
 import { CustomersService } from 'src/app/dashboard/services/customers.service';
 import { PublicService } from './../../../../../shared/services/public.service';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -25,6 +26,9 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
   isLoadingDayOfWeekList: boolean = false;
   dayOfWeekList: any = [];
   todayVal: any = new Date();
+  isLoading: boolean = false;
+  orderSchedule: any = [];
+  tableHeaders: any = [];
 
   constructor(
     public checkValidityService: CheckValidityService,
@@ -39,18 +43,26 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.periodicCatList = this.publicService.getPeriodicCat();
-    this.dayOfWeekList = this.publicService.getDayOfWeek();
+    this.periodicCatList = this.publicService?.getPeriodicCat();
+    this.dayOfWeekList = this.publicService?.getDayOfWeek();
     this.modalData = this.config?.data;
+    this.getByIdAsyncOrderSchedule(this.modalData?.item?.item?.id);
+    this.tableHeaders = [
+      { field: 'dayOrder', header: this.publicService?.translateTextFromJson('labels.dayOfWeek'), title: this.publicService?.translateTextFromJson('labels.dayOfWeek'), type: 'text' },
+      { field: 'period', header: this.publicService?.translateTextFromJson('labels.periodicCat'), title: this.publicService?.translateTextFromJson('labels.periodicCat'), type: 'text' },
+      { field: 'timeVale', header: this.publicService?.translateTextFromJson('labels.time'), title: this.publicService?.translateTextFromJson('labels.time'), type: 'text' },
+      { field: 'startDue', header: this.publicService?.translateTextFromJson('labels.startDate'), title: this.publicService?.translateTextFromJson('labels.startDate'), type: 'date' },
+      { field: 'endDue', header: this.publicService?.translateTextFromJson('labels.endDate'), title: this.publicService?.translateTextFromJson('labels.endDate'), type: 'date' },
+    ];
   }
 
   modalForm = this.fb?.group(
     {
       startDate: [null, [Validators.required]],
       endDate: [null, [Validators.required]],
-      time: ['', {
+      time: [new Date(0, 0, 0, 0, 0), {
         validators: [
-          Validators.required], updateOn: "blur"
+          Validators.required]
       }],
       periodicCat: ['', {
         validators: [
@@ -78,7 +90,49 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
     this.publicService?.removeValidators(this.modalForm, ['endDate']);
     this.modalForm?.get('endDate')?.reset();
   }
+  getByIdAsyncOrderSchedule(id: any): void {
+    this.isLoading = true;
+    this.customersService?.getByIdAsyncOrderSchedule(id)?.subscribe(
+      (res: any) => {
+        if (res?.isSuccess == true && res?.statusCode == 200) {
+          this.isLoading = false;
+          let arr = [];
+          arr = res?.data ? res?.data : [];
+          arr?.forEach((item: any) => {
+            let period = null;
+            let dayOrder = null;
+            this.periodicCatList?.forEach((element: any) => {
+              if (item?.period == element?.id) {
+                period = element?.name;
+              }
+            });
+            this.dayOfWeekList?.forEach((element: any) => {
+              if (item?.dayOrder == element?.id) {
+                dayOrder = element?.name;
+              }
+            });
+            if (item?.timeVale != null) {
+              this.orderSchedule?.push({
+                startDue: item?.startDue,
+                endDue: item?.endDue,
+                timeVale: this.publicService?.getFormattedTime(item?.timeVale),
+                period: period,
+                dayOrder: dayOrder
+              });
+            }
+          });
+          console.log(this.orderSchedule);
 
+        } else {
+          this.isLoading = false;
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+        }
+      },
+      (err: any) => {
+        this.isLoading = false;
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+      });
+  }
   submit(): void {
     const myObject: { [key: string]: any } = {};
     if (this.modalForm?.valid) {
@@ -116,7 +170,16 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
       this.checkValidityService?.validateAllFormFields(this.modalForm);
     }
   }
-
+  browse(): void {
+    this.ref?.close();
+    const ref = this.dialogService?.open(OrderSheduleComponent, {
+      dismissableMask: true,
+      width: '100%',
+      height: '100%',
+      styleClass: 'shedule-dialog',
+      data: this.modalData
+    });
+  }
   openSuccessfulModal() {
     const ref = this.dialogService?.open(SheduleCreatedSuccessfullyComponent, {
       dismissableMask: false,
@@ -124,6 +187,7 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
       data: { id: this.modalData?.item?.item?.id }
     });
   }
+
   cancel(): void {
     this.ref?.close({ listChanged: false });
   }

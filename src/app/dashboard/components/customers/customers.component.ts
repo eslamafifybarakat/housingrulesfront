@@ -179,7 +179,7 @@ export class CustomersComponent implements OnInit {
       },
       header: this.publicService?.translateTextFromJson('labels.isVip'),
       dismissableMask: false,
-      width: '40%',
+      width: '65%',
       styleClass: 'custom_modal'
     });
     ref.onClose.subscribe((res: any) => {

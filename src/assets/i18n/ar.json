@@ -4,6 +4,12 @@
     "arabic": "Arabic"
   },
   "general": {
+    "newStatus":"الحالة الجديدة",
+    "oldStatus":"الحالة القديمة",
+    "createdDate":"تاريخ الإنشاء",
+    "history":"السجل",
+    "schedule":"الجدول",
+    "addNew":"إضافة جديد",
     "scheduleCreatedSuccessfully":"تم إنشاء الجدولة بنجاح",
     "annually":"سنويا",
     "monthly":"شهريا",

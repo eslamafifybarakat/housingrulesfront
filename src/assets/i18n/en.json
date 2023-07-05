@@ -4,6 +4,12 @@
     "arabic": "Arabic"
   },
   "general": {
+    "newStatus":"New Status",
+    "oldStatus":"Old Status",
+    "createdDate":"Create Date",
+    "history":"History",
+    "schedule":"Schedules",
+    "addNew":"Add New",
     "scheduleCreatedSuccessfully":"Schedule created successfully",
     "annually":"Annually",
     "monthly":"Monthly",

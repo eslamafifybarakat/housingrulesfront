@@ -341,7 +341,7 @@ export class OrdersComponent implements OnInit {
       data: item,
       header: this.publicService?.translateTextFromJson('dashboard.orders.orderDetails'),
       dismissableMask: true,
-      width: '40%',
+      width: '65%',
       styleClass: 'custom_modal'
     });
   }

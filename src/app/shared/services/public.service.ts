@@ -5,6 +5,7 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Validators, AbstractControl } from '@angular/forms';
 import { keys } from '../configs/localstorage-key';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,8 @@ export class PublicService {
   alphabet: any = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   constructor(
     private translate: TranslateService,
-    private http: HttpClient
+    private datePipe: DatePipe,
+    private http: HttpClient,
   ) { }
 
   ngOnInit(): void {
@@ -235,5 +237,17 @@ export class PublicService {
       { id: 100, value: 100, name: this.translateTextFromJson('dashboard.orders.reasons.other') },
     ];
     return arr;
+  }
+  getFormattedTime(timeString: string) {
+    const timeParts = timeString.split(':');
+    const hour = +timeParts[0];
+    const minute = +timeParts[1];
+    const second = +timeParts[2];
+
+    const date = new Date();
+    date.setHours(hour);
+    date.setMinutes(minute);
+    date.setSeconds(second);
+    return this.datePipe.transform(date, 'h:mm:ss a');
   }
 }

@@ -1,81 +1,92 @@
 <div id="modal">
-  <div class="mb-4">
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.orderNumber'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.orderNumber}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'dashboard.tableHeader.time'|translate}}</label>
-      <p class="fs-5-1">{{time}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.orderOrigin'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.orderOrigin}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'dashboard.tableHeader.createdBy'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.createdByStr}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.customerName'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.customer}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.customerMobileNumber'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.customerMobileNumber}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.locationLink'|translate}}</label>
-      <u>
-        <a class="fs-5-1" [href]="modalData?.locationLink"
-          target="_blank">{{'dashboard.tableHeader.locationLink'|translate}}</a>
-      </u>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.supervisor'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.supervisor}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.driver'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.driver}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.tank'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.tank}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.district'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.district}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.propertyType'|translate}}</label>
-      <p class="fs-5-1">{{propertyType}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.paymentMethod'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.paymentMethod}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.paidAmount'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.paidAmount}}</p>
-    </div>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.status'|translate}}</label>
-      <p class=" item-badge" [class]="'status-'+modalData?.statusClass">{{modalData?.status}}</p>
-    </div>
-    {{modalData?.cancellationCauses}}
-    <ng-container *ngIf="modalData?.statusValue==8">
-      <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-        <label for="active" class="fw-bold fs-5-1">{{'labels.cancellationCauses'|translate}}</label>
-        <p class="fs-5-1">{{modalData?.cancellationCauses}}</p>
-      </div>
-    </ng-container>
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
-      <label for="active" class="fw-bold fs-5-1">{{'labels.comments'|translate}}</label>
-      <p class="fs-5-1">{{modalData?.comments}}</p>
-      <p class="fs-5-1">{{modalData?.cancellationDesc}}</p>
-    </div>
-  </div>
-
-
+  <ng-container *ngIf="isLoading; else noLoading">
+    <app-skeleton [type]="'order-details'"></app-skeleton>
+  </ng-container>
+  <ng-template #noLoading>
+    <p-tabView>
+      <p-tabPanel [header]="'general.details'|translate">
+        <div class="mb-4">
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.orderNumber'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.orderNumber}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'dashboard.tableHeader.time'|translate}}</label>
+            <p class="fs-5-1">{{time}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.orderOrigin'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.orderOrigin}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'dashboard.tableHeader.createdBy'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.createdByStr}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.customerName'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.customer}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.customerMobileNumber'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.customerMobileNumber}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.locationLink'|translate}}</label>
+            <u>
+              <a class="fs-5-1" [href]="orderDetails?.locationLink"
+                target="_blank">{{'dashboard.tableHeader.locationLink'|translate}}</a>
+            </u>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.supervisor'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.supervisor}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.driver'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.driver}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.tank'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.tankSize}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.district'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.district}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.propertyType'|translate}}</label>
+            <p class="fs-5-1">{{propertyType}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.paymentMethod'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.paymentMethod}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.paidAmount'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.paidAmount}}</p>
+          </div>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.status'|translate}}</label>
+            <p class=" item-badge" [class]="'status-'+orderDetails?.statusClass">{{orderDetails?.status}}</p>
+          </div>
+          <ng-container *ngIf="orderDetails?.statusValue==8">
+            <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+              <label for="active" class="fw-bold fs-5-1">{{'labels.cancellationCauses'|translate}}</label>
+              <p class="fs-5-1">{{orderDetails?.cancellationCauses}}</p>
+            </div>
+          </ng-container>
+          <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+            <label for="active" class="fw-bold fs-5-1">{{'labels.comments'|translate}}</label>
+            <p class="fs-5-1">{{orderDetails?.comments}}</p>
+            <p class="fs-5-1">{{orderDetails?.cancellationDesc}}</p>
+          </div>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel [header]="'general.history'|translate">
+        <app-dynamic-table-local-actions [isLoading]="isLoading" [tableHeaders]="tableHeaders"
+          [tableData]="orderHistory" [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'"
+          [enablePaginator]="false" [showPaginator]="false"></app-dynamic-table-local-actions>
+      </p-tabPanel>
+    </p-tabView>
+  </ng-template>
 </div>

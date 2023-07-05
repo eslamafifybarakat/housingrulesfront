@@ -49,7 +49,8 @@ export const roots = {
       getOrderById: 'Orders/GetByIdAsync',
       checkCustomerHasOpendedOrders: 'Orders/GetOrderByCustomerIdAsync',
       GetOrdersQL: 'Orders/GetOrdersQL',
-      cancelOrder: "Orders/CancelOrder"
+      cancelOrder: "Orders/CancelOrder",
+      getByIdAsync: 'Orders/GetByIdAsync'
     },
     users: {
       usersList: 'Auth/GetUsers',

@@ -371,7 +371,19 @@
               <ng-container *ngIf="col?.dataType=='array'; else noChild">
                 <td>
                   <ng-container *ngIf="col?.status; else noStatus">
-                    <span [class]="'item-badge status-' +  item.statusClass">{{ item[col.field]}}</span>
+                    <ng-container *ngIf="col?.statusType==null">
+                      <span [class]="'item-badge status-' + item.statusClass">{{
+                        item[col.field]}}</span>
+                    </ng-container>
+
+                    <ng-container *ngIf="col?.statusType=='old'">
+                      <span [class]="'item-badge status-' + item.oldStatusClass">
+                        {{item[col.field]}}</span>
+                    </ng-container>
+                    <ng-container *ngIf="col?.statusType=='new'">
+                      <span [class]="'item-badge status-' + item.newStatusClass">
+                        {{item[col.field]}}</span>
+                    </ng-container>
                   </ng-container>
                   <ng-template #noStatus>
                     <ng-container *ngIf="item && item[col.field]">
@@ -880,7 +892,7 @@
   </ng-template>
   </p-table>
 </div>
-<ng-container *ngIf="!showPaginator">
+<ng-container *ngIf="!showPaginator&&enablePaginator">
   <ng-container *ngIf="tableData?.length>0">
     <div class="d-flex justify-content-center my-3">
       <ng-container *ngIf="showPaginationText">
