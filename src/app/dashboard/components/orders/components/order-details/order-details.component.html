@@ -84,7 +84,7 @@
       </p-tabPanel>
       <p-tabPanel [header]="'general.history'|translate">
         <app-dynamic-table-local-actions [isLoading]="isLoading" [tableHeaders]="tableHeaders"
-          [tableData]="orderHistory" [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'"
+          [tableData]="orderHistory" [enableDateFormate]="true" [dateFormateString]="'hh:mm | dd/MM/YYYY'"
           [enablePaginator]="false" [showPaginator]="false"></app-dynamic-table-local-actions>
       </p-tabPanel>
     </p-tabView>

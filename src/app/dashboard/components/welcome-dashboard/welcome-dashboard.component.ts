@@ -1,33 +1,69 @@
-import { basicOptions, basicOptionsHorizontal, doughnutChartOptions, polarAreaChartOptions, stackedOptions, stackedOptionsHorizontal } from './welcome';
+import {
+  basicOptions,
+  basicOptionsHorizontal,
+  doughnutChartOptions,
+  polarAreaChartOptions,
+  pieChartOptions,
+  stackedOptions,
+  stackedOptionsHorizontal,
+  barStackedOptions,
+} from './welcome';
 import { AlertsService } from 'src/app/core/services/alerts/alerts.service';
 import { PublicService } from './../../../shared/services/public.service';
 import { SupervisorsService } from '../../services/supervisors.service';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { keys } from './../../../shared/configs/localstorage-key';
 import { OrdersService } from '../../services/orders.service';
 import { Subscription } from 'rxjs';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { plugins } from 'chart.js';
+
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ChartComponent,
+  ApexDataLabels,
+  ApexPlotOptions,
+  ApexResponsive,
+  ApexXAxis,
+  ApexLegend,
+  ApexFill,
+} from 'ng-apexcharts';
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  responsive: ApexResponsive[];
+  xaxis: ApexXAxis;
+  legend: ApexLegend;
+  fill: ApexFill;
+};
+
 @Component({
   selector: 'app-welcome-dashboard',
   templateUrl: './welcome-dashboard.component.html',
-  styleUrls: ['./welcome-dashboard.component.scss']
+  styleUrls: ['./welcome-dashboard.component.scss'],
 })
 export class WelcomeDashboardComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
-
   stackedData: any;
   stackedOptions: any = stackedOptions;
+  barStackedOptions: any = barStackedOptions;
   doughnutData: any;
+  requestsData: any;
   doughnutChartOptions: any = doughnutChartOptions;
   polarAreaData: any;
   polarAreaChartOptions: any = polarAreaChartOptions;
+  pieChartOptions: any = pieChartOptions;
   basicData: any;
   basicOptions: any = basicOptions;
   orderList: any;
   isLoadingOrder: boolean = false;
   tankSizes: any = [];
   tankSizesChart: any = [];
+  requestTypesChart: any = [];
   supervisorsList: any = [];
   supervisorsNamesChart: any = [];
   driverOnWayToCustomerChart: any = [];
@@ -43,24 +79,30 @@ export class WelcomeDashboardComponent implements OnInit {
   cancelledChart: any = [];
   typeValue: any;
   typeValueOfStatus: any;
-  type: any = [{
-    id: 1,
-    value: 'horizontal',
-    name: this.publicService?.translateTextFromJson('general.horizontal')
-  }, {
-    id: 2,
-    value: 'vertical',
-    name: this.publicService?.translateTextFromJson('general.vertical')
-  }];
+  type: any = [
+    {
+      id: 1,
+      value: 'horizontal',
+      name: this.publicService?.translateTextFromJson('general.horizontal'),
+    },
+    {
+      id: 2,
+      value: 'vertical',
+      name: this.publicService?.translateTextFromJson('general.vertical'),
+    },
+  ];
   currentLanguage: any;
   plugins: any;
+
+  @ViewChild('chart') chart: ChartComponent | any;
+
   constructor(
     private supervisorsService: SupervisorsService,
     private publicService: PublicService,
     private ordersService: OrdersService,
     private alertsService: AlertsService,
-    private cdr: ChangeDetectorRef,
-  ) { }
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.currentLanguage = window?.localStorage?.getItem(keys?.language);
@@ -69,35 +111,44 @@ export class WelcomeDashboardComponent implements OnInit {
     this.typeValue = {
       id: 2,
       value: 'vertical',
-      name: this.publicService?.translateTextFromJson('general.vertical')
+      name: this.publicService?.translateTextFromJson('general.vertical'),
     };
     this.typeValueOfStatus = {
       id: 2,
       value: 'vertical',
-      name: this.publicService?.translateTextFromJson('general.vertical')
+      name: this.publicService?.translateTextFromJson('general.vertical'),
     };
   }
 
   getAllOrders(): any {
     this.isLoadingOrder = true;
-    this.ordersService?.getOrdersEntityList(0,0,'',0,0,1,0,0,0,0,0)?.subscribe(
-      (res: any) => {
-        if (res?.statusCode == 200 && res?.isSuccess == true) {
-          this.orderList = res?.data ? res?.data : [];
-          this.calcTankSizes(this.orderList);
-          this.getAllSupervisors();
-          this.calcOrderResources(this.orderList);
-        } else {
-          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+    this.ordersService
+      ?.getOrdersEntityList(0, 0, '', 0, 0, 1, 0, 0, 0, 0, 0)
+      ?.subscribe(
+        (res: any) => {
+          if (res?.statusCode == 200 && res?.isSuccess == true) {
+            this.orderList = res?.data ? res?.data : [];
+            this.calcTankSizes(this.orderList);
+            this.getAllSupervisors();
+            this.calcOrderResources(this.orderList);
+            this.calcTotalRequestTypes(this.orderList);
+          } else {
+            res?.message
+              ? this.alertsService?.openSweetAlert('info', res?.message)
+              : '';
+            this.isLoadingOrder = false;
+          }
+        },
+        (err: any) => {
+          err?.message
+            ? this.alertsService?.openSweetAlert('error', err?.message)
+            : '';
           this.isLoadingOrder = false;
         }
-      },
-      (err: any) => {
-        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
-        this.isLoadingOrder = false;
-      });
+      );
     this.cdr?.detectChanges();
   }
+
   calcTankSizes(data: any): void {
     let size1: any = 0;
     let size2: any = 0;
@@ -116,30 +167,83 @@ export class WelcomeDashboardComponent implements OnInit {
     this.tankSizesChart = [size1, size2, size3];
     console.log(this.tankSizesChart);
     this.doughnutData = {
-      labels: [this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size15'), this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20'), this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32')],
+      labels: [
+        this.publicService?.translateTextFromJson(
+          'dashboard.tanks.TankSize.Size15'
+        ),
+        this.publicService?.translateTextFromJson(
+          'dashboard.tanks.TankSize.Size20'
+        ),
+        this.publicService?.translateTextFromJson(
+          'dashboard.tanks.TankSize.Size32'
+        ),
+      ],
       datasets: [
         {
           data: this.tankSizesChart,
-          backgroundColor: [
-            "#09d891",
-            "#FF6384",
-            "#FFCE56"
-          ],
-          hoverBackgroundColor: [
-            "#09d891",
-            "#FF6384",
-            "#FFCE56"
-          ]
-        }
-      ]
+          backgroundColor: ['#09d891', '#FF6384', '#FFCE56'],
+          hoverBackgroundColor: ['#09d891', '#FF6384', '#FFCE56'],
+        },
+      ],
     };
   }
+
+  calcTotalRequestTypes(data: any): void {
+    let requestCompelete: any = 0;
+    let requestPending: any = 0;
+    let requestCanceled: any = 0;
+    let requestRunning: any = 0;
+
+    data?.forEach((item: any) => {
+      if (item?.status == 7) {
+        requestCompelete = requestCompelete + 1;
+      }
+      else if (item?.status == 8) {
+        requestCanceled = requestCanceled + 1;
+      }
+      else if (item?.status == 1) {
+        requestPending = requestPending + 1;
+      }
+      else{
+        requestRunning = requestRunning +1;
+      }
+
+    });
+    this.requestTypesChart = [
+      requestCompelete,
+      requestPending,
+      requestCanceled,
+      requestRunning
+    ];
+
+    this.requestsData = {
+      labels: [
+        this.publicService?.translateTextFromJson('welcome.completed') +' ' + requestCompelete,
+        this.publicService?.translateTextFromJson('welcome.pending') +' ' +requestPending,
+        this.publicService?.translateTextFromJson('welcome.cancel') +' ' +requestCanceled,
+        this.publicService?.translateTextFromJson('welcome.run') +' ' +requestRunning
+      ],
+      datasets: [
+        {
+          data: this.requestTypesChart,
+          backgroundColor: ['#50cd89', '#E4DCCF', '#EA5455','#26527e'],
+          hoverBackgroundColor: ['#50cd89', '#E4DCCF', '#EA5455','#26527e'],
+        },
+      ],
+    };
+  }
+
   calcOrderResources(data: any): void {
-    let field: any = 0; 4
-    let whatsapp: any = 0; 1
-    let call: any = 0; 3
-    let tms: any = 0; 2
-    let others: any = 0; 5
+    let field: any = 0;
+    4;
+    let whatsapp: any = 0;
+    1;
+    let call: any = 0;
+    3;
+    let tms: any = 0;
+    2;
+    let others: any = 0;
+    5;
     data?.forEach((item: any) => {
       if (item?.orderOrigin == 1) {
         whatsapp = whatsapp + 1;
@@ -159,63 +263,91 @@ export class WelcomeDashboardComponent implements OnInit {
     });
     this.orderResourcesChart = [field, whatsapp, call, tms, others];
     this.polarAreaData = {
-      datasets: [{
-        data: this.orderResourcesChart,
-        backgroundColor: [
-          "#fdc604",
-          "#50cd89",
-          "#818ea1",
-          "#743aef",
-          "#EA5455"
-        ],
-        label: 'My dataset'
-      }],
+      datasets: [
+        {
+          data: this.orderResourcesChart,
+          backgroundColor: [
+            '#fdc604',
+            '#50cd89',
+            '#818ea1',
+            '#743aef',
+            '#EA5455',
+          ],
+          label: '',
+        },
+      ],
       labels: [
-        this.publicService?.translateTextFromJson('general.field'),
-        this.publicService?.translateTextFromJson('general.whatsapp'),
-        this.publicService?.translateTextFromJson('general.call'),
-        this.publicService?.translateTextFromJson('general.tms'),
-        this.publicService?.translateTextFromJson('general.others')
-      ]
+        this.publicService?.translateTextFromJson('general.field') +
+          ' ' +
+          field,
+        this.publicService?.translateTextFromJson('general.whatsapp') +
+          ' ' +
+          whatsapp,
+        this.publicService?.translateTextFromJson('general.call') + ' ' + call,
+        this.publicService?.translateTextFromJson('general.tms') + ' ' + tms,
+        this.publicService?.translateTextFromJson('general.others') +
+          ' ' +
+          others,
+      ],
     };
-    // this.polarAreaChartOptions = {
-    //   plugins: {
-    //     datalabels: {
-    //       anchor: 'end',
-    //       align: 'end',
-    //       color: '#111',
-    //       font: {
-    //         weight: 'bold'
-    //       },
-    //       formatter: function (value: any, ctx: any) {
-    //         return value;
-    //       }
-    //     }
-    //   },
-    //   scales: {
-    //     x: {
-    //       ticks: {
-    //         color: '#111'
-    //       },
-    //       grid: {
-    //         color: '#eee'
-    //       }
-    //     },
-    //     y: {
-    //       ticks: {
-    //         color: '#111',
-    //         stepSize: 5
-    //       },
-    //       grid: {
-    //         color: '#eee'
-    //       }
-    //     }
-    //   }
-    // };
 
     this.plugins = [ChartDataLabels];
 
+    //============ PolarChart ======
+    // let field: any = 0;
+    // 4;
+    // let whatsapp: any = 0;
+    // 1;
+    // let call: any = 0;
+    // 3;
+    // let tms: any = 0;
+    // 2;
+    // let others: any = 0;
+    // 5;
+    // data?.forEach((item: any) => {
+    //   if (item?.orderOrigin == 1) {
+    //     whatsapp = whatsapp + 1;
+    //   }
+    //   if (item?.orderOrigin == 2) {
+    //     tms = tms + 1;
+    //   }
+    //   if (item?.orderOrigin == 3) {
+    //     call = call + 1;
+    //   }
+    //   if (item?.orderOrigin == 4) {
+    //     field = field + 1;
+    //   }
+    //   if (item?.orderOrigin == 5) {
+    //     others = others + 1;
+    //   }
+    // });
+    // this.orderResourcesChart = [field, whatsapp, call, tms, others];
+    // this.polarAreaData = {
+    //   datasets: [
+    //     {
+    //       data: this.orderResourcesChart,
+    //       backgroundColor: [
+    //         '#fdc604',
+    //         '#50cd89',
+    //         '#818ea1',
+    //         '#743aef',
+    //         '#EA5455',
+    //       ],
+    //       label: 'My dataset',
+    //     },
+    //   ],
+    //   labels: [
+    //     this.publicService?.translateTextFromJson('general.field'),
+    //     this.publicService?.translateTextFromJson('general.whatsapp'),
+    //     this.publicService?.translateTextFromJson('general.call'),
+    //     this.publicService?.translateTextFromJson('general.tms'),
+    //     this.publicService?.translateTextFromJson('general.others'),
+    //   ],
+    // };
+
+    // this.plugins = [ChartDataLabels];
   }
+
   calcSupervisorOrderStatusNumbers(data: any): void {
     let completed: any = 0;
     let driverOnWayToStation: any = 0;
@@ -224,7 +356,8 @@ export class WelcomeDashboardComponent implements OnInit {
     let supervisorData: any = [];
     let supervisorName: any = '';
     this.supervisorsList?.forEach((element: any) => {
-      supervisorName = this.currentLanguage == 'ar' ? element?.arName : element?.enName;
+      supervisorName =
+        this.currentLanguage == 'ar' ? element?.arName : element?.enName;
       pending = 0;
       driverOnWayToCustomer = 0;
       driverOnWayToStation = 0;
@@ -244,14 +377,13 @@ export class WelcomeDashboardComponent implements OnInit {
             driverOnWayToCustomer = driverOnWayToCustomer + 1;
           }
         }
-
       });
       supervisorData?.push({
         supervisorName: supervisorName,
         driverOnWayToCustomer: driverOnWayToCustomer,
         pending: pending,
         driverOnWayToStation: driverOnWayToStation,
-        completed: completed
+        completed: completed,
       });
     });
 
@@ -264,7 +396,6 @@ export class WelcomeDashboardComponent implements OnInit {
         this.driverOnWayToStationChart?.push(item?.driverOnWayToStation);
       }
     });
-    console.log(this.supervisorsNamesChart);
     this.basicData = {
       labels: this.supervisorsNamesChart,
       datasets: [
@@ -272,34 +403,38 @@ export class WelcomeDashboardComponent implements OnInit {
           label: this.publicService?.translateTextFromJson('general.completed'),
           backgroundColor: '#50cd89',
           data: this.completedChart,
-          barThickness: 20,
-          borderRadius: 4,
+          categoryPercentage: 1,
+          barPercentage: 0.7,
         },
         {
-          label: this.publicService?.translateTextFromJson('general.driverOnWayToStation'),
+          label: this.publicService?.translateTextFromJson(
+            'general.driverOnWayToStation'
+          ),
           backgroundColor: '#E4DCCF',
-          // EA5455
           data: this.driverOnWayToStationChart,
-          barThickness: 20,
-          borderRadius: 4,
+          categoryPercentage: 1,
+          barPercentage: 0.7,
         },
         {
           label: this.publicService?.translateTextFromJson('general.pending'),
           backgroundColor: '#1D267D',
           data: this.pendingChart,
-          barThickness: 20,
-          borderRadius: 4,
+          categoryPercentage: 1,
+          barPercentage: 0.7,
         },
         {
-          label: this.publicService?.translateTextFromJson('general.driverOnWayToCustomer'),
+          label: this.publicService?.translateTextFromJson(
+            'general.driverOnWayToCustomer'
+          ),
           backgroundColor: '#EA5455',
           data: this.driverOnWayToCustomerChart,
-          barThickness: 20,
-          borderRadius: 4,
-        }
-      ]
+          categoryPercentage: 1,
+          barPercentage: 0.7,
+        },
+      ],
     };
   }
+
   calcSupervisorAllOrderStatus(data: any): void {
     let completed: any = 0;
     let cancelled: any = 0;
@@ -309,7 +444,8 @@ export class WelcomeDashboardComponent implements OnInit {
     let supervisorData: any = [];
     let supervisorName: any = '';
     this.supervisorsList?.forEach((element: any) => {
-      supervisorName = this.currentLanguage == 'ar' ? element?.arName : element?.enName;
+      supervisorName =
+        this.currentLanguage == 'ar' ? element?.arName : element?.enName;
       pending = 0;
       assignedToDriver = 0;
       driverArrivedToCustomer = 0;
@@ -333,7 +469,6 @@ export class WelcomeDashboardComponent implements OnInit {
             cancelled = cancelled + 1;
           }
         }
-
       });
       supervisorData?.push({
         supervisorName: supervisorName,
@@ -361,14 +496,19 @@ export class WelcomeDashboardComponent implements OnInit {
       datasets: [
         {
           type: 'bar',
-          label: this.publicService?.translateTextFromJson('general.serviceDone'),
+          label: this.publicService?.translateTextFromJson(
+            'general.serviceDone'
+          ),
           backgroundColor: '#025464',
           barThickness: 30,
           borderRadius: 4,
           data: this.serviceDoneChart,
-        }, {
+        },
+        {
           type: 'bar',
-          label: this.publicService?.translateTextFromJson('general.workUnderway'),
+          label: this.publicService?.translateTextFromJson(
+            'general.workUnderway'
+          ),
           backgroundColor: '#09d891',
           barThickness: 30,
           borderRadius: 4,
@@ -376,7 +516,9 @@ export class WelcomeDashboardComponent implements OnInit {
         },
         {
           type: 'bar',
-          label: this.publicService?.translateTextFromJson('general.underConstruction'),
+          label: this.publicService?.translateTextFromJson(
+            'general.underConstruction'
+          ),
           backgroundColor: '#ccc',
           barThickness: 30,
           borderRadius: 4,
@@ -384,7 +526,9 @@ export class WelcomeDashboardComponent implements OnInit {
         },
         {
           type: 'bar',
-          label: this.publicService?.translateTextFromJson('general.InCustomerService'),
+          label: this.publicService?.translateTextFromJson(
+            'general.InCustomerService'
+          ),
           backgroundColor: '#E8AA42',
           barThickness: 30,
           borderRadius: 4,
@@ -398,9 +542,10 @@ export class WelcomeDashboardComponent implements OnInit {
           borderRadius: 4,
           data: this.cancelledChart,
         },
-      ]
+      ],
     };
   }
+
   getAllSupervisors(): any {
     this.supervisorsService?.getSupervisorsList()?.subscribe(
       (res: any) => {
@@ -417,16 +562,19 @@ export class WelcomeDashboardComponent implements OnInit {
       (err: any) => {
         err?.message ? this.alertsService.openSnackBar(err?.message) : '';
         this.isLoadingOrder = false;
-      });
+      }
+    );
     this.cdr.detectChanges();
   }
+
   ChangeType(event: any, type?: any): void {
     if (event?.value?.value == 'horizontal') {
-      this.basicOptions = basicOptionsHorizontal;
+      this.barStackedOptions = stackedOptionsHorizontal;
     } else {
-      this.basicOptions = basicOptions;
+      this.barStackedOptions = barStackedOptions;
     }
   }
+
   ChangeTypeOfStatus(event: any): void {
     if (event?.value?.value == 'horizontal') {
       this.stackedOptions = stackedOptionsHorizontal;
@@ -434,8 +582,8 @@ export class WelcomeDashboardComponent implements OnInit {
       this.stackedOptions = stackedOptions;
     }
   }
+
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
   }
 }
-

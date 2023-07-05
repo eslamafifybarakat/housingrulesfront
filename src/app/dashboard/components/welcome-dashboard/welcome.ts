@@ -1,20 +1,23 @@
-
 export const stackedOptions = {
+  responsive: true,
   plugins: {
     responsive: true,
-    maintainAspectRatio: false,
     legend: {
       labels: {
         color: '#111',
-      }
+      },
     },
     datalabels: {
       color: '#fff',
+      textAlign: 'center',
+      display: function (context: any) {
+        return context.dataset.data[context.dataIndex] !== 0; // or >= 1 or ...
+      },
     },
     tooltips: {
       mode: 'index',
-      intersect: false
-    }
+      intersect: false,
+    },
   },
   scales: {
     x: {
@@ -22,13 +25,13 @@ export const stackedOptions = {
       ticks: {
         color: '#111',
         font: {
-          size: 10
-        }
+          size: 12,
+          weight: 'bold',
+        },
       },
       grid: {
         color: '#eee',
-
-      }
+      },
     },
     y: {
       // max: 160,
@@ -36,15 +39,62 @@ export const stackedOptions = {
       stacked: true,
       ticks: {
         color: '#111',
-        stepSize: 4,
+        stepSize: 5,
       },
       grid: {
         color: '#eee',
       },
-
-    }
-  }
+    },
+  },
 };
+
+export const barStackedOptions = {
+  plugins: {
+    responsive: true,
+    legend: {
+      labels: {
+        color: '#111',
+      },
+    },
+    datalabels: {
+      color: '#fff',
+      textAlign: 'center',
+      display: function (context: any) {
+        return context.dataset.data[context.dataIndex] !== 0;
+      },
+    },
+    tooltips: {
+      mode: 'index',
+      intersect: false,
+    },
+  },
+  scales: {
+    x: {
+      stacked: true,
+      ticks: {
+        color: '#111',
+        font: {
+          size: 12,
+          weight: 'bold',
+        },
+      },
+      grid: {
+        color: '#eee',
+      },
+    },
+    y: {
+      stacked: true,
+      ticks: {
+        color: '#111',
+        stepSize: 5,
+      },
+      grid: {
+        color: '#eee',
+      },
+    },
+  },
+};
+
 export const stackedOptionsHorizontal = {
   indexAxis: 'y',
   plugins: {
@@ -53,15 +103,18 @@ export const stackedOptionsHorizontal = {
     legend: {
       labels: {
         color: '#111',
-      }
+      },
     },
     datalabels: {
       color: '#fff',
+      display: function (context: any) {
+        return context.dataset.data[context.dataIndex] !== 0; // or >= 1 or ...
+      },
     },
     tooltips: {
       mode: 'index',
-      intersect: false
-    }
+      intersect: false,
+    },
   },
   scales: {
     x: {
@@ -69,61 +122,108 @@ export const stackedOptionsHorizontal = {
       ticks: {
         color: '#111',
         font: {
-          size: 10
-        }
+          size: 12,
+          weight: 'bold',
+        },
       },
       grid: {
-        color: '#eee',
-
-      }
+        color: 'rgba(255,255,255,0.2)',
+      },
     },
     y: {
-      // max: 160,
-      // min: 0,
       stacked: true,
       ticks: {
         color: '#111',
-        stepSize: 4,
+        font: {
+          size: 12,
+          weight: 'bold',
+        },
       },
       grid: {
-        color: '#eee',
+        color: 'rgba(255,255,255,0.2)',
       },
-
-    }
-  }
+    },
+  },
 };
+
 export const doughnutChartOptions = {
   plugins: {
     legend: {
+      position: 'top',
       labels: {
-        color: '#495057'
-      }
+        color: '#495057',
+      },
     },
     datalabels: {
-      color: '#111',
+      textAlign: 'center',
+      color: 'white',
+      font: {
+        weight: 'bold',
+      },
+      display: function (context: any) {
+        return context.dataset.data[context.dataIndex] !== 0; // or >= 1 or ...
+      },
     },
-  }
-}
+  },
+};
 
 export const polarAreaChartOptions = {
   plugins: {
     legend: {
       labels: {
-        color: '#495057'
-      }
+        color: '#495057',
+      },
     },
     datalabels: {
       color: '#111',
-    }
+    },
   },
   scales: {
     r: {
       grid: {
-        color: '#ebedef'
-      }
-    }
-  }
-}
+        color: '#ebedef',
+      },
+    },
+  },
+};
+
+export const pieChartOptions = {
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+    datalabels: {
+      color: 'white',
+      font: {
+        weight: 'bold',
+      },
+      display: function (context: any) {
+        return context.dataset.data[context.dataIndex] !== 0; // or >= 1 or ...
+      },
+    },
+  },
+  scales: {
+    x: {
+      display: false,
+      ticks: {
+        color: '#111',
+      },
+      grid: {
+        display: false,
+      },
+    },
+    y: {
+      display: false,
+      ticks: {
+        color: '#111',
+        stepSize: 5,
+      },
+      grid: {
+        display: false,
+      },
+    },
+  },
+};
 
 export const basicOptions = {
   plugins: {
@@ -131,36 +231,40 @@ export const basicOptions = {
 
     legend: {
       labels: {
-        color: '#111'
-      }
+        color: '#111',
+      },
     },
     datalabels: {
       color: '#111',
+      textAlign: 'center',
     },
   },
   scales: {
     x: {
+      stacked: true,
       ticks: {
         color: '#111',
         font: {
-          size: 10
-        }
+          size: 10,
+        },
       },
       grid: {
-        color: '#eee'
-      }
+        color: '#eee',
+      },
     },
     y: {
+      stacked: true,
       ticks: {
         color: '#111',
         stepSize: 5,
       },
       grid: {
         color: '#eee',
-      }
-    }
-  }
+      },
+    },
+  },
 };
+
 export const basicOptionsHorizontal = {
   indexAxis: 'y',
   plugins: {
@@ -168,11 +272,14 @@ export const basicOptionsHorizontal = {
 
     legend: {
       labels: {
-        color: '#111'
-      }
+        color: '#111',
+      },
     },
     datalabels: {
       color: '#111',
+      display: function (context: any) {
+        return context.dataset.data[context.dataIndex] !== 0; // or >= 1 or ...
+      },
     },
   },
   scales: {
@@ -180,12 +287,12 @@ export const basicOptionsHorizontal = {
       ticks: {
         color: '#111',
         font: {
-          size: 10
-        }
+          size: 10,
+        },
       },
       grid: {
-        color: '#eee'
-      }
+        color: '#eee',
+      },
     },
     y: {
       ticks: {
@@ -194,7 +301,7 @@ export const basicOptionsHorizontal = {
       },
       grid: {
         color: '#eee',
-      }
-    }
-  }
+      },
+    },
+  },
 };

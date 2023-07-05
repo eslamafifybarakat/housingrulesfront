@@ -5,60 +5,95 @@
     </ng-container>
     <ng-template #elseTemplate>
       <div class="row gy-4">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
           <div class="global-card h-100">
-            <h5 class="mb-4 fw-bold text-truncate">{{'welcome.requestResources'|translate}}</h5>
-            <hr>
+            <h5 class="mb-4 fw-bold text-truncate">
+              {{ "welcome.requestResources" | translate }}
+            </h5>
+            <hr />
             <div class="polarChart">
-              <p-chart type="polarArea" [data]="polarAreaData" [options]="polarAreaChartOptions"
-                [style]="{'width': '40%'}" [plugins]="plugins"></p-chart>
+              <p-chart
+                type="pie"
+                [data]="polarAreaData"
+                [style]="{ width: '40%' }"
+                [options]="pieChartOptions"
+                [plugins]="plugins"
+              ></p-chart>
             </div>
           </div>
-
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
           <div class="global-card h-100 d-flex flex-column">
-            <h5 class="fw-bold text-truncate">{{'welcome.statementOfDailyOrder'|translate}}</h5>
-            <hr>
+            <h5 class="fw-bold text-truncate">
+              {{ "welcome.totalRequestsType" | translate }}
+            </h5>
+            <hr />
             <div class="doughnutChart">
-              <p-chart type="doughnut" [data]="doughnutData" [options]="doughnutChartOptions" [style]="{'width': '40%'}"
-                [plugins]="plugins"></p-chart>
+              <p-chart
+                type="doughnut"
+                [data]="requestsData"
+                [options]="doughnutChartOptions"
+                [style]="{ width: '50%' }"
+                [plugins]="plugins"
+              ></p-chart>
             </div>
-
-          </div>
-
-        </div>
-        <div class="col-lg-6">
-          <div class="global-card">
-            <div class="d-flex justify-content-between align-items-center gap-2">
-              <h5 class=" fw-bold text-truncate">{{'welcome.statusOfRequests'|translate}}</h5>
-              <p-dropdown [options]="type" optionLabel="name" [filter]="false" [virtualScroll]="true"
-                (onChange)="ChangeTypeOfStatus($event)" [(ngModel)]="typeValueOfStatus" [virtualScrollItemSize]="38"
-                filterBy="name" appendTo="body" scrollHeight="140px"
-                emptyMessage="{{'general.no_result_found'|translate}}" [showClear]="false"
-                placeholder="{{'general.type'|translate}}">
-              </p-dropdown>
-            </div>
-            <hr>
-            <p-chart type="bar" [data]="stackedData" [options]="stackedOptions" [plugins]="plugins"></p-chart>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
+          <div class="global-card h-100 d-flex flex-column">
+            <h5 class="fw-bold text-truncate">
+              {{ "welcome.statementOfDailyOrder" | translate }}
+            </h5>
+            <hr />
+            <div class="doughnutChart">
+              <p-chart
+                type="doughnut"
+                [data]="doughnutData"
+                [options]="doughnutChartOptions"
+                [style]="{ width: '40%' }"
+                [plugins]="plugins"
+              ></p-chart>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12">
           <div class="global-card">
-            <div class="d-flex justify-content-between align-items-center gap-2">
-              <h5 class="fw-bold text-truncate ">{{'welcome.numberOfRequests'|translate}}</h5>
-              <p-dropdown [options]="type" optionLabel="name" [filter]="false" [virtualScroll]="true"
-                (onChange)="ChangeType($event)" [(ngModel)]="typeValue" [virtualScrollItemSize]="38" filterBy="name"
-                appendTo="body" scrollHeight="140px" emptyMessage="{{'general.no_result_found'|translate}}"
-                [showClear]="false" placeholder="{{'general.type'|translate}}">
+            <div
+              class="d-flex justify-content-between align-items-center gap-2"
+            >
+              <h5 class="fw-bold text-truncate">
+                {{ "welcome.numberOfRequests" | translate }}
+              </h5>
+              <p-dropdown
+                [options]="type"
+                optionLabel="name"
+                [filter]="false"
+                [virtualScroll]="true"
+                (onChange)="ChangeType($event)"
+                [(ngModel)]="typeValue"
+                [virtualScrollItemSize]="38"
+                filterBy="name"
+                appendTo="body"
+                scrollHeight="140px"
+                emptyMessage="{{ 'general.no_result_found' | translate }}"
+                [showClear]="false"
+                placeholder="{{ 'general.type' | translate }}"
+              >
               </p-dropdown>
             </div>
-            <hr>
-            <p-chart type="bar" [data]="basicData" [options]="basicOptions" [plugins]="plugins"></p-chart>
+            <hr />
+            <p-chart
+              type="bar"
+              [options]="barStackedOptions"
+              [data]="basicData"
+              [plugins]="plugins"
+              height="350w"
+              [style]="{ width: '90%' }"
+            ></p-chart>
           </div>
         </div>
       </div>
     </ng-template>
   </div>
-
 </div>
