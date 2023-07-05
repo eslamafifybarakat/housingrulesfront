@@ -63,6 +63,7 @@
       <label for="active" class="fw-bold fs-5-1">{{'labels.status'|translate}}</label>
       <p class=" item-badge" [class]="'status-'+modalData?.statusClass">{{modalData?.status}}</p>
     </div>
+    {{modalData?.cancellationCauses}}
     <ng-container *ngIf="modalData?.statusValue==8">
       <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
         <label for="active" class="fw-bold fs-5-1">{{'labels.cancellationCauses'|translate}}</label>

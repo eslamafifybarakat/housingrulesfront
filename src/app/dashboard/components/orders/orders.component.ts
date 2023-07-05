@@ -217,7 +217,7 @@ export class OrdersComponent implements OnInit {
               statusClass: statusClass,
               paymentMethod: paymentMethod,
               paidAmount: item?.paidAmount ? item?.paidAmount : '0',
-              cancellationCauses: item?.cancellationCauses ? item?.cancellationCauses : '',
+              cancellationCauses: item?.cancellatinCauses ? item?.cancellatinCauses : '',
               closedAt: item?.closedAt ? item?.closedAt : '',
               supervisor: item?.supervisor ? item?.supervisor : [],
               driver: item?.driver ? item?.driver : [],
