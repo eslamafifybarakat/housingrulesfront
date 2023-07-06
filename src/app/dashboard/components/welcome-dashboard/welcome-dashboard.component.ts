@@ -102,7 +102,7 @@ export class WelcomeDashboardComponent implements OnInit {
     private ordersService: OrdersService,
     private alertsService: AlertsService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.currentLanguage = window?.localStorage?.getItem(keys?.language);
@@ -204,8 +204,8 @@ export class WelcomeDashboardComponent implements OnInit {
       else if (item?.status == 1) {
         requestPending = requestPending + 1;
       }
-      else{
-        requestRunning = requestRunning +1;
+      else {
+        requestRunning = requestRunning + 1;
       }
 
     });
@@ -218,16 +218,16 @@ export class WelcomeDashboardComponent implements OnInit {
 
     this.requestsData = {
       labels: [
-        this.publicService?.translateTextFromJson('welcome.completed') +' ' + requestCompelete,
-        this.publicService?.translateTextFromJson('welcome.pending') +' ' +requestPending,
-        this.publicService?.translateTextFromJson('welcome.cancel') +' ' +requestCanceled,
-        this.publicService?.translateTextFromJson('welcome.run') +' ' +requestRunning
+        this.publicService?.translateTextFromJson('welcome.completed') + ' ' + requestCompelete,
+        this.publicService?.translateTextFromJson('welcome.pending') + ' ' + requestPending,
+        this.publicService?.translateTextFromJson('welcome.cancel') + ' ' + requestCanceled,
+        this.publicService?.translateTextFromJson('welcome.run') + ' ' + requestRunning
       ],
       datasets: [
         {
           data: this.requestTypesChart,
-          backgroundColor: ['#50cd89', '#E4DCCF', '#EA5455','#26527e'],
-          hoverBackgroundColor: ['#50cd89', '#E4DCCF', '#EA5455','#26527e'],
+          backgroundColor: ['#50cd89', '#E4DCCF', '#EA5455', '#26527e'],
+          hoverBackgroundColor: ['#50cd89', '#E4DCCF', '#EA5455', '#26527e'],
         },
       ],
     };
@@ -278,16 +278,16 @@ export class WelcomeDashboardComponent implements OnInit {
       ],
       labels: [
         this.publicService?.translateTextFromJson('general.field') +
-          ' ' +
-          field,
+        ' ' +
+        field,
         this.publicService?.translateTextFromJson('general.whatsapp') +
-          ' ' +
-          whatsapp,
+        ' ' +
+        whatsapp,
         this.publicService?.translateTextFromJson('general.call') + ' ' + call,
         this.publicService?.translateTextFromJson('general.tms') + ' ' + tms,
         this.publicService?.translateTextFromJson('general.others') +
-          ' ' +
-          others,
+        ' ' +
+        others,
       ],
     };
 

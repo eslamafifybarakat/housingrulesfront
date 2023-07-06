@@ -600,72 +600,86 @@ export class AddEditOrderComponent implements OnInit {
         // myObject['createBy'] = 0;
       }
       // formInfo?.id ? this.checkCustomerHasOpendedOrders(formInfo?.id) : '';
-      if (false) {
-
-      } else {
-        if (this.isEdit && this.userData?.userType == 7) {
-          this.publicService?.show_loader?.next(true);
-          this.orderService?.addOrUpdateOrderDriverArrivedAtStation(myObject, this.orderId ? this.orderId : null)?.subscribe(
-            (res: any) => {
-              if (res?.isSuccess == true && res?.statusCode == 200) {
+      if (formInfo?.customerName?.id) {
+        this.publicService?.show_loader?.next(true);
+        this.orderService.checkCustomerHasOpendedOrders(formInfo?.customerName?.id).subscribe(
+          (res: any) => {
+            if (res?.isSuccess == true && res?.statusCode == 200) {
+              if (res?.data?.length > 0) {
+                // res?.close => yes=request => close modal
                 this.publicService?.show_loader?.next(false);
-                res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
-                this.router.navigate(['/dashboard/orders'])
               } else {
-                res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
-                this.publicService?.show_loader?.next(false);
+                if (this.isEdit && this.userData?.userType == 7) {
+                  this.publicService?.show_loader?.next(true);
+                  this.orderService?.addOrUpdateOrderDriverArrivedAtStation(myObject, this.orderId ? this.orderId : null)?.subscribe(
+                    (res: any) => {
+                      if (res?.isSuccess == true && res?.statusCode == 200) {
+                        this.publicService?.show_loader?.next(false);
+                        res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+                        this.router.navigate(['/dashboard/orders'])
+                      } else {
+                        res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+                        this.publicService?.show_loader?.next(false);
+                      }
+                    },
+                    (err: any) => {
+                      err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+                      this.publicService?.show_loader?.next(false);
+                    });
+                } else if (this.isEdit && this.userData?.userType == 8) {
+                  const ref = this.dialogService.open(ConfirmCompleteOrderComponent, {
+                    header: this.publicService?.translateTextFromJson('general.confirm_order'),
+                    dismissableMask: false,
+                    width: '35%',
+                  });
+                  ref.onClose.subscribe((res: any) => {
+                    if (res?.confirmed) {
+                      this.publicService?.show_loader?.next(true);
+                      this.orderService?.addOrUpdateOrderComplete(myObject, this.orderId ? this.orderId : null)?.subscribe(
+                        (res: any) => {
+                          if (res?.isSuccess == true && res?.statusCode == 200) {
+                            this.publicService?.show_loader?.next(false);
+                            res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+                            this.router.navigate(['/dashboard/orders']);
+                          } else {
+                            res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+                            this.publicService?.show_loader?.next(false);
+                          }
+                        },
+                        (err: any) => {
+                          err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+                          this.publicService?.show_loader?.next(false);
+                        });
+                    }
+                  });
+                } else {
+                  this.orderService?.addOrUpdateOrder(myObject, this.orderId ? this.orderId : null)?.subscribe(
+                    (res: any) => {
+                      if (res?.isSuccess == true && res?.statusCode == 200) {
+                        this.publicService?.show_loader?.next(false);
+                        res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+                        this.router.navigate(['/dashboard/orders']);
+                      } else {
+                        res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+                        this.publicService?.show_loader?.next(false);
+                      }
+                      this.isSaving = false;
+                    },
+                    (err: any) => {
+                      err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+                      this.publicService?.show_loader?.next(false);
+                      this.isSaving = false;
+
+                    });
+                }
               }
-            },
-            (err: any) => {
-              err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
-              this.publicService?.show_loader?.next(false);
-            });
-        } else if (this.isEdit && this.userData?.userType == 8) {
-          const ref = this.dialogService.open(ConfirmCompleteOrderComponent, {
-            header: this.publicService?.translateTextFromJson('general.confirm_order'),
-            dismissableMask: false,
-            width: '35%',
-          });
-          ref.onClose.subscribe((res: any) => {
-            if (res?.confirmed) {
-              this.publicService?.show_loader?.next(true);
-              this.orderService?.addOrUpdateOrderComplete(myObject, this.orderId ? this.orderId : null)?.subscribe(
-                (res: any) => {
-                  if (res?.isSuccess == true && res?.statusCode == 200) {
-                    this.publicService?.show_loader?.next(false);
-                    res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
-                    this.router.navigate(['/dashboard/orders']);
-                  } else {
-                    res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
-                    this.publicService?.show_loader?.next(false);
-                  }
-                },
-                (err: any) => {
-                  err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
-                  this.publicService?.show_loader?.next(false);
-                });
+            } else {
+              res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
             }
+          },
+          (err: any) => {
+            err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
           });
-        } else {
-          this.orderService?.addOrUpdateOrder(myObject, this.orderId ? this.orderId : null)?.subscribe(
-            (res: any) => {
-              if (res?.isSuccess == true && res?.statusCode == 200) {
-                this.publicService?.show_loader?.next(false);
-                res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
-                this.router.navigate(['/dashboard/orders']);
-              } else {
-                res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
-                this.publicService?.show_loader?.next(false);
-              }
-              this.isSaving = false;
-            },
-            (err: any) => {
-              err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
-              this.publicService?.show_loader?.next(false);
-              this.isSaving = false;
-
-            });
-        }
       }
     } else {
       this.checkValidityService?.validateAllFormFields(this.orderForm);
