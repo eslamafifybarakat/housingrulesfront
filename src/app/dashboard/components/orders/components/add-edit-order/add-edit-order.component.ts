@@ -16,6 +16,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { CustomersService } from 'src/app/dashboard/services/customers.service';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-edit-order',
@@ -68,6 +69,8 @@ export class AddEditOrderComponent implements OnInit {
   constructor(
     public checkValidityService: CheckValidityService,
     private supervisorsService: SupervisorsService,
+    private confirmationService: ConfirmationService,
+    private customersService: CustomersService,
     private activatedRoute: ActivatedRoute,
     private driversService: DriversService,
     private dialogService: DialogService,
@@ -75,7 +78,6 @@ export class AddEditOrderComponent implements OnInit {
     public publicService: PublicService,
     private orderService: OrdersService,
     private tanksService: TanksService,
-    private customersService: CustomersService,
     private cdr: ChangeDetectorRef,
     protected router: Router,
     public fb: FormBuilder,
@@ -602,10 +604,84 @@ export class AddEditOrderComponent implements OnInit {
       // formInfo?.id ? this.checkCustomerHasOpendedOrders(formInfo?.id) : '';
       if (formInfo?.customerName?.id) {
         this.publicService?.show_loader?.next(true);
+        console.log(formInfo?.customerName?.id);
         this.orderService.checkCustomerHasOpendedOrders(formInfo?.customerName?.id).subscribe(
           (res: any) => {
             if (res?.isSuccess == true && res?.statusCode == 200) {
               if (res?.data?.length > 0) {
+                this.confirmationService.confirm({
+                  message: this.publicService?.translateTextFromJson('general.hasOpendedOrdersYouSureToContinue'),
+                  icon: 'pi pi-exclamation-triangle',
+                  header: this.publicService?.translateTextFromJson('general.warning'),
+                  accept: () => {
+                    if (this.isEdit && this.userData?.userType == 7) {
+                      this.publicService?.show_loader?.next(true);
+                      this.orderService?.addOrUpdateOrderDriverArrivedAtStation(myObject, this.orderId ? this.orderId : null)?.subscribe(
+                        (res: any) => {
+                          if (res?.isSuccess == true && res?.statusCode == 200) {
+                            this.publicService?.show_loader?.next(false);
+                            res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+                            this.router.navigate(['/dashboard/orders'])
+                          } else {
+                            res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+                            this.publicService?.show_loader?.next(false);
+                          }
+                        },
+                        (err: any) => {
+                          err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+                          this.publicService?.show_loader?.next(false);
+                        });
+                    } else if (this.isEdit && this.userData?.userType == 8) {
+                      const ref = this.dialogService.open(ConfirmCompleteOrderComponent, {
+                        header: this.publicService?.translateTextFromJson('general.confirm_order'),
+                        dismissableMask: false,
+                        width: '35%',
+                      });
+                      ref.onClose.subscribe((res: any) => {
+                        if (res?.confirmed) {
+                          this.publicService?.show_loader?.next(true);
+                          this.orderService?.addOrUpdateOrderComplete(myObject, this.orderId ? this.orderId : null)?.subscribe(
+                            (res: any) => {
+                              if (res?.isSuccess == true && res?.statusCode == 200) {
+                                this.publicService?.show_loader?.next(false);
+                                res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+                                this.router.navigate(['/dashboard/orders']);
+                              } else {
+                                res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+                                this.publicService?.show_loader?.next(false);
+                              }
+                            },
+                            (err: any) => {
+                              err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+                              this.publicService?.show_loader?.next(false);
+                            });
+                        }
+                      });
+                    } else {
+                      this.orderService?.addOrUpdateOrder(myObject, this.orderId ? this.orderId : null)?.subscribe(
+                        (res: any) => {
+                          if (res?.isSuccess == true && res?.statusCode == 200) {
+                            this.publicService?.show_loader?.next(false);
+                            res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+                            this.router.navigate(['/dashboard/orders']);
+                          } else {
+                            res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+                            this.publicService?.show_loader?.next(false);
+                          }
+                          this.isSaving = false;
+                        },
+                        (err: any) => {
+                          err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+                          this.publicService?.show_loader?.next(false);
+                          this.isSaving = false;
+
+                        });
+                    }
+                  },
+                  reject: () => {
+                    this.isSaving = false;
+                  }
+                });
                 // res?.close => yes=request => close modal
                 this.publicService?.show_loader?.next(false);
               } else {
@@ -669,7 +745,6 @@ export class AddEditOrderComponent implements OnInit {
                       err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
                       this.publicService?.show_loader?.next(false);
                       this.isSaving = false;
-
                     });
                 }
               }

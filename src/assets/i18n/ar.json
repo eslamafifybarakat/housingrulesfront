@@ -4,6 +4,7 @@
     "arabic": "Arabic"
   },
   "general": {
+    "warning":"تنبيه",
     "newStatus":"الحالة الجديدة",
     "oldStatus":"الحالة القديمة",
     "createdDate":"تاريخ الإنشاء",
@@ -23,6 +24,7 @@
     "Monday":"الاتنين",
     "Sunday":"الأحد",
     "hasOpendedOrders": "العميل لديه طلبات مفتوحة",
+    "hasOpendedOrdersYouSureToContinue": "العميل لديه طلبات مفتوحة هل تريد الإستمرار؟",
     "cancelOrder": "إلغاء الطلب",
     "horizontal": "أفقي",
     "vertical": "رأسي",

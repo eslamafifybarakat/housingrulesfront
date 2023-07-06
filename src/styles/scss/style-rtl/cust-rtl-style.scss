@@ -121,10 +121,17 @@
   transform: rotate(0deg) !important;
 }
 
-.p-buttonset .p-button:first-of-type   {
+.p-buttonset .p-button:first-of-type {
   border-radius: 0 0.35rem 0.35rem 0 !important;
   border-right: 1px solid #ced4dc;
 }
-.p-buttonset .p-button:last-of-type  {
-  border-radius: 0.35rem  0  0 0.35rem  !important
+.p-buttonset .p-button:last-of-type {
+  border-radius: 0.35rem 0 0 0.35rem !important;
+}
+.p-dialog.p-confirm-dialog .p-confirm-dialog-message {
+  margin-right: 1rem !important;
+  margin-left: inherit !important;
+}
+.p-dialog .p-dialog-footer {
+  margin-right: auto !important;
 }

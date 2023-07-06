@@ -4,6 +4,7 @@
     "arabic": "Arabic"
   },
   "general": {
+    "warning":"Warning",
     "newStatus":"New Status",
     "oldStatus":"Old Status",
     "createdDate":"Create Date",
@@ -23,6 +24,7 @@
     "Monday":"Monday",
     "Sunday":"Sunday",
     "hasOpendedOrders": "This customer has opened orders",
+    "hasOpendedOrdersYouSureToContinue": "This customer has opened orders, do you want to continue?",
     "cancelOrder": "Cancel Order",
     "horizontal": "Horizontal",
     "vertical": "Vertical",
