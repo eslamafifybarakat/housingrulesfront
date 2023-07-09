@@ -1,51 +1,93 @@
-<aside class="aside-menu position-fixed  py-3" [class.toggle-aside]="showSideMenu"
-  [ngClass]="collapsed ? 'aside-nav-collapsed' : ''">
+<aside
+  class="aside-menu position-fixed py-3"
+  [class.toggle-aside]="showSideMenu"
+  [ngClass]="collapsed ? 'aside-nav-collapsed' : ''"
+>
   <div class="logo-container d-flex align-items-center w-100">
-    <button class="logo bg-transparent border-0 justify-content-center align-items-center w-100 p-0"
-      [class.w-100]="!collapsed">
+    <button
+      class="logo bg-transparent border-0 justify-content-center align-items-center w-100 p-0"
+      [class.w-100]="!collapsed"
+    >
       <!-- <img class="logo-img" src="assets/images/logo/logo.png" alt="logo" (click)="toggleCollapse()" /> -->
-      <ng-container *ngIf="collapsed;else smLogo">
-        <img src="assets/images/logo/logo.jpg" alt="logo" class="lg-logo">
+      <ng-container *ngIf="collapsed; else smLogo">
+        <img src="assets/images/logo/logo.jpg" alt="logo" class="lg-logo" />
       </ng-container>
       <ng-template #smLogo>
-        <img src="assets/images/logo/sm-logo.jpg" alt="logo" class="logo-img">
+        <img src="assets/images/logo/sm-logo.jpg" alt="logo" class="logo-img" />
       </ng-template>
 
       <!-- <ng-container *ngIf="collapsed"> -->
       <button class="arrow text-main-color border-0" (click)="toggleCollapse()">
-        <i class="fas" [ngClass]="rotated?'fa-angle-double-left':'fa-angle-double-right'"></i>
+        <i
+          class="fas"
+          [ngClass]="rotated ? 'fa-angle-double-left' : 'fa-angle-double-right'"
+        ></i>
       </button>
       <!-- </ng-container> -->
     </button>
   </div>
   <ul class="aside-nav pt-3 d-flex align-items-center flex-column">
-    <ng-container *ngFor="let item of menuList;let i=index">
+    <ng-container *ngFor="let item of menuList; let i = index">
       <ng-container *ngIf="item?.children?.length > 0; else childSide">
         <li class="aside-nav-item position-relative w-100 my-2">
           <div class="beautiful-radius"></div>
           <div class="beautiful-radius"></div>
-          <a class="aside-nav-link position-relative d-flex align-items-center text-white-color"
-            (click)="!collapsed?toggleCollapse():''" [class.justify-content-center]="!collapsed" [id]="item?.id"
-            (click)="handelClick(item)">
-            <i class="aside-nav-link-icon mx-2 text-center fs-5 fa {{ item?.icon }}"
-              [pTooltip]="!collapsed?item?.text:''" tooltipPosition="left"></i>
+          <a
+            class="aside-nav-link position-relative d-flex align-items-center text-white-color"
+            (click)="!collapsed ? toggleCollapse() : ''"
+            [class.justify-content-center]="!collapsed"
+            [id]="item?.id"
+            (click)="handelClick(item)"
+          >
+            <i
+              class="aside-nav-link-icon mx-2 text-center fs-5 fa {{
+                item?.icon
+              }}"
+              [pTooltip]="!collapsed ? item?.text : ''"
+              tooltipPosition="left"
+            ></i>
             <ng-container *ngIf="collapsed">
-              <span class="aside-nav-link-text ms-2 text-truncate">{{item?.text}}</span>
+              <span class="aside-nav-link-text ms-2 text-truncate">{{
+                item?.text
+              }}</span>
             </ng-container>
-            <ng-container *ngIf="collapsed && item?.children && item?.children?.length > 0 ">
-              <i class="fas fa-angle-down angle position-absolute fs-5" [ngClass]="item?.state?'toggleIcon':''"></i>
+            <ng-container
+              *ngIf="collapsed && item?.children && item?.children?.length > 0"
+            >
+              <i
+                class="fas fa-angle-down angle position-absolute fs-5"
+                [ngClass]="item?.state ? 'toggleIcon' : ''"
+              ></i>
             </ng-container>
           </a>
 
-          <ng-container *ngIf="collapsed && item?.children && item?.children?.length > 0 && item?.state">
+          <ng-container
+            *ngIf="
+              collapsed &&
+              item?.children &&
+              item?.children?.length > 0 &&
+              item?.state
+            "
+          >
             <ul class="subnav">
-              <ng-container *ngFor="let i of item?.children;let index=index">
-                <li class="subnav-item ms-2 my-4 d-flex align-items-center" [class.active]="index==1">
-                  <ng-container *ngIf="collapsed && item?.children && item?.children?.length > 0">
+              <ng-container *ngFor="let i of item?.children; let index = index">
+                <li
+                  class="subnav-item ms-2 my-4 d-flex align-items-center"
+                  [class.active]="index == 1"
+                >
+                  <ng-container
+                    *ngIf="
+                      collapsed && item?.children && item?.children?.length > 0
+                    "
+                  >
                     <a class="subnav-link text-white-color">
-                      <i class=" fa fa-circle me-3"></i>
+                      <i class="fa fa-circle me-3"></i>
                       <ng-container *ngIf="collapsed">
-                        <span [routerLink]="[i.routerLink]" [routerLinkActive]="['active']">{{i.text}}</span>
+                        <span
+                          [routerLink]="[i.routerLink]"
+                          [routerLinkActive]="['active']"
+                          >{{ i.text }}</span
+                        >
                       </ng-container>
                     </a>
                   </ng-container>
@@ -57,16 +99,36 @@
       </ng-container>
       <ng-template #childSide>
         <ng-container *ngIf="item?.state">
-          <li class="aside-nav-item position-relative w-100 my-2" [routerLink]="[item.routerLink]">
+          <li
+            class="aside-nav-item position-relative w-100 my-2"
+            [routerLink]="[item.routerLink]"
+            [routerLinkActive]="item.id == item.routeName ? 'active' : ''"
+          >
             <!-- [routerLinkActive]="['active']" -->
             <div class="beautiful-radius"></div>
             <div class="beautiful-radius"></div>
-            <a class="aside-nav-link position-relative d-flex align-items-center text-white-color" [id]="item?.id"
-              [class.justify-content-center]="!collapsed" (click)="handelClick(item)">
-              <ng-container *ngIf="item?.id=='dashboard'; else elseTemplate">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                  class="feather feather-grid aside-nav-link-icon mx-2 text-center" _ngcontent-kvi-c19="">
+            <a
+              class="aside-nav-link position-relative d-flex align-items-center text-white-color"
+              [id]="item?.id"
+              [class.justify-content-center]="!collapsed"
+              (click)="handelClick(item)"
+            >
+              <ng-container
+                *ngIf="item?.id == 'welcome-dashboard'; else elseTemplate"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-grid aside-nav-link-icon mx-2 text-center"
+                  _ngcontent-kvi-c19=""
+                >
                   <rect x="3" y="3" width="7" height="7"></rect>
                   <rect x="14" y="3" width="7" height="7"></rect>
                   <rect x="14" y="14" width="7" height="7"></rect>
@@ -74,15 +136,27 @@
                 </svg>
               </ng-container>
               <ng-template #elseTemplate>
-                <i class="aside-nav-link-icon mx-2 text-center fs-5 fa {{ item.icon }}"
-                  [pTooltip]="!collapsed?item?.text:''" tooltipPosition="left"></i>
+                <i
+                  class="aside-nav-link-icon mx-2 text-center fs-5 fa {{
+                    item.icon
+                  }}"
+                  [pTooltip]="!collapsed ? item?.text : ''"
+                  tooltipPosition="left"
+                ></i>
               </ng-template>
 
               <ng-container *ngIf="collapsed">
-                <span class="aside-nav-link-text ms-2 text-truncate">{{item?.text}}</span>
+                <span class="aside-nav-link-text ms-2 text-truncate">{{
+                  item?.text
+                }}</span>
               </ng-container>
-              <ng-container *ngIf="collapsed && item.children && item.children.length > 0 ">
-                <i class="fas fa-angle-down angle position-absolute fs-5" [ngClass]="item.state?'toggleIcon':''"></i>
+              <ng-container
+                *ngIf="collapsed && item.children && item.children.length > 0"
+              >
+                <i
+                  class="fas fa-angle-down angle position-absolute fs-5"
+                  [ngClass]="item.state ? 'toggleIcon' : ''"
+                ></i>
               </ng-container>
             </a>
           </li>
@@ -102,7 +176,5 @@
 
     </div> -->
 </aside>
-
-
 
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

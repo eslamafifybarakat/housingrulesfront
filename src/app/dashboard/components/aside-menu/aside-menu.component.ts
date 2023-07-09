@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-aside-menu',
   templateUrl: './aside-menu.component.html',
-  styleUrls: ['./aside-menu.component.scss']
+  styleUrls: ['./aside-menu.component.scss'],
 })
 export class AsideMenuComponent implements OnInit {
   collapsed: boolean = false;
@@ -27,102 +27,154 @@ export class AsideMenuComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private sharedService: SharedService,
     private publicService: PublicService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.userLoginData = JSON.parse(window.localStorage.getItem(keys.userLoginData) || '{}');
-    this.menuList = [{
-      id: 'dashboard',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.dashboard'),
-      // icon: 'fa-grip-horizontal',
-      routerLink: '/dashboard',
-      state: (this.userLoginData?.userType !== 6 && this.userLoginData?.userType !== 9)
-    },
-    {
-      id: 'tanks',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.tanks'),
-      icon: 'fa-house-user',
-      routerLink: '/dashboard/tanks',
-      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2)
-    },
-    {
-      id: 'driver',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.driver'),
-      icon: 'fa-car-rear',
-      routerLink: '/dashboard/drivers',
-      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2)
-    },
-    {
-      id: 'supervisors',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.supervisors'),
-      icon: 'fa-people-roof',
-      routerLink: '/dashboard/supervisors',
-      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2)
-    },
-    {
-      id: 'orders',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.orders'),
-      icon: 'fa-file-pen',
-      routerLink: '/dashboard/orders',
-      state: (this.userLoginData?.userType < 9),
-    },
-    {
-      id: 'users',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.users'),
-      icon: 'fa-users',
-      routerLink: '/dashboard/users',
-      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2),
-    },
-    {
-      id: 'service-agent',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.serviceAgent'),
-      icon: 'fa-user',
-      routerLink: '/dashboard/service-agent',
-      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2 || this.userLoginData?.userType == 3),
-    },
-    {
-      id: 'customers',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.customers'),
-      icon: 'fa-people-group',
-      routerLink: '/dashboard/customers',
-      state: (this.userLoginData?.userType == 1 || this.userLoginData?.userType == 2 || this.userLoginData?.userType == 3 || this.userLoginData?.userType == 4),
-    },
-    {
-      id: 'gates',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.gates'),
-      icon: 'fa-money',
-      routerLink: '/dashboard/gates',
-      state: (this.userLoginData?.userType == 7 || this.userLoginData?.userType == 8),
-      // state: true,
-    },
-    {
-      id: 'financialSettlements',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.financialSettlements'),
-      icon: 'fa-money',
-      routerLink: '/dashboard/financial-settlements',
-      state: (this.userLoginData?.userType == 9),
-
-    }
-    ,
-    {
-      id: 'reports',
-      text: this.publicService?.translateTextFromJson('dashboard.sideMenu.reports'),
-      icon: 'fa-file',
-      routerLink: '/dashboard/reports',
-      state: (this.userLoginData?.userType !== 6 && this.userLoginData?.userType !== 9)
-    }
+    this.userLoginData = JSON.parse(
+      window.localStorage.getItem(keys.userLoginData) || '{}'
+    );
+    this.menuList = [
+      {
+        id: 'welcome-dashboard',
+        text: this.publicService?.translateTextFromJson(
+          'dashboard.sideMenu.dashboard'
+        ),
+        // icon: 'fa-grip-horizontal',
+        routerLink: '/dashboard/welcome-dashboard',
+        state:
+          this.userLoginData?.userType !== 6 &&
+          this.userLoginData?.userType !== 9,
+        routeName: 'welcome-dashboard',
+      },
+      {
+        id: 'tanks',
+        text: this.publicService?.translateTextFromJson(
+          'dashboard.sideMenu.tanks'
+        ),
+        icon: 'fa-house-user',
+        routerLink: '/dashboard/tanks',
+        state:
+          this.userLoginData?.userType == 1 ||
+          this.userLoginData?.userType == 2,
+        routeName: 'tanks',
+      },
+      {
+        id: 'driver',
+        text: this.publicService?.translateTextFromJson(
+          'dashboard.sideMenu.driver'
+        ),
+        icon: 'fa-car-rear',
+        routerLink: '/dashboard/drivers',
+        state:
+          this.userLoginData?.userType == 1 ||
+          this.userLoginData?.userType == 2,
+        routeName: 'driver',
+      },
+      {
+        id: 'supervisors',
+        text: this.publicService?.translateTextFromJson(
+          'dashboard.sideMenu.supervisors'
+        ),
+        icon: 'fa-people-roof',
+        routerLink: '/dashboard/supervisors',
+        state:
+          this.userLoginData?.userType == 1 ||
+          this.userLoginData?.userType == 2,
+        routeName: 'supervisors',
+      },
+      {
+        id: 'orders',
+        text: this.publicService?.translateTextFromJson(
+          'dashboard.sideMenu.orders'
+        ),
+        icon: 'fa-file-pen',
+        routerLink: '/dashboard/orders',
+        state: this.userLoginData?.userType < 9,
+        routeName: 'orders',
+      },
+      {
+        id: 'users',
+        text: this.publicService?.translateTextFromJson(
+          'dashboard.sideMenu.users'
+        ),
+        icon: 'fa-users',
+        routerLink: '/dashboard/users',
+        state:
+          this.userLoginData?.userType == 1 ||
+          this.userLoginData?.userType == 2,
+        routeName: 'users',
+      },
+      {
+        id: 'service-agent',
+        text: this.publicService?.translateTextFromJson(
+          'dashboard.sideMenu.serviceAgent'
+        ),
+        icon: 'fa-user',
+        routerLink: '/dashboard/service-agent',
+        state:
+          this.userLoginData?.userType == 1 ||
+          this.userLoginData?.userType == 2 ||
+          this.userLoginData?.userType == 3,
+        routeName: 'service-agent',
+      },
+      {
+        id: 'customers',
+        text: this.publicService?.translateTextFromJson(
+          'dashboard.sideMenu.customers'
+        ),
+        icon: 'fa-people-group',
+        routerLink: '/dashboard/customers',
+        state:
+          this.userLoginData?.userType == 1 ||
+          this.userLoginData?.userType == 2 ||
+          this.userLoginData?.userType == 3 ||
+          this.userLoginData?.userType == 4,
+        routeName: 'customers',
+      },
+      {
+        id: 'gates',
+        text: this.publicService?.translateTextFromJson(
+          'dashboard.sideMenu.gates'
+        ),
+        icon: 'fa-money',
+        routerLink: '/dashboard/gates',
+        state:
+          this.userLoginData?.userType == 7 ||
+          this.userLoginData?.userType == 8,
+        // state: true,
+      },
+      {
+        id: 'financialSettlements',
+        text: this.publicService?.translateTextFromJson(
+          'dashboard.sideMenu.financialSettlements'
+        ),
+        icon: 'fa-money',
+        routerLink: '/dashboard/financial-settlements',
+        state: this.userLoginData?.userType == 9,
+      },
+      {
+        id: 'reports',
+        text: this.publicService?.translateTextFromJson(
+          'dashboard.sideMenu.reports'
+        ),
+        icon: 'fa-file',
+        routerLink: '/dashboard/reports',
+        state:
+          this.userLoginData?.userType !== 6 &&
+          this.userLoginData?.userType !== 9,
+        routeName: 'reports',
+      },
     ];
 
     this.screenWidth = window?.innerWidth;
     this.sharedService?.showSideMenu?.subscribe((res: any) => {
       this.showSideMenu = res;
-    })
+    });
 
     let itemId = window?.localStorage?.getItem(keys?.lastRoute);
     this.menuList.forEach((ele: any) => {
-      if (ele.id == itemId)
-        ele.state = true;
+      if (ele.id == itemId) ele.state = true;
       // ele.state=false
     });
   }
@@ -145,14 +197,20 @@ export class AsideMenuComponent implements OnInit {
 
   toggleCollapse(): void {
     this.collapsed = !this.collapsed;
-    this.onToggleSideNav?.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
+    this.onToggleSideNav?.emit({
+      collapsed: this.collapsed,
+      screenWidth: this.screenWidth,
+    });
     this.rotate();
-    this.show = !this.show
+    this.show = !this.show;
   }
 
   toggleIcon(): void {
-    this.collapsed = true
-    this.onToggleSideNav?.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
+    this.collapsed = true;
+    this.onToggleSideNav?.emit({
+      collapsed: this.collapsed,
+      screenWidth: this.screenWidth,
+    });
     this.show = !this.show;
   }
 
@@ -168,8 +226,7 @@ export class AsideMenuComponent implements OnInit {
       accept: () => {
         this.router?.navigate(['/auth']);
         localStorage?.clear();
-      }
+      },
     });
-
   }
 }

@@ -93,6 +93,7 @@ export class WelcomeDashboardComponent implements OnInit {
   ];
   currentLanguage: any;
   plugins: any;
+  totalRequests: number = 0;
 
   @ViewChild('chart') chart: ChartComponent | any;
 
@@ -102,7 +103,7 @@ export class WelcomeDashboardComponent implements OnInit {
     private ordersService: OrdersService,
     private alertsService: AlertsService,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.currentLanguage = window?.localStorage?.getItem(keys?.language);
@@ -197,31 +198,38 @@ export class WelcomeDashboardComponent implements OnInit {
     data?.forEach((item: any) => {
       if (item?.status == 7) {
         requestCompelete = requestCompelete + 1;
-      }
-      else if (item?.status == 8) {
+      } else if (item?.status == 8) {
         requestCanceled = requestCanceled + 1;
-      }
-      else if (item?.status == 1) {
+      } else if (item?.status == 1) {
         requestPending = requestPending + 1;
-      }
-      else {
+      } else {
         requestRunning = requestRunning + 1;
       }
-
     });
     this.requestTypesChart = [
       requestCompelete,
       requestPending,
       requestCanceled,
-      requestRunning
+      requestRunning,
     ];
+
+    this.totalRequests =
+      requestCompelete + requestPending + requestCanceled + requestRunning;
 
     this.requestsData = {
       labels: [
-        this.publicService?.translateTextFromJson('welcome.completed') + ' ' + requestCompelete,
-        this.publicService?.translateTextFromJson('welcome.pending') + ' ' + requestPending,
-        this.publicService?.translateTextFromJson('welcome.cancel') + ' ' + requestCanceled,
-        this.publicService?.translateTextFromJson('welcome.run') + ' ' + requestRunning
+        this.publicService?.translateTextFromJson('welcome.completed') +
+          ' ' +
+          requestCompelete,
+        this.publicService?.translateTextFromJson('welcome.pending') +
+          ' ' +
+          requestPending,
+        this.publicService?.translateTextFromJson('welcome.cancel') +
+          ' ' +
+          requestCanceled,
+        this.publicService?.translateTextFromJson('welcome.run') +
+          ' ' +
+          requestRunning,
       ],
       datasets: [
         {
@@ -278,16 +286,16 @@ export class WelcomeDashboardComponent implements OnInit {
       ],
       labels: [
         this.publicService?.translateTextFromJson('general.field') +
-        ' ' +
-        field,
+          ' ' +
+          field,
         this.publicService?.translateTextFromJson('general.whatsapp') +
-        ' ' +
-        whatsapp,
+          ' ' +
+          whatsapp,
         this.publicService?.translateTextFromJson('general.call') + ' ' + call,
         this.publicService?.translateTextFromJson('general.tms') + ' ' + tms,
         this.publicService?.translateTextFromJson('general.others') +
-        ' ' +
-        others,
+          ' ' +
+          others,
       ],
     };
 
@@ -394,6 +402,7 @@ export class WelcomeDashboardComponent implements OnInit {
         this.pendingChart?.push(item?.pending);
         this.driverOnWayToCustomerChart?.push(item?.driverOnWayToCustomer);
         this.driverOnWayToStationChart?.push(item?.driverOnWayToStation);
+        this.cancelledChart?.push(item?.cancelled);
       }
     });
     this.basicData = {
@@ -426,8 +435,15 @@ export class WelcomeDashboardComponent implements OnInit {
           label: this.publicService?.translateTextFromJson(
             'general.driverOnWayToCustomer'
           ),
-          backgroundColor: '#EA5455',
+          backgroundColor: '#808080',
           data: this.driverOnWayToCustomerChart,
+          categoryPercentage: 1,
+          barPercentage: 0.7,
+        },
+        {
+          label: this.publicService?.translateTextFromJson('general.cancelled'),
+          backgroundColor: '#EA5455',
+          data: this.cancelledChart,
           categoryPercentage: 1,
           barPercentage: 0.7,
         },

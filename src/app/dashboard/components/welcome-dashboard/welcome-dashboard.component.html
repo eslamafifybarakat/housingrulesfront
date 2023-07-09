@@ -28,7 +28,7 @@
               {{ "welcome.totalRequestsType" | translate }}
             </h5>
             <hr />
-            <div class="doughnutChart">
+            <div class="doughnutChart justify-content-center">
               <p-chart
                 type="doughnut"
                 [data]="requestsData"
@@ -36,6 +36,10 @@
                 [style]="{ width: '50%' }"
                 [plugins]="plugins"
               ></p-chart>
+            </div>
+            <div class="text-center mt-5 fw-bold">
+              {{ "welcome.totalRequests" | translate }} :
+              {{ totalRequests }}
             </div>
           </div>
         </div>

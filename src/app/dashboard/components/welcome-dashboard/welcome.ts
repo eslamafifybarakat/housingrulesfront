@@ -74,8 +74,9 @@ export const barStackedOptions = {
       ticks: {
         color: '#111',
         font: {
-          size: 12,
+          size: 13,
           weight: 'bold',
+          family: 'sans-serif',
         },
       },
       grid: {

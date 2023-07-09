@@ -92,14 +92,22 @@
   clip: rect(0px, 75px, 150px, 0px);
   background-color: #227ded;
 }
+
 .doughnutChart {
+  width: 240px;
+  margin: auto;
+}
+
+.polarChart {
   width: 250px;
   margin: auto;
 }
-.polarChart {
-  width: 300px;
+
+.pieChart {
+  width: 250px;
   margin: auto;
 }
+
 :host::ng-deep {
   .welcome {
     .p-dropdown {

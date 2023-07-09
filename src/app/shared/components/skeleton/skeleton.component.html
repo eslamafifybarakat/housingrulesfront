@@ -1,24 +1,35 @@
-<ng-container *ngIf="type=='table'">
+<ng-container *ngIf="type == 'table'">
   <p-table [value]="skeletonItems">
     <ng-template pTemplate="body" let-item>
       <tr>
         <ng-container *ngFor="let item of tableItems">
-          <td class="p-4"><p-skeleton width="50%" height="1.3rem" borderRadius="6px"></p-skeleton></td>
+          <td class="p-4">
+            <p-skeleton
+              width="50%"
+              height="1.3rem"
+              borderRadius="6px"
+            ></p-skeleton>
+          </td>
         </ng-container>
       </tr>
     </ng-template>
   </p-table>
 </ng-container>
 
-
-<ng-container *ngIf="type=='users'">
-  <ng-container *ngFor="let item of [8,2,6]">
-    <div class="d-flex justify-content-between align-items-center flex-wrap w-100 user">
-      <div class="item d-flex gap-3 align-items-center justify-content-between w-100">
+<ng-container *ngIf="type == 'users'">
+  <ng-container *ngFor="let item of [8, 2, 6]">
+    <div
+      class="d-flex justify-content-between align-items-center flex-wrap w-100 user"
+    >
+      <div
+        class="item d-flex gap-3 align-items-center justify-content-between w-100"
+      >
         <p-skeleton width="6rem" height="1rem" borderRadius="6px"></p-skeleton>
         <p-skeleton width="6rem" height="1rem" borderRadius="6px"></p-skeleton>
       </div>
-      <div class="item d-flex gap-3 align-items-center justify-content-between w-100 mt-3">
+      <div
+        class="item d-flex gap-3 align-items-center justify-content-between w-100 mt-3"
+      >
         <p-skeleton width="6rem" height="1rem" borderRadius="6px"></p-skeleton>
         <p-skeleton width="6rem" height="1rem" borderRadius="6px"></p-skeleton>
       </div>
@@ -26,72 +37,138 @@
   </ng-container>
 </ng-container>
 
-<ng-container *ngIf="type=='chart'">
+<ng-container *ngIf="type == 'chart'">
   <div class="row gy-4">
-    <div class="col-lg-6">
-      <div class="global-card d-flex justify-content-center align-items-center flex-column gap-3">
+    <div class="col-lg-4">
+      <div
+        class="global-card d-flex justify-content-center align-items-center flex-column gap-3"
+      >
         <div class="d-flex justify-content-center gap-2">
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
         </div>
         <p-skeleton size="13rem" shape="circle"></p-skeleton>
       </div>
     </div>
-    <div class="col-lg-6">
-      <div class="global-card d-flex justify-content-center align-items-center flex-column gap-3">
+    <div class="col-lg-4">
+      <div
+        class="global-card d-flex justify-content-center align-items-center flex-column gap-3"
+      >
         <div class="d-flex justify-content-center gap-2">
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
         </div>
         <p-skeleton size="13rem" shape="circle"></p-skeleton>
       </div>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-4">
+      <div
+        class="global-card d-flex justify-content-center align-items-center flex-column gap-3"
+      >
+        <div class="d-flex justify-content-center gap-2">
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
+        </div>
+        <p-skeleton size="13rem" shape="circle"></p-skeleton>
+      </div>
+    </div>
+
+    <div class="col-lg-12">
       <div class="global-card mb-4">
         <div class="d-flex justify-content-center gap-2">
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
+          <p-skeleton
+            width="3rem"
+            height=".7em"
+            borderRadius="6px"
+          ></p-skeleton>
         </div>
-        <p-skeleton width="100%" height="1.5rem" styleClass="mb-3 mt-4"></p-skeleton>
+        <p-skeleton
+          width="100%"
+          height="1.5rem"
+          styleClass="mb-3 mt-4"
+        ></p-skeleton>
         <p-skeleton width="100%" height="1.4rem" styleClass="mb-3"></p-skeleton>
-        <ng-container *ngFor="let item of [9,9,9,9,9,3,3,3,3]">
-          <p-skeleton width="100%" height="1.4rem" styleClass="mb-3"></p-skeleton>
-        </ng-container>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="global-card mb-4">
-        <div class="d-flex justify-content-center gap-2">
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
-          <p-skeleton width="3rem" height=".7em" borderRadius="6px"></p-skeleton>
-        </div>
-        <p-skeleton width="100%" height="1.5rem" styleClass="mb-3 mt-4"></p-skeleton>
-        <ng-container *ngFor="let item of [9,9,9,9,9,3,3,3,3]">
-          <p-skeleton width="100%" height="1.4rem" styleClass="mb-3"></p-skeleton>
+        <ng-container *ngFor="let item of [9, 9, 9, 9, 9, 3, 3, 3, 3]">
+          <p-skeleton
+            width="100%"
+            height="1.4rem"
+            styleClass="mb-3"
+          ></p-skeleton>
         </ng-container>
       </div>
     </div>
   </div>
 </ng-container>
 
-<ng-container *ngIf="type=='reports'">
+<ng-container *ngIf="type == 'reports'">
   <div class="mt-4">
-    <ng-container *ngFor="let item of [9,8,9,8,8,9]">
-      <p-skeleton width="100%" height="3rem" borderRadius="6px" styleClass="mb-3"></p-skeleton>
+    <ng-container *ngFor="let item of [9, 8, 9, 8, 8, 9]">
+      <p-skeleton
+        width="100%"
+        height="3rem"
+        borderRadius="6px"
+        styleClass="mb-3"
+      ></p-skeleton>
     </ng-container>
   </div>
 </ng-container>
 
-<ng-container *ngIf="type=='order-details'">
-  <ng-container *ngFor="let item of [3,4,4,4,4,4,4,4,4,4,4,4,4,4]">
-    <div class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap">
+<ng-container *ngIf="type == 'order-details'">
+  <ng-container *ngFor="let item of [3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]">
+    <div
+      class="mb-3 d-flex align-items-center justify-content-between gap-2 flex-wrap"
+    >
       <p-skeleton width="6rem" height="1rem" borderRadius="6px"></p-skeleton>
       <p-skeleton width="8rem" height="1rem" borderRadius="6px"></p-skeleton>
     </div>
   </ng-container>
-
 </ng-container>
