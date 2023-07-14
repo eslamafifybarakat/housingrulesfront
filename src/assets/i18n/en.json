@@ -500,7 +500,9 @@
         "driver": "Driver",
         "gateIn": "Gate in ",
         "gateOut": "Gate out",
-        "accountant": "Accountant"
+        "accountant": "Accountant",
+        "OperationManger":"Operation Manger",
+        "ProjectManger":"Project Manger"
       }
     },
     "customers": {

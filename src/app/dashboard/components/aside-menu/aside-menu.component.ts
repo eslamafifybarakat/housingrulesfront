@@ -56,7 +56,9 @@ export class AsideMenuComponent implements OnInit {
         routerLink: '/dashboard/tanks',
         state:
           this.userLoginData?.userType == 1 ||
-          this.userLoginData?.userType == 2,
+          this.userLoginData?.userType == 2 ||
+          this.userLoginData?.userType == 21 ||
+          this.userLoginData?.userType == 31,
         routeName: 'tanks',
       },
       {
@@ -67,8 +69,10 @@ export class AsideMenuComponent implements OnInit {
         icon: 'fa-car-rear',
         routerLink: '/dashboard/drivers',
         state:
-          this.userLoginData?.userType == 1 ||
-          this.userLoginData?.userType == 2,
+           this.userLoginData?.userType == 1 ||
+          this.userLoginData?.userType == 2 ||
+          this.userLoginData?.userType == 21 ||
+          this.userLoginData?.userType == 31,
         routeName: 'driver',
       },
       {
@@ -79,8 +83,10 @@ export class AsideMenuComponent implements OnInit {
         icon: 'fa-people-roof',
         routerLink: '/dashboard/supervisors',
         state:
-          this.userLoginData?.userType == 1 ||
-          this.userLoginData?.userType == 2,
+           this.userLoginData?.userType == 1 ||
+          this.userLoginData?.userType == 2 ||
+          this.userLoginData?.userType == 21 ||
+          this.userLoginData?.userType == 31,
         routeName: 'supervisors',
       },
       {
@@ -90,7 +96,7 @@ export class AsideMenuComponent implements OnInit {
         ),
         icon: 'fa-file-pen',
         routerLink: '/dashboard/orders',
-        state: this.userLoginData?.userType < 9,
+        state: this.userLoginData?.userType != 9,
         routeName: 'orders',
       },
       {
@@ -101,8 +107,10 @@ export class AsideMenuComponent implements OnInit {
         icon: 'fa-users',
         routerLink: '/dashboard/users',
         state:
-          this.userLoginData?.userType == 1 ||
-          this.userLoginData?.userType == 2,
+           this.userLoginData?.userType == 1 ||
+          this.userLoginData?.userType == 2 ||
+          this.userLoginData?.userType == 21 ||
+          this.userLoginData?.userType == 31,
         routeName: 'users',
       },
       {

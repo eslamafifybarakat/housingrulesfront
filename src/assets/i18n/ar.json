@@ -507,7 +507,9 @@
         "driver": "سائق",
         "gateIn": "موظف بوابة دخول",
         "gateOut": "موظف بوابة الخروج",
-        "accountant": "محاسب"
+        "accountant": "محاسب",
+        "OperationManger":"مدير التشغيل",
+        "ProjectManger":"مدير المشروع"
       }
     },
     "customers": {

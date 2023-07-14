@@ -214,7 +214,9 @@ export class PublicService {
       { id: 6, value: 6, name: this.translateTextFromJson('dashboard.users.userTypes.driver') },
       { id: 7, value: 7, name: this.translateTextFromJson('dashboard.users.userTypes.gateIn') },
       { id: 8, value: 8, name: this.translateTextFromJson('dashboard.users.userTypes.gateOut') },
-      { id: 9, value: 9, name: this.translateTextFromJson('dashboard.users.userTypes.accountant') }
+      { id: 9, value: 9, name: this.translateTextFromJson('dashboard.users.userTypes.accountant') },
+      { id: 21, value: 21, name: this.translateTextFromJson('dashboard.users.userTypes.OperationManger') },
+      { id: 31, value: 31, name: this.translateTextFromJson('dashboard.users.userTypes.ProjectManger') },
     ]
     return arr;
   }
