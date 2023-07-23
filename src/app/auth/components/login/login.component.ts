@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
   currentLanguage: any;
-
+  citiesList:any[]=[];
   constructor(
     public checkValidityService: CheckValidityService,
     public translationService: TranslationService,
@@ -33,10 +33,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentLanguage = window?.localStorage?.getItem(keys?.language);
+    this.citiesList = this.publicService.getMainCities();
   }
 
   loginForm = this.fb?.group(
     {
+      branch: ['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }],
       username: ['', {
         validators: [
           Validators.required,

@@ -161,6 +161,17 @@ export class PublicService {
     ];
     return arr;
   }
+  getMainCities(): any {
+    let arr: any = [
+      { id: 1, value: 1, name: this.translateTextFromJson('mainCities.Jizancity') },
+      { id: 2, value: 2, name: this.translateTextFromJson('mainCities.AboArish') },
+      { id: 3, value: 3, name: this.translateTextFromJson('mainCities.Sabia') },
+      { id: 4, value: 4, name: this.translateTextFromJson('mainCities.Samta') },
+      { id: 5, value: 5, name: this.translateTextFromJson('mainCities.Beach') },
+      { id: 6, value: 6, name: this.translateTextFromJson('mainCities.AlAidabi') },
+    ];
+    return arr;
+  }
 
   getOrderOrigin(): any {
     let orderOriginList: any = [

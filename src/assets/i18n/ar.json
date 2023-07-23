@@ -3,6 +3,14 @@
     "english": "English",
     "arabic": "Arabic"
   },
+  "mainCities":{
+    "Jizancity":"مدينة جيزان",
+    "AboArish":"أبو عريش",
+    "Sabia":"صبيا",
+    "Samta":"صامطة",
+    "Beach":"بيش",
+    "AlAidabi":"العیدابي"
+  },
   "general": {
     "warning": "تنبيه",
     "newStatus": "الحالة الجديدة",
@@ -211,6 +219,7 @@
     "periodicCat": "الفئة الدورية",
     "time": "الوقت",
     "cost": "التكلفة",
+    "branch":"الفرع",
     "isSubcontractor": "لدي الغير",
     "serviceAgent": "مقدم خدمة العملاء",
     "serviceAgentSuperVisor": "مشرف خدمة العملاء",
@@ -267,6 +276,7 @@
     "cancellationDesc": "أدخل وصف الإلغاء",
     "cancellationCauses": "اختر سبب الإلغاء",
     "cost": "أدخل التكلفة",
+    "branch":"الفرع",
     "searchUser": "بحث عن مستخدم",
     "tankPrice": "سعر الصهريج",
     "newPassword": "أدخل كلمة المرور الجديدة",

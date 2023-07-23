@@ -3,6 +3,14 @@
     "english": "English",
     "arabic": "Arabic"
   },
+  "mainCities":{
+    "Jizancity":"Jizan city",
+    "AboArish":"Abo Arish",
+    "Sabia":"Sabia",
+    "Samta":"Samta",
+    "Beach":"Beach",
+    "AlAidabi":"Al Aidabi"
+  },
   "general": {
     "warning": "Warning",
     "newStatus": "New Status",
@@ -209,6 +217,7 @@
     "periodicCat": "Periodic Category",
     "time": "Time",
     "cost": "Cost",
+    "branch":"Branch",
     "isSubcontractor": "Is Subcontractor",
     "serviceAgent": "Service Agent",
     "serviceAgentSuperVisor": "Service Agent SuperVisor",
@@ -262,6 +271,7 @@
     "cancellationDesc": "Enter cancellation description",
     "cancellationCauses": "Select cancellation cause",
     "cost": "Enter cost",
+    "branch":"Branch",
     "searchUser": "Search user",
     "tankPrice": "Tank Price",
     "newPassword": "Enter new password",
