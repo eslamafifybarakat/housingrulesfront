@@ -5,6 +5,7 @@ export const keys = {
   userData: 'housingRulesUserData',
   theme: 'housingRulestheme',
   token: 'housingRulesToken',
+  tenantid: 'tenantidRulesToken',
   lastRoute: 'housingRulesLastRoute',
   lastRouteUrl: 'housingRulesLastRouteUrl',
 };

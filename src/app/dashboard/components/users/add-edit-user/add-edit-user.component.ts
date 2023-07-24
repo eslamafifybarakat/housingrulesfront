@@ -12,6 +12,7 @@ import { UsersService } from './../../../services/users.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { keys } from 'src/app/shared/configs/localstorage-key';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -298,7 +299,9 @@ export class AddEditUserComponent implements OnInit {
         myObject['id'] = this.userId;
       } else {
         myObject['password'] = this.userForm?.value?.password;
-        // myObject['confirmPassword'] = this.userForm?.value?.confirmPassword;
+
+        let tenantidKey = window.localStorage.getItem(keys.tenantid);
+       myObject['tenantId'] = tenantidKey;
       }
 
       this.publicService?.show_loader?.next(true);

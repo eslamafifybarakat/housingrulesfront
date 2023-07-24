@@ -44,6 +44,10 @@ export class HttpInterceptorService implements HttpInterceptor {
         header["Authorization"] = `Bearer ${tokenKey}`;
       }
 
+      let tenantidKey = window.localStorage.getItem(keys.tenantid);
+      if (tenantidKey) {
+        header["tenantid"] = tenantidKey;
+      }
       request = request.clone({
         setHeaders: header,
         // url: request.url.replace("http", "https"),

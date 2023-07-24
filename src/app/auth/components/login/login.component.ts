@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
   loginForm = this.fb?.group(
     {
-      branch: ['', {
+      branch: [, {
         validators: [
           Validators.required], updateOn: "blur"
       }],
@@ -76,16 +76,22 @@ export class LoginComponent implements OnInit {
   submit(): void {
     if (this.loginForm?.valid) {
       this.publicService?.show_loader?.next(true);
+      let formInfo: any = this.loginForm?.value;
+
       let data = {
         username: this.loginForm?.value?.username,
         password: this.loginForm?.value?.password,
+        branch: formInfo.branch?.['value']
       };
       this.authUserService?.login(data)?.subscribe(
         (res: any) => {
           if (res?.statusCode == 200) {
             this.router?.navigate(['/dashboard/orders']);
+            console.log(res?.data);
+
             window.localStorage.setItem(keys.token, res?.data?.token);
             window.localStorage.setItem(keys.userLoginData, JSON.stringify(res?.data?.user));
+            window.localStorage.setItem(keys.tenantid, JSON.stringify(res?.data?.user.tenantid));
             this.publicService?.show_loader?.next(false);
           } else {
             this.publicService?.show_loader?.next(false);
