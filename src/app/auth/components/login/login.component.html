@@ -17,7 +17,8 @@
           </div>
           <form [formGroup]="loginForm" (ngSubmit)="submit()" class="pt-5">
             <span class="p-input-icon-right select-loading d-block">
-              <label for="branch" class="mb-2 required">{{'labels.branch'|translate}}</label>
+              <div class="mb-4">
+                <label for="branch" class="mb-2 required">{{'labels.branch'|translate}}</label>
               <p-dropdown [options]="citiesList" formControlName="branch" optionLabel="name"
                 [filter]="false" [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
                 [filterPlaceholder]="'placeholder.search'|translate"
@@ -25,6 +26,7 @@
                 [class.ng-dirty]="formControls?.propertyType?.invalid && (formControls?.propertyType?.dirty || formControls?.propertyType?.touched)"
                 [showClear]="true" placeholder="{{'placeholder.branch'|translate}}">
               </p-dropdown>
+         </div>
             </span>
             <div class="mb-4">
               <label for="username" class="mb-2 required">{{'labels.username'|translate}}</label>

@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
 
-  apiUrl: " https://localhost:7197/api",
-  publicUrl: "https://localhost:7197/api",
+  apiUrl: "https://qa-tms.qatarcentral.cloudapp.azure.com/api",
+  publicUrl: "https://qa-tms.qatarcentral.cloudapp.azure.com/api",
   // PUSHER_API_KEY: 'e88237276efd33cea7a6',
   // PUSHER_API_CLUSTER: 'ap2'
 };
