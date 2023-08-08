@@ -65,6 +65,7 @@ export class ReportsComponent implements OnInit {
   supervisorId: any = null;
   driverId: any = null;
   districtId: any = null;
+  customerId: any = null;
   orderStatus: any = null;
   ordersList$!: Observable<any>;
 
@@ -90,9 +91,9 @@ export class ReportsComponent implements OnInit {
     { name: this.publicService?.translateTextFromJson('dashboard.orders.all'), value: 1 },
     { name: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisor'), value: 2 },
     { name: this.publicService?.translateTextFromJson('dashboard.tableHeader.driver'), value: 3 },
-    { name: this.publicService?.translateTextFromJson('dashboard.serviceAgent.serviceAgent'), value: 4 },
-    { name: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), value: 5 },
-    { name: this.publicService?.translateTextFromJson('placeholder.customer'), value: 6 }
+    { name: this.publicService?.translateTextFromJson('placeholder.customer'), value: 4 },
+    { name: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), value: 5 }
+    //,{ name: this.publicService?.translateTextFromJson('placeholder.customer'), value: 6 }
   ];
   constructor(
     private reportsService: ReportsService,
@@ -347,18 +348,25 @@ export class ReportsComponent implements OnInit {
     this.supervisorId = formInfo?.supervisor?.id;
     this.districtId = formInfo?.district?.id;
     this.driverId = formInfo?.driver?.id;
+    this.customerId = formInfo?.customerName?.id;
     this.orderStatus = 0;
     let localurl = this.orderService?.getOrdersforreports(this.currentActiveIndex,
-      this.startTime, this.endTime, this.supervisorId, this.driverId, this.districtId, this.orderStatus);
+      this.startTime, this.endTime, this.supervisorId, this.driverId, this.districtId, this.orderStatus,this.customerId);
+console.log(localurl);
 
 
-    const apiURL = 'http://qa-tms.qatarcentral.cloudapp.azure.com:4488/viewer?reportname=orders' +
+      let tenantidKey = window.localStorage.getItem(keys.tenantid);
+
+
+    let apiURL = 'http://qa-tms.qatarcentral.cloudapp.azure.com:4488/viewer?reportname=orders' +
       '&rowfrom=' + moment(this.startTime).format('YYYYMMDD') +
       '&rowto=' + moment(this.endTime).format('YYYYMMDD') +
       '&repentityname=' + this.repentityname +
       '&repcode=' + this.repcode +
       '&data=' + JSON.stringify(localurl);
-
+      if (tenantidKey) {
+        apiURL = apiURL +   '&tenantid=' +tenantidKey;
+      }
     this.srcUrl = apiURL
 
 

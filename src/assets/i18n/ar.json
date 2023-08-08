@@ -257,6 +257,7 @@
     "tankPrice": "السعر",
     "plateNumber": "رقم اللوحة",
     "customerName": "اسم العميل",
+    "customer": " العميل",
     "comments": "تعليقات",
     "comment": "تعليق",
     "isVip": "عميل مميز",
