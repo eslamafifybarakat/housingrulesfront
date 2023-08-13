@@ -16,7 +16,7 @@
     (searchHandler)="search($event)" [isLoadingSearch]="isLoadingSearch"
     (clearHandler)="enableSortFilter?clearTable($event):''" [tableHeaders]="tableHeaders" [tableData]="usersList$"
     [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'" [showActions]="true" [showEdit]="true"
-    [showDelete]="false" [showDetails]="false" [showResetPassword]="true" (resetPasswordHandler)="resetPassword($event)"
+    [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="false" [showResetPassword]="true" (resetPasswordHandler)="resetPassword($event)"
     (editHandler)="addOrEditItem($event,'edit')" (customSortHandler)="enableSortFilter?sortItems($event):''"
     (filterHandler)="enableSortFilter?filterItems($event):''" [results]="usersCount" [paginatorRows]="perPage"
     [pages]="pagesCount" (paginateHandler)="onPageChange($event)" [rowsPerPageOptions]="rowsOptions"

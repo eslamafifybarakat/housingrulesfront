@@ -28,7 +28,7 @@
               <label for="startDate" class="mb-2">{{'labels.startDate'|translate}}</label>
               <div
                 [class.border-red]="formControls?.startDate?.invalid && (formControls?.startDate?.dirty || formControls?.startDate?.touched)">
-                <p-calendar formControlName="startDate" appendTo="body" [showIcon]="true" inputId="icon"
+                <p-calendar formControlName="startDate" appendTo="body" [showIcon]="true" inputId="icon" [required]="true"
                   placeholder="{{'labels.startDate'| translate}}" (onSelect)="selectStartDate($event)" [showTime]="true"
                   [showButtonBar]="true" (onClearClick)="clearStartDate()" dateFormat="dd/mm/yy"
                   hourFormat="12"></p-calendar>
@@ -51,7 +51,7 @@
               <label for="endDate" class="mb-2">{{'labels.endDate'|translate}}</label>
               <div
                 [class.border-red]="formControls?.endDate?.invalid && (formControls?.endDate?.dirty || formControls?.endDate?.touched)">
-                <p-calendar formControlName="endDate" appendTo="body" [minDate]="minEndDate" [showIcon]="true"
+                <p-calendar formControlName="endDate" appendTo="body" [minDate]="minEndDate" [showIcon]="true" [required]="true"
                   [disabled]="!isSelectStartDate" inputId="icon" placeholder="{{'labels.endDate'| translate}}"
                   [showTime]="true" [showButtonBar]="true" dateFormat="dd/mm/yy" hourFormat="12"></p-calendar>
               </div>
@@ -229,7 +229,7 @@
         </div>
 
         <div class="d-flex justify-content-center gap-3 flex-wrap mt-5">
-          <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+          <button type="submit" [disabled]="repcode==null" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
             <span>
               {{'general.upload'|translate}}
             </span>

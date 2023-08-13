@@ -45,4 +45,12 @@ export class UsersService {
   resetPassword(data: any): Observable<any> {
     return this.http?.post<any[]>(`${this.baseUrl}/${roots?.dashboard?.users?.resetPassword}`, data);
   }
+
+deleteUser(id: any): Observable<any> {
+  let params = new HttpParams();
+  if (id) {
+    params = params.append("id", id);
+  }
+  return this.http?.post<any>(`${this.baseUrl}/${roots?.dashboard?.users?.Delete}`, { "id": id });
+  }
 }

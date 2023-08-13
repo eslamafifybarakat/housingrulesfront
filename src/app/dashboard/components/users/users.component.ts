@@ -256,7 +256,28 @@ export class UsersComponent implements OnInit {
     this.publicService?.changePageSub?.next({ page: this.page });
     this.getAllUsers();
   }
+  deleteItem(item: any): void {
+    if (item?.confirmed) {
+    this.publicService?.show_loader.next(true);
+    this.usersService?.deleteUser(item?.item?.id)?.subscribe(
+      (res: any) => {
+        if (res?.isSuccess == true && res?.statusCode == 200) {
+          this.publicService?.show_loader?.next(false);
+          res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+        } else {
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+          this.publicService?.show_loader?.next(false);
+        }
+        this.getAllUsers();
+      },
+      (err) => {
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+        this.publicService?.show_loader?.next(false);
+      });
+  }
+  this.cdr?.detectChanges();
 
+  }
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
   }

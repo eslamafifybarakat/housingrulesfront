@@ -130,7 +130,7 @@ export class OrdersService {
     }
 
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.GetOrdersQL}/${startTime}
-      /${endTime}/${supervisorId}/${driverId}/${0}/${orderStatus}/${currentActiveIndex}/0`, { params: params });
+      /${endTime}/${supervisorId}/${driverId}/${0}/${orderStatus}/${currentActiveIndex}/0/0`, { params: params });
 
     // if (userLoginData?.userType < 3)
     //   return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.GetOrdersQL}/${startTime}
@@ -140,7 +140,7 @@ export class OrdersService {
   }
   getOrdersforreports(
     currentActiveIndex?: any, startTime = 0, endTime: any = 0, supervisorId: any = 0, driverId: any = 0,
-    districtId: any = 0, orderStatus: any = 0, customerId:any =0) {
+    districtId: any = 0, orderStatus: any = 0, customerId:any =0,servicsAgent:any =0) {
     let params = new HttpParams();
 
     if (currentActiveIndex) {
@@ -183,7 +183,12 @@ export class OrdersService {
       } else
       customerId = 0;
 
-    return `${this.baseUrl}/${roots?.dashboard?.orders?.GetOrdersQL}/${startTime}/${endTime}/${supervisorId}/${driverId}/${districtId}/${orderStatus}/${currentActiveIndex}/${customerId}`;
+      if (servicsAgent) {
+        params = params?.append("servicsAgent", servicsAgent);
+      } else
+      servicsAgent = 0;
+
+    return `${this.baseUrl}/${roots?.dashboard?.orders?.GetOrdersQL}/${startTime}/${endTime}/${supervisorId}/${driverId}/${districtId}/${orderStatus}/${currentActiveIndex}/${customerId}/${servicsAgent}`;
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.GetOrdersQL}/${startTime}/${endTime}/${supervisorId}/${driverId}/${districtId}/${orderStatus}/${currentActiveIndex}`)
   }
   getCustomersList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any): Observable<any> {

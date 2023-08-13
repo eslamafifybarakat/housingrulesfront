@@ -66,13 +66,15 @@ export class ReportsComponent implements OnInit {
   driverId: any = null;
   districtId: any = null;
   customerId: any = null;
+  serviceAgentId: any = null;
   orderStatus: any = null;
   ordersList$!: Observable<any>;
+  dateFrom: Date = new Date();
 
   modalForm = this.fb?.group(
     {
-      startDate: [null, []],
-      endDate: [null, []],
+      startDate: [new Date(this.dateFrom.getFullYear(), this.dateFrom.getMonth(), 1), []],
+      endDate: [new Date(this.dateFrom.getFullYear(),this.dateFrom.getMonth() + 1, 0), []],
       supervisor: ['', []],
       driver: ['', []],
       district: ['', []],
@@ -92,8 +94,8 @@ export class ReportsComponent implements OnInit {
     { name: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisor'), value: 2 },
     { name: this.publicService?.translateTextFromJson('dashboard.tableHeader.driver'), value: 3 },
     { name: this.publicService?.translateTextFromJson('placeholder.customer'), value: 4 },
-    { name: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), value: 5 }
-    //,{ name: this.publicService?.translateTextFromJson('placeholder.customer'), value: 6 }
+    { name: this.publicService?.translateTextFromJson('dashboard.tableHeader.district'), value: 5 },
+    { name: this.publicService?.translateTextFromJson('dashboard.serviceAgent.serviceAgent'), value: 6 }
   ];
   constructor(
     private reportsService: ReportsService,
@@ -157,7 +159,6 @@ export class ReportsComponent implements OnInit {
       this.minEndDate = event;
       this.isSelectStartDate = true;
     }
-    this.modalForm?.get('endDate')?.reset();
   }
   clearStartDate(): void {
     this.isSelectStartDate = false;
@@ -349,11 +350,11 @@ export class ReportsComponent implements OnInit {
     this.districtId = formInfo?.district?.id;
     this.driverId = formInfo?.driver?.id;
     this.customerId = formInfo?.customerName?.id;
+    this.serviceAgentId  = formInfo?.serviceAgent?.id;
     this.orderStatus = 0;
     let localurl = this.orderService?.getOrdersforreports(this.currentActiveIndex,
-      this.startTime, this.endTime, this.supervisorId, this.driverId, this.districtId, this.orderStatus,this.customerId);
-console.log(localurl);
-
+      this.startTime, this.endTime, this.supervisorId, this.driverId, this.districtId, this.orderStatus,this.customerId,
+      this.serviceAgentId);
 
       let tenantidKey = window.localStorage.getItem(keys.tenantid);
 
@@ -370,6 +371,16 @@ console.log(localurl);
     this.srcUrl = apiURL
 
 
+  }
+  private formatDate(date:string
+    ) {
+    const d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    const year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
   }
 }
 
