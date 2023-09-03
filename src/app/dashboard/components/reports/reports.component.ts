@@ -13,12 +13,14 @@ import { SupervisorsService } from '../../services/supervisors.service';
 import { keys } from 'src/app/shared/configs/localstorage-key';
 import { ServiceAgentService } from '../../services/service-agent.service';
 import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.scss']
 })
 export class ReportsComponent implements OnInit {
+  branchsbased = environment?.branchsbased;
   private unsubscribe: Subscription[] = [];
   srcUrl = '';
   currLang: any = '';
@@ -365,10 +367,13 @@ export class ReportsComponent implements OnInit {
       '&repentityname=' + this.repentityname +
       '&repcode=' + this.repcode +
       '&data=' + JSON.stringify(localurl);
-      if (tenantidKey) {
-        apiURL = apiURL +   '&tenantid=' +tenantidKey;
+      if(this.branchsbased){
+
+        if (tenantidKey) {
+          apiURL = apiURL +   '&tenantid=' +tenantidKey;
+        }
       }
-    this.srcUrl = apiURL
+        this.srcUrl = apiURL
 
 
   }

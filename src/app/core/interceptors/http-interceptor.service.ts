@@ -9,10 +9,13 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
   browserLang: any = '';
+  branchsbased = environment?.branchsbased;
+
   constructor(private translateService: TranslateService) { }
   intercept(
     request: HttpRequest<unknown>,
@@ -44,9 +47,13 @@ export class HttpInterceptorService implements HttpInterceptor {
         header["Authorization"] = `Bearer ${tokenKey}`;
       }
 
-      let tenantidKey = window.localStorage.getItem(keys.tenantid);
-      if (tenantidKey) {
-        header["tenantid"] = tenantidKey;
+      if(this.branchsbased)
+      {
+
+        let tenantidKey = window.localStorage.getItem(keys.tenantid);
+        if (tenantidKey) {
+          header["tenantid"] = tenantidKey;
+        }
       }
       request = request.clone({
         setHeaders: header,

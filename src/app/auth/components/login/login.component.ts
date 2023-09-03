@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment.prod';
 import { CheckValidityService } from './../../../shared/services/check-validity/check-validity.service';
 import { TranslationService } from './../../../shared/services/i18n/translation.service';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
@@ -17,6 +18,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  branchsbased = environment?.branchsbased;
   private unsubscribe: Subscription[] = [];
   currentLanguage: any;
   citiesList:any[]=[];
@@ -39,8 +41,7 @@ export class LoginComponent implements OnInit {
   loginForm = this.fb?.group(
     {
       branch: [, {
-        validators: [
-          Validators.required], updateOn: "blur"
+        validators: [], updateOn: "blur"
       }],
       username: ['', {
         validators: [
@@ -81,7 +82,7 @@ export class LoginComponent implements OnInit {
       let data = {
         username: this.loginForm?.value?.username,
         password: this.loginForm?.value?.password,
-        branch: formInfo.branch?.['value']
+        branch: this.branchsbased ? formInfo.branch?.['value'] : ''
       };
       this.authUserService?.login(data)?.subscribe(
         (res: any) => {

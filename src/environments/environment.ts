@@ -4,9 +4,11 @@
 
 export const environment = {
   production: false,
-
-  apiUrl: "https://qa-tms.qatarcentral.cloudapp.azure.com/api",
-  publicUrl: "https://qa-tms.qatarcentral.cloudapp.azure.com/api",
+  branchsbased: false,
+  // apiUrl: "https://qa-tms.qatarcentral.cloudapp.azure.com/api",
+  // publicUrl: "https://qa-tms.qatarcentral.cloudapp.azure.com/api",
+  apiUrl: "http://qa-tms.qatarcentral.cloudapp.azure.com:4455/api",
+  publicUrl: "http://qa-tms.qatarcentral.cloudapp.azure.com:4455/api",
   // PUSHER_API_KEY: 'e88237276efd33cea7a6',
   // PUSHER_API_CLUSTER: 'ap2'
 };
