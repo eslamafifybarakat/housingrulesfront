@@ -361,6 +361,7 @@ export class WelcomeDashboardComponent implements OnInit {
     let driverOnWayToStation: any = 0;
     let pending: any = 0;
     let driverOnWayToCustomer: any = 0;
+    let  cancelled : any = 0;
     let supervisorData: any = [];
     let supervisorName: any = '';
     this.supervisorsList?.forEach((element: any) => {
@@ -370,6 +371,7 @@ export class WelcomeDashboardComponent implements OnInit {
       driverOnWayToCustomer = 0;
       driverOnWayToStation = 0;
       completed = 0;
+      cancelled = 0;
       data?.forEach((item: any) => {
         if (element?.id == item?.supervisorId) {
           if (item?.status == 7) {
@@ -384,6 +386,9 @@ export class WelcomeDashboardComponent implements OnInit {
           if (item?.status == 3) {
             driverOnWayToCustomer = driverOnWayToCustomer + 1;
           }
+          if (item?.status == 8) {
+            cancelled = cancelled + 1;
+          }
         }
       });
       supervisorData?.push({
@@ -392,6 +397,7 @@ export class WelcomeDashboardComponent implements OnInit {
         pending: pending,
         driverOnWayToStation: driverOnWayToStation,
         completed: completed,
+        cancelled :  cancelled
       });
     });
 
