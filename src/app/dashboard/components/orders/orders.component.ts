@@ -256,6 +256,7 @@ export class OrdersComponent implements OnInit {
     var index = e.index;
     this.currentActiveIndex = index + 1;
     this.page = 1;
+    this.customerId = 0;
     this.getAllOrders();
   }
   getOrders(): void {
@@ -293,12 +294,13 @@ export class OrdersComponent implements OnInit {
     const ref = this.dialogService?.open(FilterOrdersComponent, {
       header: this.publicService?.translateTextFromJson('general.filter'),
       data: {
-        currentActiveIndex: this.currentActiveIndex,
+        currentActiveIndex: 4,// this.currentActiveIndex,
         startTime: this.startTime,
         endTime: this.endTime,
         supervisorId: this.supervisorId,
         driverId: this.driverId,
         orderStatus: this.orderStatus,
+        customerId: this.customerId
       },
       dismissableMask: false,
       width: '50%',
@@ -313,6 +315,8 @@ export class OrdersComponent implements OnInit {
         this.orderStatus = res?.orderStatus;
         this.customerId = res?.customerId;
         this.page = 1;
+        this.perPage = 100;
+        this.currentActiveIndex= 4,// this.currentActiveIndex,
         this.publicService?.changePageSub?.next({ page: this.page });
         this.getAllOrders();
       }
