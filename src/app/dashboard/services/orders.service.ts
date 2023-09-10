@@ -75,7 +75,7 @@ export class OrdersService {
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.ordersList}`, { params: params })
   }
   getOrdersEntityList(page?: number, per_page?: number, search?: string, sort?: any, conditions?: any,
-    currentActiveIndex?: any, startTime = 0, endTime: any = 0, supervisorId: any = 0, driverId: any = 0, orderStatus: any = 0): Observable<any> {
+    currentActiveIndex?: any, startTime = 0, endTime: any = 0, supervisorId: any = 0, driverId: any = 0, orderStatus: any = 0, customerId: any = 0): Observable<any> {
     let userLoginData: any = JSON.parse(window.localStorage.getItem(keys?.userLoginData) || '{}');
     let params = new HttpParams();
     if (page) {
@@ -128,9 +128,13 @@ export class OrdersService {
     } else {
       orderStatus = 0;
     }
-
+    if (customerId) {
+      params = params?.append("customerId", customerId);
+    } else
+    {customerId = 0;
+    }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.GetOrdersQL}/${startTime}
-      /${endTime}/${supervisorId}/${driverId}/${0}/${orderStatus}/${currentActiveIndex}/0/0`, { params: params });
+      /${endTime}/${supervisorId}/${driverId}/${0}/${orderStatus}/${currentActiveIndex}/${customerId}/0`, { params: params });
 
     // if (userLoginData?.userType < 3)
     //   return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.orders?.GetOrdersQL}/${startTime}
