@@ -57,6 +57,8 @@ export class OrdersComponent implements OnInit {
   supervisorId: any = null;
   driverId: any = null;
   orderStatus: any = null;
+  customerId: any = null;
+
   private hubConnection: signalR.HubConnection | undefined;
 
   cancellationCauses: any = [];
@@ -124,7 +126,7 @@ export class OrdersComponent implements OnInit {
     this.ordersService?.getOrdersEntityList(this.page, this.perPage,
       this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null,
       this.filtersArray ? this.filtersArray : null, this.currentActiveIndex,
-      this.startTime, this.endTime, this.supervisorId, this.driverId, this.orderStatus)
+      this.startTime, this.endTime, this.supervisorId, this.driverId, this.orderStatus,this.customerId)
       .pipe(
         map((res: any) => {
           this.ordersCount = res?.total;
@@ -309,6 +311,7 @@ export class OrdersComponent implements OnInit {
         this.supervisorId = res?.supervisorId;
         this.driverId = res?.driverId;
         this.orderStatus = res?.orderStatus;
+        this.customerId = res?.customerId;
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
         this.getAllOrders();

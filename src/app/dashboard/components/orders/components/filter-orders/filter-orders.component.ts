@@ -8,6 +8,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { OrdersService } from 'src/app/dashboard/services/orders.service';
 
 @Component({
   selector: 'app-filter-orders',
@@ -31,12 +32,16 @@ export class FilterOrdersComponent implements OnInit {
 
   modalData: any = this.config?.data;
 
+  customersList: any = [];
+  isLoadingCustomers: boolean = false;
+
   constructor(
     public checkValidityService: CheckValidityService,
     private supervisorsService: SupervisorsService,
     private driversService: DriversService,
     public alertsService: AlertsService,
     public publicService: PublicService,
+    private orderService: OrdersService,
     private config: DynamicDialogConfig,
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
@@ -47,6 +52,7 @@ export class FilterOrdersComponent implements OnInit {
   ngOnInit(): void {
     this.getAllSupervisors();
     this.getAllDrivers();
+    this.getAllCustomers();
     this.orderStatusList = this.publicService?.getOrderStatus();
     let orderStatus: any = null;
     this.orderStatusList?.forEach((item: any) => {
@@ -70,6 +76,7 @@ export class FilterOrdersComponent implements OnInit {
       supervisor: ['', []],
       driver: ['', []],
       orderStatus: ['', []],
+      customerName: ['', []]
     },
   );
   get formControls(): any {
@@ -168,6 +175,7 @@ export class FilterOrdersComponent implements OnInit {
       myObject['supervisorId'] = formInfo?.supervisor?.id;
       myObject['driverId'] = formInfo?.driver?.id;
       myObject['orderStatus'] = formInfo?.orderStatus?.id;
+      myObject['customerId'] = formInfo?.customerName?.id;
       this.ref?.close(myObject)
     } else {
       this.checkValidityService?.validateAllFormFields(this.modalForm);
@@ -180,5 +188,27 @@ export class FilterOrdersComponent implements OnInit {
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
   }
+
+  getAllCustomers(): any {
+    this.isLoadingCustomers = true;
+    this.orderService?.getCustomersList()?.subscribe(
+      (res: any) => {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
+          this.customersList = res?.data;
+
+          this.isLoadingCustomers = false;
+        } else {
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+          this.isLoadingCustomers = false;
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+        this.isLoadingCustomers = false;
+      });
+    this.cdr?.detectChanges();
+
+  }
+
 }
 
