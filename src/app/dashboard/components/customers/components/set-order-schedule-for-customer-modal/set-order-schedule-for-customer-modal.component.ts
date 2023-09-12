@@ -49,7 +49,6 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllSupervisors();
     this.periodicCatList = this.publicService?.getPeriodicCat();
     this.dayOfWeekList = this.publicService?.getDayOfWeek();
     this.modalData = this.config?.data;
@@ -58,9 +57,9 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
       { field: 'dayOrder', header: this.publicService?.translateTextFromJson('labels.dayOfWeek'), title: this.publicService?.translateTextFromJson('labels.dayOfWeek'), type: 'text' },
       { field: 'period', header: this.publicService?.translateTextFromJson('labels.periodicCat'), title: this.publicService?.translateTextFromJson('labels.periodicCat'), type: 'text' },
       { field: 'timeVale', header: this.publicService?.translateTextFromJson('labels.time'), title: this.publicService?.translateTextFromJson('labels.time'), type: 'text' },
-      { field: 'startDue', header: this.publicService?.translateTextFromJson('labels.startDate'), title: this.publicService?.translateTextFromJson('labels.startDate'), type: 'date' },
-      { field: 'endDue', header: this.publicService?.translateTextFromJson('labels.endDate'), title: this.publicService?.translateTextFromJson('labels.endDate'), type: 'date' },
+      { field: 'supervisor', header: this.publicService?.translateTextFromJson('labels.supervisor'), title: this.publicService?.translateTextFromJson('labels.supervisor'), type: 'text' },
     ];
+    this.getAllSupervisors();
   }
 
   modalForm = this.fb?.group(
@@ -79,7 +78,12 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
         validators: [
           Validators.required], updateOn: "blur"
       }],
+      supervisor:['', {
+        validators: [
+          Validators.required], updateOn: "blur"
+      }]
     },
+
   );
   get formControls(): any {
     return this.modalForm?.controls;
@@ -124,11 +128,11 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
                 endDue: item?.endDue,
                 timeVale: this.publicService?.getFormattedTime(item?.timeVale),
                 period: period,
-                dayOrder: dayOrder
+                dayOrder: dayOrder,
+                supervisor:item?.supervisor
               });
             }
           });
-          console.log(this.orderSchedule);
 
         } else {
           this.isLoading = false;
@@ -156,6 +160,7 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
       myObject['timeVale'] = convertedTime?.split("T")[1]?.split(".")[0];
       myObject['period'] = formInfo?.periodicCat?.id;
       myObject['dayOrder'] = formInfo?.dayOfWeek?.id;
+      myObject['supervisorId'] = formInfo?.supervisor.id;
       this.publicService?.show_loader?.next(true);
       this.customersService?.createAsyncSchudle(myObject)?.subscribe(
         (res: any) => {
