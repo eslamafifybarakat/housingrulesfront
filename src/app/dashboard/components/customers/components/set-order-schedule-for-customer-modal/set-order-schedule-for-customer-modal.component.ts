@@ -8,6 +8,7 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { SupervisorsService } from 'src/app/dashboard/services/supervisors.service';
 
 @Component({
   selector: 'app-set-order-schedule-for-customer-modal',
@@ -30,11 +31,16 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
   orderSchedule: any = [];
   tableHeaders: any = [];
 
+
+  supervisorsList: any = [];
+  isLoadingSupervisors: boolean = false;
+
   constructor(
     public checkValidityService: CheckValidityService,
     private customersService: CustomersService,
     public alertsService: AlertsService,
     public publicService: PublicService,
+    private supervisorsService: SupervisorsService,
     private config: DynamicDialogConfig,
     private dialogService: DialogService,
     private cdr: ChangeDetectorRef,
@@ -43,6 +49,7 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getAllSupervisors();
     this.periodicCatList = this.publicService?.getPeriodicCat();
     this.dayOfWeekList = this.publicService?.getDayOfWeek();
     this.modalData = this.config?.data;
@@ -169,6 +176,38 @@ export class SetOrderScheduleForCustomerModalComponent implements OnInit {
     } else {
       this.checkValidityService?.validateAllFormFields(this.modalForm);
     }
+  }
+  getAllSupervisors(): any {
+    this.isLoadingSupervisors = true;
+    this.supervisorsService?.getSupervisorsList()?.subscribe(
+      (res: any) => {
+        if (res?.statusCode == 200 && res?.isSuccess == true) {
+          let arr: any = [];
+          res?.data ? res?.data?.forEach((supervisor: any) => {
+            arr?.push({
+              name: supervisor?.arName,
+              id: supervisor?.id
+            });
+          }) : '';
+          this.supervisorsList = arr;
+          this.isLoadingSupervisors = false;
+          let supervisor: any = null;
+          this.supervisorsList?.forEach((item: any) => {
+            if (item?.id == this.modalData?.supervisorId) {
+              supervisor = item;
+            }
+          });
+
+        } else {
+          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+          this.isLoadingSupervisors = false;
+        }
+      },
+      (err: any) => {
+        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+        this.isLoadingSupervisors = false;
+      });
+    this.cdr?.detectChanges();
   }
   browse(): void {
     this.ref?.close();

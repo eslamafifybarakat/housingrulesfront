@@ -23,7 +23,7 @@
     <p-tabPanel [header]="'general.addNew'|translate">
       <form [formGroup]="modalForm" (ngSubmit)="submit()">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <div class="mb-3">
               <label for="time" class="mb-2 required">{{'labels.time'|translate}}</label>
               <div
@@ -46,6 +46,37 @@
               </div>
             </div>
           </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">
+                {{"labels.supervisor"|translate}}
+              </label>
+              <span class="p-input-icon-right select-loading d-block">
+                <p-dropdown [options]="supervisorsList" formControlName="supervisor" optionLabel="name" [filter]="true"
+                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                  [readonly]="isLoadingSupervisors" scrollHeight="150px"
+                  emptyMessage="{{'general.no_result_found'|translate}}"
+                  [class.ng-dirty]="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)"
+                  [showClear]="true" placeholder="{{'placeholder.supervisor'|translate}}">
+                </p-dropdown>
+                <ng-container *ngIf="isLoadingSupervisors">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+              </span>
+              <div class="my-2">
+                <ng-container
+                  *ngIf="formControls?.supervisor?.invalid && (formControls?.supervisor?.dirty || formControls?.supervisor?.touched)">
+                  <ng-container *ngIf="formControls?.supervisor?.errors?.['required']">
+                    <span class="text-danger fs-8">
+                      {{"validations.required_field"|translate}}
+                    </span>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
           <div class="col-md-6">
             <div class="mb-3">
               <label class="form-label required">
