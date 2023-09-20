@@ -416,7 +416,7 @@ export class WelcomeDashboardComponent implements OnInit {
       datasets: [
         {
           label: this.publicService?.translateTextFromJson('general.completed'),
-          backgroundColor: '#50cd89',
+          backgroundColor: '#0c5b40',
           data: this.completedChart,
           categoryPercentage: 1,
           barPercentage: 0.7,
@@ -425,7 +425,7 @@ export class WelcomeDashboardComponent implements OnInit {
           label: this.publicService?.translateTextFromJson(
             'general.driverOnWayToStation'
           ),
-          backgroundColor: '#E4DCCF',
+          backgroundColor: '#32b2b',
           data: this.driverOnWayToStationChart,
           categoryPercentage: 1,
           barPercentage: 0.7,
@@ -531,7 +531,7 @@ export class WelcomeDashboardComponent implements OnInit {
           label: this.publicService?.translateTextFromJson(
             'general.workUnderway'
           ),
-          backgroundColor: '#09d891',
+          backgroundColor: '#0c5b40',
           barThickness: 30,
           borderRadius: 4,
           data: this.workUnderwayChart,

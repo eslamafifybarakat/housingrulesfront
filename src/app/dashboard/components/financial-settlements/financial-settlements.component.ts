@@ -41,7 +41,7 @@ export class FinancialSettlementsComponent implements OnInit {
   usersList: any = [];
   financialSettlementsList: any = [];
   activeIndex: any;
-  total: any;
+  total: number = 0;
 
   userLoginDataType: any;
 
@@ -141,11 +141,11 @@ export class FinancialSettlementsComponent implements OnInit {
   }
 
   getTotal(): void {
-    let total = 0;
+    let tot = 0;
     this.financialSettlementsList?.forEach((item: any) => {
-      total += item?.amount;
+      tot =tot + Number.parseInt( item?.amount);
     });
-    this.total = total;
+    this.total = tot;
   }
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());

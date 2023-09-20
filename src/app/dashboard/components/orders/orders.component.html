@@ -18,7 +18,8 @@
         <span>{{'general.filter'|translate}}</span>
       </button>
       <ng-container
-        *ngIf="userLoginDataType==1 || userLoginDataType==2 || userLoginDataType==3 || userLoginDataType==4|| userLoginDataType==5">
+        *ngIf="userLoginDataType==1 || userLoginDataType==2 || userLoginDataType==3 || userLoginDataType==4|| userLoginDataType==5
+        || userLoginDataType==21|| userLoginDataType==31">
         <button class="btn btn-outline-main d-flex align-items-center gap-2 me-auto" (click)="addOrEditItem()">
           <i class="pi pi-plus-circle"></i>
           <span>{{'dashboard.createNew'|translate}}</span>

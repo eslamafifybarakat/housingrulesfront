@@ -80,7 +80,7 @@ export const barStackedOptions = {
         },
       },
       grid: {
-        color: '#eee',
+        color: '#eeef',
       },
     },
     y: {
@@ -90,7 +90,7 @@ export const barStackedOptions = {
         stepSize: 5,
       },
       grid: {
-        color: '#eee',
+        color: '#eeef',
       },
     },
   },
@@ -103,11 +103,11 @@ export const stackedOptionsHorizontal = {
     maintainAspectRatio: false,
     legend: {
       labels: {
-        color: '#111',
+        color: '#1110',
       },
     },
     datalabels: {
-      color: '#fff',
+      color: '#fff0',
       display: function (context: any) {
         return context.dataset.data[context.dataIndex] !== 0; // or >= 1 or ...
       },
@@ -121,27 +121,27 @@ export const stackedOptionsHorizontal = {
     x: {
       stacked: true,
       ticks: {
-        color: '#111',
+        color: '#1110',
         font: {
           size: 12,
           weight: 'bold',
         },
       },
       grid: {
-        color: 'rgba(255,255,255,0.2)',
+        color: 'rgba(255,255,255,0.5)',
       },
     },
     y: {
       stacked: true,
       ticks: {
-        color: '#111',
+        color: '#1110',
         font: {
           size: 12,
           weight: 'bold',
         },
       },
       grid: {
-        color: 'rgba(255,255,255,0.2)',
+        color: 'rgba(255,255,255,0.5)',
       },
     },
   },
@@ -286,22 +286,22 @@ export const basicOptionsHorizontal = {
   scales: {
     x: {
       ticks: {
-        color: '#111',
+        color: '#1110',
         font: {
           size: 10,
         },
       },
       grid: {
-        color: '#eee',
+        color: '#eee0',
       },
     },
     y: {
       ticks: {
-        color: '#111',
+        color: '#1110',
         stepSize: 5,
       },
       grid: {
-        color: '#eee',
+        color: '#eee0',
       },
     },
   },

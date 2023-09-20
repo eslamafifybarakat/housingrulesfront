@@ -96,7 +96,12 @@ export class AsideMenuComponent implements OnInit {
         ),
         icon: 'fa-file-pen',
         routerLink: '/dashboard/orders',
-        state: this.userLoginData?.userType != 9,
+        state:   this.userLoginData?.userType == 1 ||
+        this.userLoginData?.userType == 2 ||
+        this.userLoginData?.userType == 3 ||
+        this.userLoginData?.userType == 4 ||
+        this.userLoginData?.userType == 21 ||
+        this.userLoginData?.userType == 31,
         routeName: 'orders',
       },
       {
