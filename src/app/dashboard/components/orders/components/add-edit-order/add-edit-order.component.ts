@@ -189,7 +189,8 @@ export class AddEditOrderComponent implements OnInit {
     this.orderService?.getDistrictsList()?.subscribe(
       (res: any) => {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
-          this.districtsList = res?.data[0]?.districts;
+
+          this.districtsList = res?.data;
           if (this.isEdit) {
             this.districtsList?.forEach((item: any) => {
               if (item?.id == this.orderData?.districtId) {

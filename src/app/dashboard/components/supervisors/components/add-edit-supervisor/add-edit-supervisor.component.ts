@@ -93,7 +93,7 @@ export class AddEditSupervisorComponent implements OnInit {
     this.orderService?.getDistrictsList()?.subscribe(
       (res: any) => {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
-          this.districtsList = res?.data[0]?.districts;
+          this.districtsList = res?.data;
           if (this.isEdit) {
             let ids: any = [];
             console.log(this.modalData?.item);
