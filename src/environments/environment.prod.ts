@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  branchsbased: false,
-  apiUrl: "http://qa-tms.qatarcentral.cloudapp.azure.com:4455/api",
-  publicUrl: "http://qa-tms.qatarcentral.cloudapp.azure.com:4455/api",
+  branchsbased: true,
+  apiUrl: "http://qa-tms.qatarcentral.cloudapp.azure.com:8888/api",
+  publicUrl: "http://qa-tms.qatarcentral.cloudapp.azure.com:8888/api",
 };
