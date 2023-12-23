@@ -609,6 +609,8 @@ export class AddEditOrderComponent implements OnInit {
         this.orderService.checkCustomerHasOpendedOrders(formInfo?.customerName?.id).subscribe(
           (res: any) => {
             if (res?.isSuccess == true && res?.statusCode == 200) {
+              console.log(res?.data);
+
               if (res?.data?.length > 0) {
                 this.confirmationService.confirm({
                   message: this.publicService?.translateTextFromJson('general.hasOpendedOrdersYouSureToContinue'),

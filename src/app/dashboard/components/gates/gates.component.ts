@@ -86,7 +86,7 @@ export class GatesComponent implements OnInit {
   }
 
   getAllGates(): any {
-    if (this.userLoginDataType == 7) {
+    if (this.userLoginDataType ==  7 || this.userLoginDataType == 8 ) {
       this.loadingIndicator = true;
       this.ordersService?.getGatesList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
         .pipe(
@@ -145,6 +145,7 @@ export class GatesComponent implements OnInit {
                 locationLink: item?.locationLink ? item?.locationLink : null,
                 tankname: item?.tankname ? item?.tankname : '',
                 status: status,
+                statusint: item?.status,
                 statusClass: statusClass,
                 paymentMethod: paymentMethod,
                 paidAmount: item?.paidAmount ? item?.paidAmount : '0',
@@ -170,7 +171,7 @@ export class GatesComponent implements OnInit {
         ).subscribe((res: any) => {
         });
     }
-    if (this.userLoginDataType == 8) {
+   /*  if (this.userLoginDataType == 8) {
       this.loadingIndicator = true;
       this.ordersService?.orderDriverArrivedToStationList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
         .pipe(
@@ -254,7 +255,7 @@ export class GatesComponent implements OnInit {
 
         ).subscribe((res: any) => {
         });
-    }
+    } */
   }
   getOrders(): void {
     let arr: any = this.gatesList$
@@ -288,7 +289,7 @@ export class GatesComponent implements OnInit {
 
   confirmOrder(item?: any): void {
     console.log(item);
-    if (this.userLoginDataType == 7) {
+    if (item.statusint == 5) {
       const ref = this.dialogService?.open(ConfirmOrderComponent, {
         data: {
           item: item
@@ -306,7 +307,7 @@ export class GatesComponent implements OnInit {
         }
       });
     }
-    if (this.userLoginDataType == 8) {
+    if (item.statusint == 6) {
       const ref = this.dialogService?.open(ConfirmCompleteOrderComponent, {
         data: {
           item: item
