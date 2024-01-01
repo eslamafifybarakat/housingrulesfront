@@ -300,10 +300,10 @@ export class GatesComponent implements OnInit {
         styleClass: 'custom_modal'
       });
       ref.onClose.subscribe((res: any) => {
+        this.getAllGates();
         if (res?.listChanged) {
           this.page = 1;
           this.publicService?.changePageSub?.next({ page: this.page });
-          this.getAllGates();
         }
       });
     }
