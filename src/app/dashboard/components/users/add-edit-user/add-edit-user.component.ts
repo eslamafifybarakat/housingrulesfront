@@ -301,7 +301,7 @@ export class AddEditUserComponent implements OnInit {
         myObject['password'] = this.userForm?.value?.password;
 
         let tenantidKey = window.localStorage.getItem(keys.tenantid);
-       myObject['tenantId'] = tenantidKey;
+      //s myObject['tenantId'] = tenantidKey ? tenantidKey : 0;
       }
 
       this.publicService?.show_loader?.next(true);
