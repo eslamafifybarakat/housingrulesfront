@@ -9,6 +9,8 @@ import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 import { GateDetailsComponent } from './components/gate-details/gate-details.component';
+import { environment } from 'src/environments/environment';
+import * as signalR from '@microsoft/signalr';
 
 @Component({
   selector: 'app-gates',
@@ -45,6 +47,7 @@ export class GatesComponent implements OnInit {
   paymentMethodList: any = [];
 
   userLoginDataType: any;
+  hubConnection: any;
 
   constructor(
     private alertsService: AlertsService,
@@ -81,6 +84,7 @@ export class GatesComponent implements OnInit {
 
     ];
 
+    this.startConnection();
     this.getAllGates();
     this.paymentMethodList = this.publicService?.getPaymentMethods();
   }
@@ -288,7 +292,6 @@ export class GatesComponent implements OnInit {
   }
 
   confirmOrder(item?: any): void {
-    console.log(item);
     if (item.statusint == 5) {
       const ref = this.dialogService?.open(ConfirmOrderComponent, {
         data: {
@@ -322,7 +325,9 @@ export class GatesComponent implements OnInit {
           this.publicService.show_loader.next(true);
           this.ordersService?.setOrderComplete(item?.id)?.subscribe(
             (res: any) => {
-              if (res?.isSuccess == true) {
+        this.getAllGates();
+
+        if (res?.isSuccess == true) {
                 this.publicService?.show_loader?.next(false);
                 res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
               } else {
@@ -343,7 +348,7 @@ export class GatesComponent implements OnInit {
         // }
       });
     }
-    this.getAllGates();
+    //this.getAllGates();
   }
   itemDetails(item?: any): void {
     console.log(item);
@@ -443,5 +448,66 @@ export class GatesComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.unsubscribe?.forEach((sb) => sb?.unsubscribe());
+  }
+  public startConnection = () => {
+    let url = environment.apiUrl.substring(0, environment.apiUrl.length - 4) + '/OrderStatusHub';
+    this.hubConnection = new signalR.HubConnectionBuilder().withAutomaticReconnect()
+      .withUrl(url)
+      .build();
+    this.hubConnection.serverTimeoutInMilliseconds = 100000; // 100 second
+    this.hubConnection
+      .start()
+      .then(() => console.log('Connection started'))
+      .catch((err: string) => console.log('Error while starting connection: ' + err));
+
+
+    this.hubConnection.on('NotifyOrderStatus', (orderId: any, orderStatus: any) => {
+      this.updateOrderStatus(orderId, orderStatus);
+    });
+  }
+  updateOrderStatus(orderId: any, orderStatus: any) {
+    let statustobind: any;
+    let statusClass: any;
+    this.gatesList$?.forEach((element: any) => {
+      if (orderId == element?.id) {
+
+        if (orderStatus == 1) {
+          statustobind = this.publicService.translateTextFromJson('general.pending');
+          statusClass = 'warning';
+        }
+        if (orderStatus == 2) {
+          statustobind = this.publicService.translateTextFromJson('general.assignedToDriver');
+          statusClass = 'primary';
+        }
+        if (orderStatus == 3) {
+          statustobind = this.publicService.translateTextFromJson('general.driverOnWayToCustomer');
+          statusClass = 'gray';
+        }
+        if (orderStatus == 4) {
+          statustobind = this.publicService.translateTextFromJson('general.driverArrivedToCustomer');
+          statusClass = 'cyan';
+        }
+        if (orderStatus == 5) {
+          statustobind = this.publicService.translateTextFromJson('general.driverOnWayToStation');
+          statusClass = 'purple';
+        }
+        if (orderStatus == 6) {
+          statustobind = this.publicService.translateTextFromJson('general.driverArrivedToStation');
+          statusClass = 'cyan';
+        }
+        if (orderStatus == 7) {
+          statustobind = this.publicService.translateTextFromJson('general.completed');
+          statusClass = 'success';
+        }
+        if (orderStatus == 8) {
+          statustobind = this.publicService.translateTextFromJson('general.cancelled');
+          statusClass = 'danger';
+        }
+        element["status"] = statustobind;
+        element["statusClass"] = statusClass;
+      }
+    });
+
+    this.cdr.detectChanges();
   }
 }
