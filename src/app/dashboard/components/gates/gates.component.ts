@@ -303,7 +303,6 @@ export class GatesComponent implements OnInit {
         if (res?.listChanged) {
           this.page = 1;
           this.publicService?.changePageSub?.next({ page: this.page });
-          this.getAllGates();
         }
       });
     }
@@ -318,7 +317,6 @@ export class GatesComponent implements OnInit {
         styleClass: 'custom_modal'
       });
       ref.onClose.subscribe((res: any) => {
-        console.log(res);
         if (res?.confirmed) {
           this.publicService.show_loader.next(true);
           this.ordersService?.setOrderComplete(item?.id)?.subscribe(
@@ -335,7 +333,7 @@ export class GatesComponent implements OnInit {
               err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
               this.publicService?.show_loader?.next(false);
             });
-        }
+          }
 
         // if (res?.listChanged) {
         //   this.page = 1;
@@ -344,8 +342,7 @@ export class GatesComponent implements OnInit {
         // }
       });
     }
-
-
+    this.getAllGates();
   }
   itemDetails(item?: any): void {
     console.log(item);
