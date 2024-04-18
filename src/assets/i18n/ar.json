@@ -237,6 +237,7 @@
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
     "allowTerminal": "دخول من التطبيق",
     "userActivation": "تفعيل المستخدم",
+    "isAllowtoCreateOrder":"انشاء طلبات",
     "tankActivation": "تفعيل الصهريج",
     "userAgentActivation": "تفعيل خدمة العميل",
     "driverActivation": "تفعيل السائق",

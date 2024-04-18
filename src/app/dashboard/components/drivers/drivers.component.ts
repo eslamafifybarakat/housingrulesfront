@@ -103,7 +103,8 @@ export class DriversComponent implements OnInit {
               supervisorId: driver?.supervisorId,
               mobileNumber: driver?.mobileNumber ? driver?.mobileNumber : '',
               tank:  driver?.tank,
-              supervisor: supervisorArr
+              supervisor: supervisorArr,
+              isAllowtoCreateOrder: driver?.isAllowtoCreateOrder
             });
           }) : '';
           this.driversList$ = arr;

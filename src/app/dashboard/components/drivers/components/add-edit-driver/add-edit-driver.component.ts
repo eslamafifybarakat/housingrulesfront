@@ -102,6 +102,7 @@ export class AddEditDriverComponent implements OnInit {
         validators: [
           Validators.required, Validators.pattern(patterns?.phone)], updateOn: "blur"
       }],
+      isAllowtoCreateOrder: [false, []],
       password: ['', {
         validators: [
           Validators.required,
@@ -220,6 +221,7 @@ export class AddEditDriverComponent implements OnInit {
       arName: this.modalData?.item?.arName,
       enName: this.modalData?.item?.enName,
       phone: this.modalData?.item?.mobileNumber,
+      isAllowtoCreateOrder:this.modalData?.item?.isAllowtoCreateOrder
     })
   }
   getDriverData(id: number): void {
@@ -270,7 +272,7 @@ export class AddEditDriverComponent implements OnInit {
       myObject['tankId'] = this.modalForm?.value?.tank?.id;
       myObject['driverStatus'] = this.modalForm?.value?.driverStatus?.value;
       myObject['mobileNumber'] = this.modalForm?.value?.phone;
-      // myObject['driverStatus'] = this.modalForm?.value?.driverStatus?.value;
+      myObject['isAllowtoCreateOrder'] = this.modalForm?.value?.isAllowtoCreateOrder;
       if (!this.isEdit) {
         myObject['password'] = this.modalForm?.value?.password;
         // myObject['confirmPassword'] = this.modalForm?.value?.confirmPassword;
