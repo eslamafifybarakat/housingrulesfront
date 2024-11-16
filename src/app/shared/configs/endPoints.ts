@@ -62,6 +62,7 @@ export const roots = {
     },
     customers: {
       customersList: 'Customers/GetAllAsync',
+      customersShortList: 'Customers/GetAllShortAsync',
       createCustomer: 'Customers/CreateAsync',
       updateCustomer: 'Customers/UpdateAsync',
       getCustomerById: 'Customers/GetByIdAsync',
