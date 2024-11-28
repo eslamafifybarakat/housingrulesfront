@@ -8,7 +8,6 @@ import { cachingEnum } from "../caching.Enum";
 // Cached URLs array (you can initially load this with predefined URLs if needed)
 export const chachingAPIsURLs: string[] = [
   `${environment?.apiUrl}/${roots?.dashboard?.customers?.customersShortList}`,
-  `${environment?.apiUrl}/${roots?.dashboard?.customers?.customersShortList}` // Example URL
 ];
 
 // Function to check if the request URL exists in chachingAPIsURLs
@@ -26,7 +25,6 @@ function getCachedRequestsURLs(): string | any {
 export function setOrRemoveCacheRequestURL(requestURl: HttpRequest<any> | string, type: string): boolean {
   // Get the cached URLs array from session storage and parse it safely
   let cachedRequestsURLArr: string[] = JSON.parse(getCachedRequestsURLs());
-  console.log("Current cached URLs:", cachedRequestsURLArr);
 
   // Check if the requestURl is a string or an HttpRequest object
   let urlToCheck: string;
@@ -41,7 +39,6 @@ export function setOrRemoveCacheRequestURL(requestURl: HttpRequest<any> | string
 
   if (urlExistsInCache) {
     // URL already exists in cache
-    console.log('URL exists in cache, skipping operation.');
 
     if (type === cachingEnum.ADD) {
       // URL exists, but we still try to add it if it's not already in the cached list
@@ -49,7 +46,6 @@ export function setOrRemoveCacheRequestURL(requestURl: HttpRequest<any> | string
         cachedRequestsURLArr.push(urlToCheck);
         // Save the updated list to session storage
         setItemSessionStorage(sessionStorageEnum.CACHINGREQUESTS, JSON.stringify(cachedRequestsURLArr));
-        console.log(`Added URL: ${urlToCheck} to session storage.`);
       }
     }
 
@@ -60,13 +56,12 @@ export function setOrRemoveCacheRequestURL(requestURl: HttpRequest<any> | string
         cachedRequestsURLArr.splice(indexToRemove, 1);
         // Save the updated list to session storage
         setItemSessionStorage(sessionStorageEnum.CACHINGREQUESTS, JSON.stringify(cachedRequestsURLArr));
-        console.log(`Removed URL: ${urlToCheck} from session storage.`);
+        localStorage.removeItem(urlToCheck)
       }
     }
     return true;
   } else {
     // URL is not in the cache
-    console.log('URL does not exist in cache, skipping operation.');
     return false;
   }
 }

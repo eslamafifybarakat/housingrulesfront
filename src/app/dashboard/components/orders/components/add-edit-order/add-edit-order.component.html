@@ -111,8 +111,9 @@
                 {{"labels.supervisor"|translate}}
               </label>
               <span class="p-input-icon-right select-loading d-block">
-                <p-dropdown [options]="newFilterdList" formControlName="supervisor" optionLabel="name" [filter]="true"
-                  [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
+                <p-dropdown [options]="filteredSupervisorsList" formControlName="supervisor"
+                  [optionLabel]="currLang=='ar'?'arName':'enName'" [filter]="true" [virtualScroll]="true"
+                  [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
                   [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingSupervisors"
                   scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
                   (onChange)="onChangeSupervisor($event)" (onClear)="onClearSupervisor()"
@@ -227,7 +228,8 @@
                 <p-dropdown [options]="tanksSize" formControlName="tankSize" optionLabel="name" [filter]="true"
                   [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="value" appendTo="body"
                   (onChange)="onTankChange(formControls?.tankSize?.value)" [readonly]="isLoadingTanksSize"
-                  (onClear)="onTankClear()" scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
+                  [filterPlaceholder]="'placeholder.search'|translate" (onClear)="onTankClear()" scrollHeight="150px"
+                  emptyMessage="{{'general.no_result_found'|translate}}"
                   [class.ng-dirty]="formControls?.tankSize?.invalid && (formControls?.tankSize?.dirty || formControls?.tankSize?.touched)"
                   [showClear]="true" placeholder="{{'placeholder.tankSize'|translate}}">
                 </p-dropdown>

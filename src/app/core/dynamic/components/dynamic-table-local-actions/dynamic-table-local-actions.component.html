@@ -548,7 +548,7 @@
       <ng-container *ngIf="showConfirm">
         <td>
           <ng-container *ngIf="((userLoginData?.userType==7||userLoginData?.userType==8)&&(item?.statusint==5))">
-             <!-- <ng-container *ngIf="true"> -->
+            <!-- <ng-container *ngIf="true"> -->
             <button class="btn btn-outline-main fs-8 py-2 px-3 confirm_order" (click)="confirmHandlerEmit(item)">
               <span class="d-flex justify-content-center align-items-center gap-2">
                 <span>{{'general.confirm_order'|translate}}</span>

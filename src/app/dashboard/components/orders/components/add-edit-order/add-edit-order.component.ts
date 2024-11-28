@@ -17,7 +17,6 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { CustomersService } from 'src/app/dashboard/services/customers.service';
 import { ConfirmationService } from 'primeng/api';
-import { CachingServiceService } from 'src/app/core/services/caching-service.service';
 
 @Component({
   selector: 'app-add-edit-order',
@@ -33,14 +32,13 @@ export class AddEditOrderComponent implements OnInit {
   isFullLoading: boolean = false;
 
   supervisorsList: any = [];
-  list:any=[];
-  filterdList:any=[];
+  AllSupervisorsList:any=[];
+  filteredSupervisorsList:any=[];
 
   isLoadingSupervisors: boolean = false;
 
   driversList: any = [];
   isLoadingDrivers: boolean = false;
-  newFilterdList:any=[];
 
   // tanksList: any = [];
   isSaving: boolean = false;
@@ -86,7 +84,6 @@ export class AddEditOrderComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     protected router: Router,
     public fb: FormBuilder,
-    private cashingService:CachingServiceService
   ) { }
 
   ngOnInit(): void {
@@ -222,22 +219,15 @@ export class AddEditOrderComponent implements OnInit {
     this.cdr?.detectChanges();
   }
   onChangeDistrict(item: any): void {
-    this.filterdList=[];
-    console.log(this.list)
+    this.filteredSupervisorsList=[];
     if (item?.value?.id) {
-      // this.getAllSupervisors(item?.value?.id);
-      this.list.data.forEach((ele: any) => {
-        if (ele?.districtIds?.includes(item?.value?.id)) {
-          this.filterdList.push(ele);
-        }})
-        console.log(this.filterdList)
-        this.filterdList.forEach((supervisor: any) => {
-          this.newFilterdList?.push({
-            name: supervisor?.arName,
-            id: supervisor?.id
-          });
-          console.log(this.newFilterdList)
-        }) ;
+      this.filteredSupervisorsList = this.AllSupervisorsList.data
+      .filter((ele: any) => ele?.districtIds?.includes(item?.value?.id))  // تصفية البيانات
+      .map((supervisor: any) => ({
+        arName: supervisor?.arName,
+        enName: supervisor?.enName,
+        id: supervisor?.id
+      }));
       this.orderForm?.patchValue({
         supervisor: null
       });
@@ -251,7 +241,7 @@ export class AddEditOrderComponent implements OnInit {
     });
     this.supervisorsList = [];
     this.driversList = [];
-    this.filterdList=[];
+    this.filteredSupervisorsList=[];
 
     this.orderForm?.controls?.supervisor?.disable();
     this.orderForm?.controls?.driver?.disable();
@@ -289,7 +279,6 @@ export class AddEditOrderComponent implements OnInit {
               }
             });
           }
-          this.cashingService.setCachingEnabled(true)
           this.isLoadingCustomers = false;
         } else {
           res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
@@ -373,7 +362,7 @@ export class AddEditOrderComponent implements OnInit {
     this.isLoadingSupervisors = true;
     this.supervisorsService?.getSupervisorsByDistrictId()?.subscribe(
       (res: any) => {
-          this.list=res;
+          this.AllSupervisorsList=res;
 
         if (res?.statusCode == 200 && res?.isSuccess == true) {
           let arr: any = [];
@@ -385,7 +374,7 @@ export class AddEditOrderComponent implements OnInit {
           }) : '';
           this.supervisorsList = arr;
           if (this.isEdit) {
-            this.filterdList?.forEach((supervisor: any) => {
+            this.filteredSupervisorsList?.forEach((supervisor: any) => {
               if (supervisor?.id == this.orderData?.supervisorId) {
                 this.orderForm?.patchValue({
                   supervisor: supervisor
