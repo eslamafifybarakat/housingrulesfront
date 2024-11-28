@@ -1,3 +1,3 @@
-﻿export enum chachingEnum {
+﻿export enum sessionStorageEnum {
   CACHINGREQUESTS =  'Caching Requests'
 }
