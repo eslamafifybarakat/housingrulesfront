@@ -8,6 +8,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CachingServiceService } from 'src/app/core/services/caching-service.service';
 @Component({
   selector: 'app-add-edit-customer',
   templateUrl: './add-edit-customer.component.html',
@@ -30,6 +31,7 @@ export class AddEditCustomerComponent implements OnInit {
     private ref: DynamicDialogRef,
     protected router: Router,
     public fb: FormBuilder,
+    private cashingService:CachingServiceService
   ) { }
 
   ngOnInit(): void {
@@ -84,6 +86,7 @@ export class AddEditCustomerComponent implements OnInit {
         // myObject['createBy'] = 0;
       }
       this.publicService?.show_loader?.next(true);
+      this.cashingService.setCachingEnabled(false)
       this.customersService?.addOrUpdateCustomer(myObject, this.customerId ? this.customerId : null)?.subscribe(
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {

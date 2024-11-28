@@ -111,7 +111,7 @@
                 {{"labels.supervisor"|translate}}
               </label>
               <span class="p-input-icon-right select-loading d-block">
-                <p-dropdown [options]="supervisorsList" formControlName="supervisor" optionLabel="name" [filter]="true"
+                <p-dropdown [options]="newFilterdList" formControlName="supervisor" optionLabel="name" [filter]="true"
                   [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="name" appendTo="body"
                   [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingSupervisors"
                   scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
@@ -433,7 +433,7 @@
           </div>
 
 
-     <!--      <div class="col-md-6 align-self-center">
+          <!--      <div class="col-md-6 align-self-center">
             <div class="mb-3">
               <div class="d-flex align-self-center justify-content-between gap-2 flex-wrap">
                 <label for="isVip" class="fw-bold">{{'labels.isVip'|translate}}</label>

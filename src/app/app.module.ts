@@ -9,11 +9,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { OnlineStatusModule } from 'ngx-online-status';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
-import { HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { DatePipe } from "@angular/common";
 import { DialogService } from 'primeng/dynamicdialog';
+import { CachingInterceptor } from './core/interceptors/caching-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,12 @@ import { DialogService } from 'primeng/dynamicdialog';
   providers: [
     DatePipe,
     AsyncPipe,
-    DialogService
+    DialogService,  
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CachingInterceptor,
+      multi: true
+    }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],

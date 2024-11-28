@@ -17,6 +17,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { CustomersService } from 'src/app/dashboard/services/customers.service';
 import { ConfirmationService } from 'primeng/api';
+import { CachingServiceService } from 'src/app/core/services/caching-service.service';
 
 @Component({
   selector: 'app-add-edit-order',
@@ -32,10 +33,14 @@ export class AddEditOrderComponent implements OnInit {
   isFullLoading: boolean = false;
 
   supervisorsList: any = [];
+  list:any=[];
+  filterdList:any=[];
+
   isLoadingSupervisors: boolean = false;
 
   driversList: any = [];
   isLoadingDrivers: boolean = false;
+  newFilterdList:any=[];
 
   // tanksList: any = [];
   isSaving: boolean = false;
@@ -81,9 +86,11 @@ export class AddEditOrderComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     protected router: Router,
     public fb: FormBuilder,
+    private cashingService:CachingServiceService
   ) { }
 
   ngOnInit(): void {
+    this.getAllSupervisors();
     this.orderOriginList = this.publicService.getOrderOrigin();
     this.propertyTypeList = this.publicService.getPropertyType();
     this.currLang = window.localStorage.getItem(keys?.language);
@@ -200,7 +207,7 @@ export class AddEditOrderComponent implements OnInit {
               }
             });
             this.orderForm?.controls?.supervisor?.enable();
-            this.getSupervisorsByDistrictId(this.orderData?.districtId);
+            this.getAllSupervisors();
           }
           this.isLoadingDistricts = false;
         } else {
@@ -215,8 +222,22 @@ export class AddEditOrderComponent implements OnInit {
     this.cdr?.detectChanges();
   }
   onChangeDistrict(item: any): void {
+    this.filterdList=[];
+    console.log(this.list)
     if (item?.value?.id) {
-      this.getSupervisorsByDistrictId(item?.value?.id);
+      // this.getAllSupervisors(item?.value?.id);
+      this.list.data.forEach((ele: any) => {
+        if (ele?.districtIds?.includes(item?.value?.id)) {
+          this.filterdList.push(ele);
+        }})
+        console.log(this.filterdList)
+        this.filterdList.forEach((supervisor: any) => {
+          this.newFilterdList?.push({
+            name: supervisor?.arName,
+            id: supervisor?.id
+          });
+          console.log(this.newFilterdList)
+        }) ;
       this.orderForm?.patchValue({
         supervisor: null
       });
@@ -230,6 +251,7 @@ export class AddEditOrderComponent implements OnInit {
     });
     this.supervisorsList = [];
     this.driversList = [];
+    this.filterdList=[];
 
     this.orderForm?.controls?.supervisor?.disable();
     this.orderForm?.controls?.driver?.disable();
@@ -267,6 +289,7 @@ export class AddEditOrderComponent implements OnInit {
               }
             });
           }
+          this.cashingService.setCachingEnabled(true)
           this.isLoadingCustomers = false;
         } else {
           res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
@@ -346,10 +369,12 @@ export class AddEditOrderComponent implements OnInit {
       });
   }
 
-  getSupervisorsByDistrictId(districtId: any): any {
+  getAllSupervisors(districtId?: any): any {
     this.isLoadingSupervisors = true;
-    this.supervisorsService?.getSupervisorsByDistrictId(districtId)?.subscribe(
+    this.supervisorsService?.getSupervisorsByDistrictId()?.subscribe(
       (res: any) => {
+          this.list=res;
+
         if (res?.statusCode == 200 && res?.isSuccess == true) {
           let arr: any = [];
           res?.data ? res?.data?.forEach((supervisor: any) => {
@@ -360,7 +385,7 @@ export class AddEditOrderComponent implements OnInit {
           }) : '';
           this.supervisorsList = arr;
           if (this.isEdit) {
-            this.supervisorsList?.forEach((supervisor: any) => {
+            this.filterdList?.forEach((supervisor: any) => {
               if (supervisor?.id == this.orderData?.supervisorId) {
                 this.orderForm?.patchValue({
                   supervisor: supervisor
