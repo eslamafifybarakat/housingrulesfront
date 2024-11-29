@@ -57,12 +57,7 @@ export class AddEditCustomerComponent implements OnInit {
       mobileNumber: ['', {
         validators: [
           Validators.required, Validators.pattern(patterns?.phone)], updateOn: "blur"
-      }],
-      locationLink: ['', {
-        validators: [
-          Validators.pattern(/^www\.[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}$/),
-          Validators?.minLength(3)]
-      }],
+      }]
     }, { updateOn: "blur" }
   );
 
@@ -74,7 +69,6 @@ export class AddEditCustomerComponent implements OnInit {
       name: this.modalData?.item?.name,
       mobileNumber: this.modalData?.item?.mobileNumber,
       isVip: this.modalData?.item?.isVip,
-      locationLink: this.modalData?.item?.locationLink
     })
     console.log(this.modalData);
   }
@@ -85,7 +79,6 @@ export class AddEditCustomerComponent implements OnInit {
       myObject['name'] = this.modalForm?.value?.name;
       myObject['mobileNumber'] = this.modalForm?.value?.mobileNumber;
       myObject['isVip'] = this.modalForm?.value?.isVip;
-      myObject['locationLink'] = this.modalForm?.value?.locationLink;
       if (this.isEdit) {
         myObject['id'] = this.customerId;
         // myObject['lastModifiedBy'] = 0;

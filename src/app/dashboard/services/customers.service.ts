@@ -33,7 +33,6 @@ export class CustomersService {
     }
     return this.http?.get(`${this.baseUrl}/${roots?.dashboard?.customers?.customersList}`, { params: params })
   }
-
   addOrUpdateCustomer(data: any, id?: number, headers?: HttpHeaders): Observable<any> {
     // تحديد الخيارات مع الترويسة المطلوبة (إن كانت موجودة)
     const options = {
