@@ -248,10 +248,7 @@ export class DynamicTableLocalActionsComponent implements OnInit {
     });
 
     this.tableHeaders?.forEach((item: any) => {
-
       this.searchItems?.push(item?.field);
-
-
     });
     if (this.enableFilterDriverStatus == true) {
       this.getDriverStatus();

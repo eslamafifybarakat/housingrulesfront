@@ -58,6 +58,11 @@ export class AddEditCustomerComponent implements OnInit {
         validators: [
           Validators.required, Validators.pattern(patterns?.phone)], updateOn: "blur"
       }],
+      locationLink: ['', {
+        validators: [
+          Validators.pattern(/^www\.[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}$/),
+          Validators?.minLength(3)]
+      }],
     }, { updateOn: "blur" }
   );
 
@@ -65,12 +70,13 @@ export class AddEditCustomerComponent implements OnInit {
     return this.modalForm?.controls;
   }
   patchValue(): void {
-    console.log(this.modalData);
     this.modalForm?.patchValue({
       name: this.modalData?.item?.name,
       mobileNumber: this.modalData?.item?.mobileNumber,
-      isVip: this.modalData?.item?.isVip
+      isVip: this.modalData?.item?.isVip,
+      locationLink: this.modalData?.item?.locationLink
     })
+    console.log(this.modalData);
   }
 
   submit(): void {
@@ -79,7 +85,7 @@ export class AddEditCustomerComponent implements OnInit {
       myObject['name'] = this.modalForm?.value?.name;
       myObject['mobileNumber'] = this.modalForm?.value?.mobileNumber;
       myObject['isVip'] = this.modalForm?.value?.isVip;
-
+      myObject['locationLink'] = this.modalForm?.value?.locationLink;
       if (this.isEdit) {
         myObject['id'] = this.customerId;
         // myObject['lastModifiedBy'] = 0;
@@ -107,6 +113,8 @@ export class AddEditCustomerComponent implements OnInit {
     } else {
       this.checkValidityService?.validateAllFormFields(this.modalForm);
     }
+    console.log(this.modalData);
+
   }
 
   cancel(): void {

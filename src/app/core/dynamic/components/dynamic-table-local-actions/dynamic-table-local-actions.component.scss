@@ -277,6 +277,33 @@
     }
   }
 }
+.action-btns {
+  padding: 8px 15px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  min-width: 5rem;
+}
+.details-btn {
+  background-color: #05277117;
+  color: var(--text-main-color);
+}
+.edit-btn {
+  background-color: #8c95a330;
+  color: #8c95a3;
+}
+.delete-btn {
+  background-color: #e5555530;
+  color: #e55555;
+}
+.changeStatus {
+  border: 1px solid var(--bg-main-color);
+  color: var(--text-main-color);
+  text-transform: capitalize;
+}
+
 .disabled {
   color: #ccc;
 }

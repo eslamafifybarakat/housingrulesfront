@@ -3,10 +3,9 @@
     <p-table #dt1 dataKey="id" [value]="tableData" [(selection)]="selectedItems" [paginator]="showPaginator"
       [rowsPerPageOptions]="rowsPerPageOptions" [rows]="paginatorRows" [columns]="selectedColumns"
       responsiveLayout="scroll" [rowHover]="false" [resizableColumns]="true" styleClass="p-datatable-striped"
-      (onSort)="customSort($event)" [globalFilterFields]="searchItems" (rowsChange)="onPaginatorPageChange($event)"
-      (onPage)="onPage($event)">
+      [globalFilterFields]="searchItems" (rowsChange)="onPaginatorPageChange($event)" (onPage)="onPage($event)">
       <ng-template pTemplate="caption">
-        <div class="caption d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="caption d-flex align-items-center flex-wrap gap-3">
 
 
           <!-- <div class="d-flex align-items-center gap-3 dropdown-arrow">
@@ -174,7 +173,7 @@
               <ng-container
                 *ngIf="col?.type=='text' ||col?.type== 'filterArray' || col?.type=='numeric' || col?.type=='date' || col?.type=='status' || col?.type=='boolean'|| col?.type=='time'">
                 <th pSortableColumn="{{col.field}}">
-                  <div class="d-flex justify-content-between align-items-center">
+                  <div class="d-flex align-items-center">
                     <span class="d-flex gap-1">
                       <ng-container *ngIf="col?.sort">
                         <p-sortIcon field="{{col?.field}}"></p-sortIcon>
@@ -422,12 +421,15 @@
                   <ng-template #elseNoColEvent>
                     <td>
                       <ng-container *ngIf="col?.enableItemLink; else normalRecord">
-                        <a (click)="itemActionEmitter(item)" class="text-decoration-underline link-color">
-                          <span [class.truncate-text]="col?.type=='text'" *ngIf="item && item[col.field]">
-                            <i class="pi pi-map-marker"></i> {{
-                            this.publicService.translateTextFromJson('dashboard.tableHeader.locationLink')}}
-                          </span>
-                        </a>
+                        <ng-container *ngIf="item?.locationLink">
+                          <a (click)="itemActionEmitter(item)" class="text-decoration-underline link-color"
+                            href="{{item?.locationLink}}" target="_blank">
+                            <span [class.truncate-text]="col?.type=='text'" *ngIf="item && item[col.field]">
+                              <i class="pi pi-map-marker"></i> {{
+                              this.publicService.translateTextFromJson('dashboard.tableHeader.locationLink')}}
+                            </span>
+                          </a>
+                        </ng-container>
                       </ng-container>
                       <ng-template #normalRecord>
                         <ng-container *ngIf="(col?.addedText);else noAddText">
@@ -480,30 +482,29 @@
         <td>
           <div class="d-flex align-items-center gap-2">
             <ng-container *ngIf="showDetails">
-              <a class="fw-500 details" (click)="detailsHandlerEmit(item)" pTooltip="{{'general.details'|translate}}"
-                tooltipPosition="top">
+              <a class="fw-500 details-btn action-btns" (click)="detailsHandlerEmit(item)">
                 <i class="far fa-eye"></i>
+                {{'general.details'|translate}}
               </a>
             </ng-container>
             <ng-container *ngIf="showEdit">
-              <a class="d-flex align-items-center
-                      gap-2" (click)="editHandlerEmit(item)" pTooltip="{{'general.edit'|translate}}"
-                tooltipPosition="top">
-                <span><i class="fas fa-pen edit"></i></span>
+              <a class="edit-btn action-btns" (click)="editHandlerEmit(item)" pTooltip="{{'general.edit'|translate}}">
+                <i class="fas fa-pen edit"></i>
+                {{'general.edit'|translate}}
               </a>
             </ng-container>
             <ng-container *ngIf="showCopyAction">
-              <a class="d-flex align-items-center
-                      gap-2" (click)="copyActionHandlerEmit(item)" pTooltip="{{'general.copy'|translate}}"
-                tooltipPosition="top">
-                <span><i class="fas fa-copy"></i></span>
+              <a class="details-btn action-btns" (click)="copyActionHandlerEmit(item)"
+                pTooltip="{{'general.copy'|translate}}">
+                <i class="fas fa-copy"></i>
+                {{'general.copy'|translate}}
               </a>
             </ng-container>
             <ng-container *ngIf="showDelete">
-              <a class="d-flex align-items-center
-                      gap-2" (click)="deleteHandlerEmit(item)" pTooltip="{{'general.delete'|translate}}"
-                tooltipPosition="top">
-                <span><i class="fas fa-trash-alt remove"></i></span>
+              <a class="delete-btn action-btns" (click)="deleteHandlerEmit(item)"
+                pTooltip="{{'general.delete'|translate}}">
+                <i class="fas fa-trash-alt remove"></i>
+                {{'general.delete'|translate}}
               </a>
             </ng-container>
             <ng-container *ngIf="showResetPassword">
@@ -516,11 +517,13 @@
             </ng-container>
             <ng-container *ngIf="userLoginData?.userType==1">
               <ng-container *ngIf="showCancelOrder">
+
                 <a class="d-flex align-items-center
-                        gap-2" [class.disabled]="item?.statusValue==8"
-                  (click)="item?.statusValue==8?'':cancelOrderEmit(item)" pTooltip="{{'general.cancelOrder'|translate}}"
-                  tooltipPosition="top">
-                  <span><i class="pi pi-times-circle " [class.remove]="item?.statusValue!=8"></i></span>
+                gap-2 delete-btn action-btns" [class.disabled]="item?.statusValue==8"
+                  pTooltip="{{'general.cancelOrder'|translate}}" tooltipPosition="top"
+                  (click)="item?.statusValue==8?'':cancelOrderEmit(item)">
+                  <i class="pi pi-times-circle " [class.remove]="item?.statusValue!=8"></i>
+                  {{'general.cancelOrder'|translate}}
                 </a>
               </ng-container>
             </ng-container>
@@ -805,7 +808,6 @@
                       <i class="far fa-eye"></i>
                     </a>
                   </ng-container>
-
                   <ng-container *ngIf="showEdit">
                     <a class="d-flex align-items-center
                       gap-2" (click)="editChildHandlerEmit(item)" pTooltip="{{'general.edit'|translate}}"
