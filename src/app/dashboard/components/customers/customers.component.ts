@@ -134,7 +134,27 @@ export class CustomersComponent implements OnInit {
     });
   }
   addOrEditItem(item?: any, type?: any): void {
-    this.router?.navigate([`/dashboard/add-edit-customer`  ])
+    this.router?.navigate([`/dashboard/add-edit-customer/${item.id}` ])
+    // const ref = this.dialogService?.open(AddEditCustomerComponent, {
+    //   data: {
+    //     item,
+    //     type: type == 'edit' ? 'edit' : 'add'
+    //   },
+    //   header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.customers.editCustomer') : this.publicService?.translateTextFromJson('dashboard.customers.addCustomer'),
+    //   dismissableMask: false,
+    //   width: '40%',
+    //   styleClass: 'custom_modal'
+    // });
+    // ref.onClose.subscribe((res: any) => {
+    //   if (res?.listChanged) {
+    //     this.page = 1;
+    //     this.publicService?.changePageSub?.next({ page: this.page });
+    //     this.getAllCustomers();
+    //   }
+    // });
+  }
+  addItem(item?: any, type?: any): void {
+    this.router?.navigate([`/dashboard/add-edit-customer/` ])
     // const ref = this.dialogService?.open(AddEditCustomerComponent, {
     //   data: {
     //     item,

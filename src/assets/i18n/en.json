@@ -222,8 +222,8 @@
     "serviceAgent": "Service Agent",
     "serviceAgentSuperVisor": "Service Agent SuperVisor",
     "address": "Address",
-    "addressTag":"Address tag",
-    "nationalAddress":"National address",
+    "addressTag":"Address Tag",
+    "nationalAddress":"National Address",
     "location": "Location",
     "tankPrice": "Tank Price",
     "isWorking": "Is working",
@@ -261,14 +261,14 @@
     "district": "District",
     "orderOrigin": "Order origin",
     "propertyType": "Sector",
-    "locationLink": "Location link",
+    "locationLink": "Location Link",
     "paidAmount": "Paid amount",
     "paymentMethod": "Payment method",
     "orderNumber": "Order number",
     "userType": "User type",
     "cancellationCauses": "Cancellation causes",
     "cancellationDesc": "Cancellation Description",
-    "placeType":"place type"
+    "placeType":"Place Type"
 
   },
   "placeholder": {
@@ -309,7 +309,7 @@
     "userType": "Select user type",
     "placeType":"Select place type",
     "address":"Enter address",
-    "addressTag":"Enter Address tag",
+    "addressTag":"Enter address tag",
     "nationalAddress":"Enter national address",
     "location":"Enter Location"
   },
@@ -383,7 +383,7 @@
   "dashboard": {
     "dashboard": "Dashboard",
     "total": "total",
-    "createNew": "Create new",
+    "createNew": "Create New",
     "sideMenu": {
       "reports": "Reports",
       "gates": "Gates",
@@ -447,9 +447,9 @@
       "customers": "Customers",
       "comments": "Comments",
       "userType": "User type",
-      "nationalAddress":"National address",
-      "addressTag":"Address tag",
-      "placeType":"place type"
+      "nationalAddress":"National Address",
+      "addressTag":"Address Tag",
+      "placeType":"Place Type"
     },
     "tanks": {
       "tanks": "Tanks",
