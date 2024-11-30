@@ -9,6 +9,7 @@ import { Observable, Subscription, finalize, map } from 'rxjs';
 import { TanksService } from '../../services/tanks.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SetOrderScheduleForCustomerModalComponent } from './components/set-order-schedule-for-customer-modal/set-order-schedule-for-customer-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customers',
@@ -47,7 +48,8 @@ export class CustomersComponent implements OnInit {
     private publicService: PublicService,
     private dialogService: DialogService,
     private tanksService: TanksService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -132,23 +134,24 @@ export class CustomersComponent implements OnInit {
     });
   }
   addOrEditItem(item?: any, type?: any): void {
-    const ref = this.dialogService?.open(AddEditCustomerComponent, {
-      data: {
-        item,
-        type: type == 'edit' ? 'edit' : 'add'
-      },
-      header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.customers.editCustomer') : this.publicService?.translateTextFromJson('dashboard.customers.addCustomer'),
-      dismissableMask: false,
-      width: '40%',
-      styleClass: 'custom_modal'
-    });
-    ref.onClose.subscribe((res: any) => {
-      if (res?.listChanged) {
-        this.page = 1;
-        this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllCustomers();
-      }
-    });
+    this.router?.navigate([`/dashboard/add-edit-customer`  ])
+    // const ref = this.dialogService?.open(AddEditCustomerComponent, {
+    //   data: {
+    //     item,
+    //     type: type == 'edit' ? 'edit' : 'add'
+    //   },
+    //   header: type == 'edit' ? this.publicService?.translateTextFromJson('dashboard.customers.editCustomer') : this.publicService?.translateTextFromJson('dashboard.customers.addCustomer'),
+    //   dismissableMask: false,
+    //   width: '40%',
+    //   styleClass: 'custom_modal'
+    // });
+    // ref.onClose.subscribe((res: any) => {
+    //   if (res?.listChanged) {
+    //     this.page = 1;
+    //     this.publicService?.changePageSub?.next({ page: this.page });
+    //     this.getAllCustomers();
+    //   }
+    // });
   }
   deleteItem(item: any): void {
     if (item?.confirmed) {

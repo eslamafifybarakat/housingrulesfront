@@ -224,6 +224,8 @@
     "serviceAgent": "مقدم خدمة العملاء",
     "serviceAgentSuperVisor": "مشرف خدمة العملاء",
     "address": "العنوان",
+    "addressTag":"اسم العنوان",
+    "nationalAddress":"العنوان القومي",
     "location": "الموقع",
     "tankprice": "سعر الصهريج",
     "isWorking": "متاح للتعين",
@@ -272,7 +274,8 @@
     "paidAmount": "المبلغ المدفوع",
     "userType": "نوع المستخدم",
     "cancellationCauses": "أسباب الإلغاء",
-    "cancellationDesc": "وصف الإلغاء"
+    "cancellationDesc": "وصف الإلغاء",
+    "placeType":"نوع المكان"
   },
   "placeholder": {
     "cancellationDesc": "أدخل وصف الإلغاء",
@@ -312,7 +315,12 @@
     "orderNumber": "أدخل رقم الطلب",
     "paymentMethod": "أدخل طريقة الدفع ",
     "paidAmount": "أدخل المبلغ المدفوع",
-    "userType": "اختر نوع المستخدم"
+    "userType": "اختر نوع المستخدم",
+    "placeType":"اختر نوع المكان",
+    "address":"أدخل العنوان",
+    "addressTag":"أدخل اسم العنوان",
+    "nationalAddress":"أدخل العنوان القومي",
+    "location":"أدخل الموقع"
   },
   "validations": {
     "required_field": "هذا الحقل مطلوب",
@@ -347,6 +355,7 @@
   },
   "form": {
     "welcomeBack": "مرحبًا بعودتك",
+    "weMissedYou":"مرحبًا بعودتك ,لقد افتقدناك",
     "enterDetails": "مرحبًا بعودتك! الرجاء إدخال التفاصيل الخاصة بك",
     "enterRegisterDetails": "مرحبًا! الرجاء إدخال التفاصيل الخاصة بك",
     "registration": "إنشاء حساب",
@@ -445,7 +454,10 @@
       "drivers": "السائقين",
       "customers": "العملاء",
       "comments": "تعليقات",
-      "userType": "نوع المستخدم"
+      "userType": "نوع المستخدم",
+      "nationalAddress":"العنوان القومي",
+      "addressTag":"اسم العنوان",
+      "placeType":"نوع المكان"
     },
     "tanks": {
       "tanks": "الصهاريج",
@@ -529,6 +541,12 @@
       "addCustomer": "إضافة عميل",
       "customerDetails": "تفاصيل العميل",
       "editCustomer": "تعديل العميل"
+    },
+    "addresses": {
+      "addresses": "العناويين",
+      "addAddress": "إضافة عنوان",
+      "editAddress": "تعديل عنوان",
+      "addressDetails":"تفاصيل العنوان"
     },
     "financialSettlements": {
       "financialSettlements": "تسويات مالية"
@@ -637,5 +655,9 @@
     "passwordPrompt": "أدخل كلمة المرور",
     "emptyMessage": "لم يتم العثور على نتائج",
     "emptyFilterMessage": "لم يتم العثور على نتائج"
+  },
+  "dropDown":{
+    "home":"المنزل",
+    "work":"العمل"
   }
 }

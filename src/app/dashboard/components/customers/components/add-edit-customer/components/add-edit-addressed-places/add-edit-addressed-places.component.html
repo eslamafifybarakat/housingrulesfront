@@ -1,0 +1,145 @@
+<div id="modal">
+  <form [formGroup]="modalForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="d-flex align-self-center justify-content-between gap-2 flex-wrap">
+        <label for="isDefault" class="pb-2">{{'general.default'|translate}}</label>
+        <p-inputSwitch id="isDefault" formControlName="isDefault"></p-inputSwitch>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="address" class="mb-2 required">{{'labels.address'|translate}}</label>
+          <input type="text" class="form-control" formControlName="address"
+            (input)="publicService.clearValidationErrors(formControls?.address)"
+            [class.is-invalid]="formControls?.address?.invalid && (formControls?.address?.dirty || formControls?.address?.touched)"
+            placeholder="{{'placeholder.address'|translate}}">
+          <div class="mt-2">
+            <ng-container
+              *ngIf="formControls?.address?.invalid && (formControls?.address?.dirty || formControls?.address?.touched)">
+              <ng-container *ngIf="formControls?.address?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.requiredAddress'|translate}}
+                </span>
+              </ng-container>
+
+              <ng-container *ngIf="formControls?.address?.errors?.['minlength']">
+                <span class="text-danger fs-8 d-block">
+                  {{'validations.length'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="addressTag" class="mb-2 required">{{'labels.addressTag'|translate}}</label>
+          <input type="text" class="form-control" formControlName="addressTag" autocomplete="cc-name" [min]="0"
+            (input)="publicService?.clearValidationErrors(formControls?.addressTag)"
+            [class.is-invalid]="formControls?.addressTag?.invalid && (formControls?.addressTag?.dirty || formControls?.addressTag?.touched)"
+            placeholder="{{'placeholder.addressTag'|translate}}">
+          <div class="mt-2">
+            <ng-container
+              *ngIf="formControls?.addressTag?.invalid && (formControls?.addressTag?.dirty || formControls?.addressTag?.touched)">
+              <ng-container *ngIf="formControls?.addressTag?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.required_field'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="nationalAddress" class="mb-2 required">{{'labels.nationalAddress'|translate}}</label>
+          <input type="text" class="form-control" formControlName="nationalAddress"
+            (input)="publicService.clearValidationErrors(formControls?.nationalAddress)"
+            [class.is-invalid]="formControls?.nationalAddress?.invalid && (formControls?.nationalAddress?.dirty || formControls?.nationalAddress?.touched)"
+            placeholder="{{'placeholder.nationalAddress'|translate}}">
+          <div class="mt-2">
+            <ng-container
+              *ngIf="formControls?.nationalAddress?.invalid && (formControls?.nationalAddress?.dirty || formControls?.nationalAddress?.touched)">
+              <ng-container *ngIf="formControls?.nationalAddress?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.required_field'|translate}}
+                </span>
+              </ng-container>
+
+              <ng-container *ngIf="formControls?.nationalAddress?.errors?.['minlength']">
+                <span class="text-danger fs-8 d-block">
+                  {{'validations.length'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="locationLink" class="mb-2 required">{{'labels.locationLink'|translate}}</label>
+          <input type="text" class="form-control" formControlName="locationLink" autocomplete="cc-name"
+            (input)="publicService?.clearValidationErrors(formControls?.locationLink)"
+            [class.is-invalid]="formControls?.locationLink?.invalid && (formControls?.locationLink?.dirty || formControls?.locationLink?.touched)"
+            placeholder="{{'placeholder.locationLink'|translate}}">
+          <div class="mt-2">
+            <ng-container
+              *ngIf="formControls?.locationLink?.invalid && (formControls?.locationLink?.dirty || formControls?.locationLink?.touched)">
+              <ng-container *ngIf="formControls?.locationLink?.errors?.['required']">
+                <span class="text-danger fs-8">
+                  {{'validations.required_field'|translate}}
+                </span>
+              </ng-container>
+
+              <ng-container *ngIf="formControls?.locationLink?.errors?.['pattern']">
+                <span class="text-danger fs-8 d-block">
+                  {{'validations.notValidLink'|translate}}
+                </span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label for="placeType" class="mb-2 required">{{'labels.placeType'|translate}}</label>
+        <p-dropdown id="placeType" name="placeType" formControlName="placeType" optionLabel="label" optionValue="value"
+          [class.ng-dirty]="formControls?.placeType?.invalid && (formControls?.placeType?.dirty || formControls?.placeType?.touched)"
+          [options]="placeTypes" placeholder="{{'placeholder.placeType'|translate}}">
+        </p-dropdown>
+        <div class="mt-2">
+          <ng-container
+            *ngIf="formControls?.placeType?.invalid && (formControls?.placeType?.dirty || formControls?.placeType?.touched)">
+            <ng-container *ngIf="formControls?.placeType?.errors?.['required']">
+              <span class="text-danger fs-8">
+                {{'validations.required_field'|translate}}
+              </span>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
+      <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+
+        <ng-container *ngIf="!isEdit;else edit">
+          <span>
+            {{'general.save'|translate}}
+          </span>
+          <i class="pi pi-save"></i>
+        </ng-container>
+        <ng-template #edit>
+          <span>
+            {{'general.edit'|translate}}
+          </span>
+          <i class="pi pi-pencil"></i>
+        </ng-template>
+      </button>
+      <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+        <span>
+          {{'general.cancel'|translate}}
+        </span>
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+  </form>
+</div>

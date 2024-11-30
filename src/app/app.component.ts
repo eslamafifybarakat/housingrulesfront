@@ -58,6 +58,7 @@ export class AppComponent {
     }
   }
   ngOnInit(): void {
+    
     let data = this.activatedRoute.snapshot.data;
     console.log(data);
 

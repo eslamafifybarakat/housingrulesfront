@@ -222,6 +222,8 @@
     "serviceAgent": "Service Agent",
     "serviceAgentSuperVisor": "Service Agent SuperVisor",
     "address": "Address",
+    "addressTag":"Address tag",
+    "nationalAddress":"National address",
     "location": "Location",
     "tankPrice": "Tank Price",
     "isWorking": "Is working",
@@ -265,7 +267,9 @@
     "orderNumber": "Order number",
     "userType": "User type",
     "cancellationCauses": "Cancellation causes",
-    "cancellationDesc": "Cancellation Description"
+    "cancellationDesc": "Cancellation Description",
+    "placeType":"place type"
+
   },
   "placeholder": {
     "cancellationDesc": "Enter cancellation description",
@@ -302,7 +306,12 @@
     "paidAmount": "Enter paid amount",
     "paymentMethod": "Enter payment method",
     "orderNumber": "Enter order number",
-    "userType": "Select user type"
+    "userType": "Select user type",
+    "placeType":"Select place type",
+    "address":"Enter address",
+    "addressTag":"Enter Address tag",
+    "nationalAddress":"Enter national address",
+    "location":"Enter Location"
   },
   "validations": {
     "required_field": "This field is reuired",
@@ -337,6 +346,7 @@
   },
   "form": {
     "welcomeBack": "Welcome back",
+    "weMissedYou":" Welcome back, we missed you ",
     "enterDetails": "Welcome back! please enter your details",
     "enterRegisterDetails": "Welcome! please enter your details",
     "registration": "Create Account",
@@ -436,7 +446,10 @@
       "drivers": "Drivers",
       "customers": "Customers",
       "comments": "Comments",
-      "userType": "User type"
+      "userType": "User type",
+      "nationalAddress":"National address",
+      "addressTag":"Address tag",
+      "placeType":"place type"
     },
     "tanks": {
       "tanks": "Tanks",
@@ -518,8 +531,14 @@
     "customers": {
       "customers": "Customers",
       "addCustomer": "Add Customer",
-      "customerDetails": "Customer details",
+      "customerDetails": "Customer Details",
       "editCustomer": "Edit Customer"
+    },
+    "addresses": {
+      "addresses": "Addresses",
+      "addAddress": "Add Address",
+      "editAddress": "Edit Address",
+      "addressDetails":"Address Details"
     },
     "financialSettlements": {
       "financialSettlements": "Financial settlements"

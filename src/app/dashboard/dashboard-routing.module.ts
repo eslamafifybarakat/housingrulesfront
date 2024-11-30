@@ -15,6 +15,7 @@ import { DashboardComponent } from './dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutes } from '../shared/configs/routes';
 import { NgModule } from '@angular/core';
+import { AddEditCustomerComponent } from './components/customers/components/add-edit-customer/add-edit-customer.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,22 @@ const routes: Routes = [
         component: WelcomeDashboardComponent,
         data: {
           title: 'titles.welcome',
+          type: 'dashboard'
+        }
+      },
+      {
+        path: `${AppRoutes?.dashboard?.addEditCustomer}`,
+        component: AddEditCustomerComponent,
+        data: {
+          title: 'titles.addEditCustomer',
+          type: 'dashboard'
+        }
+      },
+      {
+        path: `${AppRoutes?.dashboard?.addEditCustomer}/:id`,
+        component: AddEditCustomerComponent,
+        data: {
+          title: 'titles.addEditCustomer',
           type: 'dashboard'
         }
       },

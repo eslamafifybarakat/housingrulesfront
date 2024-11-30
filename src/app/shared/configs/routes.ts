@@ -20,5 +20,6 @@ export const AppRoutes = {
     financialSettlements: 'financial-settlements',
     reports: 'reports',
     dailyOrderDetails: 'daily-order-details',
+    addEditCustomer: 'add-edit-customer',
   }
 }

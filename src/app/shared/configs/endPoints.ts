@@ -21,6 +21,14 @@ export const roots = {
       Delete: 'ServicesAgents/SoftDelete',
       serviceAgentToggleStatus: 'switch_status_service_agent'
     },
+    addressedPlaces: {
+      getAllAddresses: 'AddressedPlaces/GetAllAsync',
+      createAddress: 'AddressedPlaces/CreateAsync',
+      updateAddress: 'AddressedPlaces/UpdateAsync',
+      deleteAddress:'AddressedPlaces/SoftDelete',
+      getByIdAsync:'AddressedPlaces/GetByIdAsync',
+      GetAllByCustomerIdAsync:'AddressedPlaces/GetAllByCustomerIdAsync'
+    },
     drivers: {
       driversList: 'Drivers/GetAllAsync',
       createDriver: 'Drivers/CreateAsync',
@@ -69,7 +77,8 @@ export const roots = {
       deleteCustomer: 'Customers/SoftDelete',
       CanSubmitOrder: 'Customers/CanSubmitOrder',
       createAsyncSchudle: 'Customers/CreateAsyncSchudle',
-      getByIdAsyncOrderSchedule: 'Customers/GetByIdAsyncOrderSchedule'
+      getByIdAsyncOrderSchedule: 'Customers/GetByIdAsyncOrderSchedule',
+      getByIdAsync: 'Customers/GetByIdAsync'
     },
     financialSettlements: {
       getUsersByUserType: 'Auth/GetUsersByUserType?userType=7',

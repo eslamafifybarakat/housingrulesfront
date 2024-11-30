@@ -41,6 +41,8 @@ import { SafePipe } from '../safe.pipe';
 import { SetOrderScheduleForCustomerModalComponent } from './components/customers/components/set-order-schedule-for-customer-modal/set-order-schedule-for-customer-modal.component';
 import { SheduleCreatedSuccessfullyComponent } from './components/customers/components/shedule-created-successfully/shedule-created-successfully.component';
 import { OrderSheduleComponent } from './components/customers/components/order-shedule/order-shedule.component';
+import { AddEditAddressedPlacesComponent } from './components/customers/components/add-edit-customer/components/add-edit-addressed-places/add-edit-addressed-places.component';
+import { AddressDetailsComponent } from './components/customers/components/add-edit-customer/components/add-edit-addressed-places/address-details/address-details.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +82,9 @@ import { OrderSheduleComponent } from './components/customers/components/order-s
     SafePipe,
     SetOrderScheduleForCustomerModalComponent,
     SheduleCreatedSuccessfullyComponent,
-    OrderSheduleComponent
+    OrderSheduleComponent,
+    AddEditAddressedPlacesComponent,
+    AddressDetailsComponent
   ],
   imports: [
     DashboardRoutingModule,

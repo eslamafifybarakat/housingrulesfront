@@ -1,4 +1,4 @@
-<div id="modal">
+<!-- <div id="modal">
   <form [formGroup]="modalForm" (ngSubmit)="submit()">
     <div class="mb-3">
       <div class="d-flex align-self-center justify-content-between gap-2 flex-wrap">
@@ -74,4 +74,131 @@
       </button>
     </div>
   </form>
+</div> -->
+<div id="modal">
+  <div class="global-card" [class.min-vh-75]="!isEdit">
+    <h4 class="mb-0 text-capitalize">
+      <ng-container *ngIf="isEdit; else add">
+        {{'dashboard.customers.editCustomer'|translate}}
+      </ng-container>
+      <ng-template #add>
+        {{'dashboard.customers.addCustomer'|translate}}
+      </ng-template>
+
+    </h4>
+    <hr>
+    <form [formGroup]="modalForm" (ngSubmit)="submit()">
+      <div>
+        <div class="mb-3">
+          <div class="d-flex align-self-center justify-content-between gap-2 flex-wrap col-6">
+            <label for="isVip" class="fw-bold">{{'labels.isVip'|translate}}</label>
+            <p-inputSwitch id="isVip" formControlName="isVip"></p-inputSwitch>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="name" class="mb-2 required">{{'labels.name'|translate}}</label>
+            <input type="text" class="form-control" formControlName="name"
+              (input)="publicService?.clearValidationErrors(formControls?.name)"
+              [class.is-invalid]="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)"
+              placeholder="{{'placeholder.name'|translate}}">
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.name?.invalid && (formControls?.name?.dirty || formControls?.name?.touched)">
+                <ng-container *ngIf="formControls?.name?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.requiredName'|translate}}
+                  </span>
+                </ng-container>
+
+                <ng-container *ngIf="formControls?.name?.errors?.['minlength']">
+                  <span class="text-danger fs-8 d-block">
+                    {{'validations.name_length'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="mobileNumber" class="mb-2 required">{{'labels.mobilePhone'|translate}}</label>
+            <input type="text" class="form-control" formControlName="mobileNumber" autocomplete="cc-name" [min]="0"
+              (input)="publicService?.clearValidationErrors(formControls?.mobileNumber)"
+              [class.is-invalid]="formControls?.mobileNumber?.invalid && (formControls?.mobileNumber?.dirty || formControls?.mobileNumber?.touched)"
+              placeholder="{{'placeholder.mobilePhone'|translate}}">
+            <div class="mt-2">
+              <ng-container
+                *ngIf="formControls?.mobileNumber?.invalid && (formControls?.mobileNumber?.dirty || formControls?.mobileNumber?.touched)">
+                <ng-container *ngIf="formControls?.mobileNumber?.errors?.['required']">
+                  <span class="text-danger fs-8">
+                    {{'validations.required_field'|translate}}
+                  </span>
+                </ng-container>
+
+                <ng-container *ngIf="formControls?.mobileNumber?.errors?.['pattern']">
+                  <span class="text-danger fs-8 d-block">
+                    {{'validations.phone_length'|translate}}
+                  </span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-3 flex-wrap mt-5">
+        <button type="submit" class="btn btn-solid-main d-flex align-items-center justify-content-center gap-2">
+
+          <ng-container *ngIf="!isEdit;else edit">
+            <span>
+              {{'general.save'|translate}}
+            </span>
+            <i class="pi pi-save"></i>
+          </ng-container>
+          <ng-template #edit>
+            <span>
+              {{'general.edit'|translate}}
+            </span>
+            <i class="pi pi-pencil"></i>
+          </ng-template>
+        </button>
+        <button type="button" class="btn btn-outline-main d-flex align-items-center gap-2" (click)="cancel()">
+          <span>
+            {{'general.cancel'|translate}}
+          </span>
+          <i class="pi pi-times"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <ng-container *ngIf="isEdit">
+    <div class="p-3 mt-4">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
+        <div class="d-flex align-items-center gap-2">
+          <h4 class="mb-0 text-capitalize">{{'dashboard.addresses.addresses'|translate}}</h4>
+          <span class="badge badge-main d-flex justify-content-center align-items-center">
+            {{addressesCount}}
+          </span>
+        </div>
+        <button class="btn btn-solid-main d-flex align-items-center gap-2 me-auto"
+          (click)="addOrEditItem(this.customerId)">
+          <i class="pi pi-plus-circle"></i>
+          <span>{{'dashboard.createNew'|translate}}</span>
+        </button>
+      </div>
+      <hr>
+
+      <app-dynamic-table-local-actions [isLoading]="loadingIndicator" [showClear]="true" [showSearch]="true"
+        [isLoadingSearch]="isLoadingSearch" [tableHeaders]="tableHeaders" [tableData]="addressesList"
+        [enableDateFormate]="true" [dateFormateString]="'EE | dd/MM/YYYY'" [showActions]="true" [showEdit]="true"
+        [showDelete]="true" (deleteHandler)="deleteItem($event)" [showDetails]="true"
+        (detailsHandler)="itemDetails($event)" (editHandler)="addOrEditItem($event,'edit')" [results]="addressesCount"
+        [paginatorRows]="perPage" [pages]="pagesCount" [rowsPerPageOptions]="rowsOptions"
+        [enableConfirmDeleteDialog]="true" [keyDelete]="'name'" [isSearch]="isSearch"
+        [arrayChildKey]="'name'"></app-dynamic-table-local-actions>
+    </div>
+  </ng-container>
 </div>

@@ -1,5 +1,4 @@
- export  enum OrderStatus
-{
+export enum OrderStatus {
     Pending = 0,// "AUTOMATIC",
 
     AssignedToDriver = 1, // ( FIELDUSER )
@@ -12,56 +11,51 @@
 
     Cancelled = 5
 }
-export enum PropertyType
-{
+export enum PropertyType {
 
     Residential,
 
-     Governmental,
+    Governmental,
 
-     Commercial
+    Commercial
 }
-export enum PaymentMethod
-{
-     Cash,
-     Mada,
-     Transfer,
-     Credit
+export enum PaymentMethod {
+    Cash,
+    Mada,
+    Transfer,
+    Credit
 }
-export enum DriverStatus
-{
-     Available,
-     Busy,
-     Away
+export enum DriverStatus {
+    Available,
+    Busy,
+    Away
 }
-export enum TankSize
-{
+export enum TankSize {
     Size13, Size20, Size32
 }
-export enum OrderOrigin
-{
+export enum OrderOrigin {
     WhatsApp, TMS, Call
 }
-export enum CancellatinCauses
-{
+export enum CancellatinCauses {
     Inquiry, PriceIssue, UncoveredLocation
 }
-export enum WalletStatus
-{
+export enum WalletStatus {
     Active = 1,
     Inactive = 2,
     Deleted = 3,
     Suspended = 4
 }
-export enum WalletTransactionType
-{
+export enum WalletTransactionType {
     Deposit = 1,
     Withdraw = 2,
     Allocate = 3
 }
-export enum WalletTransactionSource
-{
+export enum WalletTransactionSource {
     PaymentGetway = 1,
     ManualEntry = 2,
     InternalSettlement = 3
+}
+export enum PlaceType {
+    Home = 1,
+    Work = 2,
 }
