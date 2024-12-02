@@ -24,8 +24,6 @@ export class ConfirmCompleteOrderComponent implements OnInit {
   ngOnInit(): void {
     this.modalData = this.config?.data;
     this.orderId = this.modalData?.id;
-    console.log(this.modalData);
-
   }
   confirm(): void {
     this.ref?.close({ confirmed: true });

@@ -287,7 +287,6 @@ export class GatesComponent implements OnInit {
     this.publicService?.changePageSub?.next({ page: this.page });
   }
   viewLocation(item: any): void {
-    console.log(item?.locationLink);
     item?.locationLink ? window?.open(item?.locationLink, "_blank") : '';
   }
 
@@ -351,7 +350,6 @@ export class GatesComponent implements OnInit {
     //this.getAllGates();
   }
   itemDetails(item?: any): void {
-    console.log(item);
     const ref = this.dialogService?.open(GateDetailsComponent, {
       data: item,
       header: this.publicService?.translateTextFromJson('dashboard.settlementes.settlementDetails'),

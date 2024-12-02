@@ -14,28 +14,18 @@ export class UploadButtonComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    // let upload = document.getElementById('upload');
-    // let uploadbtn = document.querySelector('.p-fileupload-choose');
-    // console.log(uploadbtn);
-    // console.log(upload);
-
-  }
+  ngOnInit(): void {}
 
   onUpload(event: any): void {
-    console.log(event.files);
     for (let file of event.files) {
       this.uploadedFiles.push(file);
     }
-    console.log(this.uploadedFiles);
   }
 
   removeItem(event: any): void {
-    console.log(event.file);
   }
 
   onError(): void {
-    console.log(this.uploadedFiles);
   }
   // selectFilesToUpload() {
   //   this.listFileUpload = [];

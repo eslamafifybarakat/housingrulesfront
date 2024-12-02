@@ -1,4 +1,4 @@
-import { environment } from './../../../../environments/environment.prod';
+import { environment } from './../../../../environments/environment';
 import { CheckValidityService } from './../../../shared/services/check-validity/check-validity.service';
 import { TranslationService } from './../../../shared/services/i18n/translation.service';
 import { AlertsService } from './../../../core/services/alerts/alerts.service';
@@ -88,8 +88,6 @@ export class LoginComponent implements OnInit {
         (res: any) => {
           if (res?.statusCode == 200) {
             this.router?.navigate(['/dashboard/orders']);
-            console.log(res?.data);
-
             window.localStorage.setItem(keys.token, res?.data?.token);
             window.localStorage.setItem(keys.userLoginData, JSON.stringify(res?.data?.user));
             window.localStorage.setItem(keys.tenantid, JSON.stringify(res?.data?.user.tenantid));

@@ -21,6 +21,8 @@ export class AddEditAddressedPlacesComponent implements OnInit {
   modalData: any;
   currentLanguage:any;
   placeTypes:any;
+  phone:any;
+
   constructor(
     private addressedPlacesService: AddressedPlacesService,
     private checkValidityService: CheckValidityService,
@@ -42,7 +44,7 @@ export class AddEditAddressedPlacesComponent implements OnInit {
       }
     ];
   }
-  phone:any
+
   ngOnInit(): void {
     this.modalData = this.config?.data;
     this.customerId = +this.modalData?.customerId;
@@ -52,9 +54,6 @@ export class AddEditAddressedPlacesComponent implements OnInit {
       this.isEdit = true;
       this.patchValue();
     }
-    console.log(this.modalData);
- 
-
   }
   modalForm = this.fb?.group(
     {

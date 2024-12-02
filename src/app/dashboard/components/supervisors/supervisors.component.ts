@@ -86,8 +86,6 @@ export class SupervisorsComponent implements OnInit {
             // item?.districts?.forEach((item: any) => {
             //   districtsItems?.push({ name: item?.name });
             // });
-console.log(isWorking);
-
             arr.push({
               id: item?.id ? item?.id : null,
               arName: item?.arName ? item?.arName : '',
@@ -182,7 +180,6 @@ console.log(isWorking);
     });
   }
   deleteItem(item: any): void {
-    console.log(item);
     if (item?.confirmed) {
       this.publicService?.show_loader.next(true);
       this.supervisorsService?.deleteSupervisorId(item?.item?.id)?.subscribe(

@@ -539,7 +539,6 @@ export class DynamicTableComponent implements OnInit {
           operator: 'and', type: 'time'
         }];
     }
-    // console.log(this.filtersTable);
     this.filterHandler?.emit(this.filtersTable);
   }
   clearTime(): void {

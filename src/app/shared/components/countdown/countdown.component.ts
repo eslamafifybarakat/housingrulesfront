@@ -29,7 +29,6 @@ export class CountdownComponent implements OnInit {
 
     // Get Current URL Routing
     this.currentUrl = this.router.url.split(/[?#]/)[0];
-    console.log(this.currentUrl);
   }
 
   demo: any;
@@ -37,7 +36,6 @@ export class CountdownComponent implements OnInit {
     var now = new Date().getTime();
     var distance = this.countDownDate - now;
     if (distance <= 0) {
-      console.log("Time ended");
       this.emitServicePrice.next({
         end: true
       });

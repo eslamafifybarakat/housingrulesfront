@@ -1,4 +1,4 @@
-import { environment } from './../../../../../../environments/environment.prod';
+import { environment } from './../../../../../../environments/environment';
 import { OrdersService } from 'src/app/dashboard/services/orders.service';
 import { DynamicDialogConfig, DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { AlertsService } from './../../../../../core/services/alerts/alerts.service';

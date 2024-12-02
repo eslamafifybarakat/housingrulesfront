@@ -18,8 +18,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.sharedService.showSideMenu.subscribe((res: any) => {
       this.toggleSideMenu = res
-    })
-    console.log(this.getLetterByIndex(5));
+    });
   }
 
   onToggleSideNav(data: any): void {

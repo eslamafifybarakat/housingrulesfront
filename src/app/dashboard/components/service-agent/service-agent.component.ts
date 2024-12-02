@@ -73,7 +73,6 @@ export class ServiceAgentComponent implements OnInit {
               isWorking: item?.isWorking ? true : false
             });
           }) : '';
-          console.log(arr);
           this.serviceAgentList$ = arr;
 
         }),
@@ -151,7 +150,6 @@ export class ServiceAgentComponent implements OnInit {
     });
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
-        console.log('sss');
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
         this.getAllServiceAgents();

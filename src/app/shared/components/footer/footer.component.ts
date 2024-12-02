@@ -19,7 +19,6 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     this.sharedService?.urlData?.subscribe((res: any) => {
       this.moduleType = res?.moduleType;
-      console.log(this.moduleType);
     })
 
     this.sharedService?.showSideMenu?.subscribe((res: any) => {

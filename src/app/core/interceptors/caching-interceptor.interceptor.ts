@@ -15,7 +15,6 @@ export class CachingInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    setOrRemoveCacheRequestURL(req,'Add')
     if (req.method !== 'GET' || !setOrRemoveCacheRequestURL(req,'Add')) {
       return next.handle(req);
     }

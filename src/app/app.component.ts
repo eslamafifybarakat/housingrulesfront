@@ -58,10 +58,7 @@ export class AppComponent {
     }
   }
   ngOnInit(): void {
-    
     let data = this.activatedRoute.snapshot.data;
-    console.log(data);
-
     this.router.events
       .pipe(
         filter((event: any) => event instanceof NavigationEnd),
@@ -83,7 +80,6 @@ export class AppComponent {
         if (data) {
           this.sharedService.urlData.next(data)
           this.url = data;
-          console.log(this.url);
         }
       });
 

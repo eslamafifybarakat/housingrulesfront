@@ -17,6 +17,10 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { CustomersService } from 'src/app/dashboard/services/customers.service';
 import { ConfirmationService } from 'primeng/api';
+import { AddCustomerModalComponent } from '../../../customers/components/add-edit-customer/components/add-customer-modal/add-customer-modal.component';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { environment } from 'src/environments/environment';
+import { roots } from 'src/app/shared/configs/endPoints';
 
 @Component({
   selector: 'app-add-edit-order',
@@ -91,7 +95,6 @@ export class AddEditOrderComponent implements OnInit {
     this.orderOriginList = this.publicService.getOrderOrigin();
     this.propertyTypeList = this.publicService.getPropertyType();
     this.currLang = window.localStorage.getItem(keys?.language);
-    // this.districtsList = this.publicService?.getDistricts();
     this.userData = JSON.parse(window.localStorage.getItem(keys?.userLoginData) || '{}');
     if (this.isEdit && (this.userData?.userType == 2 || this.userData?.userType == 4)) {
       this.publicService?.addValidators(this.orderForm, ['driver']);
@@ -112,18 +115,9 @@ export class AddEditOrderComponent implements OnInit {
     if (this.isEdit) {
       this.getOrderData(this.orderId);
     } else {
-      // this.getAllSupervisors();
       this.getAllCustomers();
-      // this.getAllDrivers();
       this.getAllDistricts();
-      //this.getAllTanks();
     };
-    // if (!this.orderForm?.value?.district) {
-    //   this.orderForm?.patchValue({
-    //     supervisor: null,
-    //     driver: null
-    //   });
-    // }
   }
 
   orderForm = this.fb?.group(
@@ -301,7 +295,7 @@ export class AddEditOrderComponent implements OnInit {
     }
   }
   addNewCustomer(item?: any, type?: any): void {
-    const ref = this.dialogService?.open(AddEditCustomerComponent, {
+    const ref = this.dialogService?.open(AddCustomerModalComponent, {
       data: {
         item,
         type: type == 'edit' ? 'edit' : 'add'
@@ -619,12 +613,9 @@ export class AddEditOrderComponent implements OnInit {
       // formInfo?.id ? this.checkCustomerHasOpendedOrders(formInfo?.id) : '';
       if (formInfo?.customerName?.id) {
         this.publicService?.show_loader?.next(true);
-        console.log(formInfo?.customerName?.id);
         this.orderService.checkCustomerHasOpendedOrders(formInfo?.customerName?.id).subscribe(
           (res: any) => {
             if (res?.isSuccess == true && res?.statusCode == 200) {
-              console.log(res?.data);
-
               if (res?.data?.length > 0) {
                 this.confirmationService.confirm({
                   message: this.publicService?.translateTextFromJson('general.hasOpendedOrdersYouSureToContinue'),

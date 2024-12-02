@@ -161,7 +161,6 @@ export class FinancialSettlementsComponent implements OnInit {
       styleClass: 'custom_modal'
     });
     ref.onClose.subscribe((res: any) => {
-      console.log(res);
       if (res?.confirmed) {
         this.publicService.show_loader.next(true);
     const myObject: { [key: string]: any } = {};

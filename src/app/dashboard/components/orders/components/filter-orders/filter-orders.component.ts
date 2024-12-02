@@ -164,7 +164,7 @@ export class FilterOrdersComponent implements OnInit {
     this.cdr?.detectChanges();
   }
   onChangeStatus(event: any): void {
-    console.log(this.modalForm?.value);
+    // console.log(this.modalForm?.value);
   }
   submit(): void {
     const myObject: { [key: string]: any } = {};

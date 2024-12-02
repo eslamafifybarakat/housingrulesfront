@@ -193,7 +193,6 @@ export class AsideMenuComponent implements OnInit {
   }
 
   handelClick(item: any) {
-    // console.log(item?.id);
     // localStorage?.setItem(keys?.lastRoute, item.id)
     this.menuList?.forEach((ele: any) => {
       // ele.state = ele.state;
@@ -201,8 +200,6 @@ export class AsideMenuComponent implements OnInit {
     });
     // item.state = true
     // item.state = !item?.state;
-    console.log(item.state);
-
     // let index=this.menuList[item];
     //     // index.state = !index.state;
     //     index.state=true

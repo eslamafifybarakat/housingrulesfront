@@ -277,8 +277,6 @@ export class OrdersComponent implements OnInit {
   }
   onPageChange(e: any, tabNumber?: any): void {
     this.page = e?.page + 1;
-    console.log(this.currentActiveIndex);
-
     if (tabNumber == this.currentActiveIndex) {
       this.getAllOrders();
     }

@@ -139,13 +139,14 @@
       <div class="col-md-6">
         <div class="mb-3">
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-            <label for="customerName" class="mb-2 required">{{'labels.customer'|translate}}</label>
-
+            <label for="customerName" class="form-label">
+              {{'labels.customerName'|translate}}
+            </label>
           </div>
           <span class="p-input-icon-right select-loading d-block">
-            <p-dropdown [options]="customersList" formControlName="customerName" optionLabel="ddlValue" [filter]="true"
-              [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="ddlValue" appendTo="body" dir="rtl"
-              [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingCustomers"
+            <p-dropdown [options]="customersList" formControlName="customerName" optionLabel="ddlValue"
+              [filter]="true" [virtualScroll]="true" [virtualScrollItemSize]="38" filterBy="ddlValue"
+              appendTo="body" [filterPlaceholder]="'placeholder.search'|translate" [readonly]="isLoadingCustomers"
               scrollHeight="150px" emptyMessage="{{'general.no_result_found'|translate}}"
               [class.ng-dirty]="formControls?.customerName?.invalid && (formControls?.customerName?.dirty || formControls?.customerName?.touched)"
               [showClear]="true" placeholder="{{'general.select'|translate}}">

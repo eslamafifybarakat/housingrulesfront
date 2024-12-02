@@ -96,7 +96,6 @@ export class AddEditSupervisorComponent implements OnInit {
           this.districtsList = res?.data;
           if (this.isEdit) {
             let ids: any = [];
-            console.log(this.modalData?.item);
             this.modalData?.item?.districtsVal?.forEach((element: any) => {
               this.districtsList?.forEach((item: any) => {
                 if (element == item?.id) {
@@ -123,7 +122,6 @@ export class AddEditSupervisorComponent implements OnInit {
   }
   patchValue(): void {
     let districtsArr: any = [];
-    console.log(this.modalData?.item?.districtIds);
     this.modalForm?.patchValue({
       arName: this.modalData?.item?.arName,
       enName: this.modalData?.item?.enName,

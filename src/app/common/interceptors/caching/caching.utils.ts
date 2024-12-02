@@ -8,6 +8,9 @@ import { cachingEnum } from "../caching.Enum";
 // Cached URLs array (you can initially load this with predefined URLs if needed)
 export const chachingAPIsURLs: string[] = [
   `${environment?.apiUrl}/${roots?.dashboard?.customers?.customersShortList}`,
+  `${environment?.apiUrl}/${roots?.dashboard?.supervisors?.supervisorsList}`,
+  `${environment?.apiUrl}/${roots?.dashboard?.drivers?.driversList}`,
+  `${environment?.apiUrl}/${roots?.dashboard?.customers?.customersList}`,
 ];
 
 // Function to check if the request URL exists in chachingAPIsURLs
@@ -23,6 +26,7 @@ function getCachedRequestsURLs(): string | any {
 
 // Function to set or remove a cached URL from session storage
 export function setOrRemoveCacheRequestURL(requestURl: HttpRequest<any> | string, type: string): boolean {
+  // console.log("requestURl: ",requestURl);
   // Get the cached URLs array from session storage and parse it safely
   let cachedRequestsURLArr: string[] = JSON.parse(getCachedRequestsURLs());
 

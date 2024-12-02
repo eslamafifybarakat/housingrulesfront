@@ -166,7 +166,6 @@ export class WelcomeDashboardComponent implements OnInit {
       }
     });
     this.tankSizesChart = [size1, size2, size3];
-    console.log(this.tankSizesChart);
     this.doughnutData = {
       labels: [
         this.publicService?.translateTextFromJson(
