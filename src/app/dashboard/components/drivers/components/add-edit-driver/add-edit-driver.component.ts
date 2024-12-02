@@ -11,6 +11,9 @@ import { TanksService } from './../../../../services/tanks.service';
 import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { environment } from 'src/environments/environment';
+import { roots } from 'src/app/shared/configs/endPoints';
 
 @Component({
   selector: 'app-add-edit-driver',
@@ -287,6 +290,10 @@ export class AddEditDriverComponent implements OnInit {
       this.driversService?.addOrUpdateDriver(myObject, this.driverId ? this.driverId : null)?.subscribe(
         (res: any) => {
           if (res?.statusCode == 200 && res?.isSuccess == true) {
+            setOrRemoveCacheRequestURL(
+              `${environment.apiUrl}/${roots.dashboard.drivers.driversList}`,
+              'Remove'
+            );
             this.ref?.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';

@@ -3,13 +3,13 @@
     "english": "English",
     "arabic": "Arabic"
   },
-  "mainCities":{
-    "Jizancity":"Jizan city",
-    "AboArish":"Abo Arish",
-    "Sabia":"Sabia",
-    "Samta":"Samta",
-    "Beach":"Beach",
-    "AlAidabi":"Al Aidabi"
+  "mainCities": {
+    "Jizancity": "Jizan city",
+    "AboArish": "Abo Arish",
+    "Sabia": "Sabia",
+    "Samta": "Samta",
+    "Beach": "Beach",
+    "AlAidabi": "Al Aidabi"
   },
   "general": {
     "warning": "Warning",
@@ -217,15 +217,16 @@
     "periodicCat": "Periodic Category",
     "time": "Time",
     "cost": "Cost",
-    "branch":"Branch",
+    "branch": "Branch",
     "isSubcontractor": "Is Subcontractor",
     "serviceAgent": "Service Agent",
     "serviceAgentSuperVisor": "Service Agent SuperVisor",
     "address": "Address",
-    "addressTag":"Address Tag",
-    "nationalAddress":"National Address",
+    "addressTag": "Address Tag",
+    "nationalAddress": "National Address",
     "location": "Location",
     "tankPrice": "Tank Price",
+    "isAllowtoCreateOrder": "Allow Create Order",
     "isWorking": "Is working",
     "email": "Email",
     "name": "Name",
@@ -268,14 +269,13 @@
     "userType": "User type",
     "cancellationCauses": "Cancellation causes",
     "cancellationDesc": "Cancellation Description",
-    "placeType":"Place Type"
-
+    "placeType": "Place Type"
   },
   "placeholder": {
     "cancellationDesc": "Enter cancellation description",
     "cancellationCauses": "Select cancellation cause",
     "cost": "Enter cost",
-    "branch":"Branch",
+    "branch": "Branch",
     "searchUser": "Search user",
     "tankPrice": "Tank Price",
     "newPassword": "Enter new password",
@@ -307,11 +307,11 @@
     "paymentMethod": "Enter payment method",
     "orderNumber": "Enter order number",
     "userType": "Select user type",
-    "placeType":"Select place type",
-    "address":"Enter address",
-    "addressTag":"Enter address tag",
-    "nationalAddress":"Enter national address",
-    "location":"Enter Location"
+    "placeType": "Select place type",
+    "address": "Enter address",
+    "addressTag": "Enter address tag",
+    "nationalAddress": "Enter national address",
+    "location": "Enter Location"
   },
   "validations": {
     "required_field": "This field is reuired",
@@ -346,7 +346,7 @@
   },
   "form": {
     "welcomeBack": "Welcome back",
-    "weMissedYou":" Welcome back, we missed you ",
+    "weMissedYou": " Welcome back, we missed you ",
     "enterDetails": "Welcome back! please enter your details",
     "enterRegisterDetails": "Welcome! please enter your details",
     "registration": "Create Account",
@@ -447,9 +447,9 @@
       "customers": "Customers",
       "comments": "Comments",
       "userType": "User type",
-      "nationalAddress":"National Address",
-      "addressTag":"Address Tag",
-      "placeType":"Place Type"
+      "nationalAddress": "National Address",
+      "addressTag": "Address Tag",
+      "placeType": "Place Type"
     },
     "tanks": {
       "tanks": "Tanks",
@@ -524,8 +524,8 @@
         "gateIn": "Gate in ",
         "gateOut": "Gate out",
         "accountant": "Accountant",
-        "OperationManger":"Operation Manger",
-        "ProjectManger":"Project Manger"
+        "OperationManger": "Operation Manger",
+        "ProjectManger": "Project Manger"
       }
     },
     "customers": {
@@ -538,7 +538,7 @@
       "addresses": "Addresses",
       "addAddress": "Add Address",
       "editAddress": "Edit Address",
-      "addressDetails":"Address Details"
+      "addressDetails": "Address Details"
     },
     "financialSettlements": {
       "financialSettlements": "Financial settlements"
@@ -619,8 +619,24 @@
       "Friday",
       "Saturday"
     ],
-    "dayNamesShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    "dayNamesMin": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+    "dayNamesShort": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ],
+    "dayNamesMin": [
+      "Su",
+      "Mo",
+      "Tu",
+      "We",
+      "Th",
+      "Fr",
+      "Sa"
+    ],
     "monthNames": [
       "January",
       "February",

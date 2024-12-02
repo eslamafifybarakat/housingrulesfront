@@ -13,6 +13,9 @@ import { CustomerDetailsComponent } from '../customer-details/customer-details.c
 import { AddressDetailsComponent } from './components/add-edit-addressed-places/address-details/address-details.component';
 import { AddressedPlacesService } from 'src/app/dashboard/services/addressed-places.service';
 import { keys } from 'src/app/shared/configs/localstorage-key';
+import { environment } from 'src/environments/environment';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { roots } from 'src/app/shared/configs/endPoints';
 @Component({
   selector: 'app-add-edit-customer',
   templateUrl: './add-edit-customer.component.html',
@@ -181,6 +184,14 @@ export class AddEditCustomerComponent implements OnInit {
           if (res?.isSuccess == true && res?.statusCode == 200) {
             if (!this.isEdit) {
               this.router?.navigate(['/dashboard/customers']);
+              setOrRemoveCacheRequestURL(
+                `${environment.apiUrl}/${roots.dashboard.customers.customersShortList}`,
+                'Remove'
+              );
+              setOrRemoveCacheRequestURL(
+                `${environment.apiUrl}/${roots.dashboard.customers.customersList}`,
+                'Remove'
+              );
             }
             this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';

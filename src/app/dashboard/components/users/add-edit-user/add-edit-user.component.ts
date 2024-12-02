@@ -13,6 +13,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { keys } from 'src/app/shared/configs/localstorage-key';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { roots } from 'src/app/shared/configs/endPoints';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -310,6 +313,10 @@ export class AddEditUserComponent implements OnInit {
           if (res?.isSuccess == true) {
             this.ref?.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
+            setOrRemoveCacheRequestURL(
+              `${environment.apiUrl}/${roots.dashboard.users.usersList}`,
+              'Remove'
+            );
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
           } else {
             res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';

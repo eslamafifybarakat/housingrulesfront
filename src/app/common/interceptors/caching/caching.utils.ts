@@ -35,7 +35,7 @@ export function setOrRemoveCacheRequestURL(requestURl: HttpRequest<any> | string
   if (typeof requestURl === 'string') {
     urlToCheck = requestURl; // Directly use the string as the URL
   } else {
-    urlToCheck = requestURl.url; // Use the URL property from the HttpRequest object
+    urlToCheck = requestURl.urlWithParams; // Use the URL property from the HttpRequest object
   }
 
   // Check if the URL exists in the cache

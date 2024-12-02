@@ -8,6 +8,9 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { roots } from 'src/app/shared/configs/endPoints';
+import { environment } from 'src/environments/environment';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 
 @Component({
   selector: 'app-add-edit-service-agent',
@@ -95,6 +98,10 @@ export class AddEditServiceAgentComponent implements OnInit {
           if (res?.isSuccess == true && res?.statusCode == 200) {
             this.ref.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
+            setOrRemoveCacheRequestURL(
+              `${environment.apiUrl}/${roots.dashboard.serviceAgents.serviceAgentsList}`,
+              'Remove'
+            );
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
           } else {
             res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';

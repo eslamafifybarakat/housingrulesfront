@@ -36,8 +36,8 @@ export class AddEditOrderComponent implements OnInit {
   isFullLoading: boolean = false;
 
   supervisorsList: any = [];
-  AllSupervisorsList:any=[];
-  filteredSupervisorsList:any=[];
+  AllSupervisorsList: any = [];
+  filteredSupervisorsList: any = [];
 
   isLoadingSupervisors: boolean = false;
 
@@ -213,15 +213,15 @@ export class AddEditOrderComponent implements OnInit {
     this.cdr?.detectChanges();
   }
   onChangeDistrict(item: any): void {
-    this.filteredSupervisorsList=[];
+    this.filteredSupervisorsList = [];
     if (item?.value?.id) {
       this.filteredSupervisorsList = this.AllSupervisorsList.data
-      .filter((ele: any) => ele?.districtIds?.includes(item?.value?.id))  // تصفية البيانات
-      .map((supervisor: any) => ({
-        arName: supervisor?.arName,
-        enName: supervisor?.enName,
-        id: supervisor?.id
-      }));
+        .filter((ele: any) => ele?.districtIds?.includes(item?.value?.id))  // تصفية البيانات
+        .map((supervisor: any) => ({
+          arName: supervisor?.arName,
+          enName: supervisor?.enName,
+          id: supervisor?.id
+        }));
       this.orderForm?.patchValue({
         supervisor: null
       });
@@ -235,7 +235,7 @@ export class AddEditOrderComponent implements OnInit {
     });
     this.supervisorsList = [];
     this.driversList = [];
-    this.filteredSupervisorsList=[];
+    this.filteredSupervisorsList = [];
 
     this.orderForm?.controls?.supervisor?.disable();
     this.orderForm?.controls?.driver?.disable();
@@ -356,7 +356,7 @@ export class AddEditOrderComponent implements OnInit {
     this.isLoadingSupervisors = true;
     this.supervisorsService?.getSupervisorsByDistrictId()?.subscribe(
       (res: any) => {
-          this.AllSupervisorsList=res;
+        this.AllSupervisorsList = res;
 
         if (res?.statusCode == 200 && res?.isSuccess == true) {
           let arr: any = [];
@@ -628,6 +628,22 @@ export class AddEditOrderComponent implements OnInit {
                         (res: any) => {
                           if (res?.isSuccess == true && res?.statusCode == 200) {
                             this.publicService?.show_loader?.next(false);
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.checkCustomerHasOpendedOrders}`,
+                              'Remove'
+                            );
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.confirmSettlementeOrderList}`,
+                              'Remove'
+                            );
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.orderDriverArrivedToStationList}`,
+                              'Remove'
+                            );
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.ordersByTypeList}`,
+                              'Remove'
+                            );
                             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
                             this.router.navigate(['/dashboard/orders'])
                           } else {
@@ -652,6 +668,22 @@ export class AddEditOrderComponent implements OnInit {
                             (res: any) => {
                               if (res?.isSuccess == true && res?.statusCode == 200) {
                                 this.publicService?.show_loader?.next(false);
+                                setOrRemoveCacheRequestURL(
+                                  `${environment.apiUrl}/${roots.dashboard.orders.checkCustomerHasOpendedOrders}`,
+                                  'Remove'
+                                );
+                                setOrRemoveCacheRequestURL(
+                                  `${environment.apiUrl}/${roots.dashboard.orders.confirmSettlementeOrderList}`,
+                                  'Remove'
+                                );
+                                setOrRemoveCacheRequestURL(
+                                  `${environment.apiUrl}/${roots.dashboard.orders.orderDriverArrivedToStationList}`,
+                                  'Remove'
+                                );
+                                setOrRemoveCacheRequestURL(
+                                  `${environment.apiUrl}/${roots.dashboard.orders.ordersByTypeList}`,
+                                  'Remove'
+                                );
                                 res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
                                 this.router.navigate(['/dashboard/orders']);
                               } else {
@@ -670,6 +702,22 @@ export class AddEditOrderComponent implements OnInit {
                         (res: any) => {
                           if (res?.isSuccess == true && res?.statusCode == 200) {
                             this.publicService?.show_loader?.next(false);
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.checkCustomerHasOpendedOrders}`,
+                              'Remove'
+                            );
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.confirmSettlementeOrderList}`,
+                              'Remove'
+                            );
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.orderDriverArrivedToStationList}`,
+                              'Remove'
+                            );
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.ordersByTypeList}`,
+                              'Remove'
+                            );
                             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
                             this.router.navigate(['/dashboard/orders']);
                           } else {
@@ -699,6 +747,22 @@ export class AddEditOrderComponent implements OnInit {
                     (res: any) => {
                       if (res?.isSuccess == true && res?.statusCode == 200) {
                         this.publicService?.show_loader?.next(false);
+                        setOrRemoveCacheRequestURL(
+                          `${environment.apiUrl}/${roots.dashboard.orders.checkCustomerHasOpendedOrders}`,
+                          'Remove'
+                        );
+                        setOrRemoveCacheRequestURL(
+                          `${environment.apiUrl}/${roots.dashboard.orders.confirmSettlementeOrderList}`,
+                          'Remove'
+                        );
+                        setOrRemoveCacheRequestURL(
+                          `${environment.apiUrl}/${roots.dashboard.orders.orderDriverArrivedToStationList}`,
+                          'Remove'
+                        );
+                        setOrRemoveCacheRequestURL(
+                          `${environment.apiUrl}/${roots.dashboard.orders.ordersByTypeList}`,
+                          'Remove'
+                        );
                         res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
                         this.router.navigate(['/dashboard/orders'])
                       } else {
@@ -723,6 +787,22 @@ export class AddEditOrderComponent implements OnInit {
                         (res: any) => {
                           if (res?.isSuccess == true && res?.statusCode == 200) {
                             this.publicService?.show_loader?.next(false);
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.checkCustomerHasOpendedOrders}`,
+                              'Remove'
+                            );
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.confirmSettlementeOrderList}`,
+                              'Remove'
+                            );
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.orderDriverArrivedToStationList}`,
+                              'Remove'
+                            );
+                            setOrRemoveCacheRequestURL(
+                              `${environment.apiUrl}/${roots.dashboard.orders.ordersByTypeList}`,
+                              'Remove'
+                            );
                             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
                             this.router.navigate(['/dashboard/orders']);
                           } else {
@@ -741,6 +821,22 @@ export class AddEditOrderComponent implements OnInit {
                     (res: any) => {
                       if (res?.isSuccess == true && res?.statusCode == 200) {
                         this.publicService?.show_loader?.next(false);
+                        setOrRemoveCacheRequestURL(
+                          `${environment.apiUrl}/${roots.dashboard.orders.checkCustomerHasOpendedOrders}`,
+                          'Remove'
+                        );
+                        setOrRemoveCacheRequestURL(
+                          `${environment.apiUrl}/${roots.dashboard.orders.confirmSettlementeOrderList}`,
+                          'Remove'
+                        );
+                        setOrRemoveCacheRequestURL(
+                          `${environment.apiUrl}/${roots.dashboard.orders.orderDriverArrivedToStationList}`,
+                          'Remove'
+                        );
+                        setOrRemoveCacheRequestURL(
+                          `${environment.apiUrl}/${roots.dashboard.orders.ordersByTypeList}`,
+                          'Remove'
+                        );
                         res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
                         this.router.navigate(['/dashboard/orders']);
                       } else {

@@ -8,6 +8,9 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AddressedPlacesService } from 'src/app/dashboard/services/addressed-places.service';
 import { PlaceType } from 'src/app/enums';
 import { keys } from 'src/app/shared/configs/localstorage-key';
+import { roots } from 'src/app/shared/configs/endPoints';
+import { environment } from 'src/environments/environment';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 
 @Component({
   selector: 'app-add-edit-addressed-places',
@@ -117,6 +120,10 @@ export class AddEditAddressedPlacesComponent implements OnInit {
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {
             this.publicService?.show_loader?.next(false);
+            setOrRemoveCacheRequestURL(
+              `${environment.apiUrl}/${roots.dashboard.addressedPlaces.getAllAddresses}`,
+              'Remove'
+            );
             this.ref?.close({ listChanged: true, id: res?.data?.id });
           } else {
             res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
