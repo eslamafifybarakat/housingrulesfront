@@ -10,6 +10,10 @@ import { TanksService } from '../../services/tanks.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SetOrderScheduleForCustomerModalComponent } from './components/set-order-schedule-for-customer-modal/set-order-schedule-for-customer-modal.component';
 import { Router } from '@angular/router';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { environment } from 'src/environments/environment';
+import { roots } from 'src/app/shared/configs/endPoints';
 
 @Component({
   selector: 'app-customers',
@@ -49,7 +53,8 @@ export class CustomersComponent implements OnInit {
     private dialogService: DialogService,
     private tanksService: TanksService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private editService: EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -60,7 +65,9 @@ export class CustomersComponent implements OnInit {
       // { field: 'locationLink', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', enableItemLink: true, typeViewModal: 'location' },
       { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'text' },
     ];
-
+    this.editService.getRefreshDrivers().subscribe(() => {
+      this.getAllCustomers();
+    }); 
     this.getAllCustomers();
   }
 
@@ -180,6 +187,15 @@ export class CustomersComponent implements OnInit {
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+            setOrRemoveCacheRequestURL(
+              `${environment.apiUrl}/${roots.dashboard.customers.customersShortList}`,
+              'Remove'
+            );
+            setOrRemoveCacheRequestURL(
+              `${environment.apiUrl}/${roots.dashboard.customers.customersList}`,
+              'Remove',
+              { page: 1, per_page: 30 }
+            );
             this.getAllCustomers();
             this.publicService?.show_loader?.next(false);
           } else {

@@ -7,6 +7,8 @@ import { SupervisorsService } from '../../services/supervisors.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
 
 @Component({
   selector: 'app-supervisors',
@@ -45,7 +47,8 @@ export class SupervisorsComponent implements OnInit {
     private dialogService: DialogService,
     private alertsService: AlertsService,
     public publicService: PublicService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private editService:EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +59,9 @@ export class SupervisorsComponent implements OnInit {
       { field: 'status', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: false, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
       // { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
+    this.editService.getRefreshSupervisors().subscribe(() => {
+      this.getAllSupervisors();
+    });  
 
     this.getAllSupervisors();
   }
@@ -159,6 +165,9 @@ export class SupervisorsComponent implements OnInit {
       width: '40%',
       styleClass: 'custom_modal'
     });
+    ref.onClose.subscribe((res: any) => {
+    this.getAllSupervisors();
+  });
   }
   addOrEditItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddEditSupervisorComponent, {
@@ -175,6 +184,10 @@ export class SupervisorsComponent implements OnInit {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
+        setOrRemoveCacheRequestURL(
+          `http://qa-tms.qatarcentral.cloudapp.azure.com:4455/api/SuperVisors/GetAllAsync`,
+          'Remove'
+        );
         this.getAllSupervisors();
       }
     });
@@ -186,6 +199,10 @@ export class SupervisorsComponent implements OnInit {
         (res: any) => {
           if (res?.statusCode == 200 && res?.isSuccess == true) {
             res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
+            setOrRemoveCacheRequestURL(
+              `http://qa-tms.qatarcentral.cloudapp.azure.com:4455/api/SuperVisors/GetAllAsync`,
+              'Remove'
+            );
             this.getAllSupervisors();
             this.publicService?.show_loader?.next(false);
           } else {

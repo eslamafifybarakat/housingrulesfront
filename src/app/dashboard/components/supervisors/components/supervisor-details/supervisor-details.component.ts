@@ -2,9 +2,10 @@ import { CheckValidityService } from './../../../../../shared/services/check-val
 import { AddEditSupervisorComponent } from '../add-edit-supervisor/add-edit-supervisor.component';
 import { DynamicDialogConfig, DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { PublicService } from './../../../../../shared/services/public.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
 
 @Component({
   selector: 'app-supervisor-details',
@@ -13,7 +14,6 @@ import { Subscription } from 'rxjs';
 })
 export class SupervisorDetailsComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
-
   modalData: any;
   supervisorsId: any;
 
@@ -24,6 +24,7 @@ export class SupervisorDetailsComponent implements OnInit {
     private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
     protected router: Router,
+    private editS:EditServiceService
   ) { }
 
 
@@ -44,6 +45,11 @@ export class SupervisorDetailsComponent implements OnInit {
       width: '40%',
       styleClass: 'custom_modal'
     });
+    ref.onClose.subscribe(() => {
+      // Emit an event to refresh the supervisors list
+      this.editS.emitRefreshSupervisors();
+    });
+    
   }
 
   cancel(): void {

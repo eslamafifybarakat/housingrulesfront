@@ -2,6 +2,7 @@ import { AddEditServiceAgentComponent } from '../add-edit-service-agent/add-edit
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PublicService } from 'src/app/shared/services/public.service';
 import { Component, OnInit } from '@angular/core';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
 
 @Component({
   selector: 'app-service-agent-details',
@@ -17,7 +18,8 @@ export class ServiceAgentDetailsComponent implements OnInit {
     private dialogService: DialogService,
     public publicService: PublicService,
     private config: DynamicDialogConfig,
-    private ref: DynamicDialogRef
+    private ref: DynamicDialogRef,
+    private editService:EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +38,10 @@ export class ServiceAgentDetailsComponent implements OnInit {
       dismissableMask: false,
       width: '40%',
       styleClass: 'custom_modal'
+    });
+    ref.onClose.subscribe(() => {
+      // Emit an event to refresh the drivers list
+      this.editService.emitRefreshServiceAgent();
     });
   }
 

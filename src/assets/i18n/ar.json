@@ -208,7 +208,9 @@
     "byTMS": "عن طريق نظام شركة المياه الوطنية",
     "byCall": "اتصال",
     "bySite": "عن طريق الموقع",
-    "others": "أخري"
+    "others": "أخري",
+    "true":"نعم",
+    "false":"لا"
   },
   "warning": {
     "selectDistrictFirst": "يجب اختيار الحي أولا",

@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { roots } from 'src/app/shared/configs/endPoints';
 import { environment } from 'src/environments/environment';
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { updateItemName } from 'src/app/common/functions/fixNames';
 
 @Component({
   selector: 'app-add-edit-supervisor',
@@ -29,6 +30,9 @@ export class AddEditSupervisorComponent implements OnInit {
   districtsList: any = [];
   isLoadingDistricts: boolean = false;
   currLang: any = '';
+
+  isLoadingSupervisors: boolean = false;
+
 
   constructor(
     public checkValidityService: CheckValidityService,
@@ -97,6 +101,9 @@ export class AddEditSupervisorComponent implements OnInit {
       (res: any) => {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
           this.districtsList = res?.data;
+          this.districtsList.forEach((item: any) => {
+            updateItemName(item, item.arName, item.enName); 
+          });
           if (this.isEdit) {
             let ids: any = [];
             this.modalData?.item?.districtsVal?.forEach((element: any) => {
@@ -159,12 +166,13 @@ export class AddEditSupervisorComponent implements OnInit {
       this.supervisorsService?.addOrUpdateSupervisor(myObject, this.supervisorId ? this.supervisorId : null)?.subscribe(
         (res: any) => {
           if (res?.statusCode == 200 && res?.isSuccess == true) {
-            this.ref.close({ listChanged: true });
-            this.publicService?.show_loader?.next(false);
             setOrRemoveCacheRequestURL(
               `${environment.apiUrl}/${roots.dashboard.supervisors.supervisorsList}`,
               'Remove'
             );
+            this.ref.close({ listChanged: true });
+            this.publicService?.show_loader?.next(false);
+
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
           } else {
             res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
@@ -179,7 +187,7 @@ export class AddEditSupervisorComponent implements OnInit {
       this.checkValidityService?.validateAllFormFields(this.modalForm);
     }
   }
-
+  
   cancel(): void {
     this.ref?.close({ listChanged: false });
   }

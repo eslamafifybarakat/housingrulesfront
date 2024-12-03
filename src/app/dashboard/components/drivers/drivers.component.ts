@@ -6,6 +6,10 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DriversService } from '../../services/drivers.service';
 import { finalize, map, Observable, Subscription } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { roots } from 'src/app/shared/configs/endPoints';
+import { environment } from 'src/environments/environment';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
 
 @Component({
   selector: 'app-drivers',
@@ -47,6 +51,7 @@ export class DriversComponent implements OnInit {
     public publicService: PublicService,
     private dialogService: DialogService,
     private cdr: ChangeDetectorRef,
+    private editService:EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -59,9 +64,11 @@ export class DriversComponent implements OnInit {
 
       { field: 'driverStatus', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), filter: false, type: 'filterArray', dataType: 'array', list: 'driverStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.driverStatus'), label: this.publicService?.translateTextFromJson('labels.driverStatus'), status: true },
     ];
-
+    this.editService.getRefreshDrivers().subscribe(() => {
+      this.getAllDrivers();
+    }); 
     this.getAllDrivers();
-    this.driverStatusList = this.publicService?.getDriverStatus();
+    // this.driverStatusList = this.publicService?.getDriverStatus();
 
   }
 
@@ -70,6 +77,7 @@ export class DriversComponent implements OnInit {
     this.driversService?.getDriversList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
       .pipe(
         map((res: any) => {
+         this.driverStatusList = this.publicService?.getDriverStatus();
           this.driversCount = res?.total;
           this.pagesCount = Math.ceil(this.driversCount / this.perPage);
           let arr: any = [];
@@ -193,6 +201,10 @@ export class DriversComponent implements OnInit {
         (res: any) => {
           if (res?.statusCode == 200 && res?.isSuccess == true) {
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+            setOrRemoveCacheRequestURL(
+              `${environment.apiUrl}/${roots.dashboard.drivers.driversList}`,
+              'Remove'
+            );
             this.getAllDrivers();
             this.publicService?.show_loader?.next(false);
           } else {

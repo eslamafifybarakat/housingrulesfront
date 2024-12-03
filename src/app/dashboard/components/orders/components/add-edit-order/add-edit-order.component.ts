@@ -21,6 +21,7 @@ import { AddCustomerModalComponent } from '../../../customers/components/add-edi
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 import { environment } from 'src/environments/environment';
 import { roots } from 'src/app/shared/configs/endPoints';
+import { updateItemName } from 'src/app/common/functions/fixNames';
 
 @Component({
   selector: 'app-add-edit-order',
@@ -189,6 +190,9 @@ export class AddEditOrderComponent implements OnInit {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
 
           this.districtsList = res?.data;
+          this.districtsList.forEach((item: any) => {
+            updateItemName(item, item.arName, item.enName); 
+          });
           if (this.isEdit) {
             this.districtsList?.forEach((item: any) => {
               if (item?.id == this.orderData?.districtId) {

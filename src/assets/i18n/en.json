@@ -206,7 +206,9 @@
     "byTMS": "By TMS",
     "byCall": "By Call",
     "bySite": "By Site",
-    "others": "Other"
+    "others": "Other",
+    "true":"yes",
+    "false":"no"
   },
   "warning": {
     "selectDistrictFirst": "You must select district first",
@@ -227,7 +229,7 @@
     "location": "Location",
     "tankPrice": "Tank Price",
     "isAllowtoCreateOrder": "Allow Create Order",
-    "isWorking": "Is working",
+    "isWorking": "Is Working",
     "email": "Email",
     "name": "Name",
     "active": "Active",
@@ -245,7 +247,7 @@
     "tankSize": "Tank Size",
     "plateNumber": "Plate No",
     "username": "Username",
-    "UserNameStr": "Employee Name",
+    "userNameStr": "Employee Name",
     "supervisor": "Supervisor",
     "mobilePhone": "Mobile Number",
     "tank": "Tank",
@@ -311,7 +313,8 @@
     "address": "Enter address",
     "addressTag": "Enter address tag",
     "nationalAddress": "Enter national address",
-    "location": "Enter Location"
+    "location": "Enter Location",
+    "userNameStr": "Enter Employee Name"
   },
   "validations": {
     "required_field": "This field is reuired",
@@ -465,9 +468,9 @@
     },
     "drivers": {
       "drivers": "Drivers",
-      "addDriver": "Add driver",
-      "editDriver": "Edit driver",
-      "driverDetails": "Driver details"
+      "addDriver": "Add Driver",
+      "editDriver": "Edit Driver",
+      "driverDetails": "Driver Details"
     },
     "serviceAgent": {
       "serviceAgent": "Service Agent",
@@ -477,15 +480,15 @@
     },
     "supervisors": {
       "supervisors": "Supervisors",
-      "addSupervisor": "Add supervisor",
-      "editSupervisor": "Edit supervisor",
-      "supervisorDetails": "Supervisor details"
+      "addSupervisor": "Add Supervisor",
+      "editSupervisor": "Edit Supervisor",
+      "supervisorDetails": "Supervisor Details"
     },
     "orders": {
       "orders": "Orders",
-      "addOrder": "Add order",
-      "editOrder": "Edit order",
-      "orderDetails": "Order details",
+      "addOrder": "Add Order",
+      "editOrder": "Edit Order",
+      "orderDetails": "Order Details",
       "cancelOrder": "Cancel Order",
       "all": "All",
       "closed": "Closed",
@@ -506,7 +509,7 @@
     },
     "gates": {
       "gates": "Gates",
-      "gatesDetails": "Gates details"
+      "gatesDetails": "Gates Details"
     },
     "users": {
       "users": "Users",

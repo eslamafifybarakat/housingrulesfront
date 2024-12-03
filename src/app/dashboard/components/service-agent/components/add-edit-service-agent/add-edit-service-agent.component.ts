@@ -96,12 +96,12 @@ export class AddEditServiceAgentComponent implements OnInit {
       this.serviceAgentService?.addOrUpdateServiceAgent(myObject, this.serviceAgentId ? this.serviceAgentId : null)?.subscribe(
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {
-            this.ref.close({ listChanged: true });
-            this.publicService?.show_loader?.next(false);
             setOrRemoveCacheRequestURL(
               `${environment.apiUrl}/${roots.dashboard.serviceAgents.serviceAgentsList}`,
               'Remove'
             );
+            this.ref.close({ listChanged: true });
+            this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
           } else {
             res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';

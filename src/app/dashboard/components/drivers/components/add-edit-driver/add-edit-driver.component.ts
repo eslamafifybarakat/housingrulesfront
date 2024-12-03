@@ -294,6 +294,7 @@ export class AddEditDriverComponent implements OnInit {
               `${environment.apiUrl}/${roots.dashboard.drivers.driversList}`,
               'Remove'
             );
+            // this.getAllSupervisors();
             this.ref?.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';

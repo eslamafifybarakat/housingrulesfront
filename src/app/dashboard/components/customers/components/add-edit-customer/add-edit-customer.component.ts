@@ -16,6 +16,7 @@ import { keys } from 'src/app/shared/configs/localstorage-key';
 import { environment } from 'src/environments/environment';
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 import { roots } from 'src/app/shared/configs/endPoints';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
 @Component({
   selector: 'app-add-edit-customer',
   templateUrl: './add-edit-customer.component.html',
@@ -61,7 +62,8 @@ export class AddEditCustomerComponent implements OnInit {
     public publicService: PublicService,
     protected router: Router,
     public fb: FormBuilder,
-    private addressedPlacesService: AddressedPlacesService
+    private addressedPlacesService: AddressedPlacesService,
+    private editService:EditServiceService
   ) {
     this.currentLanguage = window?.localStorage?.getItem(keys?.language);
   }
@@ -182,16 +184,18 @@ export class AddEditCustomerComponent implements OnInit {
       this.customersService?.addOrUpdateCustomer(myObject, this.customerId ? this.customerId : null)?.subscribe(
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {
+            setOrRemoveCacheRequestURL(
+              `${environment.apiUrl}/${roots.dashboard.customers.customersShortList}`,
+              'Remove'
+            );
+            setOrRemoveCacheRequestURL(
+              `${environment.apiUrl}/${roots.dashboard.customers.customersList}`,
+              'Remove',
+              { page: 1, per_page: 30 }
+            );
+            this.editService.emitRefreshServiceAgent();
             if (!this.isEdit) {
               this.router?.navigate(['/dashboard/customers']);
-              setOrRemoveCacheRequestURL(
-                `${environment.apiUrl}/${roots.dashboard.customers.customersShortList}`,
-                'Remove'
-              );
-              setOrRemoveCacheRequestURL(
-                `${environment.apiUrl}/${roots.dashboard.customers.customersList}`,
-                'Remove'
-              );
             }
             this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';

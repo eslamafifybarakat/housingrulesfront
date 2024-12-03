@@ -16,6 +16,7 @@ import { keys } from 'src/app/shared/configs/localstorage-key';
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 import { roots } from 'src/app/shared/configs/endPoints';
 import { environment } from 'src/environments/environment';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -54,6 +55,7 @@ export class AddEditUserComponent implements OnInit {
     private ref: DynamicDialogRef,
     protected router: Router,
     public fb: FormBuilder,
+    private editService :EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -311,14 +313,19 @@ export class AddEditUserComponent implements OnInit {
       this.usersService?.addOrUpdateUser(myObject, this.userId ? this.userId : null)?.subscribe(
         (res: any) => {
           if (res?.isSuccess == true) {
-            this.ref?.close({ listChanged: true });
-            this.publicService?.show_loader?.next(false);
             setOrRemoveCacheRequestURL(
               `${environment.apiUrl}/${roots.dashboard.users.usersList}`,
               'Remove'
             );
+            this.ref?.close({ listChanged: true });
+            this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
           } else {
+            setOrRemoveCacheRequestURL(
+              `${environment.apiUrl}/${roots.dashboard.users.usersList}`,
+              'Remove'
+            );
+            this.editService.emitRefreshUsers();
             res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
             this.publicService?.show_loader?.next(false);
           }

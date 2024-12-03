@@ -7,6 +7,10 @@ import { keys } from '../../../shared/configs/localstorage-key';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { TanksService } from '../../services/tanks.service';
 import { DialogService } from 'primeng/dynamicdialog';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { environment } from 'src/environments/environment.prod';
+import { roots } from 'src/app/shared/configs/endPoints';
 
 @Component({
   selector: 'app-tanks',
@@ -44,7 +48,8 @@ export class TanksComponent implements OnInit {
     private publicService: PublicService,
     private dialogService: DialogService,
     private tanksService: TanksService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private editService:EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -56,7 +61,9 @@ export class TanksComponent implements OnInit {
       { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: false, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
       { field: 'isAvailable', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
-
+    this.editService.getRefreshUsers().subscribe(() => {
+      this.getAllTanks();
+    }); 
     this.getAllTanks();
   }
 
@@ -196,6 +203,11 @@ export class TanksComponent implements OnInit {
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+            setOrRemoveCacheRequestURL(
+              `${environment.apiUrl}/${roots?.dashboard?.tanks?.tanksList}`,
+              'Remove',
+              { page: 1, per_page: 30 }
+          );
             this.getAllTanks();
             this.publicService?.show_loader?.next(false);
           } else {

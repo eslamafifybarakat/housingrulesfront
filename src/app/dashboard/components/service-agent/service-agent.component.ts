@@ -6,6 +6,10 @@ import { PublicService } from './../../../shared/services/public.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { environment } from 'src/environments/environment';
+import { roots } from 'src/app/shared/configs/endPoints';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
 
 @Component({
   selector: 'app-service-agent',
@@ -43,7 +47,8 @@ export class ServiceAgentComponent implements OnInit {
     private alertsService: AlertsService,
     private publicService: PublicService,
     private dialogService: DialogService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private editService:EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +57,9 @@ export class ServiceAgentComponent implements OnInit {
       { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
       { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'boolean' },
     ];
-
+    this.editService.getRefreshServiceAgent().subscribe(() => {
+      this.getAllServiceAgents();
+    });  
     this.getAllServiceAgents();
   }
 
@@ -152,15 +159,21 @@ export class ServiceAgentComponent implements OnInit {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllServiceAgents();
-      }
+        this.getAllServiceAgents();     
+       }
     });
   }
+  
   deleteItem(item: any): void {
     if (item?.confirmed) {
       this.publicService?.show_loader.next(true);
       this.serviceAgentService?.deleteServiceAgentId(item?.item?.id)?.subscribe(
         (res: any) => {
+          setOrRemoveCacheRequestURL(
+            `${environment.apiUrl}/${roots.dashboard.serviceAgents.serviceAgentsList}`,
+            'Remove'
+          );
+          this.getAllServiceAgents();     
           if (res?.isSuccess == true && res?.statusCode == 200) {
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
             this.getAllServiceAgents();

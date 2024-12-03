@@ -6,6 +6,7 @@ import { DriversService } from './../../../../services/drivers.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
 
 @Component({
   selector: 'app-driver-details',
@@ -28,14 +29,15 @@ export class DriverDetailsComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private ref: DynamicDialogRef,
     protected router: Router,
+    private editService:EditServiceService
   ) { }
 
 
   ngOnInit(): void {
     this.modalData = this.config?.data;
     this.driverId = this.modalData?.id;
-    this.tankName = this.modalData?.tanks[0]?.name;
-    this.supervisorName = this.modalData?.supervisors[0]?.name;
+    this.tankName = this.modalData?.tanks?.[0]?.name;
+    this.supervisorName = this.modalData?.supervisors?.[0]?.name;
   }
 
   edit(): void {
@@ -49,6 +51,10 @@ export class DriverDetailsComponent implements OnInit {
       dismissableMask: false,
       width: '50%',
       styleClass: 'custom_modal'
+    });
+    ref.onClose.subscribe(() => {
+      // Emit an event to refresh the drivers list
+      this.editService.emitRefreshDrivers();
     });
   }
 

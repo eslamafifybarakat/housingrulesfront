@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { roots } from 'src/app/shared/configs/endPoints';
 import { environment } from 'src/environments/environment';
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
 
 @Component({
   selector: 'app-add-edit-tank',
@@ -40,6 +41,7 @@ export class AddEditTankComponent implements OnInit {
     private ref: DynamicDialogRef,
     protected router: Router,
     public fb: FormBuilder,
+    private editService:EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -151,12 +153,14 @@ export class AddEditTankComponent implements OnInit {
       this.tanksService?.addOrUpdateTank(myObject, this.tankId ? this.tankId : null)?.subscribe(
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {
+            setOrRemoveCacheRequestURL(
+                `${environment.apiUrl}/${roots?.dashboard?.tanks?.tanksList}`,
+                'Remove',
+                { page: 1, per_page: 30 }
+            );
+            this.editService.emitRefreshUsers();
             this.ref.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
-            setOrRemoveCacheRequestURL(
-              `${environment.apiUrl}/${roots.dashboard.tanks.tanksList}`,
-              'Remove'
-            );
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
           } else {
             res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';

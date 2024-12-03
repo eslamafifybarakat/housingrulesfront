@@ -7,6 +7,10 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subscription, finalize, map } from 'rxjs';
 import { UsersService } from '../../services/users.service';
 import { DialogService } from 'primeng/dynamicdialog';
+import { roots } from 'src/app/shared/configs/endPoints';
+import { environment } from 'src/environments/environment';
+import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
 
 @Component({
   selector: 'app-users',
@@ -43,6 +47,7 @@ export class UsersComponent implements OnInit {
     private alertsService: AlertsService,
     private usersService: UsersService,
     private cdr: ChangeDetectorRef,
+    private editService:EditServiceService
 
   ) { }
 
@@ -60,6 +65,9 @@ export class UsersComponent implements OnInit {
       { field: 'userNameStr', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.userNameStr'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.userNameStrs'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text' },
       // { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
     ];
+    this.editService.getRefreshUsers().subscribe(() => {
+      this.getAllUsers();
+    }); 
 
     this.getAllUsers();
     this.userTypesList = this.publicService?.getUserTypes();
@@ -147,6 +155,10 @@ export class UsersComponent implements OnInit {
       styleClass: 'custom_modal'
     });
     ref.onClose.subscribe((res: any) => {
+      setOrRemoveCacheRequestURL(
+        `${environment.apiUrl}/${roots.dashboard.users.usersList}`,
+        'Remove'
+      );
       if (res?.listChanged) {
         this.page = 1;
         this.getAllUsers();
@@ -168,6 +180,10 @@ export class UsersComponent implements OnInit {
       if (res?.listChanged) {
         this.page = 1;
         this.getAllUsers();
+      }
+      else {       
+        this.getAllUsers();
+
       }
     });
   }
@@ -268,6 +284,10 @@ export class UsersComponent implements OnInit {
           res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
           this.publicService?.show_loader?.next(false);
         }
+        setOrRemoveCacheRequestURL(
+          `${environment.apiUrl}/${roots.dashboard.users.usersList}`,
+          'Remove'
+        );
         this.getAllUsers();
       },
       (err) => {
