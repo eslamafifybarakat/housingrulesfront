@@ -66,6 +66,7 @@ export class CustomersComponent implements OnInit {
       { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'text' },
     ];
     this.editService.getRefreshCustomers().subscribe(() => {
+      
       this.getAllCustomers();
     }); 
     this.getAllCustomers();
