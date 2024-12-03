@@ -65,7 +65,7 @@ export class CustomersComponent implements OnInit {
       // { field: 'locationLink', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.locationLink'), sort: false, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: false, type: 'text', enableItemLink: true, typeViewModal: 'location' },
       { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'text' },
     ];
-    this.editService.getRefreshDrivers().subscribe(() => {
+    this.editService.getRefreshCustomers().subscribe(() => {
       this.getAllCustomers();
     }); 
     this.getAllCustomers();

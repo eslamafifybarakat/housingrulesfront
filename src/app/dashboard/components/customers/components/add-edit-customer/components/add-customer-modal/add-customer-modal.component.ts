@@ -15,6 +15,7 @@ import { PublicService } from 'src/app/shared/services/public.service';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { catchError, finalize } from 'rxjs/operators';
+import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
 
 @Component({
   selector: 'app-add-customer-modal',
@@ -40,6 +41,7 @@ export class AddCustomerModalComponent implements OnInit {
     private ref: DynamicDialogRef,
     protected router: Router,
     public fb: FormBuilder,
+    private editService: EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -97,6 +99,13 @@ export class AddCustomerModalComponent implements OnInit {
                 `${environment.apiUrl}/${roots.dashboard.customers.customersShortList}`,
                 'Remove'
               );
+              setOrRemoveCacheRequestURL(
+                `${environment.apiUrl}/${roots.dashboard.customers.customersList}`,
+                'Remove',
+                { page: 1, per_page: 30 }
+              );
+              this.editService.emitRefreshUsers();
+
               this.ref.close({ listChanged: true, item: res.data });
               this.alertsService.openSweetAlert('success', res.message);
             } else {
