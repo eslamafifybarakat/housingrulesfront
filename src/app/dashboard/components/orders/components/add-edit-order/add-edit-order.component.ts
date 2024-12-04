@@ -119,6 +119,7 @@ export class AddEditOrderComponent implements OnInit {
       this.getAllCustomers();
       this.getAllDistricts();
     };
+    
   }
 
   orderForm = this.fb?.group(
@@ -188,21 +189,17 @@ export class AddEditOrderComponent implements OnInit {
     this.orderService?.getDistrictsList()?.subscribe(
       (res: any) => {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
-
           this.districtsList = res?.data;
           this.districtsList.forEach((item: any) => {
             updateItemName(item, item.arName, item.enName); 
           });
-          if (this.isEdit) {
-            this.districtsList?.forEach((item: any) => {
-              if (item?.id == this.orderData?.districtId) {
-                this.orderForm?.patchValue({
-                  district: item
-                })
-              }
-            });
-            this.orderForm?.controls?.supervisor?.enable();
-            this.getAllSupervisors();
+          
+          if (this.isEdit && this.orderData?.districtId) {
+            const selectedDistrict = this.districtsList.find((item: any) => item?.id === this.orderData?.districtId);
+            if (selectedDistrict) {
+              this.orderForm?.patchValue({ district: selectedDistrict });
+              this.onChangeDistrict({ value: selectedDistrict });
+            }
           }
           this.isLoadingDistricts = false;
         } else {
@@ -216,11 +213,12 @@ export class AddEditOrderComponent implements OnInit {
       });
     this.cdr?.detectChanges();
   }
+  
   onChangeDistrict(item: any): void {
     this.filteredSupervisorsList = [];
     if (item?.value?.id) {
       this.filteredSupervisorsList = this.AllSupervisorsList.data
-        .filter((ele: any) => ele?.districtIds?.includes(item?.value?.id))  // تصفية البيانات
+        .filter((ele: any) => ele?.districtIds?.includes(item?.value?.id))
         .map((supervisor: any) => ({
           arName: supervisor?.arName,
           enName: supervisor?.enName,
@@ -230,8 +228,12 @@ export class AddEditOrderComponent implements OnInit {
         supervisor: null
       });
       this.orderForm?.controls?.supervisor?.enable();
+    } else {
+      this.alertsService?.openSweetAlert('warning', 'يرجى اختيار الحي أولاً');
+      this.orderForm?.controls?.supervisor?.disable();
     }
   }
+  
   onClearDistrict(): void {
     this.orderForm?.patchValue({
       supervisor: null,
@@ -240,11 +242,11 @@ export class AddEditOrderComponent implements OnInit {
     this.supervisorsList = [];
     this.driversList = [];
     this.filteredSupervisorsList = [];
-
+    
     this.orderForm?.controls?.supervisor?.disable();
     this.orderForm?.controls?.driver?.disable();
   }
-
+  
   onChangeSupervisor(item: any): void {
     if (item?.value?.id) {
       this.getDriversBysuperVisorId(item?.value?.id);
@@ -254,6 +256,7 @@ export class AddEditOrderComponent implements OnInit {
       this.orderForm?.controls?.driver?.enable();
     }
   }
+  
   onClearSupervisor(): void {
     this.orderForm?.patchValue({
       driver: null
@@ -261,7 +264,7 @@ export class AddEditOrderComponent implements OnInit {
     this.driversList = [];
     this.orderForm?.controls?.driver?.disable();
   }
-
+  
   getAllCustomers(): any {
     this.isLoadingCustomers = true;
     this.orderService?.getCustomersList()?.subscribe(
