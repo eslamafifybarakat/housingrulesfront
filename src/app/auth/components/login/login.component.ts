@@ -11,6 +11,7 @@ import { AppRoutes } from './../../../shared/configs/routes';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { clearLocalStorage } from 'src/app/common/functions/clearLocalStorage';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    clearLocalStorage();
     this.currentLanguage = window?.localStorage?.getItem(keys?.language);
     this.citiesList = this.publicService.getMainCities();
   }
