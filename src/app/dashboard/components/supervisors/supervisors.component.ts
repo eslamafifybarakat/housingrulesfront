@@ -9,6 +9,9 @@ import { Observable, Subscription, finalize, map } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
+import { roots } from 'src/app/shared/configs/endPoints';
+import { environment } from 'src/environments/environment';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-supervisors',
@@ -41,6 +44,10 @@ export class SupervisorsComponent implements OnInit {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
+  urlsToRemove: string[] = [
+   `${environment.apiUrl}/${roots.dashboard.supervisors.supervisorsList}`,
+   `${environment?.apiUrl}/${roots?.dashboard?.districtsList}`
+  ];
 
   constructor(
     private supervisorsService: SupervisorsService,
@@ -48,7 +55,7 @@ export class SupervisorsComponent implements OnInit {
     private alertsService: AlertsService,
     public publicService: PublicService,
     private cdr: ChangeDetectorRef,
-    private editService:EditServiceService
+    private editService: EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -60,8 +67,9 @@ export class SupervisorsComponent implements OnInit {
       // { field: 'is_active', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
     this.editService.getRefreshSupervisors().subscribe(() => {
+      applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
       this.getAllSupervisors();
-    });  
+    });
 
     this.getAllSupervisors();
   }
@@ -166,8 +174,8 @@ export class SupervisorsComponent implements OnInit {
       styleClass: 'custom_modal'
     });
     ref.onClose.subscribe((res: any) => {
-    this.getAllSupervisors();
-  });
+      this.getAllSupervisors();
+    });
   }
   addOrEditItem(item?: any, type?: any): void {
     const ref = this.dialogService?.open(AddEditSupervisorComponent, {
@@ -184,10 +192,6 @@ export class SupervisorsComponent implements OnInit {
       if (res?.listChanged) {
         this.page = 1;
         this.publicService?.changePageSub?.next({ page: this.page });
-        setOrRemoveCacheRequestURL(
-          `http://qa-tms.qatarcentral.cloudapp.azure.com:4455/api/SuperVisors/GetAllAsync`,
-          'Remove'
-        );
         this.getAllSupervisors();
       }
     });
@@ -199,10 +203,8 @@ export class SupervisorsComponent implements OnInit {
         (res: any) => {
           if (res?.statusCode == 200 && res?.isSuccess == true) {
             res?.message ? this.alertsService?.openSnackBar(res?.message) : '';
-            setOrRemoveCacheRequestURL(
-              `http://qa-tms.qatarcentral.cloudapp.azure.com:4455/api/SuperVisors/GetAllAsync`,
-              'Remove'
-            );
+            this.page = 1;
+            applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
             this.getAllSupervisors();
             this.publicService?.show_loader?.next(false);
           } else {

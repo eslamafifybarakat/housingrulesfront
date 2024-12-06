@@ -10,6 +10,7 @@ import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/
 import { environment } from 'src/environments/environment';
 import { roots } from 'src/app/shared/configs/endPoints';
 import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-service-agent',
@@ -42,6 +43,10 @@ export class ServiceAgentComponent implements OnInit {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
+  urlsToRemove: string[] = [
+    `${environment.apiUrl}/${roots.dashboard.serviceAgents.serviceAgentsList}`
+   ];
+
   constructor(
     private serviceAgentService: ServiceAgentService,
     private alertsService: AlertsService,
@@ -58,6 +63,7 @@ export class ServiceAgentComponent implements OnInit {
       { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: true, type: 'boolean' },
     ];
     this.editService.getRefreshServiceAgent().subscribe(() => {
+      applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
       this.getAllServiceAgents();
     });  
     this.getAllServiceAgents();
@@ -112,14 +118,15 @@ export class ServiceAgentComponent implements OnInit {
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
-    this.getAllServiceAgents();
+    this.publicService?.changePageSub?.next({ page: this.page });
+    // this.getAllServiceAgents();
   }
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
     this.pagesCount = Math?.ceil(this.serviceAgentCount / this.perPage);
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getServiceAgents();
+    // this.getServiceAgents();
   }
   toggleStatus(event: any): void {
     this.serviceAgentService?.servicesAgentToggleStatus(event?.id)?.subscribe(res => {
@@ -158,8 +165,7 @@ export class ServiceAgentComponent implements OnInit {
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
         this.page = 1;
-        this.publicService?.changePageSub?.next({ page: this.page });
-        this.getAllServiceAgents();     
+        this.publicService?.changePageSub?.next({ page: this.page });   
        }
     });
   }
@@ -169,10 +175,7 @@ export class ServiceAgentComponent implements OnInit {
       this.publicService?.show_loader.next(true);
       this.serviceAgentService?.deleteServiceAgentId(item?.item?.id)?.subscribe(
         (res: any) => {
-          setOrRemoveCacheRequestURL(
-            `${environment.apiUrl}/${roots.dashboard.serviceAgents.serviceAgentsList}`,
-            'Remove'
-          );
+          applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
           this.getAllServiceAgents();     
           if (res?.isSuccess == true && res?.statusCode == 200) {
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';

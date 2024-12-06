@@ -18,6 +18,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       .pipe(
         catchError((error: HttpErrorResponse) => {
           let errorMsg = '';
+          console.log(error);
+          
           if (error.error instanceof ErrorEvent) {
             console.error('this is client side error');
             errorMsg = `Error: ${error.error.message}`;
@@ -41,7 +43,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             //Remove all items in local storage, beacuse this request was expired from another device
             this.authUserService?.signOut();
           }
-          console.error(errorMsg);
           return throwError(errorMsg);
         })
       )

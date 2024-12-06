@@ -14,6 +14,7 @@ import { EditServiceService } from 'src/app/core/services/lists/edit-service.ser
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 import { environment } from 'src/environments/environment';
 import { roots } from 'src/app/shared/configs/endPoints';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-customers',
@@ -46,6 +47,10 @@ export class CustomersComponent implements OnInit {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
+  urlsToRemove: string[] = [
+    `${environment.apiUrl}/${roots.dashboard.customers.customersList}`
+   ];
+
   constructor(
     private customersService: CustomersService,
     private alertsService: AlertsService,
@@ -66,7 +71,7 @@ export class CustomersComponent implements OnInit {
       { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'text' },
     ];
     this.editService.getRefreshCustomers().subscribe(() => {
-      
+      applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
       this.getAllCustomers();
     }); 
     this.getAllCustomers();
@@ -194,8 +199,7 @@ export class CustomersComponent implements OnInit {
             );
             setOrRemoveCacheRequestURL(
               `${environment.apiUrl}/${roots.dashboard.customers.customersList}`,
-              'Remove',
-              { page: 1, per_page: 30 }
+              'Remove'
             );
             this.getAllCustomers();
             this.publicService?.show_loader?.next(false);

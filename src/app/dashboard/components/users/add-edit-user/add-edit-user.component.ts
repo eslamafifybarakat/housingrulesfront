@@ -17,6 +17,7 @@ import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/
 import { roots } from 'src/app/shared/configs/endPoints';
 import { environment } from 'src/environments/environment';
 import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -42,6 +43,10 @@ export class AddEditUserComponent implements OnInit {
   driversList: any = [];
   isLoadingDrivers: boolean = false;
 
+  urlsToRemove: string[] = [
+    `${environment.apiUrl}/${roots.dashboard.users.usersList}`
+  ];
+
   constructor(
     public checkValidityService: CheckValidityService,
     private serviceAgentService: ServiceAgentService,
@@ -55,7 +60,7 @@ export class AddEditUserComponent implements OnInit {
     private ref: DynamicDialogRef,
     protected router: Router,
     public fb: FormBuilder,
-    private editService :EditServiceService
+    private editService: EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -306,26 +311,19 @@ export class AddEditUserComponent implements OnInit {
         myObject['password'] = this.userForm?.value?.password;
 
         let tenantidKey = window.localStorage.getItem(keys.tenantid);
-      //s myObject['tenantId'] = tenantidKey ? tenantidKey : 0;
+        //s myObject['tenantId'] = tenantidKey ? tenantidKey : 0;
       }
 
       this.publicService?.show_loader?.next(true);
       this.usersService?.addOrUpdateUser(myObject, this.userId ? this.userId : null)?.subscribe(
         (res: any) => {
-          if (res?.isSuccess == true) {
-            setOrRemoveCacheRequestURL(
-              `${environment.apiUrl}/${roots.dashboard.users.usersList}`,
-              'Remove'
-            );
+          if (res?.isSuccess == true || res?.status == "Success") {
+            applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
+            this.editService.emitRefreshUsers();
             this.ref?.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
           } else {
-            setOrRemoveCacheRequestURL(
-              `${environment.apiUrl}/${roots.dashboard.users.usersList}`,
-              'Remove'
-            );
-            this.editService.emitRefreshUsers();
             res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
             this.publicService?.show_loader?.next(false);
           }

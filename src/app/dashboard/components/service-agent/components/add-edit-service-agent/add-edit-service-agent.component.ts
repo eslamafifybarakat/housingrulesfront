@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { roots } from 'src/app/shared/configs/endPoints';
 import { environment } from 'src/environments/environment';
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-add-edit-service-agent',
@@ -23,6 +24,10 @@ export class AddEditServiceAgentComponent implements OnInit {
   modalData: any;
   isEdit: boolean = false;
   serviceAgentId: any;
+
+  urlsToRemove: string[] = [
+    `${environment.apiUrl}/${roots.dashboard.serviceAgents.serviceAgentsList}`
+  ];
 
   constructor(
     public checkValidityService: CheckValidityService,
@@ -96,10 +101,7 @@ export class AddEditServiceAgentComponent implements OnInit {
       this.serviceAgentService?.addOrUpdateServiceAgent(myObject, this.serviceAgentId ? this.serviceAgentId : null)?.subscribe(
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {
-            setOrRemoveCacheRequestURL(
-              `${environment.apiUrl}/${roots.dashboard.serviceAgents.serviceAgentsList}`,
-              'Remove'
-            );
+            applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
             this.ref.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';

@@ -1,13 +1,13 @@
-export function updateItemName(item: any, arname: string, enname: string): void {
-    if (!arname || arname === ''|| arname === '---') {
-      item.arName = enname;
+export function updateItemName(item: any, arName: string, enName: string): void {
+    if (!arName || arName === ''|| arName === '---') {
+      item.arName = enName;
     } else {
-      item.arName = arname;
+      item.arName = arName;
     }
   
-    if (!enname || enname === ''|| enname === '---') {
-      item.enName = arname;
+    if (!enName || enName === ''|| enName === '---') {
+      item.enName = arName;
     } else {
-      item.enName = enname;
+      item.enName = enName;
     }
   }

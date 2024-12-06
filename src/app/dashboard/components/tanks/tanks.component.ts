@@ -11,6 +11,7 @@ import { EditServiceService } from 'src/app/core/services/lists/edit-service.ser
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 import { environment } from 'src/environments/environment.prod';
 import { roots } from 'src/app/shared/configs/endPoints';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-tanks',
@@ -43,13 +44,17 @@ export class TanksComponent implements OnInit {
   showToggleAction: boolean = false;
   showActionFiles: boolean = false;
 
+  urlsToRemove: string[] = [
+    `${environment.apiUrl}/${roots?.dashboard?.tanks?.tanksList}`
+  ];
+
   constructor(
     private alertsService: AlertsService,
     private publicService: PublicService,
     private dialogService: DialogService,
     private tanksService: TanksService,
     private cdr: ChangeDetectorRef,
-    private editService:EditServiceService
+    private editService: EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -61,9 +66,11 @@ export class TanksComponent implements OnInit {
       { field: 'isWorking', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.isWorking'), filter: false, type: 'filterArray', dataType: 'array', list: 'isWorking', placeholder: this.publicService?.translateTextFromJson('placeholder.isWorking'), label: this.publicService?.translateTextFromJson('labels.isWorking'), status: true },
       { field: 'isAvailable', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.status'), filter: true, type: 'boolean' },
     ];
-    this.editService.getRefreshUsers().subscribe(() => {
+    this.editService.getRefreshDrivers().subscribe(() => {
+      applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
       this.getAllTanks();
-    }); 
+    });
+
     this.getAllTanks();
   }
 
@@ -141,10 +148,11 @@ export class TanksComponent implements OnInit {
     }
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllTanks();
+    // this.getAllTanks();
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
+    this.publicService?.changePageSub?.next({ page: this.page });
     //  this.getAllTanks();
   }
   onPaginatorOptionsChange(e: any): void {
@@ -203,11 +211,8 @@ export class TanksComponent implements OnInit {
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
-            setOrRemoveCacheRequestURL(
-              `${environment.apiUrl}/${roots?.dashboard?.tanks?.tanksList}`,
-              'Remove',
-              { page: 1, per_page: 30 }
-          );
+            this.page = 1;
+            applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
             this.getAllTanks();
             this.publicService?.show_loader?.next(false);
           } else {

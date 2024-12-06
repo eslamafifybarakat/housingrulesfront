@@ -12,6 +12,7 @@ import { roots } from 'src/app/shared/configs/endPoints';
 import { environment } from 'src/environments/environment';
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-add-edit-tank',
@@ -31,6 +32,10 @@ export class AddEditTankComponent implements OnInit {
   { value: 3, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
   isLoadingTanksSize: boolean = false;
 
+  urlsToRemove: string[] = [
+    `${environment.apiUrl}/${roots?.dashboard?.tanks?.tanksList}`
+  ];
+
   constructor(
     public checkValidityService: CheckValidityService,
     public alertsService: AlertsService,
@@ -41,7 +46,7 @@ export class AddEditTankComponent implements OnInit {
     private ref: DynamicDialogRef,
     protected router: Router,
     public fb: FormBuilder,
-    private editService:EditServiceService
+    private editService: EditServiceService
   ) { }
 
   ngOnInit(): void {
@@ -153,11 +158,7 @@ export class AddEditTankComponent implements OnInit {
       this.tanksService?.addOrUpdateTank(myObject, this.tankId ? this.tankId : null)?.subscribe(
         (res: any) => {
           if (res?.isSuccess == true && res?.statusCode == 200) {
-            setOrRemoveCacheRequestURL(
-                `${environment.apiUrl}/${roots?.dashboard?.tanks?.tanksList}`,
-                'Remove',
-                { page: 1, per_page: 30 }
-            );
+            applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
             this.editService.emitRefreshUsers();
             this.ref.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);

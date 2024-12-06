@@ -12,6 +12,8 @@ import { Observable, Subscription, finalize, map, timeout } from 'rxjs';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
 import * as signalR from '@microsoft/signalr';
+import { roots } from 'src/app/shared/configs/endPoints';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-orders',
@@ -62,6 +64,14 @@ export class OrdersComponent implements OnInit {
   private hubConnection: signalR.HubConnection | undefined;
 
   cancellationCauses: any = [];
+
+  urlsToRemove: string[] = [
+    `${environment.apiUrl}/${roots.dashboard.orders.checkCustomerHasOpendedOrders}`,
+    `${environment.apiUrl}/${roots.dashboard.orders.confirmSettlementeOrderList}`,
+    `${environment.apiUrl}/${roots.dashboard.orders.orderDriverArrivedToStationList}`,
+    `${environment.apiUrl}/${roots.dashboard.orders.ordersByTypeList}`,
+    `${environment?.apiUrl}/${roots?.dashboard?.districtsList}`
+  ];
 
   constructor(
     private alertsService: AlertsService,
@@ -257,6 +267,7 @@ export class OrdersComponent implements OnInit {
     this.currentActiveIndex = index + 1;
     this.page = 1;
     this.customerId = 0;
+    applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
     this.getAllOrders();
   }
   getOrders(): void {

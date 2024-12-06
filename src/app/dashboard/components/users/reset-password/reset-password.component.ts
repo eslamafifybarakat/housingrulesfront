@@ -9,6 +9,9 @@ import { UsersService } from './../../../services/users.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { roots } from 'src/app/shared/configs/endPoints';
+import { environment } from 'src/environments/environment';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-reset-password',
@@ -20,6 +23,11 @@ export class ResetPasswordComponent implements OnInit {
 
   modalData: any;
   userId: any;
+
+  urlsToRemove: string[] = [
+   `${environment.apiUrl}/${roots.dashboard.users.usersList}`
+  ];
+  
   constructor(
     public checkValidityService: CheckValidityService,
     public alertsService: AlertsService,
@@ -72,6 +80,7 @@ export class ResetPasswordComponent implements OnInit {
       this.usersService?.resetPassword(myObject)?.subscribe(
         (res: any) => {
           if (res?.status == "Success") {
+            applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
             this.ref?.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';

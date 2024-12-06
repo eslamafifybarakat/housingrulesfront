@@ -12,19 +12,18 @@ import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/
 
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
-    setOrRemoveCacheRequestURL(req,'Add');
+    setOrRemoveCacheRequestURL(req, 'Add');
 
-    if (req.method !== 'GET' || !setOrRemoveCacheRequestURL(req,'Add')) {
+    if (req.method !== 'GET' || !setOrRemoveCacheRequestURL(req, 'Add')) {
       return next.handle(req);
     }
 
     const cacheTimeParam = req.params.get('cacheTime');
     const cacheTime = cacheTimeParam ? +cacheTimeParam * 1000 : 300000;
-    const cacheKey = req.urlWithParams;
+    const cacheKey = req.url;
     const cached = localStorage.getItem(cacheKey);
 
     if (cached) {
@@ -43,10 +42,53 @@ export class CachingInterceptor implements HttpInterceptor {
             data: event.body,
             expiry: Date.now() + cacheTime
           };
-          localStorage.setItem(cacheKey, JSON.stringify(dataToCache));
+
+          try {
+            localStorage.setItem(cacheKey, JSON.stringify(dataToCache));
+          } catch (error) {
+            if (this.isQuotaExceeded(error)) {
+              console.warn('LocalStorage quota exceeded. Clearing old cache...');
+              this.clearOldestCacheItem();
+              try {
+                localStorage.setItem(cacheKey, JSON.stringify(dataToCache));
+              } catch {
+                console.warn('Unable to cache this item.');
+              }
+            } else {
+              console.error('Error setting cache:', error);
+            }
+          }
         }
       }),
       shareReplay(1)
     );
+  }
+
+  private isQuotaExceeded(error: any): boolean {
+    return error instanceof DOMException &&
+      (error.code === 22 || error.code === 1014 || error.name === 'QuotaExceededError');
+  }
+
+  private clearOldestCacheItem(): void {
+    const keys = Object.keys(localStorage);
+    let oldestKey: string | null = null;
+    let oldestExpiry = Infinity;
+
+    keys.forEach(key => {
+      try {
+        const cachedItem = JSON.parse(localStorage.getItem(key) || '{}');
+        if (cachedItem?.expiry && cachedItem.expiry < oldestExpiry) {
+          oldestExpiry = cachedItem.expiry;
+          oldestKey = key;
+        }
+      } catch {
+        // Ignore invalid JSON
+      }
+    });
+
+    if (oldestKey) {
+      localStorage.removeItem(oldestKey);
+      console.log(`Removed oldest cache item: ${oldestKey}`);
+    }
   }
 }

@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 import { environment } from 'src/environments/environment';
 import { roots } from 'src/app/shared/configs/endPoints';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-add-edit-driver',
@@ -38,6 +39,12 @@ export class AddEditDriverComponent implements OnInit {
   modalData: any;
   isEdit: boolean = false;
   driverId: any;
+
+  urlsToRemove: string[] = [
+    `${environment.apiUrl}/${roots.dashboard.drivers.driversList}`,
+    `${environment.apiUrl}/${roots.dashboard.tanks.tanksList}`,
+    `${environment.apiUrl}/${roots.dashboard.supervisors.supervisorsList}`,
+  ];
 
   constructor(
     public checkValidityService: CheckValidityService,
@@ -223,7 +230,7 @@ export class AddEditDriverComponent implements OnInit {
       arName: this.modalData?.item?.arName,
       enName: this.modalData?.item?.enName,
       phone: this.modalData?.item?.mobileNumber,
-      isAllowtoCreateOrder:this.modalData?.item?.isAllowtoCreateOrder
+      isAllowtoCreateOrder: this.modalData?.item?.isAllowtoCreateOrder
     })
   }
   getDriverData(id: number): void {
@@ -234,26 +241,6 @@ export class AddEditDriverComponent implements OnInit {
       this.getAllSupervisors();
       this.getDriverStatus();
     }
-    // this.isFullLoading = true;
-    // this.driversService?.getDriverById(id)?.subscribe(
-    //   (res: any) => {
-    //     if (res?.statusCode == 200 && res?.isSuccess == true) {
-    //       this.driverData = res?.data ? res?.data : null;
-    //       this.getAllTanks();
-    //       this.getAllSupervisors();
-    //       this.getDriverStatus();
-    //       this.patchValue();
-    //       this.isFullLoading = false;
-    //     } else {
-    //       res?.message ? this.alertsService.openSweetAlert('info', res?.message) : '';
-    //       this.isFullLoading = false;
-    //     }
-    //   },
-    //   (err: any) => {
-    //     err?.message ? this.alertsService.openSweetAlert('error', err?.message) : '';
-    //     this.isFullLoading = false;
-    //   });
-    // this.cdr.detectChanges();
 
     this.driverData = {
       id: 17, name: 'marwan ali', username: 'marwan12', supervisorId: 33, tankId: 21, driver_status: 'far', mobile_phone: '0289783938'
@@ -269,7 +256,6 @@ export class AddEditDriverComponent implements OnInit {
     if (this.modalForm?.valid) {
       myObject['arName'] = this.modalForm?.value?.arName;
       myObject['enName'] = this.modalForm?.value?.enName;
-      // myObject['username'] = this.modalForm?.value?.username;
       myObject['supervisorId'] = this.modalForm?.value?.supervisor?.id;
       myObject['tankId'] = this.modalForm?.value?.tank?.id;
       myObject['driverStatus'] = this.modalForm?.value?.driverStatus?.value;
@@ -277,24 +263,16 @@ export class AddEditDriverComponent implements OnInit {
       myObject['isAllowtoCreateOrder'] = this.modalForm?.value?.isAllowtoCreateOrder;
       if (!this.isEdit) {
         myObject['password'] = this.modalForm?.value?.password;
-        // myObject['confirmPassword'] = this.modalForm?.value?.confirmPassword;
       }
       if (this.isEdit) {
         myObject['id'] = this.driverId;
-        // myObject['lastModifiedBy'] = 0;
-      } else {
-        // myObject['createBy'] = 0;
       }
 
       this.publicService?.show_loader?.next(true);
       this.driversService?.addOrUpdateDriver(myObject, this.driverId ? this.driverId : null)?.subscribe(
         (res: any) => {
           if (res?.statusCode == 200 && res?.isSuccess == true) {
-            setOrRemoveCacheRequestURL(
-              `${environment.apiUrl}/${roots.dashboard.drivers.driversList}`,
-              'Remove'
-            );
-            // this.getAllSupervisors();
+            applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
             this.ref?.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';

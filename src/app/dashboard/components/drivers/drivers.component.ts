@@ -10,6 +10,7 @@ import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/
 import { roots } from 'src/app/shared/configs/endPoints';
 import { environment } from 'src/environments/environment';
 import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-drivers',
@@ -45,28 +46,35 @@ export class DriversComponent implements OnInit {
 
   driverStatusList: any = [];
 
+  urlsToRemove: string[] = [
+    `${environment.apiUrl}/${roots.dashboard.drivers.driversList}`,
+    `${environment.apiUrl}/${roots.dashboard.tanks.tanksList}`,
+    `${environment.apiUrl}/${roots.dashboard.supervisors.supervisorsList}`,
+  ];
+
   constructor(
     private driversService: DriversService,
     private alertsService: AlertsService,
     public publicService: PublicService,
     private dialogService: DialogService,
     private cdr: ChangeDetectorRef,
-    private editService:EditServiceService
+    private editService: EditServiceService
   ) { }
 
   ngOnInit(): void {
     this.tableHeaders = [
       { field: 'arName', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.name'), sort: true, showDefaultSort: true, showAscSort: false, showDesSort: false, filter: true, type: 'text' },
 
-      { field: 'tank', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), filter: true, type: 'text',   placeholder: this.publicService?.translateTextFromJson('placeholder.tank'), label: this.publicService?.translateTextFromJson('labels.tank') },
+      { field: 'tank', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.tanks'), filter: true, type: 'text', placeholder: this.publicService?.translateTextFromJson('placeholder.tank'), label: this.publicService?.translateTextFromJson('labels.tank') },
       { field: 'supervisor', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.supervisors'), filter: false, type: 'filterArray', dataType: 'array', list: 'supervisors', placeholder: this.publicService?.translateTextFromJson('placeholder.supervisor'), label: this.publicService?.translateTextFromJson('labels.supervisor') },
       { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'text' },
 
       { field: 'driverStatus', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.driverStatus'), filter: false, type: 'filterArray', dataType: 'array', list: 'driverStatus', placeholder: this.publicService?.translateTextFromJson('placeholder.driverStatus'), label: this.publicService?.translateTextFromJson('labels.driverStatus'), status: true },
     ];
     this.editService.getRefreshDrivers().subscribe(() => {
+      applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
       this.getAllDrivers();
-    }); 
+    });
     this.getAllDrivers();
     // this.driverStatusList = this.publicService?.getDriverStatus();
 
@@ -77,7 +85,7 @@ export class DriversComponent implements OnInit {
     this.driversService?.getDriversList(this.page, this.perPage, this.searchKeyword ? this.searchKeyword : null, this.sortObj ? this.sortObj : null, this.filtersArray ? this.filtersArray : null)
       .pipe(
         map((res: any) => {
-         this.driverStatusList = this.publicService?.getDriverStatus();
+          this.driverStatusList = this.publicService?.getDriverStatus();
           this.driversCount = res?.total;
           this.pagesCount = Math.ceil(this.driversCount / this.perPage);
           let arr: any = [];
@@ -110,7 +118,7 @@ export class DriversComponent implements OnInit {
               tankId: driver?.tankId,
               supervisorId: driver?.supervisorId,
               mobileNumber: driver?.mobileNumber ? driver?.mobileNumber : '',
-              tank:  driver?.tank,
+              tank: driver?.tank,
               supervisor: supervisorArr,
               isAllowtoCreateOrder: driver?.isAllowtoCreateOrder
             });
@@ -152,11 +160,12 @@ export class DriversComponent implements OnInit {
     }
     this.page = 1;
     this.publicService?.changePageSub?.next({ page: this.page });
-    this.getAllDrivers();
+    // this.getAllDrivers();
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
-    this.getAllDrivers();
+    this.publicService?.changePageSub?.next({ page: this.page });
+    // this.getAllDrivers();
   }
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
@@ -201,10 +210,8 @@ export class DriversComponent implements OnInit {
         (res: any) => {
           if (res?.statusCode == 200 && res?.isSuccess == true) {
             res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
-            setOrRemoveCacheRequestURL(
-              `${environment.apiUrl}/${roots.dashboard.drivers.driversList}`,
-              'Remove'
-            );
+            this.page = 1;
+            applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
             this.getAllDrivers();
             this.publicService?.show_loader?.next(false);
           } else {

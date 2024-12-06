@@ -11,7 +11,7 @@ import { AppRoutes } from './../../../shared/configs/routes';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { clearLocalStorage } from 'src/app/common/functions/clearLocalStorage';
+import { clearSessionCachingRequests } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-login',
@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    clearLocalStorage();
     this.currentLanguage = window?.localStorage?.getItem(keys?.language);
     this.citiesList = this.publicService.getMainCities();
   }
@@ -94,6 +93,7 @@ export class LoginComponent implements OnInit {
             window.localStorage.setItem(keys.userLoginData, JSON.stringify(res?.data?.user));
             window.localStorage.setItem(keys.tenantid, JSON.stringify(res?.data?.user.tenantid));
             this.publicService?.show_loader?.next(false);
+            clearSessionCachingRequests();
           } else {
             this.publicService?.show_loader?.next(false);
             res?.error?.message ? this.alertsService?.openSweetAlert('error', res?.error?.message) : '';

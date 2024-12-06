@@ -190,8 +190,7 @@ export class AddEditCustomerComponent implements OnInit {
             );
             setOrRemoveCacheRequestURL(
               `${environment.apiUrl}/${roots.dashboard.customers.customersList}`,
-              'Remove',
-              { page: 1, per_page: 30 }
+              'Remove'
             );
             this.editService.emitRefreshServiceAgent();
             if (!this.isEdit) {

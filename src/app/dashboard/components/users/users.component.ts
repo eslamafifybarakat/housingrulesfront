@@ -11,6 +11,7 @@ import { roots } from 'src/app/shared/configs/endPoints';
 import { environment } from 'src/environments/environment';
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-users',
@@ -41,13 +42,17 @@ export class UsersComponent implements OnInit {
 
   userTypesList: any = [];
 
+  urlsToRemove: string[] = [
+    `${environment.apiUrl}/${roots.dashboard.users.usersList}`
+  ];
+
   constructor(
     private publicService: PublicService,
     private dialogService: DialogService,
     private alertsService: AlertsService,
     private usersService: UsersService,
     private cdr: ChangeDetectorRef,
-    private editService:EditServiceService
+    private editService: EditServiceService
 
   ) { }
 
@@ -66,8 +71,9 @@ export class UsersComponent implements OnInit {
       // { field: 'mobileNumber', header: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), title: this.publicService?.translateTextFromJson('dashboard.tableHeader.mobilePhone'), filter: true, type: 'numeric' },
     ];
     this.editService.getRefreshUsers().subscribe(() => {
+      applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
       this.getAllUsers();
-    }); 
+    });
 
     this.getAllUsers();
     this.userTypesList = this.publicService?.getUserTypes();
@@ -137,7 +143,7 @@ export class UsersComponent implements OnInit {
   }
   onPageChange(e: any): void {
     this.page = e?.page + 1;
-    this.getAllUsers();
+    this.publicService?.changePageSub?.next({ page: this.page });
   }
   onPaginatorOptionsChange(e: any): void {
     this.perPage = e?.value;
@@ -155,13 +161,9 @@ export class UsersComponent implements OnInit {
       styleClass: 'custom_modal'
     });
     ref.onClose.subscribe((res: any) => {
-      setOrRemoveCacheRequestURL(
-        `${environment.apiUrl}/${roots.dashboard.users.usersList}`,
-        'Remove'
-      );
       if (res?.listChanged) {
         this.page = 1;
-        this.getAllUsers();
+        this.publicService?.changePageSub?.next({ page: this.page });
       }
     });
   }
@@ -179,11 +181,7 @@ export class UsersComponent implements OnInit {
     ref.onClose.subscribe((res: any) => {
       if (res?.listChanged) {
         this.page = 1;
-        this.getAllUsers();
-      }
-      else {       
-        this.getAllUsers();
-
+        this.publicService?.changePageSub?.next({ page: this.page });
       }
     });
   }
@@ -274,28 +272,28 @@ export class UsersComponent implements OnInit {
   }
   deleteItem(item: any): void {
     if (item?.confirmed) {
-    this.publicService?.show_loader.next(true);
-    this.usersService?.deleteUser(item?.item?.id)?.subscribe(
-      (res: any) => {
-        if (res?.isSuccess == true && res?.statusCode == 200) {
+      this.publicService?.show_loader.next(true);
+      this.usersService?.deleteUser(item?.item?.id)?.subscribe(
+        (res: any) => {
+          if (res?.isSuccess == true && res?.statusCode == 200) {
+            this.publicService?.show_loader?.next(false);
+            res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
+          } else {
+            res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+            this.publicService?.show_loader?.next(false);
+          }
+          setOrRemoveCacheRequestURL(
+            `${environment.apiUrl}/${roots.dashboard.users.usersList}`,
+            'Remove'
+          );
+          this.getAllUsers();
+        },
+        (err) => {
+          err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
           this.publicService?.show_loader?.next(false);
-          res?.message ? this.alertsService?.openSweetAlert('success', res?.message) : '';
-        } else {
-          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
-          this.publicService?.show_loader?.next(false);
-        }
-        setOrRemoveCacheRequestURL(
-          `${environment.apiUrl}/${roots.dashboard.users.usersList}`,
-          'Remove'
-        );
-        this.getAllUsers();
-      },
-      (err) => {
-        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
-        this.publicService?.show_loader?.next(false);
-      });
-  }
-  this.cdr?.detectChanges();
+        });
+    }
+    this.cdr?.detectChanges();
 
   }
   ngOnDestroy(): void {

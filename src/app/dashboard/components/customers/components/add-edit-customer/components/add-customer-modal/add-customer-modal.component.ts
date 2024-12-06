@@ -16,11 +16,12 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { catchError, finalize } from 'rxjs/operators';
 import { EditServiceService } from 'src/app/core/services/lists/edit-service.service';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-add-customer-modal',
   standalone: true,
-  imports: [CommonModule,TranslateModule,FormsModule,ReactiveFormsModule,InputSwitchModule],
+  imports: [CommonModule, TranslateModule, FormsModule, ReactiveFormsModule, InputSwitchModule],
   templateUrl: './add-customer-modal.component.html',
   styleUrls: ['./add-customer-modal.component.scss']
 })
@@ -30,6 +31,11 @@ export class AddCustomerModalComponent implements OnInit {
   modalData: any;
   isEdit: boolean = false;
   customerId: any;
+
+  urlsToRemove: string[] = [
+    `${environment?.apiUrl}/${roots?.dashboard?.customers.customersList}`,
+    `${environment?.apiUrl}/${roots?.dashboard?.customers.customersShortList}`
+  ];
 
   constructor(
     public checkValidityService: CheckValidityService,
@@ -95,15 +101,7 @@ export class AddCustomerModalComponent implements OnInit {
         .pipe(
           tap((res: any) => {
             if (res?.isSuccess && res?.statusCode === 200) {
-              setOrRemoveCacheRequestURL(
-                `${environment.apiUrl}/${roots.dashboard.customers.customersShortList}`,
-                'Remove'
-              );
-              setOrRemoveCacheRequestURL(
-                `${environment.apiUrl}/${roots.dashboard.customers.customersList}`,
-                'Remove',
-                { page: 1, per_page: 30 }
-              );
+              applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
               this.editService.emitRefreshUsers();
 
               this.ref.close({ listChanged: true, item: res.data });

@@ -14,6 +14,7 @@ import { roots } from 'src/app/shared/configs/endPoints';
 import { environment } from 'src/environments/environment';
 import { setOrRemoveCacheRequestURL } from 'src/app/common/interceptors/caching/caching.utils';
 import { updateItemName } from 'src/app/common/functions/fixNames';
+import { applyAddOrRemoveCacheRequest } from 'src/app/common/storages/session-storage..Enum';
 
 @Component({
   selector: 'app-add-edit-supervisor',
@@ -33,6 +34,10 @@ export class AddEditSupervisorComponent implements OnInit {
 
   isLoadingSupervisors: boolean = false;
 
+  urlsToRemove: string[] = [
+    `${environment.apiUrl}/${roots.dashboard.supervisors.supervisorsList}`,
+    `${environment?.apiUrl}/${roots?.dashboard?.districtsList}`
+   ];
 
   constructor(
     public checkValidityService: CheckValidityService,
@@ -166,10 +171,7 @@ export class AddEditSupervisorComponent implements OnInit {
       this.supervisorsService?.addOrUpdateSupervisor(myObject, this.supervisorId ? this.supervisorId : null)?.subscribe(
         (res: any) => {
           if (res?.statusCode == 200 && res?.isSuccess == true) {
-            setOrRemoveCacheRequestURL(
-              `${environment.apiUrl}/${roots.dashboard.supervisors.supervisorsList}`,
-              'Remove'
-            );
+            applyAddOrRemoveCacheRequest(this.urlsToRemove, 'Remove');
             this.ref.close({ listChanged: true });
             this.publicService?.show_loader?.next(false);
 
