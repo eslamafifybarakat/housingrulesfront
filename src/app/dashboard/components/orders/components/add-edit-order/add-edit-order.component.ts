@@ -69,21 +69,23 @@ export class AddEditOrderComponent implements OnInit {
   isLoadingCustomers: boolean = false;
 
   currLang: any = '';
+
   tanksSize: any = [{ value: 1, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size15') },
   { value: 2, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size20') },
   { value: 3, name: this.publicService?.translateTextFromJson('dashboard.tanks.TankSize.Size32') }];
+
   isLoadingTanksSize: boolean = false;
   customerCanSubmitOrder: boolean = true;
 
   urlsToRemove: string[] = [
-    `${environment.apiUrl}/${roots.dashboard.orders.checkCustomerHasOpendedOrders}`,
-    `${environment.apiUrl}/${roots.dashboard.orders.confirmSettlementeOrderList}`,
-    `${environment.apiUrl}/${roots.dashboard.orders.orderDriverArrivedToStationList}`,
-    `${environment.apiUrl}/${roots.dashboard.orders.ordersByTypeList}`,
-    `${environment?.apiUrl}/${roots?.dashboard?.supervisors.supervisorsList}`,
-    `${environment?.apiUrl}/${roots?.dashboard?.customers.customersList}`,
-    `${environment?.apiUrl}/${roots?.dashboard?.customers.customersShortList}`,
-    `${environment?.apiUrl}/${roots?.dashboard?.districtsList}`,
+    // `${environment.apiUrl}/${roots.dashboard.orders.checkCustomerHasOpendedOrders}`,
+    // `${environment.apiUrl}/${roots.dashboard.orders.confirmSettlementeOrderList}`,
+    // `${environment.apiUrl}/${roots.dashboard.orders.orderDriverArrivedToStationList}`,
+    // `${environment.apiUrl}/${roots.dashboard.orders.ordersByTypeList}`,
+    // `${environment?.apiUrl}/${roots?.dashboard?.supervisors.supervisorsList}`,
+    // `${environment?.apiUrl}/${roots?.dashboard?.customers.customersList}`,
+    // `${environment?.apiUrl}/${roots?.dashboard?.customers.customersShortList}`,
+    // `${environment?.apiUrl}/${roots?.dashboard?.districtsList}`,
   ];
 
   constructor(
@@ -283,6 +285,16 @@ export class AddEditOrderComponent implements OnInit {
       (res: any) => {
         if (res?.isSuccess == true && res?.statusCode == 200) {
           this.customersList = res?.data;
+          if (this.isEdit && this.orderData?.customerId) {
+            this.customersList?.forEach((customer: any) => {
+              if (customer?.id == this.orderData?.customerId) {
+                this.orderForm?.patchValue({
+                  customerName: customer
+                });
+              }
+            });
+          }
+
           this.isLoadingCustomers = false;
         } else {
           res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
@@ -546,12 +558,7 @@ export class AddEditOrderComponent implements OnInit {
         orderOrigin = item
       }
     });
-    // let district: any;
-    // this.districtsList?.forEach((item: any) => {
-    //   if (item?.value == this.orderData?.district) {
-    //     district = item
-    //   }
-    // });
+
     let propertyType: any;
     this.propertyTypeList?.forEach((item: any) => {
       if (item?.value == this.orderData?.propertyType) {
@@ -564,13 +571,16 @@ export class AddEditOrderComponent implements OnInit {
         paymentMethod = item
       }
     });
+
     this.tanksSize?.forEach((element: any) => {
       if (element?.value == this.orderData?.tankSize) {
         this.orderForm?.patchValue({
           tankSize: element
-        })
+        });
+        this.onTankChange(element);
       }
     });
+
     this.orderForm?.patchValue({
       orderOrigin: orderOrigin,
       propertyType: propertyType,
