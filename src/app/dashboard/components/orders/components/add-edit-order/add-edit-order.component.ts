@@ -104,12 +104,9 @@ export class AddEditOrderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllSupervisors();
-    this.getAllCustomers();
-    this.getAllDistricts();
-
     this.orderOriginList = this.publicService.getOrderOrigin();
     this.propertyTypeList = this.publicService.getPropertyType();
+
     this.currLang = window.localStorage.getItem(keys?.language);
     this.userData = JSON.parse(window.localStorage.getItem(keys?.userLoginData) || '{}');
     if (this.isEdit && (this.userData?.userType == 2 || this.userData?.userType == 4)) {
@@ -130,6 +127,10 @@ export class AddEditOrderComponent implements OnInit {
     this.orderForm?.controls?.driver?.disable();
     if (this.isEdit) {
       this.getOrderData(this.orderId);
+    } else {
+      this.getAllSupervisors();
+      this.getAllCustomers();
+      this.getAllDistricts();
     }
   }
 
@@ -200,6 +201,7 @@ export class AddEditOrderComponent implements OnInit {
     this.orderService?.getDistrictsList()?.subscribe(
       (res: any) => {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
+          this.getAllSupervisors();
           this.districtsList = res?.data;
           this.districtsList.forEach((item: any) => {
             updateItemName(item, item.arName, item.enName);
@@ -209,7 +211,6 @@ export class AddEditOrderComponent implements OnInit {
             const selectedDistrict = this.districtsList.find((item: any) => item?.id === this.orderData?.districtId);
             if (selectedDistrict) {
               this.orderForm?.patchValue({ district: selectedDistrict });
-              this.onChangeDistrict({ value: selectedDistrict });
             }
           }
           this.isLoadingDistricts = false;
@@ -228,7 +229,7 @@ export class AddEditOrderComponent implements OnInit {
   onChangeDistrict(item: any): void {
     this.filteredSupervisorsList = [];
     if (item?.value?.id) {
-      this.filteredSupervisorsList = this.AllSupervisorsList.data
+      this.filteredSupervisorsList = this.AllSupervisorsList?.data
         .filter((ele: any) => ele?.districtIds?.includes(item?.value?.id))
         .map((supervisor: any) => ({
           arName: supervisor?.arName,
@@ -282,15 +283,6 @@ export class AddEditOrderComponent implements OnInit {
       (res: any) => {
         if (res?.isSuccess == true && res?.statusCode == 200) {
           this.customersList = res?.data;
-          if (this.isEdit) {
-            this.customersList?.forEach((item: any) => {
-              if (item?.id == this.orderData?.customerId) {
-                this.orderForm?.patchValue({
-                  customerName: item
-                })
-              }
-            });
-          }
           this.isLoadingCustomers = false;
         } else {
           res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
@@ -374,50 +366,45 @@ export class AddEditOrderComponent implements OnInit {
     this.isLoadingSupervisors = true;
     this.supervisorsService?.getSupervisorsList()?.subscribe(
       (res: any) => {
-        this.AllSupervisorsList = res;
+        if (res?.statusCode === 200 && res?.isSuccess) {
+          this.AllSupervisorsList = res;
+          this.filteredSupervisorsList = res?.data
+            ?.filter((ele: any) => !districtId || ele?.districtIds?.includes(districtId))
+            .map((supervisor: any) => ({
+              arName: supervisor?.arName,
+              enName: supervisor?.enName,
+              id: supervisor?.id,
+            }));
 
-        if (res?.statusCode == 200 && res?.isSuccess == true) {
-          let arr: any = [];
-          res?.data ? res?.data?.forEach((supervisor: any) => {
-            arr?.push({
-              name: supervisor?.arName,
-              id: supervisor?.id
-            });
-          }) : '';
-          this.supervisorsList = arr;
-          if (this.isEdit) {
-            this.filteredSupervisorsList?.forEach((supervisor: any) => {
-              if (supervisor?.id == this.orderData?.supervisorId) {
-                this.orderForm?.patchValue({
-                  supervisor: supervisor
-                });
-                this.isLoadingSupervisors = false;
-                this.orderForm?.controls?.driver?.enable();
-                this.getDriversBysuperVisorId(this.orderData?.supervisorId);
-              }
-            });
+          if (this.isEdit && this.orderData?.supervisorId) {
+            this.orderForm?.controls?.supervisor?.enable();
+            const selectedSupervisor = this.filteredSupervisorsList.find(
+              (supervisor: any) => String(supervisor?.id) === String(this.orderData?.supervisorId) // Ensure type consistency
+            );
+
+            if (selectedSupervisor) {
+              this.orderForm?.patchValue({
+                supervisor: selectedSupervisor,
+              });
+              this.orderForm?.controls?.driver?.enable();
+              this.getDriversBysuperVisorId(selectedSupervisor?.id); // Load drivers for the selected supervisor
+            }
           }
+
           this.isLoadingSupervisors = false;
+          this.cdr.detectChanges(); // Ensure the UI updates
         } else {
-          res?.message ? this.alertsService?.openSweetAlert('info', res?.message) : '';
+          this.alertsService?.openSweetAlert('info', res?.message || 'Failed to fetch supervisors');
           this.isLoadingSupervisors = false;
         }
       },
       (err: any) => {
-        err?.message ? this.alertsService?.openSweetAlert('error', err?.message) : '';
+        this.alertsService?.openSweetAlert('error', err?.message || 'Error fetching supervisors');
         this.isLoadingSupervisors = false;
-      });
-    this.cdr?.detectChanges();
-    if (this.isEdit) {
-      this.supervisorsList?.forEach((supervisor: any) => {
-        if (supervisor?.id == this.orderData?.supervisorId) {
-          this.orderForm?.patchValue({
-            supervisor: supervisor
-          });
-        }
-      });
-    }
+      }
+    );
   }
+
   getDriversBysuperVisorId(superVisorId: any): any {
     if (this.isEdit && (this.userData?.userType == 2 || this.userData?.userType == 4)) {
       this.isLoadingDrivers = true;
@@ -538,6 +525,8 @@ export class AddEditOrderComponent implements OnInit {
         if (res?.statusCode == 200 && res?.isSuccess == true) {
           this.orderData = res?.data ? res?.data : null;
           this.patchValue();
+          this.getAllCustomers();
+          this.getAllDistricts();
           this.isFullLoading = false;
         } else {
           res?.message ? this.alertsService.openSweetAlert('info', res?.message) : '';
